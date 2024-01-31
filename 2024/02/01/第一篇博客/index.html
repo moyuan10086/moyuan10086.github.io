@@ -350,7 +350,7 @@
 <li>说明：本实验旨在通过实践操作，深入理解缓冲区溢出的原理和利用方法，掌握编写和执行shellcode的基本技能。</li>
 <li>推荐的文章链接：(<a target="_blank" rel="noopener" href="https://www.cnblogs.com/02SWD/p/15952483.html">缓冲区溢出漏洞的原理及其利用实战 - 浅易深 - 博客园 (cnblogs.com)</a>)</li>
 </ul>
-<h4><span id="前置知识">前置知识</span></h4><ol>
+<h4><span id="前置知识">前置知识</span></h4><ul>
 <li><p><strong>C&#x2F;C++编程基础</strong>：理解数组、指针、字符串处理函数（如strcpy）的使用，以及函数调用过程中栈帧的变化。</p>
 </li>
 <li><p><strong>操作系统原理</strong>：了解进程和线程的基本概念，以及内存管理中的堆、栈、代码区和数据区。</p>
@@ -371,15 +371,21 @@
 </li>
 <li><p>Linux，x86体系结构，x86汇编，C语言，gdb</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/PC-Assembly-Language.pdf">PC Assembly Language</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gcc-x86-Assembly.pdf">gcc x86 Assembly Quick Reference</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gdb-refcard.pdf">GDB Quick Reference</a></li>
-</ul>
-<p><strong>缓冲区溢出（buffer overflow）</strong>：在计算机安全和程序设计中的一种异常，当一个程序向缓冲区写入数据时，超出了缓冲区边界并且覆盖了相邻内存。</p>
-<p><strong>调用栈（call stack）</strong>：用于存储程序中运行子例程信息的栈数据结构，先入后出。</p>
-<p><strong>栈缓冲区溢出（stack buffer overflow）</strong>：程序向调用栈中原本缓冲区之外的内存地址写入数据，意图获取对指令指针的控制，将其指向恶意代码。</p>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/PC-Assembly-Language.pdf">PC Assembly Language</a></p>
 </li>
-</ol>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gcc-x86-Assembly.pdf">gcc x86 Assembly Quick Reference</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gdb-refcard.pdf">GDB Quick Reference</a></p>
+</li>
+</ul>
+</li>
+<li><p><strong>缓冲区溢出（buffer overflow）</strong>：在计算机安全和程序设计中的一种异常，当一个程序向缓冲区写入数据时，超出了缓冲区边界并且覆盖了相邻内存。</p>
+</li>
+<li><p><strong>调用栈（call stack）</strong>：用于存储程序中运行子例程信息的栈数据结构，先入后出。</p>
+</li>
+<li><p><strong>栈缓冲区溢出（stack buffer overflow）</strong>：程序向调用栈中原本缓冲区之外的内存地址写入数据，意图获取对指令指针的控制，将其指向恶意代码。</p>
+</li>
+</ul>
 <h4><span id="准备工作">准备工作</span></h4><ol>
 <li><strong>环境搭建</strong>：确保操作系统和编译器已正确安装，调试工具OllyDbg和IDA Pro已配置好。</li>
 <li><strong>知识复习</strong>：回顾C&#x2F;C++编程基础，特别是数组和指针的使用，以及操作系统中堆栈的工作原理。</li>
@@ -411,12 +417,9 @@
 <p>下面以 main 函数叠加 A 和 B 函数为例说明整个压栈和弹栈过程：</p>
 <p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/f0fe40ae66ac2079c75a56c3cf3b854f7ccb560f47e5547108dd495b061b0658/687474703a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f6a70672f573944714b67467363363851674637706759475848647a6e33574468736730317a696343413356447a3036755545396463517469616748725359506a6254384e587a39394f696336427a5155644b476632354c7a6e53766f772f303f77785f666d743d6a706567"><img data-fancybox="gallery" data-sizes="auto" data-src="https://camo.githubusercontent.com/f0fe40ae66ac2079c75a56c3cf3b854f7ccb560f47e5547108dd495b061b0658/687474703a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f6a70672f573944714b67467363363851674637706759475848647a6e33574468736730317a696343413356447a3036755545396463517469616748725359506a6254384e587a39394f696336427a5155644b476632354c7a6e53766f772f303f77785f666d743d6a706567" alt="img" class="lazyload"></a></p>
 <p>Main 函数调用 A 函数，把 A 函数中的变量添加到堆栈区内，开辟大小和变量指定大小相关。同样 B 函数在被调用后也会把变量添加到堆栈区内，开辟指定大小空间给 B 区域变量使用。</p>
-<p>◈</p>
-<p>如果其中任意一个变量存入的值超过设计的界定，就会导致值覆盖其他变量的区域最终污染到函数返回地址区域。一旦函数的返回地址被污染，在进行弹栈的过程中会最终把跳转的地址指向黑客所指定的区域，或根本不存在的区域。</p>
-<p>◈</p>
-<p>如果覆盖函数返回地址的是一组随机值，则程序会跳转到未知位置，这种情况往往最终会导致整个程序崩溃。</p>
-<p>◈</p>
-<p>如果黑客构造足够精细的 shellcode，把跳转地址指向黑客自己注入的代码，则很可能会利用该漏洞获得当前用户的控制权限。</p>
+<p>◈如果其中任意一个变量存入的值超过设计的界定，就会导致值覆盖其他变量的区域最终污染到函数返回地址区域。一旦函数的返回地址被污染，在进行弹栈的过程中会最终把跳转的地址指向黑客所指定的区域，或根本不存在的区域。</p>
+<p>◈如果覆盖函数返回地址的是一组随机值，则程序会跳转到未知位置，这种情况往往最终会导致整个程序崩溃。</p>
+<p>◈如果黑客构造足够精细的 shellcode，把跳转地址指向黑客自己注入的代码，则很可能会利用该漏洞获得当前用户的控制权限。</p>
 <h4><span id="实验概述">实验概述</span></h4><ul>
 <li><strong>实验目的</strong>：通过模拟缓冲区溢出攻击，理解其原理，掌握利用方法。</li>
 <li><strong>实验要求</strong>：编写程序实现缓冲区溢出，执行特定功能（如弹出MessageBox警告框）。</li>
