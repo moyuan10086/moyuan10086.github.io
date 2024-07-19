@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html 
+	lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 密码学 -  Moyuan&#34;s website</title>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" /> -->
+		<!-- <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script> -->
+		
+<link rel="stylesheet" href="/lib/mdui/mdui.min.css">
+
+		
+<script src="/lib/mdui/mdui.min.js"></script>
+
+		<!-- lazyload -->
+		
+<script src="/lib/lazysizes.js"></script>
+
+		<!-- smooth-scrolling -->
+		
+<script src="/lib/smooth-scrolling.js"></script>
+
+		<!-- highlight -->
+		
+<link rel="stylesheet" href="/lib/highlight/atom-one-dark.min.css">
+
+		
+<script src="/lib/highlight/highlight.min.js"></script>
+
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 6.3.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://raw.githubusercontent.com/moyuan10086/photo/main/blackground.jpg')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="Moyuan&#34;s website">
+        <img
+			src="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"
+			alt="moyuan"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png" title="moyuan">
+			<img
+				src="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"
+				alt="moyuan"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>2</div>
+		<div><span>标签</span>1</div>
+		<div><span>分类</span>1</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=2572045628&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/476080649"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/moyuan10086"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/a25720"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/CTF/">
+              CTF
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 10px;">溢出</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">moyuan</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		我是 墨鸢（作为一名网络安全工程师来说要有一个虚拟名字，来保护自己的隐私性(～￣▽￣)～）
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+<link rel="stylesheet" href="/css/kira-code-copy.css">
+
+	
+<script src="/js/kira-code-copy.js"></script>
+
+
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://raw.githubusercontent.com/moyuan10086/photo/main/blackground.jpg"
+				data-sizes="auto"
+				alt="密码学"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>密码学</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年07月20日</a>
+			<a><i class="kirafont icon-edit-fill"></i>19.2k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 86 分钟</a>
+		</div>
+		<h3><span id="第1章密码学概述">第1章：密码学概述</span></h3><h4><span id="密码学基础">密码学基础</span></h4><p><strong>密码学的基本概念</strong></p>
+<ul>
+<li>密码学：研究在有敌手的情况下如何隐密地传递信息的科学，常被认为是数学和计算机科学的分支。</li>
+<li>密码编码学：对消息进行变换，以保证消息在信道传输过程中不被窃取、篡改和利用。</li>
+<li>密码分析学：破译和分析密码体制。</li>
+</ul>
+<p><strong>基本概念</strong></p>
+<ul>
+<li>明文（m）：要变换的消息</li>
+<li>密文（c）：变换后的消息</li>
+<li>密钥（k）：秘密参数</li>
+<li>加密（E）：将明文变换成密文的过程</li>
+<li>解密（D）：由密文恢复出明文的过程</li>
+</ul>
+<p><strong>密码体制分类</strong></p>
+<ul>
+<li>按密钥数量：<ul>
+<li>对称密码体制：加密密钥和解密密钥相同或可相互推导。</li>
+<li>非对称密码体制：加密密钥和解密密钥不同，且难以从一个密钥推导出另一个密钥。</li>
+</ul>
+</li>
+<li>按加密方式：<ul>
+<li>流密码：按位加密明文。</li>
+<li>分组密码：将明文分成定长的块进行加密。</li>
+</ul>
+</li>
+</ul>
+<h4><span id="密码体制分析">密码体制分析</span></h4><p><strong>安全性要求</strong></p>
+<ul>
+<li>机密性（Confidentiality）：保证信息仅供授权者使用。</li>
+<li>完整性（Integrity）：信息在传输或存储过程中不能被破坏。</li>
+<li>认证性（Authentication）：保证消息来源和通信实体的真实性。</li>
+<li>不可否认性（Non-repudiation）：防止通信方对行为的否认。</li>
+</ul>
+<p><strong>密码体制的攻击方法</strong></p>
+<ul>
+<li>唯密文攻击（Ciphertext Only Attack）：仅知道密文，通过穷举密钥尝试破译。</li>
+<li>已知明文攻击（Known Plaintext Attack）：知道一些明文和相应的密文，通过已知明文格式推导密钥。</li>
+<li>选择明文攻击（Chosen Plaintext Attack）：选择一些明文并得到相应的密文，确定密钥结构。</li>
+<li>选择密文攻击（Chosen Ciphertext Attack）：选择一些密文并得到相应的明文，确定密钥信息。</li>
+<li>选择文本攻击（Chosen Text Attack）：选择明文和密文的结合攻击。</li>
+</ul>
+<p><strong>安全模型</strong></p>
+<ul>
+<li>无条件安全性（Unconditional Security）：即使具有无限计算资源的敌手也无法破译。</li>
+<li>计算安全性（Computational Security）：破译所需的计算代价超出敌手的计算资源。</li>
+<li>可证明安全性（Provable Security）：安全性可以规约到难解的数学问题。</li>
+</ul>
+<h4><span id="密码学发展史">密码学发展史</span></h4><p><strong>古典密码学</strong></p>
+<ul>
+<li>古代密码：存在于石刻、壁画、史书、诗词等。</li>
+<li>手工密码：代换密码（如凯撒密码、维吉尼亚密码）、置换密码。</li>
+<li>机械密码：杰弗逊圆盘、维特斯通圆盘。</li>
+<li>电子-机械密码：恩尼格码密码机、九七式欧文印字机。</li>
+</ul>
+<p><strong>现代密码学</strong>（标志性事件：RSA发明）</p>
+<ul>
+<li>1949年，Shannon发表《保密系统的通信理论》，为密码系统建立了理论基础。</li>
+<li>1976年，美国数据加密标准（DES）的公布，推动了密码学的研究。</li>
+<li>1976年，Diffe和Hellman发表《密码学的新方向》，提出了公钥密码学。</li>
+<li>1978年，Rivest、Shamir和Adleman提出了第一个实用的公钥密码体制RSA，推动了公钥密码的研究。</li>
+</ul>
+<p><strong>密码学基础</strong></p>
+<ul>
+<li>1.2.3 密码体制分类</li>
+</ul>
+<p><strong>密码体制分析</strong></p>
+<ul>
+<li>1.3.1 攻击密码系统的方法 安全性要求</li>
+<li>1.3.2 安全模型</li>
+</ul>
+<p><strong>密码学发展史</strong></p>
+<ul>
+<li>传统密码学</li>
+<li>现代密码学</li>
+</ul>
+<h3><span id="第2章序列密码">第2章：序列密码</span></h3><h4><span id="伪随机序列的发展">伪随机序列的发展</span></h4><p><strong>伪随机数的算法与应用</strong></p>
+<ul>
+<li>随机序列：被称为随机数，目前没有统一的数学定义，主要从统计学的角度阐述，应该是独立的、互不相关的、具有长周期、均匀分布、不可压缩等。</li>
+<li>真随机数：由某些物理过程产生，如热噪声、宇宙噪声、放射性衰变等，完全不可预测，在任何情况下不可能重复产生两个完全相同的随机数。</li>
+<li>伪随机数：由数学公式产生，若生成随机数的算法确定，随机数也确定。伪随机序列就是具有某种随机特性的确定序列，能通过一系列测试检验的伪随机数可作为真随机数使用。</li>
+<li>伪随机数在数据加密、密钥产生、密钥管理、数字签名等方面扮演核心角色。</li>
+</ul>
+<p><strong>伪随机序列的定义与性质</strong></p>
+<ul>
+<li>定义：如果一个序列可以随意产生和重复进行，且具有近似随机的统计特性，就称为伪随机序列。</li>
+<li>常用的伪随机序列有：m序列、Gold序列、Walsh序列、R-S序列等。周期达到最大值的序列称为m序列。</li>
+<li>性质：<ul>
+<li>均衡特性：m序列在一个周期中1与0出现的次数基本相等，1的个数比0多1个。</li>
+<li>游程分布随机性：m序列在一个周期中长度为i的游程数占总游程数的1/2i，且在等长的游程中“0”、“1”游程各占半。</li>
+<li>移位相加特性：一个周期为T的m序列mT与任意次位移序列mr模二相加后所得序列仍是mT序列某次移位后的序列。</li>
+<li>自相关性：周期序列的自相关函数表示序列与其移位后的序列在一个周期内对应位相同和相异的位数之差的一个参数。</li>
+</ul>
+</li>
+</ul>
+<p><strong>伪随机数产生器</strong></p>
+<ul>
+<li>产生伪随机数序列的算法称为伪随机数产生器，是一个确定算法，将短的随机比特序列（种子）扩展为长得多的、近似随机的比特序列。</li>
+<li>方法：<ul>
+<li>平方取中法：选取2s位整数作为种子，将其平方得到4s位整数，取中间2s位作为下一个种子，生成随机数。</li>
+<li>线性同余法：常用方法，采用均匀分布思想，递推公式为：$ x_{i+1} = (ax_i + c) \mod m $，其中a、c和m为常数。</li>
+<li>BBS产生器：基于大整数因子分解，选择两个大素数p和q，满足$ p ≡ q ≡ 3 \mod 4 $，令$n = pq$，随机选择整数s，计算$ x_0 = s^2 \mod n $。</li>
+</ul>
+</li>
+</ul>
+<h4><span id="常用的序列密码算法">常用的序列密码算法</span></h4><p><strong>A5 序列密码算法</strong></p>
+<ul>
+<li>基于线性反馈移位寄存器（LFSR）的流密码算法。</li>
+<li>构造：由3个LFSR组成，分别包含19、22和23比特，密钥（种子密钥）为64位。</li>
+<li>工作机制：利用3个LFSR进行钟控方法，每个时间单元将R1[18]、R2[21]和R3[22]进行异或并作为输出密钥流。</li>
+</ul>
+<p><strong>C4 序列密码算法</strong></p>
+<ul>
+<li><strong>开发者</strong>：麻省理工学院的Rivest，也是RS4的开发者之一。</li>
+<li><strong>特点</strong>：易于在软件中实现，是世界上使用最广泛的序列密码之一。</li>
+<li><strong>应用</strong>：广泛用于Microsoft Windows、Lotus Notes等软件，以及SSL和无线系统安全。</li>
+</ul>
+<p><strong>ZUC 序列密码算法</strong></p>
+<ul>
+<li>由中国科学院数据保护和通信安全研究中心研制，是加密算法128-EEA3和完整性算法128-EIA3的核心。</li>
+<li>构造：由LFSR、比特重组（BR）和非线性函数F组成。</li>
+<li>线性反馈移位寄存器：包括16个31比特寄存器单元，定义在素数域上，有初始化状态和工作状态。</li>
+<li>比特重组：从LFSR的8个寄存器单元抽取128比特组成4个32比特的字供下层非线性函数F和密钥输出使用。</li>
+<li>非线性函数F：包含2个32比特记忆单元变量R1和R2，输入为3个32比特字X0、X1、X2，输出为32比特字W。</li>
+<li>密钥封装：将初始密钥k、初始向量iv和常量串d作为LFSR的初始状态。</li>
+</ul>
+<h4><span id="序列密码的设计与分析">序列密码的设计与分析</span></h4><p><strong>线性反馈移位寄存器（LFSR）</strong></p>
+<ul>
+<li>基本概念：LFSR是一种用于生成伪随机序列的硬件电路，通过线性反馈函数生成密钥流。</li>
+<li>工作原理：初始状态由用户确定，当时钟脉冲来临时，将寄存器内容移位，并通过反馈函数计算新的状态。</li>
+<li>线性反馈：如果反馈函数是线性函数，则称为线性反馈移位寄存器。反馈函数形式为：$ f(a<em>1, a_2, …, a_n) = a_n \oplus a</em>{n-1} \oplus … \oplus a_1 $（模2加法）。</li>
+</ul>
+<p><strong>已知明文攻击</strong></p>
+<ul>
+<li>利用LFSR的线性性，基于已知明文攻击可以较容易破译流密码算法。</li>
+<li>攻击步骤：<ol>
+<li>由明文和密文序列得到密钥序列。</li>
+<li>根据密钥序列求解线性反馈寄存器的反馈函数。</li>
+</ol>
+</li>
+</ul>
+<h3><span id="第3章分组密码">第3章：分组密码</span></h3><h4><span id="分组密码的设计原则">分组密码的设计原则</span></h4><p><strong>基本原理</strong></p>
+<ul>
+<li>分组密码将消息进行等长分组（如每组消息长度为n比特），然后用同一个密钥对每个分组进行加密。分组密码与流密码都属于对称密码体制，但它们有很大差异：分组密码每次加密一个消息块，而流密码是逐比特加密。</li>
+</ul>
+<p><strong>设计原则</strong></p>
+<ul>
+<li><strong>混淆</strong>：使密钥和密文之间的依赖关系尽可能模糊。</li>
+<li><strong>扩散</strong>：为了隐藏明文的统计特性，将一位明文的影响扩散到多位密文中。</li>
+<li><strong>乘积密码</strong>：将若干加密操作串联起来，对数据进行重复迭代操作。大多数分组密码都是乘积密码，由轮迭代组合而成。</li>
+</ul>
+<p><strong>结构</strong></p>
+<ul>
+<li><strong>迭代结构</strong><ul>
+<li>Feistel网络：将明文平均分为左半部分L0和右半部分R0，经过多轮迭代完成整个操作过程。</li>
+<li>SP（substitution-permutation）网络：包含代替（S盒）和置换（P盒）两部分，典型代表为AES。</li>
+</ul>
+</li>
+</ul>
+<h4><span id="数据加密标准des">数据加密标准（DES）</span></h4><p><strong>DES设计思想</strong></p>
+<ul>
+<li>DES是第一个公开的、完全说明细节的商业级现代算法，被世界公认。它由IBM公司在1971年完成Lucifer密码（64比特分组，128比特密钥）的基础上改进而成。1977年1月15日被批准为联邦标准，并设计推出DES芯片。</li>
+</ul>
+<p><strong>DES的工作模式</strong></p>
+<ul>
+<li><strong>初始置换（IP）</strong>：将64位明文的位置按照固定表进行置换，得到乱序的64位明文组。</li>
+<li><strong>16轮迭代运算</strong>：每轮运算包含左移、子密钥异或、S盒代替、P盒置换四个步骤。</li>
+<li><strong>逆初始置换（IP-1）</strong>：初始置换的逆过程，确保加密和解密可以使用同一个算法。</li>
+<li><strong>子密钥生成</strong>：由初始密钥通过PC-1、循环左移位、PC-2三步生成。</li>
+</ul>
+<p><strong>具体步骤</strong></p>
+<ol>
+<li>初始置换IP</li>
+<li>16轮迭代运算：每轮运算分为左移位、子密钥异或、S盒代替、P盒置换。</li>
+<li>逆初始置换IP-1</li>
+</ol>
+<p><strong>DES的软件实现</strong></p>
+<ul>
+<li>DES算法可以在软件和硬件中实现，软件实现主要用于数据加密和密钥管理。它的算法过程包括初始置换、16轮迭代运算和逆初始置换三个主要部分。</li>
+</ul>
+<h4><span id="高级数据加密标准aes">高级数据加密标准（AES）</span></h4><p><strong>背景</strong></p>
+<ul>
+<li>AES是为了替代DES而提出的，主要由于DES密钥较短，难以抵抗现有的攻击。1997年，美国NIST向全球密码学界发出征集21世纪高级加密标准（AES）算法的公告，并成立了AES标准工作研究室。</li>
+</ul>
+<p><strong>算法描述</strong></p>
+<ul>
+<li>明文分组固定：128比特</li>
+<li>密钥长度可变：128、192、256比特</li>
+<li>算法中间结果称为状态，状态可以用以字节为元素的矩阵阵列表示。</li>
+<li>变换步骤：<ul>
+<li><strong>字节代替</strong>：利用S盒进行非线性代换。</li>
+<li><strong>行移位</strong>：对状态矩阵的各行进行循环左移。</li>
+<li><strong>列混合</strong>：将状态矩阵的每一列混淆。</li>
+<li><strong>轮密钥加</strong>：状态矩阵与子密钥矩阵的对应字节逐比特异或。</li>
+</ul>
+</li>
+<li><strong>子密钥生成</strong>：从初始密钥生成子密钥的过程，使用扩展密钥算法。</li>
+</ul>
+<h3><span id="第4章公钥密码">第4章：公钥密码</span></h3><h4><span id="公钥密码的基本原理">公钥密码的基本原理</span></h4><p><strong>公钥密码的基本概念</strong></p>
+<ul>
+<li><strong>历史背景</strong><ul>
+<li>1976年，Diffie和Hellman在“密码学的新方向”一文中首次提出了公钥密码体制的思想。</li>
+</ul>
+</li>
+</ul>
+<p><strong>公钥密码的基本概念</strong></p>
+<ul>
+<li>公钥密码体制与对称密码体制完全不同，使用数学函数而不是代替和置换。</li>
+<li>公钥密码算法是非对称的，使用两个独立的密钥：公钥和私钥。</li>
+<li>公钥密码体制在消息的机密性、密钥分配和认证方面具有重要意义。</li>
+</ul>
+<p><strong>优势</strong></p>
+<ul>
+<li><strong>密钥分配</strong>：公钥可以通过公开信道传输，而对称密码体制需要通过安全的秘密通道共享密钥，代价较大。</li>
+<li><strong>密钥管理</strong>：在N个用户的系统中，每个用户只需安全保管自己的私钥和N-1个其他用户的公钥，整个系统仅需维护N个公钥；而对称密码体制中，每个用户需使用n-1个密钥，总密钥数量为n(n-1)/2。</li>
+<li><strong>数字签名</strong>：提供类似书面手写签名的方法，确保数字签名出自某特定人，并且各方对此无异议。对称密码体制中难以解决陌生人之间的身份认证问题。</li>
+</ul>
+<p><strong>原理</strong></p>
+<ul>
+<li>公钥密码体制在加密和解密时使用不同的密钥：公钥用于加密，私钥用于解密。公钥是公开信息，不需要保密，私钥需保密。</li>
+<li>给定公钥，要计算出私钥在计算上是不可行的。</li>
+<li>这样的通信无需双方预先交换密钥就可以建立保密通信。</li>
+</ul>
+<p><strong>公钥密码体制的模型</strong></p>
+<ul>
+<li><strong>加密模型</strong>：接收者B生成一对密钥(pkB, skB)，其中pkB是公钥，skB是私钥。发送者用pkB加密要发送的消息m，接收者用skB解密收到的加密消息c。</li>
+<li><strong>认证模型</strong>：A用自己的私钥skA对m加密（实际上为签名），然后发送c给B。B收到c后，利用A的公钥pkA对c解密（实际上为验证），获得对消息来源的认证和数据完整性的保护。</li>
+</ul>
+<p><strong>安全性要求</strong></p>
+<ul>
+<li>接收者$B$产生一对密钥在计算上是容易的。</li>
+<li>发送者$A$产生相应的密文$c=E(pkB, m)$在计算上是容易的。</li>
+<li>对密文解密以恢复出明文$m=D(skB, c)$在计算上是容易的。</li>
+<li>已知公钥$pkB$，敌手要求解私钥$skB$在计算上是不可行的。</li>
+<li>已知公钥$pkB$和密文$c$，敌手要恢复出明文$m$在计算上是不可行的。</li>
+</ul>
+<p><strong>陷门单向函数</strong></p>
+<ul>
+<li>陷门单向函数是满足下列条件的可逆函数f：<ol>
+<li>对于任意的$x$，计算$y=f(x)$是容易的。</li>
+<li>对于任意的$y$，计算x使得$y=f(x)$是困难的。</li>
+<li>存在陷门$t$，已知$t$，对于任意的$y$，计算$x$使得$y=f(x)$是容易的。</li>
+</ol>
+</li>
+</ul>
+<p><strong>常见的陷门单向函数</strong></p>
+<ol>
+<li><strong>大整数分解问题</strong>：已知两个大素数$p$和$q$，求$n=pq$是容易的，而由$n$求$p$和$q$则是困难的。</li>
+<li><strong>离散对数问题</strong>：给定一个大素数$p$，已知$x$，求$y≡gx \mod p$是容易的，而已知$y$, $g$, $p$，求$x$使得$y≡gx \mod p$成立则是困难的。</li>
+<li><strong>多项式求根问题</strong>：有限域$GF(p)$上的一个多项式已知$a<em>0$, $a_1$, $…$, $a</em>{n-1}$ ,$p$和$x$，求$y$是容易的，而已知$y$, $a<em>0$, $a_1$, …, $a</em>{n-1}$，求$x$则是困难的。</li>
+<li><strong>决策性$Diffie-Hellman$问题</strong>：给定素数$p$，令$g$是$𝒁𝒑∗$的一个生成元。已知$a=gx$, $b=gy$, $c=gz$，判断等式$z ≡ xy \mod p$是否成立。</li>
+<li><strong>二次剩余问题</strong>：给定一个合数$n$和整数$a$，判断$a$是否为$\mod n$的二次剩余。</li>
+<li><strong>背包问题</strong>：给定向量$A$和$x$，求和式$S=f(x)$是容易的，而由 $A$ 和 $S$ 求 $x$ 则是困难的。</li>
+</ol>
+<h4><span id="rsa密码">RSA密码</span></h4><p><strong>RSA算法描述</strong></p>
+<ul>
+<li>RSA由Ron Rivest、Adi Shamir和Leonard Adleman于1978年提出。</li>
+</ul>
+<p><strong>密钥生成</strong></p>
+<ol>
+<li>选取两个互异大素数$p$和$q$。</li>
+<li>计算 $n=p×q$ 及其欧拉函数值$φ(n)=(p-1)(q-1)$。</li>
+<li>选择一个整数$e$，$1 &lt; e&lt;φ(n)$，使得$gcd(φ(n), e)=1$。</li>
+<li>计算$e$的逆元<script type="math/tex">d</script>，使得$ed≡1 \mod φ(n)$。</li>
+<li>公钥为$(e, n)$，私钥为$d$。</li>
+</ol>
+<p><strong>RSA加密</strong></p>
+<ul>
+<li>给定明文$m$，$0≤m&lt;n$，计算$c≡me \mod n$。</li>
+</ul>
+<p><strong>RSA解密</strong></p>
+<ul>
+<li>对于密文$c$，计算$m≡cd \mod n$。</li>
+</ul>
+<p><strong>RSA解密的正确性</strong></p>
+<ul>
+<li>由加密过程知$c≡me \mod n$，又$de≡1 \mod φ(n)$，故$cd \mod n≡med \mod n≡m \cdot 1+rφ(n) \mod n$。</li>
+</ul>
+<p><strong>RSA的安全性</strong></p>
+<ul>
+<li><strong>数学攻击</strong>：主要途径包括分解4为两个素因子、直接确定$φ(n)$以及直接确定$d$。对$RSA$的密码分析主要集中于分解$n$为两个素因子。</li>
+<li><strong>大素数的素因子分解</strong>：随着计算能力的提高，模数长度为1024bits存在安全缺陷，建议模数长度应大于1024bits。</li>
+<li><strong>参数p和q的限制条件</strong>：$p$和$q$的长度应该相差仅几位，$(p-1)$和$(q-1)$应有一个大的素因子，$gcd(p-1, q-1)$应较小。</li>
+<li><strong>穷举攻击</strong>：使用大的密钥空间抗穷举攻击，但密钥越大，系统运行速度越慢。</li>
+<li><strong>计时攻击</strong>：通过记录计算机解密消息所用的时间来确定私钥。</li>
+<li><strong>选择密文攻击</strong>：敌手通过计算得到明文$m$。</li>
+</ul>
+<h4><span id="椭圆曲线密码">椭圆曲线密码</span></h4><p><strong>基本概念</strong></p>
+<ul>
+<li>椭圆曲线的方程是以下形式的三次方程：$y² + axy + by = x³ + cx² + dx + e$，其中a，b，c，d，e是满足某些条件的实数。</li>
+</ul>
+<p><strong>椭圆曲线密码体制</strong></p>
+<ul>
+<li><p>椭圆曲线密码体制是基于椭圆曲线离散对数问题（ECDLP）的困难性来设计的。</p>
+</li>
+<li><p><strong>密钥生成</strong>：在椭圆曲线$Ep(a, b)$上选取一个生成元P，随机选取整数$x$，计算$Q=xP$。公钥为$Q$，私钥为$x$。</p>
+</li>
+<li><p><strong>加密</strong>：随机选取整数k，计算$C1=kP$,$ C2=Pm+kQ$，密文为$(C1, C2)$。</p>
+</li>
+<li><p><strong>解密</strong>：计算</p>
+<script type="math/tex; mode=display">
+C2-xC1=Pm+kQ-xkP=Pm$​</script></li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>安全性高：相同的密钥长度下，椭圆曲线密码体制比RSA或DSA更安全。</li>
+<li>密钥长度小：在实现相同的安全性能条件下，椭圆曲线密码体制所需的密钥长度远小于基于有限域上的离散对数问题或大整数分解问题的公钥密码体制的密钥长度。</li>
+<li>算法灵活性好：椭圆曲线具有丰富的群结构和多选择性。</li>
+</ul>
+<h3><span id="第5章单向散列函数和消息认证">第5章：单向散列函数和消息认证</span></h3><h4><span id="单向散列函数基础">单向散列函数基础</span></h4><p><strong>Hash函数的定义</strong></p>
+<ul>
+<li>Hash函数h是一个公开函数，用于将任意长的消息m映射为较短的、固定长度的一个值h(m)，称为消息摘要或哈希值。</li>
+</ul>
+<p><strong>Hash函数的性质</strong></p>
+<ol>
+<li><strong>输入任意长</strong>：函数的输入可以是任意长的消息。</li>
+<li><strong>输出固定长</strong>：函数的输出是固定长度的摘要。</li>
+<li><strong>计算简便</strong>：对任意给定的x，计算$h(x)$比较容易。</li>
+<li><strong>单向性</strong>：对任意给定的Hash值z，找到满足$h(x)=z$的$x$在计算上是不可行的。</li>
+<li><strong>抗弱碰撞性</strong>：已知x，找到另一个$y(y≠x)$使得$h(y)=h(x)$在计算上是不可行的。</li>
+<li><strong>抗强碰撞性</strong>：找到任意两个不同的输入$x, y$，使$h(y)=h(x)$在计算上是不可行的。</li>
+</ol>
+<p><strong>碰撞性</strong></p>
+<ul>
+<li>碰撞是指对于两个不同的消息x和y，如果它们的Hash值相同，则发生了碰撞。Hash函数必须具有碰撞抵抗性，确保找到碰撞在计算上是不可行的。</li>
+</ul>
+<p><strong>Hash与加密的对比</strong></p>
+<ul>
+<li>加密是双向的，需要使用密钥进行加密和解密。Hash是单向的，没有解Hash的过程。</li>
+</ul>
+<p><strong>迭代型Hash函数的一般结构</strong></p>
+<ul>
+<li>Merkle基于压缩函数f提出了一个Hash函数的一般结构。输入m被分为L个分组，每个分组的长度为b比特。如果最后一个分组长度不够，需对其填充。最终输出的链接变量CVL就是Hash值。</li>
+</ul>
+<h4><span id="md5算法">MD5算法</span></h4><p><strong>MD5算法描述</strong></p>
+<ul>
+<li>前身是MD4算法，由Ron Rivest于1990年提出。MD5算法采用迭代型哈希函数的一般结构，输入任意长的消息，分组长度为512比特，输出128比特的消息摘要。</li>
+</ul>
+<p><strong>处理过程</strong></p>
+<ol>
+<li><strong>填充消息</strong>：对消息填充，使其比特长度模512下为448，填充方式为第1位为1，其后各位皆为0。</li>
+<li><strong>填充长度</strong>：用64比特表示消息填充前的长度，以little-endian方式附在后面。</li>
+<li><strong>初始化MD缓冲区</strong>：使用128比特长的缓冲区，包含4个32比特长的寄存器(A, B, C, D)。</li>
+<li><strong>以512比特的分组为单位处理消息</strong>：每一分组都经一压缩函数处理。每一分组分为4轮处理，每轮16步迭代运算。</li>
+<li><strong>输出</strong>：所有分组处理完后，最后一个HMD5的输出即为消息摘要。</li>
+</ol>
+<h4><span id="sha-1算法">SHA-1算法</span></h4><p><strong>SHA-1算法描述</strong></p>
+<ul>
+<li>安全哈希算法(Secure Hash Algorithm, SHA)由美国NIST设计，1993年作为联邦信息处理标准公布，1995年发布修订版FIPS PUB 180-1，通常称为SHA-1。</li>
+</ul>
+<p><strong>处理过程</strong></p>
+<ol>
+<li><strong>填充消息</strong>：与MD5的步骤①完全相同。</li>
+<li><strong>附加消息长度</strong>：用64比特表示填充前消息的长度，并将其附在后面。</li>
+<li><strong>初始化缓冲区</strong>：使用160比特长的缓冲区，包含5个32比特长的寄存器(A, B, C, D, E)。</li>
+<li><strong>以分组为单位处理消息</strong>：每一分组都经一压缩函数处理。压缩函数由4轮处理过程构成，每轮20步迭代。</li>
+<li><strong>输出</strong>：所有分组处理完后，最后一个分组的输出即为160比特的消息摘要。</li>
+</ol>
+<p><strong>SHA-1与MD5的比较</strong></p>
+<ul>
+<li>SHA-1算法基于MD4，结构与MD4类似，但安全性更高，输出长度为160比特，而MD5为128比特。SHA-1在实际应用中比MD5更为广泛。</li>
+</ul>
+<h3><span id="第6章数字签名">第6章：数字签名</span></h3><h4><span id="数字签名的基本概念">数字签名的基本概念</span></h4><p><strong>背景</strong></p>
+<ul>
+<li>在政治、军事、外交、商业以及日常事务中，签名用于认证、核准、生效。在电子世界里，需要数字签名来替代手写签名，实现对数字信息的签名。</li>
+</ul>
+<p><strong>特性</strong></p>
+<ol>
+<li><strong>不可伪造性</strong>：只有签名者能生成合法签名。</li>
+<li><strong>认证性</strong>：接收者可以确认签名来自签名者。</li>
+<li><strong>不可重复使用性</strong>：一个消息的签名不能用于其他消息。</li>
+<li><strong>不可修改性</strong>：签名后的消息不能被修改。</li>
+<li><strong>不可否认性</strong>：签名者不能否认自己的签名。</li>
+</ol>
+<p><strong>数字签名方案组成</strong></p>
+<ul>
+<li>包含签名算法和验证算法。</li>
+<li>签名算法输入签名者的私钥和消息，输出消息的数字签名。</li>
+<li>验证算法输入签名者的公钥、消息和签名，输出真或伪。</li>
+</ul>
+<p><strong>数字签名方案分类</strong></p>
+<ol>
+<li><strong>按用途</strong>：普通数字签名、盲签名、不可否认签名、群签名、代理签名等。</li>
+<li><strong>按消息恢复功能</strong>：具有消息恢复功能和不具有消息恢复功能。</li>
+<li><strong>按随机数使用</strong>：确定性数字签名和随机化数字签名。</li>
+</ol>
+<h4><span id="rsa数字签名">RSA数字签名</span></h4><p><strong>RSA算法描述</strong></p>
+<ol>
+<li><p><strong>密钥生成</strong></p>
+<ul>
+<li>选择两个大素数 $ p $ 和 $ q $。</li>
+<li>计算 $ n = pq $ 和欧拉函数 $ \phi(n) = (p-1)(q-1) $。</li>
+<li>选择整数 $ e $，满足 $ 1 &lt; e &lt; \phi(n) $ 且 $ \gcd(e, \phi(n)) = 1 $。</li>
+<li>计算 $ d $，使得 $ ed \equiv 1 \mod \phi(n) $。</li>
+<li>公钥为 $ (e, n) $，私钥为 $ d $。</li>
+</ul>
+</li>
+<li><p><strong>签名</strong></p>
+<ul>
+<li>对于消息 $ m $，签名为 $ s \equiv m^d \mod n $。</li>
+</ul>
+</li>
+<li><p><strong>验证</strong></p>
+<ul>
+<li>对于消息签名对 $ (m, s) $，如果 $ m \equiv s^e \mod n $，则 $ s $ 是 $ m $ 的有效签名。</li>
+</ul>
+</li>
+</ol>
+<p><strong>RSA数字签名的缺陷</strong></p>
+<ul>
+<li>伪造签名：任何人可以伪造随机消息 $ m $ 的签名 $ s $，方法是先选取 $ s $，再用公钥 $ (e, n) $ 计算 $ m \equiv s^e \mod n $。</li>
+<li>签名同态性：若已知 $ m_1 $ 和 $ m_2 $ 的签名分别为 $ s_1 $ 和 $ s_2 $，则 $ m_1m_2 $ 的签名为 $ s_1s_2 $。</li>
+<li>签名消息长度限制：每次只能对 $ \log_2 n $ 位长的消息进行签名。</li>
+</ul>
+<p><strong>引入Hash以解决上述缺陷</strong></p>
+<ul>
+<li>签名前先对消息进行Hash变换，对变换后的消息签名。签名为 $ s \equiv h(m)^d \mod n $。验证时，先计算 $ h(m) $，再检查 $ h(m) \equiv s^e \mod n $ 是否成立。</li>
+</ul>
+<h4><span id="其他数字签名方案">其他数字签名方案</span></h4><p><strong>ElGamal签名方案</strong></p>
+<ol>
+<li><p><strong>参数与密钥生成</strong></p>
+<ul>
+<li>选择大素数 $ p $ 和本原元 $ g $。</li>
+<li>随机选择整数 $ x $，计算 $ y \equiv g^x \mod p $。</li>
+<li>公钥为 $ y $，私钥为 $ x $。</li>
+</ul>
+</li>
+<li><p><strong>签名</strong></p>
+<ul>
+<li>对于消息 $ m $，随机选择整数 $ k $，计算 $ r \equiv g^k \mod p $， $ s \equiv (h(m) - xr)k^{-1} \mod (p-1) $。</li>
+<li>签名为 $ (r, s) $。</li>
+</ul>
+</li>
+<li><p><strong>验证</strong></p>
+<ul>
+<li>对于签名对 $ (m, (r, s)) $，验证 $ y^r r^s \equiv g^{h(m)} \mod p $ 是否成立。</li>
+</ul>
+</li>
+</ol>
+<p><strong>Schnorr签名方案</strong></p>
+<ul>
+<li>基于离散对数问题，生成签名时选择随机数使得签名不可预测。</li>
+</ul>
+<p><strong>Neburg–Rueppel签名方案</strong></p>
+<ul>
+<li>类似于ElGamal签名，基于离散对数问题的随机化数字签名方案。</li>
+</ul>
+<p><strong>基于身份的签名方案</strong></p>
+<ul>
+<li><strong>Shamir签名方案</strong>：基于身份的签名，利用身份信息生成签名。</li>
+<li><strong>Cha-Cheon签名方案</strong>：改进的基于身份的签名方案，增强了安全性。</li>
+</ul>
+<p><strong>特殊用途的签名方案</strong></p>
+<ul>
+<li><strong>代理签名</strong>：允许原始签名者委托代理签名者代签。</li>
+<li><strong>多重签名</strong>：多个签名者对同一消息共同签名。</li>
+<li><strong>盲签名</strong>：签名者对盲化后的消息签名，不知道消息内容。</li>
+<li><strong>环签名</strong>：一组签名者中的任何一个可以代表群体签名，无法识别具体签名者。</li>
+</ul>
+<h4><span id="数字签名标准dss">数字签名标准（DSS）</span></h4><p><strong>DSS算法</strong></p>
+<ul>
+<li>1991年NIST提出，基于ElGamal和Schnorr签名方案，安全性基于离散对数问题。</li>
+<li>只可用于签名，不可用于加密。</li>
+</ul>
+<p><strong>参数与密钥生成</strong></p>
+<ul>
+<li>选择素数 $ p $ 和 $ q $，其中 $ q $ 是 $ p-1 $ 的因子。</li>
+<li>选择生成元 $ g $，随机选取私钥 $ x $，计算公钥 $ y \equiv g^x \mod p $。</li>
+</ul>
+<p><strong>签名</strong></p>
+<ul>
+<li>对消息 $ m $，随机选择整数 $ k $，计算 $ r \equiv (g^k \mod p) \mod q $， $ s \equiv k^{-1}(h(m) + xr) \mod q $。</li>
+<li>签名为 $ (r, s) $。</li>
+</ul>
+<p><strong>验证</strong></p>
+<ul>
+<li>计算 $ w = s^{-1} \mod q $， $ u_1 = h(m)w \mod q $， $ u_2 = rw \mod q $， $ v = (g^{u_1} y^{u_2} \mod p) \mod q $。</li>
+<li>验证 $ v = r $ 是否成立。</li>
+</ul>
+<h3><span id="第7章身份认证与访问控制">第7章：身份认证与访问控制</span></h3><h4><span id="基于生物特征识别的身份认证">基于生物特征识别的身份认证</span></h4><p><strong>基于生物特征的身份认证</strong></p>
+<ul>
+<li>通过人体固有的生理或行为特征进行身份验证，分为身体特征和行为特征。</li>
+</ul>
+<p><strong>常用的生物特征识别技术</strong></p>
+<ol>
+<li><p><strong>指纹识别</strong></p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>指纹是人体独一无二的特征。</li>
+<li>识别速度快，使用方便。</li>
+<li>手指与指纹采集头相互接触，更成熟。</li>
+<li>采集头体积小，价格低廉。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>成像质量与识别技术的限制。</li>
+<li>指纹库规模的限制。</li>
+<li>指纹采集在采集头上留下印痕，使得复制成为可能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>掌纹识别</strong></p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>特征丰富、旋转不变性和唯一性。</li>
+<li>终身不变，不易仿造。</li>
+<li>采集设备成本较低，图像质量稳定。</li>
+<li>不涉及隐私，易于推广。</li>
+<li>容易与其他特征结合，实现一体化识别。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>人脸识别</strong></p>
+<ul>
+<li><strong>应用系统</strong>：嵌入式系统、服务器、个人电脑。</li>
+<li><strong>研究内容</strong>：脸检测、脸表征、脸鉴别、表情/姿态分析、生理分类。</li>
+</ul>
+</li>
+<li><p><strong>声音识别</strong></p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>语音获取方便，接受度高。</li>
+<li>获取语音的成本低廉。</li>
+<li>适合远程身份确认。</li>
+<li>算法复杂度低。</li>
+<li>不涉及隐私问题。</li>
+</ul>
+</li>
+<li><strong>声纹识别</strong>：说话人辨认、说话人确认、说话人探测/跟踪。</li>
+</ul>
+</li>
+<li><p><strong>虹膜识别</strong></p>
+<ul>
+<li><strong>特点与依据</strong>：<ul>
+<li>虹膜的纤维组织细节复杂而丰富，具有极大的随机性。</li>
+<li>具有因人而异的固有特性。</li>
+<li>虹膜组织特征在出生半年至一年半内发育完全，终生不变。</li>
+<li>几乎不可能通过手术改变特性，更不可能改变成与特定对象相同。</li>
+<li>一般疾病不会对虹膜组织造成损伤。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>视网膜识别</strong></p>
+<ul>
+<li><strong>优点</strong>：极其固定的生物特征，不需要与设备接触，不会被伪造。</li>
+<li><strong>缺点</strong>：健康方面的损害，对消费者没有吸引力，很难降低其成本。</li>
+</ul>
+</li>
+<li><p><strong>DNA识别</strong></p>
+<ul>
+<li><strong>优点</strong>：遗传信息储存在DNA分子中，两人DNA图谱完全相同的概率极低。</li>
+</ul>
+</li>
+</ol>
+<p><strong>生物特征识别的特点</strong></p>
+<ul>
+<li><strong>广泛性</strong>：每个人都应该具有这种特征。</li>
+<li><strong>唯一性</strong>：每个人的具体特征各不相同。</li>
+<li><strong>稳定性</strong>：该特征应当不随时间地点发生变化。</li>
+<li><strong>可采集性</strong>：该特征应该便于测量。</li>
+</ul>
+<h4><span id="身份认证协议">身份认证协议</span></h4><p><strong>身份认证协议概念</strong></p>
+<ul>
+<li>通过身份认证协议，验证者相信通信的另一方确实是所声称的那个实体，防止假冒。身份认证协议包含证明者（$P$）和验证者（$V$）。</li>
+</ul>
+<p><strong>身份认证协议满足的条件</strong></p>
+<ul>
+<li>$P$能向$V$证明他的确是$P$。</li>
+<li>$P$向$V$证明其身份后，$V$没有获得任何有用的信息，即$V$不能冒充成$P$向第三方证明他是$P$。</li>
+<li>除了$P$以外的第三者$C$以$P$的身份执行该协议，能让$V$相信他是$P$的概率可以忽略不计。</li>
+</ul>
+<p><strong>身份认证协议实例</strong></p>
+<ul>
+<li><strong>Guillou-Quisquater身份认证协议</strong>：<ol>
+<li><strong>系统初始化</strong>：信任权威（$TA$）选择两个大素数p和q，计算$n=pq$，确定签名算法SigTA和Hash函数$h$。选取长度为40比特的素数$b$作为公钥，计算私钥$a=b^{-1} \mod φ(n)$。公开参数为$n, b, h$。</li>
+<li><strong>$TA$向$P$颁发身份证书</strong>：P秘密选取整数u，计算$v≡(u^{-1})^b \mod n$，发送$v$给$TA$。$TA$计算签名$s=SigTA(IDP, v)$，发送证书$C(P)=(IDP, v, s)$给$P$。</li>
+<li><strong>P向V证明其身份</strong>：P随机选取整数k，计算$γ≡k^b \mod n$，发送证书$C(P)$和$γ$给$V$。$V$验证$s$是否是$TA$对$(IDP, v)$的签名，如果是，V随机选取整数$r$并发送给$P$。$P$计算$y≡ku^r \mod n$，发送$y$给$V$。$V$验证是否有$γ≡v^ry^b \mod n$成立。</li>
+</ol>
+</li>
+</ul>
+<h4><span id="与消息认证区分完整性">与消息认证区分（完整性）</span></h4><p><strong>消息认证</strong></p>
+<ul>
+<li><strong>需求</strong>：防止伪造消息、篡改消息内容、消息重放或者延迟。</li>
+<li><strong>定义描述</strong>：对收到的消息进行验证，证明确实是来自声称的发送方，并且没有被修改过。通过在消息中加入时间及顺序信息，完成对时间和顺序的认证。</li>
+</ul>
+<p><strong>常见方法</strong></p>
+<ol>
+<li><strong>消息加密</strong>：用整个消息的密文作为认证标识。</li>
+<li><strong>消息认证码（MAC）</strong>：一个公开函数，加上一个密钥产生一个固定长度的值作为认证标识。</li>
+<li><strong>哈希函数</strong>：一个公开函数将任意长度的消息映射到一个固定长度的散列值，作为认证标识。</li>
+</ol>
+<p><strong>消息认证与身份认证的差别</strong></p>
+<ul>
+<li>身份认证（实体鉴别）一般都是实时的，消息鉴别一般不提供实时性。</li>
+<li>实体鉴别只证实实体的身份，消息鉴别除了要证实消息的合法性和完整性外，还需要知道消息的含义。</li>
+</ul>
+<h3><span id="第8章密钥管理">第8章：密钥管理</span></h3><h4><span id="密钥管理概述">密钥管理概述</span></h4><p><strong>密钥管理</strong></p>
+<ul>
+<li>密钥管理是对密钥生命周期（产生、存储、分配、备份/恢复、更新、撤销、归档、销毁）全过程实施的安全保密管理。</li>
+<li>主要内容包括密钥的产生、分配和维护。维护涉及密钥的存储、更新、备份、恢复、销毁等方面。</li>
+</ul>
+<p><strong>密钥分类</strong></p>
+<ol>
+<li><strong>静态密钥（长期密钥）</strong>：使用周期较长，具体周期视应用而定，可能是几小时到几年。</li>
+<li><strong>会话密钥（短期密钥）</strong>：生命周期较短，可能是几分钟到几天。会话密钥通常用于在某一时间段内加密数据。</li>
+</ol>
+<p><strong>密钥种类</strong></p>
+<ol>
+<li><strong>基本密钥（base key）</strong>：又称初始密钥或用户密钥，用于参与或控制密码变换，在一定范围配置、一定时间更换。</li>
+<li><strong>会话密钥（session key）</strong>：在一次通话或交换数据时使用的密钥。通常与基本密钥结合对消息进行加密，且一报一换。</li>
+<li><strong>密钥加密密钥（key encrypting key）</strong>：用于对会话密钥进行加密保护。又称辅助（二级）密钥或密钥传送密钥。</li>
+<li><strong>主密钥（Primary Master Key）</strong>：用于对密钥加密密钥进行加密保护。</li>
+<li><strong>公钥体制下的密钥</strong>：包括公开密钥、秘密密钥、签名密钥、认证密钥等。</li>
+</ol>
+<p><strong>密钥产生</strong></p>
+<ul>
+<li><strong>基本要求</strong>：具有良好的随机性，包括长周期性、非线性、统计意义上的等概率性及不可预测性。</li>
+<li><strong>主密钥</strong>：应当是高质量的真随机序列，通常通过如掷硬币、随机选取等方法产生。</li>
+<li><strong>密钥加密密钥</strong>：利用真随机数产生器芯片产生或使用主密钥和强密码算法产生。</li>
+<li><strong>会话密钥</strong>：在密钥加密密钥作用下通过加密算法动态地产生，如用密钥加密密钥控制AES算法产生。</li>
+</ul>
+<p><strong>密钥管理的层次结构</strong></p>
+<ul>
+<li>包括主密钥、密钥加密密钥和会话密钥的注入、密钥协定和加密。</li>
+</ul>
+<p><strong>密钥管理的生命周期</strong></p>
+<ul>
+<li>包括密钥生成、注册、装入、备份、恢复、更新、注销与销毁等过程。</li>
+</ul>
+<h4><span id="密钥协商">密钥协商</span></h4><p><strong>密钥协商协议</strong></p>
+<ul>
+<li>密钥协商协议使两个用户在公开信道生成一个会话密钥，该会话密钥是双方输入消息的一个函数。</li>
+</ul>
+<p><strong>Diffie-Hellman密钥交换协议</strong></p>
+<ul>
+<li>1976年由Diffie和Hellman提出，是一个典型的密钥协商协议。通信双方利用该协议可以安全地建立一个共享密钥。</li>
+<li><strong>公开参数</strong>：设p是一个大素数，g∈Zp是一个本原元。</li>
+<li><p><strong>协议过程</strong>：</p>
+<ol>
+<li>$A$随机选取$a(2≤a≤p-2)$，计算$yA ≡ ga \mod p$，并将$yA$发送给$B$。</li>
+<li>$B$随机选取$b(2≤b≤p-2)$，计算$yB ≡ gb \mod p$，并将$yB$发送给$A$。</li>
+<li>$A$计算$k ≡ yB^a \mod p$。</li>
+<li>$B$计算$k ≡ yA^b \mod p$。</li>
+<li>用户$A$和$B$建立共享密钥$k ≡ gab \mod p$，然后使用对称密码体制以k为密钥进行保密通信。</li>
+</ol>
+</li>
+<li><p><strong>例子</strong>：假设$p=19$, $g=13$, A和B分别选取随机数$a=3$和$b=5$。A计算$yA≡133 \mod 19≡12$，B计算$yB≡135 \mod 19≡14$。A和B分别计算$k≡143 \mod 19≡8$和$k≡125 \mod 19≡8$，获得共享密钥$k=8$。</p>
+</li>
+<li><p><strong>中间人攻击</strong>：敌手在A和B之间截获并替换消息，导致A与敌手建立共享密钥$K_1$，B与敌手建立共享密钥$K_2$，缺乏认证性。</p>
+</li>
+</ul>
+<p><strong>端到端协议</strong></p>
+<ul>
+<li>1992年，Diffie, Oorschot和Wiener提出了端到端协议（station-to-station protocol），改进了Diffie-Hellman协议，增加了实体间的相互认证和密钥确认，可抵抗中间人攻击。</li>
+<li><strong>公开参数</strong>：$p$是大素数，$g$是本原元。每个用户有签名方案和可信中心（TA）签发的证书。</li>
+<li><strong>协议过程</strong>：<ol>
+<li>A随机选取$a$，计算yA并发送给B。</li>
+<li>B随机选取$b$，计算yB和会话密钥k，并计算EB。</li>
+<li>B发送证书、yB和EB给A。</li>
+<li>A验证证书有效性，计算k，解密EB并验证签名。</li>
+<li>A计算EA并发送证书和EA给B。</li>
+<li>B验证证书有效性，解密EA并验证签名。</li>
+</ol>
+</li>
+</ul>
+<h4><span id="密钥分配与密钥分割">密钥分配与密钥分割</span></h4><p><strong>密钥分配的方法</strong></p>
+<ol>
+<li><strong>物理分配</strong>：通过信使进行分配，系统安全性依赖于信使。</li>
+<li><strong>对称密码技术分配</strong>：通过信任权威帮助用户产生共享密钥，需要初始密钥的物理建立。</li>
+<li><strong>公钥密码技术分配</strong>：使用公钥密码技术，互不认识或信任的用户可建立共享密钥，使用密钥交换协议实现。</li>
+</ol>
+<p><strong>秘密共享</strong></p>
+<ul>
+<li>秘密共享是现代密码学的一项重要技术，将一个秘密分成许多份额，分配给一群用户，使得足够多的用户提供份额才能重建原来的秘密。</li>
+</ul>
+<p><strong>$(k, n)$门限方案</strong></p>
+<ul>
+<li>将秘密s分成n个秘密份额，使得：<ol>
+<li>由k个或多于k个用户持有的份额可恢复秘密s。</li>
+<li>由k-1个或更少用户持有的份额不能获得关于秘密s的任何信息。</li>
+</ol>
+</li>
+<li>k称为门限值，满足$1≤k≤n$。</li>
+</ul>
+<h3><span id="第9章pki技术">第9章：PKI技术</span></h3><h4><span id="pki概念">PKI概念</span></h4><p><strong>PKI技术概述</strong></p>
+<ul>
+<li>公钥基础设施（Public Key Infrastructure, PKI）是用于实施和提供安全服务的基础设施。它能提供认证、数据完整性、数据保密性、不可否认性、公证等服务。</li>
+<li>PKI主要用于抵抗“公钥替换”攻击，通过将用户的公钥与其身份信息以可验证和可信的方式关联起来，确保公钥的真实性。</li>
+</ul>
+<p><strong>PKI服务</strong></p>
+<ol>
+<li><strong>认证服务</strong>：确认实体的真实身份，通过验证证书和数字签名，确保通信双方的身份。</li>
+<li><strong>数据完整性服务</strong>：保证数据在传输和处理过程中未被修改。通过数字签名和哈希算法提供数据完整性保证。</li>
+<li><strong>数据保密性服务</strong>：采用“数字信封”机制，使用对称密钥加密敏感数据，并用接收方的公钥加密对称密钥。</li>
+<li><strong>不可否认性服务</strong>：保证实体对其行为的认可，包括数据来源、接收、传输、创建和同意的不可否认性。</li>
+<li><strong>公证服务</strong>：确认数据的有效性和正确性，通过数字签名和公钥验证。</li>
+</ol>
+<h4><span id="pki组成结构">PKI组成结构</span></h4><p><strong>PKI组成</strong></p>
+<ol>
+<li><strong>注册中心（Registration Authority, RA）</strong>：负责用户的身份注册和验证。</li>
+<li><strong>证书中心（Certificate Authority, CA）</strong>：负责生成和颁发数字证书。</li>
+<li><strong>目录库（Directory）</strong>：存储和管理数字证书，提供查询服务。</li>
+<li><strong>证书回收列表（Certificate Revocation List, CRL）</strong>：管理和发布被撤销的证书列表。</li>
+</ol>
+<p><strong>PKI流程</strong></p>
+<ul>
+<li>用户生成自己的公钥和私钥后，将公钥发送给RA进行注册申请。</li>
+<li>RA批准申请后，CA颁发包含用户身份信息、公钥和CA签名的数字证书。</li>
+<li>当其他用户发送消息时，需要从目录库中找到接收方的数字证书并验证其有效性，然后利用公钥加密消息。</li>
+</ul>
+<h4><span id="pki的关键技术">PKI的关键技术</span></h4><p><strong>数字证书</strong></p>
+<ul>
+<li>数字证书是由CA签发的，用于证明公钥的持有者身份的信息。它包括用户的身份信息、公钥和CA的签名。</li>
+<li>数字证书通过数字签名保证其真实性和完整性，防止伪造。</li>
+</ul>
+<p><strong>数字认证中心（CA）</strong></p>
+<ul>
+<li>CA是PKI的核心，负责签发、管理、撤销和更新数字证书。</li>
+<li>CA的公钥通过可信任的渠道分发给用户，用于验证数字证书。</li>
+</ul>
+<p><strong>证书的验证</strong></p>
+<ul>
+<li>验证数字证书的过程包括检查证书的签名是否由可信任的CA生成，以及证书是否在有效期内。</li>
+<li>用户通过验证证书的CA签名，确保证书的真实性，然后使用证书中的公钥进行加密通信或验证签名。</li>
+</ul>
+<p><strong>证书的发放</strong></p>
+<ul>
+<li>用户向RA提交申请并经过验证后，CA生成和签发数字证书。</li>
+<li>证书包含用户的公钥、身份信息和CA的签名，确保证书的合法性和公钥的真实性。</li>
+</ul>
+<p><strong>证书撤销机制</strong></p>
+<ul>
+<li>当证书持有者的私钥泄露或不再可信时，需要撤销证书。</li>
+<li>CA通过发布证书回收列表（CRL）来管理被撤销的证书，用户在使用证书前需要查询CRL以确认证书的状态。</li>
+</ul>
+<p><strong>PKI结构中的信任关系</strong></p>
+<ul>
+<li><strong>信任</strong>：CA、RA、目录库等组件之间的信任关系确保整个PKI系统的安全性。</li>
+<li><strong>不信任</strong>：被撤销的证书、未经验证的公钥或不可信的CA都不应被信任。</li>
+</ul>
+<h4><span id="pki替代方案基于身份的加密体制ibe">PKI替代方案：基于身份的加密体制（IBE）</span></h4><p><strong>概念</strong></p>
+<ul>
+<li>基于身份的加密体制（Identity-Based Encryption, IBE）由Shamir于1984年提出，旨在简化证书管理。</li>
+<li>IBE使用与实体身份相关的信息（如电子邮箱、手机号码）作为公钥，避免了频繁获取和验证证书的需求。</li>
+</ul>
+<p><strong>IBE工作原理</strong></p>
+<ol>
+<li><strong>系统初始化</strong>：私钥生成器（PKG）产生主密钥和公开参数，并公开发布。</li>
+<li><strong>私钥生成</strong>：PKG根据主密钥和用户的身份信息生成用户的私钥。</li>
+<li><strong>加密消息</strong>：使用实体的身份信息和公开参数计算公钥并加密消息。</li>
+<li><strong>解密消息</strong>：实体通过私钥解密消息。</li>
+</ol>
+<p><strong>IBE的有效期管理</strong></p>
+<ul>
+<li>在公钥生成中加入时间信息，使公钥变为“身份信息+时间信息+PKG的公开参数”的组合，从而实现密钥的更新和有效期管理。</li>
+</ul>
+<p><strong>IBE与PKI的比较</strong></p>
+<ul>
+<li><strong>公私钥管理</strong>：IBE中的公钥由身份信息和公开参数生成，私钥由PKG生成；PKI中的公私钥对由用户或KMC生成，公钥通过数字证书发布。</li>
+<li><strong>密钥有效期</strong>：IBE通过加入时间信息实现密钥更新和撤销，PKI通过证书有效期和CRL管理密钥。</li>
+<li><strong>信道安全性</strong>：IBE需要可靠的安全信道传递私钥，PKI对信道安全性的要求较低，私钥由用户掌握。</li>
+</ul>
+<p>RSA算法是一种广泛使用的公钥密码算法，它既可以用于加密，也可以用于签名。尽管它们都使用相同的数学基础和密钥对，但RSA加密和RSA签名有不同的目的和操作方式。</p>
+<h3><span id="rsa加密">RSA加密</span></h3><p><strong>目的</strong>：保护数据的机密性，确保只有拥有相应私钥的人能够解密数据。</p>
+<p><strong>过程</strong>：</p>
+<ol>
+<li><p><strong>加密</strong>：</p>
+<ul>
+<li>使用接收方的公钥 $ e $ 对消息 $ m $ 进行加密。</li>
+<li>加密公式：$ c \equiv m^e \pmod{n} $</li>
+<li>这里，$ c $ 是密文，$ m $ 是明文，$ n $ 是两个大素数的乘积（$ n = p \times q $），$ e $ 是公钥。</li>
+</ul>
+</li>
+<li><p><strong>解密</strong>：</p>
+<ul>
+<li>使用接收方的私钥 $ d $ 对密文 $ c $ 进行解密。</li>
+<li>解密公式：$ m \equiv c^d \pmod{n} $</li>
+<li>这里，$ m $ 是解密后的明文，$ c $ 是密文，$ d $ 是私钥。</li>
+</ul>
+</li>
+</ol>
+<p><strong>应用</strong>：</p>
+<ul>
+<li>安全的消息传输，例如电子邮件加密、文件加密等。</li>
+</ul>
+<h3><span id="rsa签名">RSA签名</span></h3><p><strong>目的</strong>：验证消息的真实性和完整性，确保消息来自合法发送者且未被篡改。</p>
+<p><strong>过程</strong>：</p>
+<ol>
+<li><p><strong>签名</strong>：</p>
+<ul>
+<li>使用发送方的私钥 $ d $ 对消息的哈希值 $ h(m) $ 进行签名。</li>
+<li>签名公式：$ s \equiv h(m)^d \pmod{n} $</li>
+<li>这里，$ s $ 是签名，$ h(m) $ 是消息 $ m $ 的哈希值，$ d $ 是私钥。</li>
+</ul>
+</li>
+<li><p><strong>验证</strong>：</p>
+<ul>
+<li>使用发送方的公钥 $ e $ 对签名 $ s $ 进行验证。</li>
+<li>验证公式：$ h(m) \equiv s^e \pmod{n} $</li>
+<li>这里，$ h(m) $ 是从消息中计算出的哈希值，$ s $ 是签名，$ e $ 是公钥。</li>
+</ul>
+</li>
+</ol>
+<p><strong>应用</strong>：</p>
+<ul>
+<li>数字签名、身份认证、电子合同等需要验证数据来源和完整性的场景。</li>
+</ul>
+<h3><span id="总结">总结</span></h3><ol>
+<li><p><strong>目的</strong>：</p>
+<ul>
+<li><strong>RSA加密</strong>：保护数据的机密性，防止未经授权的人访问数据。</li>
+<li><strong>RSA签名</strong>：验证消息的真实性和完整性，确保消息的来源可靠且未被篡改。</li>
+</ul>
+</li>
+<li><p><strong>操作过程</strong>：</p>
+<ul>
+<li><strong>RSA加密</strong>：<ul>
+<li>加密：使用接收方的公钥 $ e $ 加密消息。</li>
+<li>解密：使用接收方的私钥 $ d $ 解密消息。</li>
+</ul>
+</li>
+<li><strong>RSA签名</strong>：<ul>
+<li>签名：使用发送方的私钥 $ d $ 签名消息的哈希值。</li>
+<li>验证：使用发送方的公钥 $ e $ 验证签名。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>安全性</strong>：</p>
+<ul>
+<li><strong>RSA加密</strong>：安全性依赖于公钥加密算法的强度和私钥的保密性。</li>
+<li><strong>RSA签名</strong>：安全性依赖于数字签名算法的强度和私钥的保密性。</li>
+</ul>
+</li>
+<li><p><strong>应用场景</strong>：</p>
+<ul>
+<li><strong>RSA加密</strong>：用于确保数据在传输过程中的机密性。</li>
+<li><strong>RSA签名</strong>：用于确保数据的来源可信且未被篡改。</li>
+</ul>
+</li>
+</ol>
+<img src="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%BA%94%E7%94%A8%E5%AF%86%E7%A0%81%E5%AD%A6%E7%9F%A5%E8%AF%86%E7%82%B9%E6%A2%B3%E7%90%86_00.png" class title="应用密码学知识点梳理_00">
+<h3><span id="加密和签名算法整理">加密和签名算法整理</span></h3><h4><span id="rsa">RSA</span></h4><p><strong>加密</strong>：</p>
+<ul>
+<li>明文 $ M $</li>
+<li>公钥 $ (e, n) $</li>
+<li>密文 $ C $<br>$ C \equiv M^e \mod n $</li>
+</ul>
+<p><strong>解密</strong>：</p>
+<ul>
+<li>密文 $ C $</li>
+<li>私钥 $ (d, n) $</li>
+<li>明文 $ M $<br>$ M \equiv C^d \mod n $</li>
+</ul>
+<p><strong>签名</strong>：</p>
+<ul>
+<li>消息 $ M $</li>
+<li>私钥 $ (d, n) $</li>
+<li>签名 $ S $<br>$ S \equiv M^d \mod n $</li>
+</ul>
+<p><strong>验签</strong>：</p>
+<ul>
+<li>签名 $ S $</li>
+<li>公钥 $ (e, n) $</li>
+<li>消息 $ M $<br>$ M \equiv S^e \mod n $</li>
+</ul>
+<h4><span id="elgamal">ElGamal</span></h4><p><strong>加密</strong>：</p>
+<ul>
+<li>明文 $ M $</li>
+<li>公钥 $ (p, g, y) $<ul>
+<li>素数 $ p $</li>
+<li>生成元 $ g $</li>
+<li>公钥 $ y = g^x \mod p $，其中 $ x $ 是私钥</li>
+</ul>
+</li>
+<li>随机数 $ k $</li>
+<li>密文 $ (C_1, C_2) $<br>$ C_1 \equiv g^k \mod p $<br>$ C_2 \equiv y^k \cdot M \mod p $</li>
+</ul>
+<p><strong>解密</strong>：</p>
+<ul>
+<li>密文 $ (C_1, C_2) $</li>
+<li>私钥 $ x $</li>
+<li>明文 $ M $<br>$ M \equiv C_2 \cdot (C_1)^{-x} \mod p $</li>
+</ul>
+<p><strong>签名</strong>：</p>
+<ul>
+<li>消息 $ m $</li>
+<li>私钥 $ x $</li>
+<li>公钥 $ y = g^x \mod p $</li>
+<li>随机数 $ k $</li>
+<li>签名 $ (r, s) $<br>$ r \equiv g^k \mod p $<br>$ s \equiv (H(m) - xr) \cdot k^{-1} \mod (p-1) $</li>
+</ul>
+<p><strong>验签</strong>：</p>
+<ul>
+<li>消息 $ m $</li>
+<li>签名 $ (r, s) $</li>
+<li>公钥 $ y $</li>
+<li>$ g $</li>
+<li>验证方程<br>$ g^{H(m)} \equiv y^r \cdot r^s \mod p $</li>
+</ul>
+<h4><span id="dsa数字签名算法">DSA（数字签名算法）</span></h4><p><strong>签名</strong>：</p>
+<ul>
+<li>消息 $ m $</li>
+<li>私钥 $ x $</li>
+<li>公钥 $ y = g^x \mod p $</li>
+<li>随机数 $ k $</li>
+<li>哈希值 $ H(m) $</li>
+<li>参数 $ p, q, g $</li>
+<li>签名 $ (r, s) $<br>$ r \equiv (g^k \mod p) \mod q $<br>$ s \equiv (H(m) + xr) \cdot k^{-1} \mod q $</li>
+</ul>
+<p><strong>验签</strong>：</p>
+<ul>
+<li>消息 $ m $</li>
+<li>签名 $ (r, s) $</li>
+<li>公钥 $ y $</li>
+<li>参数 $ p, q, g $</li>
+<li>哈希值 $ H(m) $</li>
+<li>验证过程<br>$ w \equiv s^{-1} \mod q $<br>$ u_1 \equiv H(m) \cdot w \mod q $<br>$ u_2 \equiv r \cdot w \mod q $<br>$ v \equiv ((g^{u_1} \cdot y^{u_2}) \mod p) \mod q $<br>签名有效当且仅当 $ v = r $</li>
+</ul>
+<h3><span id="详细解释">详细解释</span></h3><h4><span id="rsa">RSA</span></h4><ol>
+<li><p><strong>加密</strong>：</p>
+<ul>
+<li>使用接收者的公钥 $ (e, n) $ 对明文 $ M $ 进行加密，计算密文 $ C $。</li>
+<li>$ C \equiv M^e \mod n $</li>
+</ul>
+</li>
+<li><p><strong>解密</strong>：</p>
+<ul>
+<li>使用接收者的私钥 $ (d, n) $ 对密文 $ C $ 进行解密，恢复出明文 $ M $。</li>
+<li>$ M \equiv C^d \mod n $</li>
+</ul>
+</li>
+<li><p><strong>签名</strong>：</p>
+<ul>
+<li>使用发送者的私钥 $ (d, n) $ 对消息 $ M $ 进行签名，计算签名值 $ S $。</li>
+<li>$ S \equiv M^d \mod n $</li>
+</ul>
+</li>
+<li><p><strong>验签</strong>：</p>
+<ul>
+<li>使用发送者的公钥 $ (e, n) $ 对签名 $ S $ 进行验证，检查是否恢复出原消息 $ M $。</li>
+<li>$ M \equiv S^e \mod n $</li>
+</ul>
+</li>
+</ol>
+<h4><span id="elgamal">ElGamal</span></h4><ol>
+<li><p><strong>加密</strong>：</p>
+<ul>
+<li>使用接收者的公钥 $ (p, g, y) $ 和随机数 $ k $ 对明文 $ M $ 进行加密，计算密文 $ (C_1, C_2) $。</li>
+<li>$ C_1 \equiv g^k \mod p $</li>
+<li>$ C_2 \equiv y^k \cdot M \mod p $</li>
+</ul>
+</li>
+<li><p><strong>解密</strong>：</p>
+<ul>
+<li>使用接收者的私钥 $ x $ 对密文 $ (C_1, C_2) $ 进行解密，恢复出明文 $ M $。</li>
+<li>$ M \equiv C_2 \cdot (C_1)^{-x} \mod p $</li>
+</ul>
+</li>
+<li><p><strong>签名</strong>：</p>
+<ul>
+<li>使用发送者的私钥 $ x $、随机数 $ k $ 和消息 $ m $ 进行签名，计算签名值 $ (r, s) $。</li>
+<li>$ r \equiv g^k \mod p $</li>
+<li>$ s \equiv (H(m) - xr) \cdot k^{-1} \mod (p-1) $</li>
+</ul>
+</li>
+<li><p><strong>验签</strong>：</p>
+<ul>
+<li>使用发送者的公钥 $ y $、生成元 $ g $ 和消息 $ m $ 进行验证，检查签名 $ (r, s) $ 的有效性。</li>
+<li>$ g^{H(m)} \equiv y^r \cdot r^s \mod p $</li>
+</ul>
+</li>
+</ol>
+<h4><span id="dsa">DSA</span></h4><ol>
+<li><p><strong>签名</strong>：</p>
+<ul>
+<li>使用发送者的私钥 $ x $、随机数 $ k $ 和消息 $ m $ 进行签名，计算签名值 $ (r, s) $。</li>
+<li>$ r \equiv (g^k \mod p) \mod q $</li>
+<li>$ s \equiv (H(m) + xr) \cdot k^{-1} \mod q $</li>
+</ul>
+</li>
+<li><p><strong>验签</strong>：</p>
+<ul>
+<li>使用发送者的公钥 $ y $、生成元 $ g $、参数 $ p, q $ 和消息 $ m $ 进行验证，检查签名 $ (r, s) $ 的有效性。</li>
+<li>计算 $ w \equiv s^{-1} \mod q $</li>
+<li>计算 $ u_1 \equiv H(m) \cdot w \mod q $</li>
+<li>计算 $ u_2 \equiv r \cdot w \mod q $</li>
+<li>计算 $ v \equiv ((g^{u_1} \cdot y^{u_2}) \mod p) \mod q $</li>
+<li>签名有效当且仅当 $ v = r $</li>
+</ul>
+</li>
+</ol>
+<h2><span id="说明aes和des设计的不同之处"><strong>说明AES和DES设计的不同之处。</strong></span></h2><h3><span id="aes和des设计的不同之处">AES和DES设计的不同之处</span></h3><ol>
+<li><p><strong>密钥长度</strong>：</p>
+<ul>
+<li><strong>AES</strong>：支持128位、192位和256位的密钥长度。</li>
+<li><strong>DES</strong>：固定56位的密钥长度（尽管通常表示为64位，但其中8位用于奇偶校验）。</li>
+</ul>
+</li>
+<li><p><strong>分组长度</strong>：</p>
+<ul>
+<li><strong>AES</strong>：固定128位的分组长度。</li>
+<li><strong>DES</strong>：固定64位的分组长度。</li>
+</ul>
+</li>
+<li><p><strong>算法结构</strong>：</p>
+<ul>
+<li><strong>AES</strong>：基于替代-置换网络（Substitution-Permutation Network, SPN）。使用S盒和P盒来实现复杂的替代和置换操作。</li>
+<li><strong>DES</strong>：基于费斯妥尔网络（Feistel Network）。每一轮将数据分成两半，交替进行加密和交换。</li>
+</ul>
+</li>
+<li><p><strong>轮数</strong>：</p>
+<ul>
+<li><strong>AES</strong>：轮数取决于密钥长度：128位密钥为10轮，192位密钥为12轮，256位密钥为14轮。</li>
+<li><strong>DES</strong>：固定为16轮。</li>
+</ul>
+</li>
+<li><p><strong>安全性</strong>：</p>
+<ul>
+<li><strong>AES</strong>：设计更为现代，考虑了更多的密码分析攻击，现阶段没有已知的有效攻击方式。</li>
+<li><strong>DES</strong>：由于密钥长度较短，容易受到暴力破解攻击，已经被认为是不安全的。</li>
+</ul>
+</li>
+<li><p><strong>硬件和软件实现</strong>：</p>
+<ul>
+<li><strong>AES</strong>：设计时考虑了高效的硬件和软件实现，特别是对现代处理器进行了优化。</li>
+<li><strong>DES</strong>：设计较早，硬件实现相对简单，但在现代处理器上的效率较低。</li>
+</ul>
+</li>
+</ol>
+<h3><span id="总结">总结</span></h3><p>AES设计更加现代化，具有更高的安全性和灵活性，已经取代DES成为主流的对称加密标准。</p>
+<p>LFSR的初始值被称为伪随机序列的种子，影响下一个状态的比特位叫做抽头。LFSR的触发器编号一般从1开始，抽头取值范围是1到2n-1。抽头序列可以用来描述该LFSR的反馈多项式。由n个触发器构成的LFSR电路可以产生一个周期为2n-1的序列。理论表明，要使<strong>LFSR</strong>得到最长的周期，这个抽头序列构成的多项式加<strong>1</strong>就是其反馈多项式<strong>，</strong>必须是一个<strong>本原多项式</strong>，也就是说这个多项式不可约，比方下图的抽头序列为$(4,1)$，其对应的反馈多项式为$f\left( x \right)=x{}^\text{4}+x+1$，其对应的线性反馈移位寄存器电路如下所示。</p>
+<img src="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6/1421957-20191128105251729-1844301536.png" class title="img">
+<p>假设$a_3$,$a_2$,$a_1$,$a_0$的初始值各自是<strong>1 0 0 0</strong>，反馈函数选取$f\left( x \right)=x{}^\text{4}+x+1$，那么得到例如以下序列</p>
+<img src="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6/1421957-20191128105551836-779974532.png" class title="img">
+<p> 能够看出周期为<strong>15</strong>。在这一个周期里面涵盖了开区间$(0,2^4)$内的全部整数，而且都是没有固定顺序出现的，有非常好的随机性。</p>
+<h2><span id="4级lfsr的特征多项式为-fleft-x-rightxxtext21初始态为0011-求输出序列及其周期">4级LFSR的特征多项式为 $f\left( x \right)=x+x{}^\text{2}+1$初始态为(0,0,1,1)。求输出序列及其周期。</span></h2><p>为了求解4级LFSR的输出序列及其周期，我们需要了解LFSR的工作机制。特征多项式为$f(x) = x + x^2 + 1$，这意味着LFSR的反馈函数是基于特定位置的位进行异或操作。</p>
+<h3><span id="初始态-0-0-1-1">初始态 (0, 0, 1, 1)</span></h3><p>我们从这个初始态开始，依次计算LFSR的输出序列。</p>
+<h3><span id="计算过程">计算过程</span></h3><ol>
+<li><strong>当前状态：</strong> (0, 0, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0, 0, 0, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 0, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1, 0, 0, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 0, 0)<ul>
+<li>新的比特：$0 \oplus 0 = 0$</li>
+<li>更新状态：$(0, 1, 0, 0)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 0, 0)<ul>
+<li>新的比特：$0 \oplus 0 = 0$</li>
+<li>更新状态：$(0, 0, 1, 0)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 0, 1, 0)<ul>
+<li>新的比特：$1 \oplus 0 = 1$</li>
+<li>更新状态：$(1, 0, 0, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1, 1, 0, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 0, 0)<ul>
+<li>新的比特：$0 \oplus 0 = 0$</li>
+<li>更新状态：$(0, 1, 1, 0)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 1, 0)<ul>
+<li>新的比特：$1 \oplus 0 = 1$</li>
+<li>更新状态：$(1 ,0, 1, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,1, 0, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,0, 1, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 1, 0)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,1, 0, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,1, 1, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 1, 0)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,1, 1, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,1, 1, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,0, 1, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 0, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,0, 0, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+</ol>
+<h3><span id="输出序列及周期">输出序列及周期</span></h3><ul>
+<li><strong>输出序列：</strong> 11000 10011 01011 1…</li>
+<li><strong>周期：</strong> 15（此处说明：在计算过程中发现某些状态（如$(1, 0, 0, 1)$）会重复，而生成的比特序列也重复）</li>
+</ul>
+<h3><span id="总结">总结</span></h3><p>通过以上计算，我们得到了4级LFSR的输出序列和其周期。根据给定的特征多项式$f(x) = x + x^2 + 1$，初始态(0, 0, 1, 1)产生了周期为15的输出序列11000 10011 01011。</p>
+<h2><span id="公钥密码算法一般是建立在对一个特定的数学难题求解上该难题无法求解则密码算法安全rsa算法基于大整数的素因子分解难题如果该难题可以求解简述一下你是如何利用发送者的公钥和截取的密文破译求解出明文的">公钥密码算法一般是建立在对一个特定的数学难题求解上，该难题无法求解则密码算法安全，RSA算法基于大整数的素因子分解难题，如果该难题可以求解，简述一下，你是如何利用发送者的公钥和截取的密文破译求解出明文的。</span></h2><h3><span id="rsa算法简介">RSA算法简介</span></h3><p>RSA（Rivest-Shamir-Adleman）是一种基于大整数分解难题的公钥密码算法。RSA算法的核心在于两个大素数的乘积，以及在大素数分解上计算的困难性。其主要包括三个步骤：密钥生成、加密和解密。</p>
+<h4><span id="密钥生成">密钥生成：</span></h4><ol>
+<li>选择两个大素数 $p $ 和 $q $。</li>
+<li>计算 $n = pq $，这是模数。</li>
+<li>计算 $\phi(n) = (p-1)(q-1) $，这是欧拉函数。</li>
+<li>选择一个整数 $e $，满足 $1 &lt; e &lt; \phi(n) $ 且 $e $ 与 $\phi(n) $ 互质。</li>
+<li>计算 $d $，满足 $ed \equiv 1 \ (\text{mod} \ \phi(n)) $。</li>
+</ol>
+<p>公钥为 $(e, n) $，私钥为 $(d, n) $。</p>
+<h4><span id="加密">加密：</span></h4><p>使用公钥 $(e, n) $，将明文 $M $ 转换为密文 $C $：</p>
+<script type="math/tex; mode=display">C = M^e \ (\text{mod} \ n)</script><h4><span id="解密">解密：</span></h4><p>使用私钥 $(d, n) $，将密文 $C $ 还原为明文 $M $：</p>
+<script type="math/tex; mode=display">M = C^d \ (\text{mod} \ n)</script><h3><span id="破译rsa的过程">破译RSA的过程</span></h3><p>假设敌手（攻击者）可以解决大整数的素因子分解问题，他们可以破译RSA的过程如下：</p>
+<ol>
+<li><p><strong>截取密文</strong>：<br>攻击者截取发送者发送的密文 $C $。</p>
+</li>
+<li><p><strong>已知公钥</strong>：<br>攻击者已知发送者的公钥 $(e, n) $。</p>
+</li>
+<li><p><strong>分解模数 $n $</strong>：<br>攻击者利用素因子分解技术将 $n $ 分解为两个大素数 $p $ 和 $q $。</p>
+</li>
+<li><p><strong>计算欧拉函数</strong>：<br>攻击者计算欧拉函数 $\phi(n) $：<br>$ \phi(n) = (p-1)(q-1) $</p>
+</li>
+<li><p><strong>求解私钥 $d $</strong>：<br>攻击者利用已知的 $e $ 和 $\phi(n) $ 计算私钥 $d $：<br>$ d \equiv e^{-1} \ (\text{mod} \ \phi(n)) $<br>即找到一个 $d $ 使得 $ed \equiv 1 \ (\text{mod} \ \phi(n)) $。</p>
+</li>
+<li><p><strong>解密密文</strong>：<br>使用计算得到的私钥 $d $，攻击者将密文 $C $ 解密为明文 $M $：</p>
+<script type="math/tex; mode=display">M = C^d \ (\text{mod} \ n)</script></li>
+</ol>
+<h3><span id="示例解密过程">示例解密过程</span></h3><p>假设截取的密文为 $C $ ，公钥为 $(e, n) $，且攻击者能够分解 $n $ 。</p>
+<ol>
+<li><p><strong>已知公钥 $(e, n) $</strong>：<br>$ e = 7, \ n = 33 $</p>
+</li>
+<li><p><strong>分解模数 $n $</strong>：<br>$ n = 33 = 3 \times 11 $<br>这样 $p = 3 $ 和 $q = 11 $。</p>
+</li>
+<li><p><strong>计算欧拉函数 $\phi(n) $</strong>：</p>
+<script type="math/tex; mode=display">\phi(n) = (3-1)(11-1) = 2 \times 10 = 20</script></li>
+<li><p><strong>求解私钥 $d $</strong>：</p>
+<script type="math/tex; mode=display">d \equiv 7^{-1} \ (\text{mod} \ 20)</script><p>求解得到 $d = 3 $，因为 $7 \times 3 = 21 \equiv 1 \ (\text{mod} \ 20) $。</p>
+</li>
+<li><p><strong>解密密文 $C $</strong>：<br>假设截获的密文 $C = 10 $，使用私钥 $d = 3 $ 进行解密：</p>
+<script type="math/tex; mode=display">M = 10^3 \ (\text{mod} \ 33) = 1000 \ (\text{mod} \ 33) = 10</script><p>所以解密得到的明文 $M = 10 $。</p>
+</li>
+</ol>
+<p>通过上述过程，攻击者能够成功解密密文，破译出原文。这也说明了RSA算法的安全性依赖于大整数分解问题的计算复杂度。如果这个问题可以被有效解决，RSA算法就会被攻破。</p>
+<h2><span id="在rsa加密算法中-设-p3q7e5计算d并求出明文-m2所对应的密文c">在RSA加密算法中, 设 $p=3,q=7,e=5,$计算d并求出明文 $m=2$所对应的密文c。</span></h2><p>在RSA加密算法中，给定素数 $ p = 3 $ 和 $ q = 7 $，以及公钥指数 $ e = 5 $，我们需要计算私钥 $ d $ 并求出明文 $ m = 2 $ 所对应的密文 $ c $。</p>
+<h3><span id="计算步骤">计算步骤</span></h3><h4><span id="1-计算模数-n">1. 计算模数 $ n $</span></h4><script type="math/tex; mode=display">n = p \times q = 3 \times 7 = 21</script><h4><span id="2-计算欧拉函数-phin">2. 计算欧拉函数 $ \phi(n) $</span></h4><script type="math/tex; mode=display">\phi(n) = (p - 1)(q - 1) = (3 - 1)(7 - 1) = 2 \times 6 = 12</script><h4><span id="3-计算私钥-d">3. 计算私钥 $ d $</span></h4><p>私钥 $ d $ 满足下列同余式：</p>
+<script type="math/tex; mode=display">d \equiv e^{-1} \pmod{\phi(n)}</script><p>我们需要找到一个 $ d $ 使得：</p>
+<script type="math/tex; mode=display">5d \equiv 1 \pmod{12}</script><p>使用扩展欧几里得算法或者通过试验可以找到 $ d $：</p>
+<script type="math/tex; mode=display">5d \equiv 1 \pmod{12}</script><p>逐次尝试 $ d $ 的值：</p>
+<ul>
+<li>当 $ d = 1 $ 时，$ 5 \times 1 = 5 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 2 $ 时，$ 5 \times 2 = 10 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 3 $ 时，$ 5 \times 3 = 15 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 4 $ 时，$ 5 \times 4 = 20 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 5 $ 时，$ 5 \times 5 = 25 \equiv 1 \pmod{12} $</li>
+</ul>
+<p>所以 $ d = 5 $。</p>
+<h4><span id="4-加密明文-m-2">4. 加密明文 $ m = 2 $</span></h4><p>加密公式为：</p>
+<script type="math/tex; mode=display">c = m^e \pmod{n}</script><p>将值代入公式：</p>
+<script type="math/tex; mode=display">c = 2^5 \pmod{21}</script><script type="math/tex; mode=display">c = 32 \pmod{21} = 11</script><h3><span id="结果">结果</span></h3><ul>
+<li>私钥 $ d = 5 $</li>
+<li>明文 $ m = 2 $ 所对应的密文 $ c = 11 $</li>
+</ul>
+<p>因此，使用给定的参数 $ p = 3 $、$ q = 7 $、$ e = 5 $，计算得出私钥 $ d = 5 $ 和密文 $ c = 11 $。</p>
+<h2><span id="在elgamal公钥密码体制中-bob选取p17生成元g3私钥x6alice选取bob的公钥对消息明文m5进行加密随机数为3-求m的密文">在ElGamal公钥密码体制中, Bob选取p=17,生成元g=3,私钥x=6,Alice选取Bob的公钥对消息明文m=5进行加密，随机数为3。求m的密文。</span></h2><p>在ElGamal公钥密码体制中，我们有以下参数：</p>
+<ul>
+<li>$ p = 17 $</li>
+<li>生成元 $ g = 3 $</li>
+<li>Bob 的私钥 $ x = 6 $</li>
+<li>Alice 选择的随机数 $ k = 3 $</li>
+<li>明文 $ m = 5 $</li>
+</ul>
+<p>我们需要计算消息 $ m $ 的密文。</p>
+<h3><span id="计算步骤">计算步骤</span></h3><h4><span id="1-计算-bob-的公钥-y">1. 计算 Bob 的公钥 $ y $</span></h4><p>$ y = g^x \mod p $<br>$ y = 3^6 \mod 17 $<br>$ y = 729 \mod 17 $<br>$ y = 15 $</p>
+<h4><span id="2-计算密文的两个部分-c_1-和-c_2">2. 计算密文的两个部分 $ C_1 $ 和 $ C_2 $</span></h4><h5><span id="计算-c_1">计算 $ C_1 $</span></h5><p>$ C_1 = g^k \mod p $<br>$ C_1 = 3^3 \mod 17 $<br>$ C_1 = 27 \mod 17 $<br>$ C_1 = 10 $</p>
+<h5><span id="计算-c_2">计算 $ C_2 $</span></h5><p>$ C_2 = m \times y^k \mod p $<br>$ C_2 = 5 \times 15^3 \mod 17 $</p>
+<p>计算 $ 15^3 \mod 17 $:<br>$ 15^3 = 3375 $<br>$ 3375 \mod 17 = 3375 - 17 \times 198 = 3375 - 3366 = 9 $</p>
+<p>计算 $ 5 \times 9 \mod 17 $:<br>$ C_2 = 5 \times 9 \mod 17 = 11 $</p>
+<h3><span id="密文">密文</span></h3><p>因此，明文 $ m = 5 $ 所对应的密文为 $ (C_1, C_2) = (10, 11) $。</p>
+<p>所以，加密后的密文是：<br>$ (C_1, C_2) = (10, 11) $</p>
+<h2><span id="若某lfsr的级数为-n3已知2n长密文段-cleft-011001-right对应明文段-mleft-101101-right请给出其反馈函数表达式">若某LFSR的级数为 $n=3$，已知2n长密文段 $c=\left( 011001 \right),$对应明文段 $m=\left( 101101 \right),$请给出其反馈函数表达式。</span></h2><p>为了找到这个LFSR的反馈函数，我们需要用给出的明文段和密文段推导出反馈多项式。</p>
+<p>给定：<br>$ n = 3 $<br>$ c = (011001) $<br>$ m = (101101) $</p>
+<p>我们知道密文 $ c $ 和明文 $ m $ 的关系是通过LFSR生成序列 $ k $ 进行异或得到的，即：<br>$ c_i = m_i \oplus k_i $</p>
+<p>通过这个关系我们可以求出LFSR生成序列 $ k $：</p>
+<ol>
+<li>$ c_1 = m_1 \oplus k_1 \rightarrow 0 = 1 \oplus k_1 \rightarrow k_1 = 1 $</li>
+<li>$ c_2 = m_2 \oplus k_2 \rightarrow 1 = 0 \oplus k_2 \rightarrow k_2 = 1 $</li>
+<li>$ c_3 = m_3 \oplus k_3 \rightarrow 1 = 1 \oplus k_3 \rightarrow k_3 = 0 $</li>
+<li>$ c_4 = m_4 \oplus k_4 \rightarrow 0 = 1 \oplus k_4 \rightarrow k_4 = 1 $</li>
+<li>$ c_5 = m_5 \oplus k_5 \rightarrow 0 = 0 \oplus k_5 \rightarrow k_5 = 0 $</li>
+<li>$ c_6 = m_6 \oplus k_6 \rightarrow 1 = 1 \oplus k_6 \rightarrow k_6 = 0 $</li>
+</ol>
+<p>所以LFSR生成序列 $ k $ 为 $ (110100) $。</p>
+<p>假设反馈多项式为 $ f(x) = 1 + c_1 x + c_2 x^2 + c_3 x^3 $，我们需要找到 $ c_1 $, $ c_2 $, 和 $ c_3 $。</p>
+<p>观察LFSR生成序列 $ k = (110100) $：</p>
+<ol>
+<li>$ k_4 = c_1 k_3 \oplus c_2 k_2 \oplus c_3 k_1 \rightarrow 1 = c_1 \cdot 0 \oplus c_2 \cdot 1 \oplus c_3 \cdot 1 \rightarrow 1 = c_2 \oplus c_3 $</li>
+<li>$ k_5 = c_1 k_4 \oplus c_2 k_3 \oplus c_3 k_2 \rightarrow 0 = c_1 \cdot 1 \oplus c_2 \cdot 0 \oplus c_3 \cdot 1 \rightarrow 0 = c_1 \oplus c_3 $</li>
+<li>$ k_6 = c_1 k_5 \oplus c_2 k_4 \oplus c_3 k_3 \rightarrow 0 = c_1 \cdot 0 \oplus c_2 \cdot 1 \oplus c_3 \cdot 0 \rightarrow 0 = c_2 $</li>
+</ol>
+<p>从方程3可以得到 $ c_2 = 0 $。</p>
+<p>代入方程1，得到 $ 1 = 0 \oplus c_3 \rightarrow c_3 = 1 $。</p>
+<p>代入方程2，得到 $ 0 = c_1 \oplus 1 \rightarrow c_1 = 1 $。</p>
+<p>所以反馈函数的表达式为：<br>$ f(x) = 1 + x + x^3 $</p>
+<p>总结<br>$S <em> {n+3} = S </em> {n+2} \oplus S_n$</p>
+<p>反馈函数为$f(a_1,a_2,a_3) \equiv (a_1+a_3) \mod{2}$</p>
+<h2><span id="在-gf_23-上的一条椭圆曲线-ytext2xtext3x1-设-gleft-6text4-right-取私钥-a3-公钥为-ba-cdot-g3left-6text4-rightleft-7text12-right-若想加密明文-mleft-5text4-right-随机选取-k2则密文-c-是什么请给出加解密过程">在 $GF_{23}$ 上的一条椭圆曲线 $y{}^\text{2}=x{}^\text{3}+x+1$ , 设 $g=\left( 6\text{,}4 \right)$ , 取私钥 $a=3$ 。公钥为 $b=a \cdot g=3\left( 6\text{,}4 \right)=\left( 7\text{,}12 \right)$ 。若想加密明文 $m=\left( 5\text{,}4 \right)$, 随机选取 $k=2$，则密文 $c$ 是什么？请给出加解密过程。</span></h2><p>要加密明文 $ m = (5, 4) $ ，需要用到椭圆曲线上的点运算和公钥。已知椭圆曲线为 $ y^2 = x^3 + x + 1 $ ，基点 $ g = (6, 4) $ ，私钥 $ a = 3 $ ，公钥 $ b = a \cdot g = 3 \cdot (6, 4) = (7, 12) $ ，随机选取的 $ k = 2 $ 。下面是加密和解密的详细过程：</p>
+<h3><span id="加密过程">加密过程</span></h3><ol>
+<li><p><strong>计算 $ k \cdot g $ ：</strong><br>$ k \cdot g = 2 \cdot (6, 4) $</p>
+</li>
+<li><p><strong>计算点倍乘 $ 2 \cdot (6, 4) $：</strong></p>
+<p>使用椭圆曲线上的点倍乘公式计算：</p>
+<ul>
+<li><p>先计算 $ 2 \cdot (6, 4) $：<br>设 $ P = (6, 4) $，首先计算斜率 $ \lambda $：<br>$ \lambda = \frac{3x_1^2 + a}{2y_1} \mod 23 $<br>其中 $ a = 1 $， $ P = (x_1, y_1) = (6, 4) $，<br>$ \lambda = \frac{3(6)^2 + 1}{2(4)} \mod 23 = \frac{3 \cdot 36 + 1}{8} \mod 23 = \frac{109}{8} \mod 23 $<br>首先计算 $ 109 \mod 23 $：<br>$ 109 \mod 23 = 17 $<br>接下来计算 $ \frac{17}{8} \mod 23 $ ，可以通过计算 $ 8 $ 在模 $ 23 $ 下的逆元：<br>$ 8^{-1} \mod 23 = 3 $<br>因为 $ 8 \cdot 3 = 24 \equiv 1 \mod 23 $，所以 $ 8^{-1} = 3 $。<br>$ \frac{17}{8} \equiv 17 \cdot 8^{-1} \mod 23 = 17 \cdot 3 \mod 23 = 51 \mod 23 = 5 $<br>所以 $ \lambda = 5 $。</p>
+</li>
+<li><p>计算 $ (2x_1, 2y_1) $：<br>$ x_2 = \lambda^2 - 2x_1 \mod 23 = 5^2 - 2 \cdot 6 \mod 23 = 25 - 12 \mod 23 = 13 $<br>$ y_2 = \lambda (x_1 - x_2) - y_1 \mod 23 = 5(6 - 13) - 4 \mod 23 = 5(-7) - 4 \mod 23 = -35 - 4 \mod 23 = -39 \mod 23 = 7 $<br>所以 $ 2 \cdot (6, 4) = (13, 7) $。</p>
+</li>
+</ul>
+<p>因此 $ k \cdot g = 2 \cdot (6, 4) = (13, 7) $。</p>
+</li>
+<li><p><strong>计算 $ k \cdot b $ ：</strong><br>$ k \cdot b = 2 \cdot (7, 12) $</p>
+<p>计算 $ 2 \cdot (7, 12) $ ，类似上面的计算：</p>
+<ul>
+<li><p>先计算 $ 2 \cdot (7, 12) $：<br>设 $ Q = (7, 12) $，首先计算斜率 $ \lambda $：<br>$ \lambda = \frac{3x_1^2 + a}{2y_1} \mod 23 $<br>其中 $ a = 1 $， $ Q = (x_1, y_1) = (7, 12) $，<br>$ \lambda = \frac{3(7)^2 + 1}{2(12)} \mod 23 = \frac{3 \cdot 49 + 1}{24} \mod 23 = \frac{148}{24} \mod 23 $<br>首先计算 $ 148 \mod 23 $：<br>$ 148 \mod 23 = 10 $<br>接下来计算 $ \frac{10}{24} \mod 23 $ ，可以通过计算 $ 24 $ 在模 $ 23 $ 下的逆元：<br>$ 24^{-1} \mod 23 = 1 $<br>因为 $ 24 \cdot 1 = 24 \equiv 1 \mod 23 $，所以 $ 24^{-1} = 1 $。<br>$ \frac{10}{24} \equiv 10 \cdot 24^{-1} \mod 23 = 10 \cdot 1 \mod 23 = 10 \mod 23 = 10 $<br>所以 $ \lambda = 10 $。</p>
+</li>
+<li><p>计算 $ (2x_1, 2y_1) $：<br>$ x_2 = \lambda^2 - 2x_1 \mod 23 = 10^2 - 2 \cdot 7 \mod 23 = 100 - 14 \mod 23 = 86 \mod 23 = 17 $<br>$ y_2 = \lambda (x_1 - x_2) - y_1 \mod 23 = 10(7 - 17) - 12 \mod 23 = 10(-10) - 12 \mod 23 = -100 - 12 \mod 23 = -112 \mod 23 = 3 $<br>所以 $ 2 \cdot (7, 12) = (17, 3) $。</p>
+</li>
+</ul>
+<p>因此 $ k \cdot b = 2 \cdot (7, 12) = (17, 3) $。</p>
+</li>
+<li><p><strong>计算密文 $ c = (k \cdot g, m + k \cdot b) $ ：</strong><br>$ c_1 = k \cdot g = (13, 7) $<br>$ c_2 = m + k \cdot b = (5, 4) + (17, 3) $</p>
+<p>点加法公式：<br>设 $ P = (x_1, y_1) $ 和 $ Q = (x_2, y_2) $，<br>斜率 $ \lambda = \frac{y_2 - y_1}{x_2 - x_1} \mod 23 $<br>$ x_3 = \lambda^2 - x_1 - x_2 \mod 23 $<br>$ y_3 = \lambda (x_1 - x_3) - y_1 \mod 23 $</p>
+<p>计算：<br>$ \lambda = \frac{3 - 4}{17 - 5} \mod 23 = \frac{-1}{12} \mod 23 = 22 \cdot 2 \mod 23 =21$<br>所以 $ \lambda = 21 $。</p>
+<p>$ x_3 = 21^2 - 5 - 17 \mod 23 = 441 - 22 \mod 23 = 419 \mod 23 = 5 $<br>$ y_3 = 21(5 - 5) - 4 \mod 23 = 0 - 4 \mod 23 = -4 \mod 23 = 19 $</p>
+<p>所以 $ m + k \cdot b = (5, 19) $。</p>
+<p>因此，密文 $ c = (k \cdot g, m + k \cdot b) = ((13, 7), (5, 19)) $。</p>
+</li>
+</ol>
+<h3><span id="解密过程">解密过程</span></h3><p>接收者使用私钥 $ a = 3 $ 解密密文 $ c = ((13, 7), (5, 19)) $。</p>
+<ol>
+<li><p><strong>计算 $ a \cdot c_1 $：</strong><br>$ a \cdot c_1 = 3 \cdot (13, 7) $</p>
+</li>
+<li><p><strong>计算点倍乘 $ 3 \cdot (13, 7) $：</strong></p>
+<p>使用椭圆曲线上的点倍乘公式：</p>
+<ul>
+<li><p>先计算 $ 2 \cdot (13, 7) $：<br>$ \lambda = \frac{3(13)^2 + 1}{2(7)} \mod 23 = \frac{3 \cdot 169 + 1}{14} \mod 23 = \frac{508}{14} \mod 23 $<br>首先计算 $ 508 \mod 23 $：<br>$ 508 \mod 23 = 2 $<br>接下来计算 $ \frac{2}{14} \mod 23 $ ，可以通过计算 $ 14 $ 在模 $ 23 $ 下的逆元：<br>$ 14^{-1} \mod 23 = 5 $<br>因为 $ 14 \cdot 5 = 70 \equiv 1 \mod 23 $，所以 $ 14^{-1} = 5 $。<br>$ \frac{2}{14} \equiv 2 \cdot 14^{-1} \mod 23 = 2 \cdot 5 \mod 23 = 10 $<br>所以 $ \lambda = 10 $。</p>
+</li>
+<li><p>计算 $ (2x_1, 2y_1) $：<br>$ x_2 = \lambda^2 - 2x_1 \mod 23 = 10^2 - 2 \cdot 13 \mod 23 = 100 - 26 \mod 23 = 74 \mod 23 = 5 $<br>$ y_2 = \lambda (x_1 - x_2) - y_1 \mod 23 = 10(13 - 5) - 7 \mod 23 = 10 \cdot 8 - 7 \mod 23 = 80 - 7 \mod 23 = 73 \mod 23 = 4 $<br>所以 $ 2 \cdot (13, 7) = (5, 4) $。</p>
+</li>
+<li><p>计算 $ 3 \cdot (13, 7) $:<br>使用上一步计算得到的 $ 2 \cdot (13, 7) = (5, 4) $，再计算 $ (5, 4) + (13, 7) $：<br>$ \lambda = \frac{7 - 4}{13 - 5} \mod 23 = \frac{3}{8} \mod 23 = 3 \cdot 8^{-1} \mod 23 $<br>计算 $ 8^{-1} \mod 23 $:<br>使用扩展欧几里得算法，得到 $ 8^{-1} \mod 23 = 3 $。<br>因为 $ 8 \cdot 3 = 24 \equiv 1 \mod 23 $，所以 $ 8^{-1} = 3 $。<br>$ \lambda = 3 \cdot 3 \mod 23 = 9 \mod 23 = 9 $<br>所以 $ \lambda = 9 $。</p>
+</li>
+<li><p>计算 $ (x_3, y_3) $：<br>$ x_3 = 9^2 - 5 - 13 \mod 23 = 81 - 18 \mod 23 = 17 $<br>$ y_3 = 9(5 - 17) - 4 \mod 23 = 9\cdot(-12) - 4 \mod 23 = 3 $</p>
+<p>所以 $ 3 \cdot (13, 7) = (17, 3) $。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>计算 $ m = c_2 - a \cdot c_1 $ ：</strong><br>$ m = (5, 19) - (17, 3) $</p>
+<p>使用点减法公式：</p>
+<ul>
+<li>点减法可以表示为点加法 $ (5, 19) + (17, -3)=(5, 19) + (17, 20) $。</li>
+</ul>
+<p>计算斜率 $ \lambda $：<br>$ \lambda = \frac{20 - 19}{17 - 5} \mod 23 = \frac{1}{12} \mod 23 = \frac{1}{12} \mod 23 $</p>
+<p>计算 $ 12^{-1} \mod 23 $:<br>使用扩展欧几里得算法，得到 $ 12^{-1} \mod 23 = 2 $。<br>因为 $ 12 \cdot 2 = 24 \equiv 1 \mod 23 $，所以 $ 12^{-1} = 2 $。<br>$ \lambda = 1 \cdot 2 \mod 23 = 2 \mod 23 = 2 $</p>
+<p>计算 $ x_3 $ 和 $ y_3 $：<br>$ x_3 = 2^2 - 5 - 17 \mod 23 = 4 - 22 \mod 23 = -18 \mod 23 = 5 $<br>$ y_3 = 2(5 - 19) - 22 \mod 23 = 2 \cdot (-14) - 22 \mod 23 = -50 \mod 23  = 4 $</p>
+<p>所以 $ (5, 19) - (17, 3) = (5, 4) $。</p>
+</li>
+</ol>
+<p>解密得到的明文 $ m = (5, 4) $。</p>
+<h2><span id="考虑有限域-f_23上的椭圆曲线e-ytext2xtext3-4x1令pleft-4text7-rightqleft-10text31-right-求-1-pq-2-2p">考虑有限域 $F_{23}$上的椭圆曲线E： $y{}^\text{2}=x{}^\text{3}-4x+1,$令$P=\left( 4\text{,}7 \right),Q=\left( 10\text{,}31 \right)$ 求: (1) P+Q;  (2) 2P。</span></h2><p>我们需要在给定的椭圆曲线上进行点的加法和倍乘运算。椭圆曲线为 $ E: y^2 = x^3 - 4x + 1 $ ，有限域 $ F $ 上的点 $ P = (4, 7) $ 和 $ Q = (10, 31) $。</p>
+<h3><span id="1-计算-p-q">(1) 计算 $ P + Q $</span></h3><p>首先，计算 $ \lambda $ ，即过 $ P $ 和 $ Q $ 的直线的斜率：</p>
+<p>$ \lambda = \frac{y_2 - y_1}{x_2 - x_1} = \frac{31 - 7}{10 - 4} \mod 23= \frac{24}{6} \mod 23= 1\cdot 4 \mod23 =4$</p>
+<p>计算 $ x_3 $ 和 $ y_3 $：</p>
+<p>$ x_3 = \lambda^2 - x_1 - x_2 = 4^2 - 4 - 10 \mod23 = 16 - 4 - 10 \mod23 = 2 \mod23$</p>
+<p>$ y_3 = \lambda(x_1 - x_3) - y_1 = 4(4 - 2) - 7 \mod23= 4 \cdot 2 - 7 \mod23= 8 - 7 \mod23= 1 \mod23$</p>
+<p>因此，$ P + Q = (2, 1) $。</p>
+<h3><span id="2-计算-2p">(2) 计算 $ 2P $</span></h3><p>首先，计算 $ \lambda $ ，即过 $ P $ 点的切线的斜率：</p>
+<p>$ \lambda = \frac{3x_1^2 + a}{2y_1} $<br>其中 $ a = -4 $， $ P = (4, 7) $，</p>
+<p>$ \lambda = \frac{3 \cdot 4^2 - 4}{2 \cdot 7} \mod23= \frac{3 \cdot 16 - 4}{14} \mod23= \frac{48 - 4}{14} \mod23= \frac{44}{14}\mod23 =21 \cdot 5 \mod23 = 13$</p>
+<p>因此：</p>
+<p>$ \lambda = 13 $</p>
+<p>计算 $ x_3 $ 和 $ y_3 $：</p>
+<p>$ x_3 = \lambda^2 - 2x_1 = 13^2 - 2 \cdot 4 \mod23= 169 - 8 \mod23= 0 $</p>
+<p>$ y_3 = \lambda(x_1 - x_3) - y_1 = 13(4 + 0) - 7 \mod23= 52 - 7 \mod23= 45 \mod23= 22 $</p>
+<p>因此，$ 2P = (0, 22) $。</p>
+<p>所以：</p>
+<ol>
+<li>$ P + Q = (2, 1) $</li>
+<li>$ 2P = (0, 22) $</li>
+</ol>
+<p>椭圆曲线密码学（ECC）是一种基于椭圆曲线数学结构的公钥密码系统。以下是椭圆曲线加密和解密的公式和步骤：</p>
+<h3><span id="基本概念和符号">基本概念和符号</span></h3><ol>
+<li><strong>椭圆曲线方程</strong>：常见形式为 $ E: y^2 = x^3 + ax + b $。</li>
+<li><strong>有限域 $ F_p $</strong>：在有限域上的椭圆曲线，所有的计算都在模 $ p $ 的情况下进行。</li>
+<li><strong>基点 $ G $</strong>：一个预先选定的曲线上非零点。</li>
+<li><strong>私钥 $ d $</strong>：一个随机选定的整数，范围是 $ [1, n-1] $，其中 $ n $ 是 $ G $ 的阶。</li>
+<li><strong>公钥 $ Q $</strong>：通过 $ Q = dG $ 计算得到。</li>
+</ol>
+<h3><span id="椭圆曲线加密">椭圆曲线加密</span></h3><p>加密过程涉及到明文点 $ M $，需要将其映射到椭圆曲线上，并使用接收者的公钥进行加密。加密的步骤如下：</p>
+<ol>
+<li><strong>随机选择一个整数 $ k $</strong>，范围是 $ [1, n-1] $。</li>
+<li><strong>计算点 $ C_1 = kG $</strong>。</li>
+<li><strong>计算点 $ C_2 = M + kQ $</strong>，其中 $ Q $ 是接收者的公钥。</li>
+<li><strong>密文为 $ (C_1, C_2) $</strong>。</li>
+</ol>
+<p>具体公式为：<br>$ C_1 = kG $<br>$ C_2 = M + kQ $</p>
+<h3><span id="椭圆曲线解密">椭圆曲线解密</span></h3><p>解密过程使用接收者的私钥 $ d $ 来恢复明文点 $ M $。解密的步骤如下：</p>
+<ol>
+<li><strong>接收密文 $ (C_1, C_2) $</strong>。</li>
+<li><strong>计算点 $ dC_1 $</strong>，其中 $ d $ 是接收者的私钥。</li>
+<li><strong>计算点 $ M = C_2 - dC_1 $</strong>。</li>
+</ol>
+<p>具体公式为：<br>$ dC_1 = d(kG) = k(dG) = kQ $<br>$ M = C_2 - kQ $</p>
+<h3><span id="详细的计算示例">详细的计算示例</span></h3><p>假设有一个椭圆曲线 $ E: y^2 = x^3 + ax + b $ ，有限域 $ F_p $ 上的基点 $ G $，私钥 $ d $ 和公钥 $ Q = dG $，以及明文点 $ M $。</p>
+<h4><span id="加密过程">加密过程</span></h4><ol>
+<li><p><strong>选择随机数 $ k $</strong>：<br>$ k = 2 $</p>
+</li>
+<li><p><strong>计算 $ C_1 $</strong>：<br>$ C_1 = kG = 2G $</p>
+</li>
+<li><p><strong>计算 $ C_2 $</strong>：<br>$ C_2 = M + kQ $<br>其中 $ Q = dG $，假设 $ d = 3 $，那么 $ Q = 3G $，则 $ kQ = 2 \cdot 3G = 6G $。</p>
+</li>
+<li><p><strong>密文为 $ (C_1, C_2) $</strong>：<br>$ (C_1, C_2) = (2G, M + 6G) $</p>
+</li>
+</ol>
+<h4><span id="解密过程">解密过程</span></h4><ol>
+<li><p><strong>接收密文 $ (C_1, C_2) $</strong>：<br>$ (C_1, C_2) = (2G, M + 6G) $</p>
+</li>
+<li><p><strong>计算 $ dC_1 $</strong>：<br>$ dC_1 = 3 \cdot 2G = 6G $</p>
+</li>
+<li><p><strong>恢复明文 $ M $</strong>：<br>$ M = C_2 - dC_1 = (M + 6G) - 6G = M $</p>
+</li>
+</ol>
+<h3><span id="具体公式说明">具体公式说明</span></h3><ul>
+<li><p><strong>点加法</strong>：<br>若 $ P = (x_1, y_1) $ 和 $ Q = (x_2, y_2) $ 是椭圆曲线上的两个点，且 $ P \neq Q $，则 $ P + Q = (x_3, y_3) $ 的计算公式为：</p>
+<script type="math/tex; mode=display">
+\lambda = \frac{y_2 - y_1}{x_2 - x_1} \mod p</script><script type="math/tex; mode=display">
+x_3 = \lambda^2 - x_1 - x_2 \mod p</script><script type="math/tex; mode=display">
+y_3 = \lambda(x_1 - x_3) - y_1 \mod p</script><p><strong>点倍乘</strong>：<br>若 $ P = (x_1, y_1) $ 是椭圆曲线上的一个点，则 $ 2P = (x_3, y_3) $ 的计算公式为：<br>$ \lambda = \frac{3x_1^2 + a}{2y_1} \mod p $<br>$ x_3 = \lambda^2 - 2x_1 \mod p $<br>$ y_3 = \lambda(x_1 - x_3) - y_1 \mod p $</p>
+</li>
+</ul>
+<p>这些公式和步骤适用于任何给定的椭圆曲线和有限域，并通过实际计算实现加密和解密过程。</p>
+<h3><span id="数字签名的公式分类整理">数字签名的公式分类整理</span></h3><h4><span id="rsa-数字签名算法">RSA 数字签名算法</span></h4><ol>
+<li><p><strong>RSA 签名方案</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选择两个大素数 $ p $ 和 $ q $</li>
+<li>计算 $ n = pq $</li>
+<li>计算 $ \phi(n) = (p-1)(q-1) $</li>
+<li>选择一个整数 $ e $（满足 $ 1 &lt; e &lt; \phi(n) $ 且 $ \gcd(e, \phi(n)) = 1 $）</li>
+<li>计算私钥 $ d $（满足 $ ed \equiv 1 \pmod{\phi(n)} $）</li>
+<li>公钥为 $ (e, n) $，私钥为 $ (d, n) $</li>
+</ul>
+</li>
+<li><p><strong>签名</strong>:</p>
+<ul>
+<li>对消息 $ m $ 进行哈希得到消息摘要 $ H(m) $</li>
+<li>计算签名 $ s = H(m)^d \mod n $</li>
+</ul>
+</li>
+<li><p><strong>验证</strong>:</p>
+<ul>
+<li>对签名 $ s $ 进行验证计算 $ H(m) $ 的哈希值： $ v = s^e \mod n $</li>
+<li>若 $ v \equiv H(m) \mod n $，则验证通过</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4><span id="离散对数基于离散对数问题的签名算法">离散对数（基于离散对数问题的签名算法）</span></h4><ol>
+<li><p><strong>ElGamal签名方案</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选定大素数 $ p $ 和生成元 $ g $</li>
+<li>选择私钥 $ x $（随机数），计算公钥 $ y = g^x \mod p $</li>
+</ul>
+</li>
+<li><p><strong>签名</strong>:</p>
+<ul>
+<li>选择一个随机数 $ k $（满足 $ 1 &lt; k &lt; p-1 $ 且 $ \gcd(k, p-1) = 1 $）</li>
+<li>计算 $ r = g^k \mod p $</li>
+<li>计算 $ s = k^{-1}(H(m) - xr) \mod (p-1) $</li>
+<li>签名为 $ (r, s) $</li>
+</ul>
+</li>
+<li><p><strong>验证</strong>:</p>
+<ul>
+<li>计算 $ v_1 = y^r r^s \mod p $</li>
+<li>计算 $ v_2 = g^{H(m)} \mod p $</li>
+<li>若 $ v_1 \equiv v_2 \mod p $，则验证通过</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>DSA（数字签名算法）</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选定大素数 $ p $ 和生成元 $ g $</li>
+<li>选定一个160位素数 $ q $（满足 $ q | (p-1) $）</li>
+<li>选择私钥 $ x $（随机数），计算公钥 $ y = g^x \mod p $</li>
+</ul>
+</li>
+<li><p><strong>签名</strong>:</p>
+<ul>
+<li>选择一个随机数 $ k $（满足 $ 1 &lt; k &lt; q $ 且 $ \gcd(k, q) = 1 $）</li>
+<li>计算 $ r = (g^k \mod p) \mod q $</li>
+<li>计算 $ s = k^{-1}(H(m) + xr) \mod q $</li>
+<li>签名为 $ (r, s) $</li>
+</ul>
+</li>
+<li><p><strong>验证</strong>:</p>
+<ul>
+<li>计算 $ w = s^{-1} \mod q $</li>
+<li>计算 $ u_1 = H(m)w \mod q $</li>
+<li>计算 $ u_2 = rw \mod q $</li>
+<li>计算 $ v = ((g^{u_1} y^{u_2}) \mod p) \mod q $</li>
+<li>若 $ v \equiv r \mod q $，则验证通过</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4><span id="椭圆曲线基于椭圆曲线离散对数问题的签名算法">椭圆曲线（基于椭圆曲线离散对数问题的签名算法）</span></h4><ol>
+<li><p><strong>ECDSA（椭圆曲线数字签名算法）</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选定椭圆曲线参数 $ E $ 和基点 $ G $</li>
+<li>选择私钥 $ d $（随机数），计算公钥 $ Q = dG $</li>
+</ul>
+</li>
+<li><p><strong>签名</strong>:</p>
+<ul>
+<li>选择一个随机数 $ k $（满足 $ 1 &lt; k &lt; n $，$ n $ 是基点 $ G $ 的阶）</li>
+<li>计算 $ R = kG $，取 $ r = R_x \mod n $（其中 $ R_x $ 是点 $ R $ 的 x 坐标）</li>
+<li>计算 $ s = k^{-1}(H(m) + dr) \mod n $</li>
+<li>签名为 $ (r, s) $</li>
+</ul>
+</li>
+<li><p><strong>验证</strong>:</p>
+<ul>
+<li>验证 $ r, s $ 是否在有效范围内（$ 1 \leq r, s &lt; n $）</li>
+<li>计算 $ w = s^{-1} \mod n $</li>
+<li>计算 $ u_1 = H(m)w \mod n $</li>
+<li>计算 $ u_2 = rw \mod n $</li>
+<li>计算 $ P = u_1G + u_2Q $</li>
+<li>取 $ v = P_x \mod n $（其中 $ P_x $ 是点 $ P $ 的 x 坐标）</li>
+<li>若 $ v \equiv r \mod n $，则验证通过</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3><span id="总结">总结</span></h3><ul>
+<li><p><strong>RSA 数字签名算法</strong>:</p>
+<ul>
+<li>基于大整数分解难题，使用私钥进行签名，公钥进行验证。</li>
+</ul>
+</li>
+<li><p><strong>离散对数问题</strong>:</p>
+<ul>
+<li>经典算法有 ElGamal 签名方案和 DSA。</li>
+<li>基于离散对数问题，依赖于大素数的难解性。</li>
+</ul>
+</li>
+<li><p><strong>椭圆曲线离散对数问题</strong>:</p>
+<ul>
+<li>经典算法有 ECDSA。</li>
+<li>椭圆曲线提供了相同安全级别下更小的密钥尺寸。</li>
+</ul>
+</li>
+</ul>
+<h3><span id="公钥加密的公式分类整理">公钥加密的公式分类整理</span></h3><h4><span id="rsa-公钥加密">RSA 公钥加密</span></h4><ol>
+<li><p><strong>RSA 加密方案</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选择两个大素数 $ p $ 和 $ q $</li>
+<li>计算 $ n = pq $</li>
+<li>计算 $ \phi(n) = (p-1)(q-1) $</li>
+<li>选择一个整数 $ e $（满足 $ 1 &lt; e &lt; \phi(n) $ 且 $ \gcd(e, \phi(n)) = 1 $）</li>
+<li>计算私钥 $ d $（满足 $ ed \equiv 1 \pmod{\phi(n)} $）</li>
+<li>公钥为 $ (e, n) $，私钥为 $ (d, n) $</li>
+</ul>
+</li>
+<li><p><strong>加密</strong>:</p>
+<ul>
+<li>明文 $ m $</li>
+<li>密文 $ c = m^e \mod n $</li>
+</ul>
+</li>
+<li><p><strong>解密</strong>:</p>
+<ul>
+<li>密文 $ c $</li>
+<li>明文 $ m = c^d \mod n $</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4><span id="基于离散对数的公钥加密">基于离散对数的公钥加密</span></h4><ol>
+<li><p><strong>ElGamal 加密方案</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选定大素数 $ p $ 和生成元 $ g $</li>
+<li>选择私钥 $ x $（随机数），计算公钥 $ y = g^x \mod p $</li>
+<li>公钥为 $ (p, g, y) $，私钥为 $ x $</li>
+</ul>
+</li>
+<li><p><strong>加密</strong>:</p>
+<ul>
+<li>明文 $ m $</li>
+<li>选择随机数 $ k $（满足 $ 1 &lt; k &lt; p-1 $）</li>
+<li>计算 $ c_1 = g^k \mod p $</li>
+<li>计算 $ c_2 = m \cdot y^k \mod p $</li>
+<li>密文为 $ (c_1, c_2) $</li>
+</ul>
+</li>
+<li><p><strong>解密</strong>:</p>
+<ul>
+<li>密文 $ (c_1, c_2) $</li>
+<li>计算 $ s = c_1^x \mod p $</li>
+<li>计算明文 $ m = c_2 \cdot s^{-1} \mod p $</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4><span id="基于椭圆曲线离散对数的公钥加密">基于椭圆曲线离散对数的公钥加密</span></h4><ol>
+<li><p><strong>椭圆曲线 ElGamal 加密方案</strong></p>
+<ul>
+<li><p><strong>密钥生成</strong>:</p>
+<ul>
+<li>选定椭圆曲线 $ E $ 和基点 $ G $</li>
+<li>选择私钥 $ d $（随机数），计算公钥 $ Q = dG $</li>
+<li>公钥为 $ (E, G, Q) $，私钥为 $ d $</li>
+</ul>
+</li>
+<li><p><strong>加密</strong>:</p>
+<ul>
+<li>明文点 $ P_m $</li>
+<li>选择随机数 $ k $</li>
+<li>计算 $ C_1 = kG $</li>
+<li>计算 $ C_2 = P_m + kQ $</li>
+<li>密文为 $ (C_1, C_2) $</li>
+</ul>
+</li>
+<li><p><strong>解密</strong>:</p>
+<ul>
+<li>密文 $ (C_1, C_2) $</li>
+<li>计算 $ P_m = C_2 - dC_1 $</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3><span id="总结">总结</span></h3><ul>
+<li><p><strong>RSA 公钥加密</strong>:</p>
+<ul>
+<li>基于大整数分解难题，公钥用于加密，私钥用于解密。</li>
+</ul>
+</li>
+<li><p><strong>基于离散对数的公钥加密</strong>:</p>
+<ul>
+<li>ElGamal 加密方案基于离散对数问题，使用生成元和大素数进行加密和解密。</li>
+</ul>
+</li>
+<li><p><strong>基于椭圆曲线离散对数的公钥加密</strong>:</p>
+<ul>
+<li>椭圆曲线 ElGamal 加密方案，使用椭圆曲线上的点和基点进行加密和解密。提供更高的安全性和效率。</li>
+</ul>
+</li>
+</ul>
+<p>DES（数据加密标准）是一种对称加密算法，它可以在多种工作模式下使用。不同的工作模式提供了不同的安全特性和操作方式。以下是 DES 的五种主要工作模式：</p>
+<h3><span id="1-电子密码本模式ecbelectronic-codebook">1. 电子密码本模式（ECB，Electronic Codebook）</span></h3><p><strong>工作原理</strong>：</p>
+<ul>
+<li>明文被分割成固定大小的块（通常是64位），每个块独立地加密或解密。</li>
+<li>相同的明文块总是被加密成相同的密文块。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>实现简单，适合加密小数据量或无关数据。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>不提供数据的混淆和扩散效果。</li>
+<li>相同的明文块总是被加密成相同的密文块，容易被攻击者利用模式分析攻击。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>适用于随机数据或少量数据的加密。</li>
+</ul>
+<h3><span id="2-密文分组链接模式cbccipher-block-chaining">2. 密文分组链接模式（CBC，Cipher Block Chaining）</span></h3><p><strong>工作原理</strong>：</p>
+<ul>
+<li>第一个明文块与初始向量（IV）进行异或，然后加密。</li>
+<li>每个后续明文块在加密前与前一个密文块进行异或。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>提供了混淆和扩散效果。</li>
+<li>相同的明文块不会加密成相同的密文块。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要初始向量（IV）。</li>
+<li>加密和解密不能并行处理。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>广泛用于各种安全通信协议中，如 SSL/TLS。</li>
+</ul>
+<h3><span id="3-密文反馈模式cfbcipher-feedback">3. 密文反馈模式（CFB，Cipher Feedback）</span></h3><p><strong>工作原理</strong>：</p>
+<ul>
+<li>类似于流密码，将块加密算法转换为流模式。</li>
+<li>初始向量（IV）被加密，然后与明文块进行异或产生密文。</li>
+<li>密文的一部分作为下一个块的输入进行加密。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>提供了混淆和扩散效果。</li>
+<li>适用于加密长度不定的数据。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要初始向量（IV）。</li>
+<li>加密和解密不能并行处理。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>适用于加密流数据或实时数据。</li>
+</ul>
+<h3><span id="4-输出反馈模式ofboutput-feedback">4. 输出反馈模式（OFB，Output Feedback）</span></h3><p><strong>工作原理</strong>：</p>
+<ul>
+<li>类似于流密码，将块加密算法转换为流模式。</li>
+<li>初始向量（IV）被加密，然后加密的结果作为下一个块的输入进行加密。</li>
+<li>每个加密的输出与明文块进行异或产生密文。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>提供了混淆和扩散效果。</li>
+<li>适用于加密长度不定的数据。</li>
+<li>加密输出不会传播错误。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要初始向量（IV）。</li>
+<li>加密和解密不能并行处理。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>适用于加密流数据或实时数据。</li>
+</ul>
+<h3><span id="5-计数器模式ctrcounter">5. 计数器模式（CTR，Counter）</span></h3><p><strong>工作原理</strong>：</p>
+<ul>
+<li>类似于流密码，将块加密算法转换为流模式。</li>
+<li>使用一个计数器值与初始向量（IV）结合作为输入，每次加密后计数器递增。</li>
+<li>计数器的加密输出与明文块进行异或产生密文。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>提供了混淆和扩散效果。</li>
+<li>支持并行加密和解密。</li>
+<li>错误不会传播。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要初始向量（IV）和计数器值的管理。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>适用于高速网络加密和并行处理的数据加密。</li>
+</ul>
+<h3><span id="总结">总结</span></h3><p>这五种工作模式各有优缺点，适用于不同的应用场景。选择合适的工作模式取决于具体的安全需求和操作环境。一般来说，CBC、CFB、OFB 和 CTR 模式提供了更高的安全性和灵活性，适用于大多数实际应用，而 ECB 模式由于其较弱的安全性，通常仅用于少量数据或无关数据的加密。</p>
+<img src="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6/4bc0b93131f478f73c2e23d61bf0213.png" class title="4bc0b93131f478f73c2e23d61bf0213">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>本文作者：</strong>moyuan<br>
+        <strong>本文链接：</strong><a href="https://moyuan10086.github.io/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6/" title="https:&#x2F;&#x2F;moyuan10086.github.io&#x2F;2024&#x2F;07&#x2F;20&#x2F;密码学&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;moyuan10086.github.io&#x2F;2024&#x2F;07&#x2F;20&#x2F;密码学&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			  
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+		
+	</div>
+	
+	<div class="kira-post-footer">
+		
+	<link rel="stylesheet" href="https://unpkg.com/gitalk@latest/dist/gitalk.css" />
+	<div id="gitalk"></div>
+	<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+	<script type="text/javascript">
+		const gitalk = new Gitalk({
+			clientID: '-id-',
+			clientSecret: '-key-',
+			id: '密码学',
+			repo: '-issue repo name-',
+			owner: '-your github username-',
+			admin: '-your github username-',
+			title: '',
+		});
+		gitalk.render('gitalk');
+	</script>
+
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>

