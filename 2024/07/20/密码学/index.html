@@ -1607,8 +1607,8 @@ C2-xC1=Pm+kQ-xkP=Pm$​</script></li>
 <p>代入方程1，得到 $ 1 = 0 \oplus c_3 \rightarrow c_3 = 1 $。</p>
 <p>代入方程2，得到 $ 0 = c_1 \oplus 1 \rightarrow c_1 = 1 $。</p>
 <p>所以反馈函数的表达式为：<br>$ f(x) = 1 + x + x^3 $</p>
-<p>总结<br>$S <em> {n+3} = S </em> {n+2} \oplus S_n$</p>
-<p>反馈函数为$f(a_1,a_2,a_3) \equiv (a_1+a_3) \mod{2}$</p>
+<p>总结</p>
+<script type="math/tex; mode=display">S _ {n+3} = S _ {n+2} \oplus S_n</script><p>反馈函数为$f(a_1,a_2,a_3) \equiv (a_1+a_3) \mod{2}$</p>
 <h2><span id="在-gf_23-上的一条椭圆曲线-ytext2xtext3x1-设-gleft-6text4-right-取私钥-a3-公钥为-ba-cdot-g3left-6text4-rightleft-7text12-right-若想加密明文-mleft-5text4-right-随机选取-k2则密文-c-是什么请给出加解密过程">在 $GF_{23}$ 上的一条椭圆曲线 $y{}^\text{2}=x{}^\text{3}+x+1$ , 设 $g=\left( 6\text{,}4 \right)$ , 取私钥 $a=3$ 。公钥为 $b=a \cdot g=3\left( 6\text{,}4 \right)=\left( 7\text{,}12 \right)$ 。若想加密明文 $m=\left( 5\text{,}4 \right)$, 随机选取 $k=2$，则密文 $c$ 是什么？请给出加解密过程。</span></h2><p>要加密明文 $ m = (5, 4) $ ，需要用到椭圆曲线上的点运算和公钥。已知椭圆曲线为 $ y^2 = x^3 + x + 1 $ ，基点 $ g = (6, 4) $ ，私钥 $ a = 3 $ ，公钥 $ b = a \cdot g = 3 \cdot (6, 4) = (7, 12) $ ，随机选取的 $ k = 2 $ 。下面是加密和解密的详细过程：</p>
 <h3><span id="加密过程">加密过程</span></h3><ol>
 <li><p><strong>计算 $ k \cdot g $ ：</strong><br>$ k \cdot g = 2 \cdot (6, 4) $</p>
