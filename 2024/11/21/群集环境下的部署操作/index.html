@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png">
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/blackground.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"moyuan10086.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Windows Server 群集环境下的部署操作实验目的 学习在 Windows Server 群集环境下的部署操作。 掌握共享磁盘的设计与应用。  实验环境 操作系统：Windows Server 2019 实验工具：FreeNAS  实验过程与分析一、虚拟机安装与配置 安装与克隆：  下载 Windows Server 2019 的镜像文件。  安装并配置一台主机 (Master) 后，克隆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Server 群集环境下的部署操作">
+<meta property="og:url" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Moyuan&quot;s website">
+<meta property="og:description" content="Windows Server 群集环境下的部署操作实验目的 学习在 Windows Server 群集环境下的部署操作。 掌握共享磁盘的设计与应用。  实验环境 操作系统：Windows Server 2019 实验工具：FreeNAS  实验过程与分析一、虚拟机安装与配置 安装与克隆：  下载 Windows Server 2019 的镜像文件。  安装并配置一台主机 (Master) 后，克隆">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112084901967.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085502663.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085924208.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090616213.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090741343.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091309461.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091533092.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091657493.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092240766.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092516561.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092758227.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092817918.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092902919-1731374944717-1.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092953871.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241119163120022.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241119162925188.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094115496.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094348888.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112100124326.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094515268.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094554062.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094723629.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095154638.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095452487.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095554706.png">
+<meta property="article:published_time" content="2024-11-21T06:31:34.000Z">
+<meta property="article:modified_time" content="2024-11-21T06:32:53.401Z">
+<meta property="article:author" content="moyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112084901967.png">
+
+
+<link rel="canonical" href="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/","path":"2024/11/21/群集环境下的部署操作/","title":"Windows Server 群集环境下的部署操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows Server 群集环境下的部署操作 | Moyuan"s website</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Moyuan"s website</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">welcome to my website</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-Server-%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">Windows Server 群集环境下的部署操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">实验过程与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">一、虚拟机安装与配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="nav-number">1.3.2.</span> <span class="nav-text">二、群集环境部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%85%B1%E4%BA%AB%E7%A3%81%E7%9B%98%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.3.</span> <span class="nav-text">三、共享磁盘的配置</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">moyuan</p>
+  <div class="site-description" itemprop="description">prograing or coffee</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/moyuan10086" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;moyuan10086" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2572045628@qq.com" title="E-Mail → mailto:2572045628@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/" title="https:&#x2F;&#x2F;github.com&#x2F;" rel="noopener" target="_blank">GitHub</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moyuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Moyuan"s website">
+      <meta itemprop="description" content="prograing or coffee">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Windows Server 群集环境下的部署操作 | Moyuan"s website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows Server 群集环境下的部署操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-11-21 14:31:34 / 修改时间：14:32:53" itemprop="dateCreated datePublished" datetime="2024-11-21T14:31:34+08:00">2024-11-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Windows-Server-群集环境下的部署操作"><a href="#Windows-Server-群集环境下的部署操作" class="headerlink" title="Windows Server 群集环境下的部署操作"></a>Windows Server 群集环境下的部署操作</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
+<li>学习在 Windows Server 群集环境下的部署操作。</li>
+<li>掌握共享磁盘的设计与应用。</li>
+</ul>
+<h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><ul>
+<li><strong>操作系统</strong>：Windows Server 2019</li>
+<li><strong>实验工具</strong>：FreeNAS</li>
+</ul>
+<h2 id="实验过程与分析"><a href="#实验过程与分析" class="headerlink" title="实验过程与分析"></a>实验过程与分析</h2><h3 id="一、虚拟机安装与配置"><a href="#一、虚拟机安装与配置" class="headerlink" title="一、虚拟机安装与配置"></a>一、虚拟机安装与配置</h3><ol>
+<li><p><strong>安装与克隆</strong>：</p>
+<ul>
+<li><p>下载 Windows Server 2019 的镜像文件。</p>
+</li>
+<li><p>安装并配置一台主机 (Master) 后，克隆两个相同的虚拟机节点。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112084901967.png" class="" title="image-20241112084901967">
+</li>
+<li><p>克隆方式为选择“克隆全部内容”。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085502663.png" class="" title="image-20241112085502663">
+</li>
+</ul>
+</li>
+<li><p><strong>配置网络适配器</strong>：</p>
+<ul>
+<li><p><strong>NodeA</strong>和<strong>NodeB</strong>的网卡适配器设置如下：</p>
+<ul>
+<li><p>适配器 1：设为“仅主机模式”。</p>
+</li>
+<li><p>适配器 2：设为“NAT”模式。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085924208.png" class="" title="image-20241112085924208">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、群集环境部署"><a href="#二、群集环境部署" class="headerlink" title="二、群集环境部署"></a>二、群集环境部署</h3><ol>
+<li><p><strong>账户配置</strong>：</p>
+<ul>
+<li><p>同时启动 NodeA 和 NodeB。</p>
+</li>
+<li><p>进入 NodeA 的控制面板，调整账户名称为“nodeA”，NodeB 做相应设置。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090616213.png" class="" title="image-20241112090616213">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090741343.png" class="" title="image-20241112090741343">
+</li>
+</ul>
+</li>
+<li><p><strong>防火墙关闭</strong>：</p>
+<ul>
+<li><p>在每个节点上关闭防火墙。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091309461.png" class="" title="image-20241112091309461">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091533092.png" class="" title="image-20241112091533092">
+</li>
+</ul>
+</li>
+<li><p><strong>网络配置</strong>：</p>
+<ul>
+<li><p>进入网络和共享中心，调整网络适配器：</p>
+<ul>
+<li><strong>内网网卡</strong>设置为“Private”。</li>
+<li><strong>外网网卡</strong>设置为“Public”（最好用已连接网络的设置为public)。</li>
+</ul>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091657493.png" class="" title="image-20241112091657493">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092240766.png" class="" title="image-20241112092240766">
+</li>
+<li><p>配置心跳网卡和公网网卡的 IP 地址和子网掩码</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092516561.png" class="" title="image-20241112092516561">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092758227.png" class="" title="image-20241112092758227">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092817918.png" class="" title="image-20241112092817918">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092902919-1731374944717-1.png" class="" title="image-20241112092902919">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092953871.png" class="" title="image-20241112092953871">
+<p>右键公网网卡“public”，配置ip地址及子网掩码，首选DNS指向master节点。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241119163120022.png" class="" title="image-20241119163120022">
+<p>同理配置nodeB节点</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241119162925188.png" class="" title="image-20241119162925188">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094115496.png" class="" title="image-20241112094115496">
+</li>
+<li><p>在 NodeB 上通过 <code>ping</code> 指令测试与 NodeA 的连通性，以确保节点互通。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094348888.png" class="" title="image-20241112094348888">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112100124326.png" class="" title="image-20241112100124326">
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="三、共享磁盘的配置"><a href="#三、共享磁盘的配置" class="headerlink" title="三、共享磁盘的配置"></a>三、共享磁盘的配置</h3><ol>
+<li><p><strong>iSCSI 配置</strong>：</p>
+<ul>
+<li><p>在 NodeA 上启动 Windows Server 2019 自带的 iSCSI 发起程序。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094515268.png" class="" title="image-20241112094515268">
+</li>
+<li><p>输入 FreeNAS 的 IP 地址，进行快速连接。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094554062.png" class="" title="image-20241112094554062">
+</li>
+</ul>
+</li>
+<li><p><strong>磁盘管理</strong>：</p>
+<ul>
+<li><p>进入计算机管理中的磁盘管理，将 iSCSI 磁盘设为联机状态。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094723629.png" class="" title="image-20241112094723629">
+</li>
+<li><p>在“此电脑”中查看共享磁盘是否可见。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095154638.png" class="" title="image-20241112095154638">
+</li>
+</ul>
+</li>
+<li><p><strong>NodeB 的配置</strong>：</p>
+<ul>
+<li><p>在 NodeB 上重复 NodeA 的磁盘联机步骤，无需关闭 NodeA。</p>
+</li>
+<li><p>至此，共享磁盘环境配置完成。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095452487.png" class="" title="image-20241112095452487">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095554706.png" class="" title="image-20241112095554706">
+</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://raw.githubusercontent.com/moyuan10086/photo/main/alipay.jpg" alt="moyuan 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="https://raw.githubusercontent.com/moyuan10086/photo/main/Wechat.jpg">
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/11/21/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%88%86%E5%B1%82%E8%AE%BE%E8%AE%A1%E4%B8%8ERootkit%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0/" rel="prev" title="计算机系统分层设计与Rootkit概念及实现">
+                  <i class="fa fa-angle-left"></i> 计算机系统分层设计与Rootkit概念及实现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/" rel="next" title="Microsoft 群集服务（MSCS）环境的搭建">
+                  Microsoft 群集服务（MSCS）环境的搭建 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">我是 墨鸢（作为一名网络安全工程师来说要有一个虚拟名字，来保护自己的隐私性(～￣▽￣)～）</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
