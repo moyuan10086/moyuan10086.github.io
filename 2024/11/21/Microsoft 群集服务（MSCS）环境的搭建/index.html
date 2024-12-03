@@ -26,56 +26,56 @@
 <meta property="og:site_name" content="Moyuan&quot;s website">
 <meta property="og:description" content="Microsoft 群集服务（MSCS）环境的搭建实验目的 利用 Windows Server 构建群集环境，具体包括：   创建三个虚拟机环境  部署群集环境  配置共享磁盘系统   实验环境 操作系统： Windows Server 2019  工具： FreeNAS  网络配置：  Node A：  Public IP：192.168.80.10  Private IP：10.1.1.2">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135115969.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135130989.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119141652609.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090522634.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119144201106.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090656263.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091008961.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091038796.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091231831.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091514916.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091636710.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091715409.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092647158.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092748526.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093020997.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093334122.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093653025.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093751310.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093856742.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095248275.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095502452.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094113885.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094155042.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095749416.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119100200384.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163241979.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163322292.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163825095.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163849667.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119164004968.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001700522.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001856348.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001952140.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002243852.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002822278.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003521751.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003741756.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120095053789.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105702906.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105742243.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105840347.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105914516.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105935617.png">
-<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120110007789.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179-1733186553290-1.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135115969-1733186553292-4.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135130989-1733186553291-2.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119141652609-1733186553292-3.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090522634-1733186553292-5.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119144201106-1733186553292-6.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090656263-1733186553292-7.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091008961-1733186553292-8.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091038796-1733186553292-9.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091231831-1733186553292-10.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091514916-1733186553293-11.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091636710-1733186553293-12.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091715409-1733186553293-13.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092647158-1733186553293-14.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092748526-1733186553293-15.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093020997-1733186553293-16.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093334122-1733186553293-17.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093653025-1733186553293-18.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093751310-1733186553293-19.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093856742-1733186553293-20.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095248275-1733186553293-21.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095502452-1733186553294-22.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094113885-1733186553294-23.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094155042-1733186553294-24.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095749416-1733186553294-25.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119100200384-1733186553294-26.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163241979-1733186553294-27.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163322292-1733186553294-28.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163825095-1733186553294-29.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163849667-1733186553294-30.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119164004968-1733186553294-31.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001700522-1733186553294-32.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001856348-1733186553294-34.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001952140-1733186553294-33.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002243852-1733186553294-35.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002822278-1733186553294-36.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003521751-1733186553294-37.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003741756-1733186553294-38.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120095053789-1733186553294-39.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105702906-1733186553294-40.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105742243-1733186553294-41.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105840347-1733186553295-42.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105914516-1733186553295-43.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105935617-1733186553295-45.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120110007789-1733186553295-44.png">
 <meta property="article:published_time" content="2024-11-21T06:33:20.000Z">
-<meta property="article:modified_time" content="2024-11-21T06:35:19.920Z">
+<meta property="article:modified_time" content="2024-12-03T00:43:04.308Z">
 <meta property="article:author" content="moyuan">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179.png">
+<meta name="twitter:image" content="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179-1733186553290-1.png">
 
 
 <link rel="canonical" href="https://moyuan10086.github.io/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/">
@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -255,9 +255,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-11-21 14:33:20 / 修改时间：14:35:19" itemprop="dateCreated datePublished" datetime="2024-11-21T14:33:20+08:00">2024-11-21</time>
+      <time title="创建时间：2024-11-21 14:33:20" itemprop="dateCreated datePublished" datetime="2024-11-21T14:33:20+08:00">2024-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-12-03 08:43:04" itemprop="dateModified" datetime="2024-12-03T08:43:04+08:00">2024-12-03</time>
     </span>
 
   
@@ -360,47 +366,47 @@
 </li>
 </ol>
 </blockquote>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179.png" class="" title="image-20241119101901179">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135115969.png" class="" title="image-20241119135115969">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135130989.png" class="" title="image-20241119135130989">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119141652609.png" class="" title="image-20241119141652609">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119101901179-1733186553290-1.png" class="" title="image-20241119101901179">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135115969-1733186553292-4.png" class="" title="image-20241119135115969">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119135130989-1733186553291-2.png" class="" title="image-20241119135130989">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119141652609-1733186553292-3.png" class="" title="image-20241119141652609">
 <h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a><strong>实验步骤</strong></h2><h3 id="1-创建域服务器"><a href="#1-创建域服务器" class="headerlink" title="1. 创建域服务器"></a>1. <strong>创建域服务器</strong></h3><ol>
 <li><p><strong>配置 Master 节点</strong>：</p>
 <ul>
 <li>将 Master 节点设置为域控制器，关闭防火墙，配置 IP 地址和子网掩码。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090522634.png" class="" title="image-20241119090522634"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119144201106.png" class="" title="image-20241119144201106"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090522634-1733186553292-5.png" class="" title="image-20241119090522634"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119144201106-1733186553292-6.png" class="" title="image-20241119144201106"></li>
 <li>测试 Master 与 Node A 的连通性，确保网络通信正常。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090656263.png" class="" title="image-20241119090656263"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119090656263-1733186553292-7.png" class="" title="image-20241119090656263"></li>
 </ul>
 </li>
 <li><p><strong>安装 Active Directory 域服务</strong>：</p>
 <ul>
 <li>打开“服务器管理器”，选择“添加角色和功能”。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091008961.png" class="" title="image-20241119091008961"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091038796.png" class="" title="image-20241119091038796"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091231831.png" class="" title="image-20241119091231831"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091008961-1733186553292-8.png" class="" title="image-20241119091008961"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091038796-1733186553292-9.png" class="" title="image-20241119091038796"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091231831-1733186553292-10.png" class="" title="image-20241119091231831"></li>
 <li>在“服务器角色”中，选择“Active Directory 域服务”，并继续安装。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091514916.png" class="" title="image-20241119091514916"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091636710.png" class="" title="image-20241119091636710"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091715409.png" class="" title="image-20241119091715409"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091514916-1733186553293-11.png" class="" title="image-20241119091514916"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091636710-1733186553293-12.png" class="" title="image-20241119091636710"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119091715409-1733186553293-13.png" class="" title="image-20241119091715409"></li>
 <li>安装完成后，点击“将此服务器提升为域控制器”。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092647158.png" class="" title="image-20241119092647158"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092647158-1733186553293-14.png" class="" title="image-20241119092647158"></li>
 <li>在“部署配置”中，选择“添加新林”，并设置根域名为 <code>ha.com</code>。</li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092748526.png" class="" title="image-20241119092748526"> </li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119092748526-1733186553293-15.png" class="" title="image-20241119092748526"> </li>
 <li>在“域控制器选项”中，设置目录服务还原模式 (DSRM) 密码（如：<code>Aa123456?</code>）。 </li>
 <li>在“DNS 选项”和“其他选项”中，使用系统默认设置。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093020997.png" class="" title="image-20241119093020997"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093334122.png" class="" title="image-20241119093334122"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093020997-1733186553293-16.png" class="" title="image-20241119093020997"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093334122-1733186553293-17.png" class="" title="image-20241119093334122"></li>
 <li>进入管理员账户（控制面板），对账户设置密码，创建Administrator账户的密码为Aa123456?</li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093653025.png" class="" title="image-20241119093653025"></li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093751310.png" class="" title="image-20241119093751310"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093653025-1733186553293-18.png" class="" title="image-20241119093653025"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093751310-1733186553293-19.png" class="" title="image-20241119093751310"></li>
 <li>在“先决条件检查”中，确保所有检查通过，然后点击“安装”。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093856742.png" class="" title="image-20241119093856742"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119093856742-1733186553293-20.png" class="" title="image-20241119093856742"></li>
 <li>安装完成后，服务器将自动重启，完成域控制器的配置。 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095248275.png" class="" title="image-20241119095248275"></li>
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095248275-1733186553293-21.png" class="" title="image-20241119095248275"></li>
 <li>重新配置密码Aa123456?</li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095502452.png" class="" title="image-20241119095502452">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095502452-1733186553294-22.png" class="" title="image-20241119095502452">
 </li>
 </ul>
 </li>
@@ -409,33 +415,33 @@
 <li><p><strong>配置 Node A 节点</strong>：</p>
 <ul>
 <li><p>打开“服务器管理器”，选择“添加角色和功能”，安装 DNS 服务器角色。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094113885.png" class="" title="image-20241119094113885">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094155042.png" class="" title="image-20241119094155042">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094113885-1733186553294-23.png" class="" title="image-20241119094113885">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119094155042-1733186553294-24.png" class="" title="image-20241119094155042">
 </li>
 <li><p>安装完成后，重启服务器。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095749416.png" class="" title="image-20241119095749416">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119095749416-1733186553294-25.png" class="" title="image-20241119095749416">
 </li>
 <li><p>右键“此电脑”，选择“属性”，点击“更改设置”，在“计算机名”选项卡中，点击“更改”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119100200384.png" class="" title="image-20241119100200384">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119100200384-1733186553294-26.png" class="" title="image-20241119100200384">
 </li>
 <li><p>将计算机名称设置为 <code>Node A</code>，并选择“域”，输入 <code>ha.com</code>，点击“确定”。 </p>
 </li>
 <li><p>系统提示输入具有加入域权限的账户信息，输入域管理员账户（如：<code>Administrator</code>）和密码（如：<code>Aa123456?</code>）。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163241979.png" class="" title="image-20241119163241979">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163241979-1733186553294-27.png" class="" title="image-20241119163241979">
 </li>
 <li><p>成功加入域后，系统提示重启，点击“确定”并重启服务器。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163322292.png" class="" title="image-20241119163322292">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163322292-1733186553294-28.png" class="" title="image-20241119163322292">
 </li>
 </ul>
 </li>
 <li><p><strong>配置 Node B 节点</strong>：</p>
 <ul>
 <li><p>按照与 Node A 相同的步骤进行配置，确保成功加入 <code>ha.com</code> 域。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163825095.png" class="" title="image-20241119163825095">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163849667.png" class="" title="image-20241119163849667">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119164004968.png" class="" title="image-20241119164004968">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163825095-1733186553294-29.png" class="" title="image-20241119163825095">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119163849667-1733186553294-30.png" class="" title="image-20241119163849667">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241119164004968-1733186553294-31.png" class="" title="image-20241119164004968">
 </li>
 </ul>
 </li>
@@ -450,14 +456,14 @@
 <li><p><strong>创建新用户</strong>：</p>
 <ul>
 <li><p>在左侧的目录树中，右键点击“Users”容器，选择“新建”&gt;“用户”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001700522.png" class="" title="image-20241120001700522">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001700522-1733186553294-32.png" class="" title="image-20241120001700522">
 </li>
 <li><p>在“新建对象 - 用户”窗口中，输入用户的“姓名”、“用户登录名”（如：<code>moyu</code>），点击“下一步”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001856348.png" class="" title="image-20241120001856348">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001856348-1733186553294-34.png" class="" title="image-20241120001856348">
 </li>
 <li><p>设置用户密码（如：<code>Aa123456?</code>），取消勾选“用户下次登录时须更改密码”，确保勾选“用户不能更改密码”和“密码永不过期”，然后点击“下一步”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001952140.png" class="" title="image-20241120001952140">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120001952140-1733186553294-33.png" class="" title="image-20241120001952140">
 </li>
 <li><p>确认信息无误后，点击“完成”创建用户。 </p>
 </li>
@@ -468,11 +474,11 @@
 <li><p><strong>在 Node A （使用管理员身份进行登录，使用普通用户进行登录，会出现权限不够的问题，导致实验无法成功）上安装故障转移群集功能</strong>：</p>
 <ul>
 <li><p>打开“服务器管理器”，选择“添加角色和功能”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002243852.png" class="" title="image-20241120002243852">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002243852-1733186553294-35.png" class="" title="image-20241120002243852">
 </li>
 <li><p>在“功能”页面，勾选“故障转移群集”，点击“下一步”，然后点击“安装”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002822278.png" class="" title="image-20241120002822278">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120002822278-1733186553294-36.png" class="" title="image-20241120002822278">
 </li>
 <li><p>安装完成后，系统可能提示需要重启，按照提示重启服务器。 </p>
 </li>
@@ -493,7 +499,7 @@
 <li><p>右键点击右侧空白处，选择“新建”&gt;“DWORD（32 位）值”，命名为 <code>LocalAccountTokenFilterPolicy</code>。 </p>
 </li>
 <li><p>双击新建的键值，将数值数据设置为 <code>1</code>，然后点击“确定”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003521751.png" class="" title="image-20241120003521751">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003521751-1733186553294-37.png" class="" title="image-20241120003521751">
 </li>
 </ul>
 </li>
@@ -502,31 +508,31 @@
 <li><p>在 Node A 上，打开“故障转移群集管理器”。 </p>
 </li>
 <li><p>在右侧的“管理”下，选择“创建群集”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003741756.png" class="" title="image-20241120003741756">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120003741756-1733186553294-38.png" class="" title="image-20241120003741756">
 </li>
 <li><p>在“开始之前”页面，点击“下一步”。 </p>
 </li>
 <li><p>在“选择服务器”页面，输入 <code>Node A</code> 和 <code>Node B</code> 的名称，点击“添加”，然后点击“下一步”。 </p>
 </li>
-<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120095053789.png" class="" title="image-20241120095053789">
+<li><img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120095053789-1733186553294-39.png" class="" title="image-20241120095053789">
 </li>
-<li><p>在“验证访问点”页面，输入群集名称（如：<code>moyu</code>），并指定群集 IP 地址，然后点击“下一步”。</p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105702906.png" class="" title="image-20241120105702906"> 
+<li><p>在“验证访问点”页面，输入群集名称（如：<code>moyuan</code>），并指定群集 IP 地址，然后点击“下一步”。</p>
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105702906-1733186553294-40.png" class="" title="image-20241120105702906"> 
 </li>
 <li><p>在“确认”页面，检查配置无误后，点击“下一步”开始创建群集。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105742243.png" class="" title="image-20241120105742243">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105742243-1733186553294-41.png" class="" title="image-20241120105742243">
 </li>
 <li><p>创建完成后，点击“完成”。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105840347.png" class="" title="image-20241120105840347">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105840347-1733186553295-42.png" class="" title="image-20241120105840347">
 </li>
 </ul>
 </li>
 <li><p><strong>验证群集状态</strong>：</p>
 <ul>
 <li><p>在“故障转移群集管理器”中，查看群集节点的状态，确保 <code>Node A</code> 和 <code>Node B</code> 都处于“联机”状态。 </p>
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105914516.png" class="" title="image-20241120105914516">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105935617.png" class="" title="image-20241120105935617">
-<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120110007789.png" class="" title="image-20241120110007789">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105914516-1733186553295-43.png" class="" title="image-20241120105914516">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120105935617-1733186553295-45.png" class="" title="image-20241120105935617">
+<img src="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/image-20241120110007789-1733186553295-44.png" class="" title="image-20241120110007789">
 </li>
 <li><p>在“存储”下，查看共享磁盘的状态，确保其已被群集识别并处于“联机”状态。 至此，实验成功完成。</p>
 </li>
@@ -614,6 +620,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/" rel="next" title="故障转移群集搭建与群集系统安装">
+                  故障转移群集搭建与群集系统安装 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
