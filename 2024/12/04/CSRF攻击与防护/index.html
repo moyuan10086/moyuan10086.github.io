@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png">
+  <link rel="mask-icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/blackground.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"moyuan10086.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CSRF攻击与防护1. 背景与原理1.1 CSRF攻击定义 CSRF（Cross Site Request Forgery，跨站请求伪造）是一种利用用户身份权限的攻击方式。 攻击者诱导已登录目标网站的用户访问含有恶意代码的页面，伪造用户的合法请求，执行未授权操作。  1.2 CSRF攻击的原理 浏览器的同源策略允许同源的网页共享Cookie，但攻击者可以利用此策略： 用户登录目标网站后，浏览器保存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF攻击与防护">
+<meta property="og:url" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/index.html">
+<meta property="og:site_name" content="Moyuan&quot;s website">
+<meta property="og:description" content="CSRF攻击与防护1. 背景与原理1.1 CSRF攻击定义 CSRF（Cross Site Request Forgery，跨站请求伪造）是一种利用用户身份权限的攻击方式。 攻击者诱导已登录目标网站的用户访问含有恶意代码的页面，伪造用户的合法请求，执行未授权操作。  1.2 CSRF攻击的原理 浏览器的同源策略允许同源的网页共享Cookie，但攻击者可以利用此策略： 用户登录目标网站后，浏览器保存">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203154931555.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203154951702.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203155018961.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203155048587.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203160613865.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203160627365.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203161435569.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203161448986.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203234540092.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004259421.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204003402101.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004323230.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004630322.png">
+<meta property="og:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004703637.png">
+<meta property="article:published_time" content="2024-12-03T16:48:14.000Z">
+<meta property="article:modified_time" content="2024-12-03T16:48:32.906Z">
+<meta property="article:author" content="moyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203154931555.png">
+
+
+<link rel="canonical" href="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/","path":"2024/12/04/CSRF攻击与防护/","title":"CSRF攻击与防护"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CSRF攻击与防护 | Moyuan"s website</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Moyuan"s website</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">welcome to my website</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4"><span class="nav-number">1.</span> <span class="nav-text">CSRF攻击与防护</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%83%8C%E6%99%AF%E4%B8%8E%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">1. 背景与原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-CSRF%E6%94%BB%E5%87%BB%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 CSRF攻击定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-CSRF%E6%94%BB%E5%87%BB%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 CSRF攻击的原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-CSRF%E6%94%BB%E5%87%BB%E7%9A%84%E5%8D%B1%E5%AE%B3"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 CSRF攻击的危害</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%A1%B9%E7%9B%AE%E4%BB%BB%E5%8A%A1%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">2. 项目任务概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%9E%E9%AA%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">3. 实验过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E4%BB%BB%E5%8A%A11%EF%BC%9A%E5%BB%BA%E7%AB%8B%E5%85%B7%E6%9C%89CSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E7%9B%AE%E6%A0%87%E7%BD%91%E7%AB%99"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 任务1：建立具有CSRF漏洞的目标网站</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">3.1.1 环境准备</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-2-%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">3.1.2 添加功能</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-3-%E6%B5%8B%E8%AF%95"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.1.3 测试</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E4%BB%BB%E5%8A%A12%EF%BC%9A%E5%BB%BA%E7%AB%8BCSRF%E6%94%BB%E5%87%BB%E7%BD%91%E7%AB%99"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 任务2：建立CSRF攻击网站</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-2-1-%E5%88%9B%E5%BB%BA%E6%94%BB%E5%87%BB%E7%BD%91%E7%AB%99"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">3.2.1 创建攻击网站</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-2-2-%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">3.2.2 恶意代码示例**</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-%E4%BB%BB%E5%8A%A13%EF%BC%9ACSRF%E6%94%BB%E5%87%BB%E6%B5%8B%E8%AF%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 任务3：CSRF攻击测试</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-3-1-%E6%B5%8B%E8%AF%95%E6%B5%81%E7%A8%8B"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">3.3.1 测试流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-3-2-%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">3.3.2 攻击原理分析</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-%E4%BB%BB%E5%8A%A14%EF%BC%9ACSRF%E9%98%B2%E6%8A%A4"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 任务4：CSRF防护</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-4-1-%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9AHTTP-Referer%E9%AA%8C%E8%AF%81"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">3.4.1 方法一：HTTP Referer验证</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-4-2-%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E8%AE%BE%E7%BD%AE%E6%93%8D%E4%BD%9C%E7%A1%AE%E8%AE%A4%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">3.4.2 方法二：设置操作确认对话框</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">4. 实验结果与总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E6%8B%93%E5%B1%95%E6%80%9D%E8%80%83"><span class="nav-number">1.5.</span> <span class="nav-text">5. 拓展思考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">moyuan</p>
+  <div class="site-description" itemprop="description">prograing or coffee</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/moyuan10086" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;moyuan10086" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2572045628@qq.com" title="E-Mail → mailto:2572045628@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://github.com/" title="https:&#x2F;&#x2F;github.com&#x2F;" rel="noopener" target="_blank">GitHub</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moyuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Moyuan"s website">
+      <meta itemprop="description" content="prograing or coffee">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CSRF攻击与防护 | Moyuan"s website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSRF攻击与防护
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-04 00:48:14 / 修改时间：00:48:32" itemprop="dateCreated datePublished" datetime="2024-12-04T00:48:14+08:00">2024-12-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="CSRF攻击与防护"><a href="#CSRF攻击与防护" class="headerlink" title="CSRF攻击与防护"></a><strong>CSRF攻击与防护</strong></h3><h4 id="1-背景与原理"><a href="#1-背景与原理" class="headerlink" title="1. 背景与原理"></a><strong>1. 背景与原理</strong></h4><h5 id="1-1-CSRF攻击定义"><a href="#1-1-CSRF攻击定义" class="headerlink" title="1.1 CSRF攻击定义"></a><strong>1.1 CSRF攻击定义</strong></h5><ul>
+<li>CSRF（Cross Site Request Forgery，跨站请求伪造）是一种利用用户身份权限的攻击方式。</li>
+<li>攻击者诱导已登录目标网站的用户访问含有恶意代码的页面，伪造用户的合法请求，执行未授权操作。</li>
+</ul>
+<h5 id="1-2-CSRF攻击的原理"><a href="#1-2-CSRF攻击的原理" class="headerlink" title="1.2 CSRF攻击的原理"></a><strong>1.2 CSRF攻击的原理</strong></h5><ul>
+<li>浏览器的同源策略允许同源的网页共享Cookie，但攻击者可以利用此策略：<ol>
+<li>用户登录目标网站后，浏览器保存Cookie。</li>
+<li>用户访问恶意页面时，页面中的恶意代码通过伪造请求，利用用户Cookie向目标网站发送恶意请求。</li>
+</ol>
+</li>
+</ul>
+<h5 id="1-3-CSRF攻击的危害"><a href="#1-3-CSRF攻击的危害" class="headerlink" title="1.3 CSRF攻击的危害"></a><strong>1.3 CSRF攻击的危害</strong></h5><ul>
+<li>在用户毫不知情的情况下：<ul>
+<li>窃取用户信息。</li>
+<li>未经授权的资金转移。</li>
+<li>操作敏感的账户功能。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="2-项目任务概述"><a href="#2-项目任务概述" class="headerlink" title="2. 项目任务概述"></a><strong>2. 项目任务概述</strong></h4><p>实验通过创建两个网站（目标网站和攻击网站），模拟CSRF攻击并探讨防护措施。具体任务如下：</p>
+<ol>
+<li>建立一个具有用户添加功能的目标网站（存在CSRF漏洞）。</li>
+<li>创建一个模拟CSRF攻击的网站。</li>
+<li>测试目标网站是否可以被CSRF攻击。</li>
+<li>通过HTTP Referer验证和操作确认对话框两种方式防护CSRF攻击。</li>
+</ol>
+<hr>
+<h4 id="3-实验过程"><a href="#3-实验过程" class="headerlink" title="3. 实验过程"></a><strong>3. 实验过程</strong></h4><h5 id="3-1-任务1：建立具有CSRF漏洞的目标网站"><a href="#3-1-任务1：建立具有CSRF漏洞的目标网站" class="headerlink" title="3.1 任务1：建立具有CSRF漏洞的目标网站"></a><strong>3.1 任务1：建立具有CSRF漏洞的目标网站</strong></h5><h6 id="3-1-1-环境准备"><a href="#3-1-1-环境准备" class="headerlink" title="3.1.1 环境准备"></a><strong>3.1.1 环境准备</strong></h6><ul>
+<li>在Apache根目录下（<code>C:\Apache24\htdocs</code>）创建名为<code>csrf</code>的文件夹，作为目标网站目录。</li>
+<li>复制基础网站代码文件至<code>csrf</code>目录，添加用户管理功能。</li>
+</ul>
+<h6 id="3-1-2-添加功能"><a href="#3-1-2-添加功能" class="headerlink" title="3.1.2 添加功能"></a><strong>3.1.2 添加功能</strong></h6><ol>
+<li><p><strong>添加用户页面</strong>：</p>
+<ul>
+<li><p>创建<code>newuser.html</code>，内容为用户输入用户名和密码的表单。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>NewUser<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#a</span>&#123; <span class="attribute">width</span>: <span class="number">300px</span>; <span class="attribute">text-align</span>: right; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.b</span>&#123;<span class="attribute">width</span>: <span class="number">150px</span>;<span class="attribute">height</span>:<span class="number">20px</span>;&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="meta">&lt;?php</span></span><br><span class="line"><span class="meta">	include_once &quot;functions.php&quot;;</span></span><br><span class="line"><span class="meta">	start_session($expires);</span></span><br><span class="line"><span class="meta">	</span></span><br><span class="line"><span class="meta">	if(!isset($_SESSION[&#x27;username&#x27;]))&#123;</span></span><br><span class="line"><span class="meta">		echo &#x27;您没有权限访问此页面&#x27;;</span></span><br><span class="line"><span class="meta">		exit;		</span></span><br><span class="line"><span class="meta">	&#125;</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">	?&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">p</span> <span class="attr">align</span>=<span class="string">&quot;left&quot;</span>&gt;</span>添加用户:<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">form</span> <span class="attr">name</span>=<span class="string">&quot;form_register&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get&quot;</span> <span class="attr">action</span>=<span class="string">&quot;do_adduser.php&quot;</span>&gt;</span></span><br><span class="line">			Username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">b</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">			Psssword: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span>  <span class="attr">class</span>=<span class="string">b</span> <span class="attr">name</span>=<span class="string">&quot;passwd&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span> /&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Reset&quot;</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>处理后台请求</strong>：</p>
+<ul>
+<li><p>创建<code>do_adduser.php</code>，接收<code>POST</code>请求并将用户信息写入数据库。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">include_once &quot;functions.php&quot;;</span><br><span class="line">start_session($expires);</span><br><span class="line"></span><br><span class="line">if(!isset($_SESSION[&#x27;username&#x27;]))&#123;</span><br><span class="line">	echo &#x27;您没有权限访问此页面&#x27;;</span><br><span class="line">	exit;		</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">include_once &quot;con_database.php&quot;;</span><br><span class="line"></span><br><span class="line">//获取输入的信息</span><br><span class="line">$username = isset($_GET[&#x27;username&#x27;]) ? mysqli_escape_string($con,$_GET[&#x27;username&#x27;]) : &#x27;&#x27;;</span><br><span class="line">$passwd = isset($_GET[&#x27;passwd&#x27;]) ? mysqli_escape_string($con, $_GET[&#x27;passwd&#x27;]) : &#x27;&#x27;;</span><br><span class="line">if($username == &#x27;&#x27; || $passwd == &#x27;&#x27; ) </span><br><span class="line">&#123; </span><br><span class="line">    echo &quot;&lt;script&gt;alert(&#x27;信息不完整！&#x27;); history.go(-1);&lt;/script&gt;&quot;; </span><br><span class="line">	exit;</span><br><span class="line">&#125;</span><br><span class="line">// echo &quot;&lt;script language=&#x27;javascript&#x27;&gt;&quot;;</span><br><span class="line">// echo &quot;var sure=confirm( &#x27;确认添加用户&quot;.$username .&quot;吗 &#x27;); &quot;;</span><br><span class="line">// echo &quot;if (!sure)&#123;location.href=&#x27;newuser.html&#x27;; &#125;&quot;;</span><br><span class="line">// echo &quot;&lt;/script&gt;&quot;;</span><br><span class="line">//执行数据库查询,判断用户是否已经存在</span><br><span class="line">$sql=&quot;select * from users where username = &#x27;$username&#x27; &quot;;</span><br><span class="line"></span><br><span class="line">$query = mysqli_query($con,$sql)</span><br><span class="line">or die(&#x27;SQL语句执行失败, : &#x27;.mysqli_error($con));</span><br><span class="line"></span><br><span class="line">$num = mysqli_fetch_array($query); //统计执行结果影响的行数 </span><br><span class="line">if($num)    //如果已经存在该用户 </span><br><span class="line">&#123; </span><br><span class="line">    echo &quot;&lt;script&gt;alert(&#x27;用户名已存在!&#x27;); history.go(-1);&lt;/script&gt;&quot;; </span><br><span class="line">	exit;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">$sql = &quot;insert into users (username,passcode) values(&#x27;$username&#x27;,&#x27;$passwd&#x27;)&quot;; </span><br><span class="line"></span><br><span class="line">mysqli_query($con, $sql)</span><br><span class="line">or die(&#x27;用户添加失败,  : &#x27;.mysqli_error($con));</span><br><span class="line"></span><br><span class="line">echo &quot;用户添加成功！&quot;;</span><br><span class="line"></span><br><span class="line">mysqli_close($con);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>修改导航链接</strong>：</p>
+<ul>
+<li><p>在<code>welcome.php</code>添加链接，指向<code>newuser.html</code>页面。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;functions.php&quot;</span>;</span><br><span class="line"><span class="title function_ invoke__">start_session</span>(<span class="variable">$expires</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>]))</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;欢迎用户&#x27;</span>.<span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>].<span class="string">&#x27;登陆&#x27;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;a href=&#x27;showmessage.php&#x27;&gt;查看消息&lt;/a&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;a href=&#x27;newuser.html&#x27;&gt;添加用户&lt;/a&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;	</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;a href=&#x27;logout.php&#x27;&gt;退出登录&lt;/a&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;您没有权限访问此页面&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h6 id="3-1-3-测试"><a href="#3-1-3-测试" class="headerlink" title="3.1.3 测试"></a><strong>3.1.3 测试</strong></h6><ul>
+<li><p>使用Firefox浏览器访问目标网站：</p>
+<ul>
+<li><p>登录<code>http://localhost/csrf/login.html</code>（用户名：admin，密码：admin123）。</p>
+</li>
+<li><p>点击“添加用户”链接，输入<code>csrf</code>和<code>csrf123</code>，提交后验证用户添加成功。</p>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203154931555.png" class="" title="image-20241203154931555">
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203154951702.png" class="" title="image-20241203154951702">
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203155018961.png" class="" title="image-20241203155018961"><img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203155048587.png" class="" title="image-20241203155048587">
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="3-2-任务2：建立CSRF攻击网站"><a href="#3-2-任务2：建立CSRF攻击网站" class="headerlink" title="3.2 任务2：建立CSRF攻击网站"></a><strong>3.2 任务2：建立CSRF攻击网站</strong></h5><h6 id="3-2-1-创建攻击网站"><a href="#3-2-1-创建攻击网站" class="headerlink" title="3.2.1 创建攻击网站"></a><strong>3.2.1 创建攻击网站</strong></h6><ul>
+<li><p>在Apache根目录下创建文件夹<code>docsrf</code>，用于模拟CSRF攻击网站。</p>
+</li>
+<li><p>在<code>docsrf</code>目录下创建<code>csrf.html</code>，内容为包含伪造表单提交的恶意代码。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>csrf<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">http://localhost/csrf/do_adduser.php?username</span>=<span class="string">admin1&amp;passwd</span>=<span class="string">admin1</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="3-2-2-恶意代码示例"><a href="#3-2-2-恶意代码示例" class="headerlink" title="3.2.2 恶意代码示例**"></a><strong>3.2.2 </strong>恶意代码示例**</h6><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;http://localhost/csrf/do_adduser.php?username=hacker&amp;password=hack123&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>点击该链接时，伪造请求直接添加用户。</li>
+</ul>
+<h5 id="3-3-任务3：CSRF攻击测试"><a href="#3-3-任务3：CSRF攻击测试" class="headerlink" title="3.3 任务3：CSRF攻击测试"></a><strong>3.3 任务3：CSRF攻击测试</strong></h5><h6 id="3-3-1-测试流程"><a href="#3-3-1-测试流程" class="headerlink" title="3.3.1 测试流程"></a><strong>3.3.1 测试流程</strong></h6><ol>
+<li><p><strong>未登录状态测试</strong>：</p>
+<ul>
+<li><p>使用IE浏览器访问<code>http://localhost/docsrf/csrf.html</code>。</p>
+</li>
+<li><p>点击“Click Me”，由于未登录目标网站，添加用户操作失败。</p>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203160613865.png" class="" title="image-20241203160613865"><img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203160627365.png" class="" title="image-20241203160627365">
+</li>
+</ul>
+</li>
+<li><p><strong>已登录状态测试</strong>：</p>
+<ul>
+<li><p>使用保持登录状态的Firefox浏览器访问<code>http://localhost/docsrf/csrf.html</code>。</p>
+</li>
+<li><p>点击“Click Me”，发现用户添加成功。</p>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203161435569.png" class="" title="image-20241203161435569">
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203161448986.png" class="" title="image-20241203161448986">
+</li>
+</ul>
+</li>
+</ol>
+<h6 id="3-3-2-攻击原理分析"><a href="#3-3-2-攻击原理分析" class="headerlink" title="3.3.2 攻击原理分析"></a><strong>3.3.2 攻击原理分析</strong></h6><ul>
+<li>攻击成功的关键在于用户在目标网站的会话Cookie被恶意网站利用，从而伪造合法请求。</li>
+</ul>
+<hr>
+<h5 id="3-4-任务4：CSRF防护"><a href="#3-4-任务4：CSRF防护" class="headerlink" title="3.4 任务4：CSRF防护"></a><strong>3.4 任务4：CSRF防护</strong></h5><h6 id="3-4-1-方法一：HTTP-Referer验证"><a href="#3-4-1-方法一：HTTP-Referer验证" class="headerlink" title="3.4.1 方法一：HTTP Referer验证"></a><strong>3.4.1 方法一：HTTP Referer验证</strong></h6><ol>
+<li><p><strong>实现步骤</strong>：</p>
+<ul>
+<li><p>修改<code>functions.php</code>，增加<code>check_referrer($referer)</code>函数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check_referer</span>(<span class="params"><span class="variable">$referer</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_REFERER&#x27;</span>] != <span class="variable">$referer</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">exit</span>(<span class="string">&#x27;来源错误&#x27;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>do_adduser.php</code>，添加语句:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">check_referer</span>(<span class="string">&#x27;http://localhost/csrf/newuser.html&#x27;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证请求是否来自合法页面。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>测试结果</strong>：</p>
+<ul>
+<li><p>重复攻击步骤，发现由于Referer不匹配，攻击请求被拒绝。</p>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241203234540092.png" class="" title="image-20241203234540092">
+<p>但可以用以下方法攻击，<code>csrf_referer_ez.php</code>，访问<a target="_blank" rel="noopener" href="http://localhost/docsrf/csrf_referer_ez.php">http://localhost/docsrf/csrf_referer_ez.php</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;title&gt;csrf&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$server = &#x27;localhost&#x27;;</span><br><span class="line">$host = &#x27;localhost&#x27;;</span><br><span class="line">$target = &#x27;/csrf/do_adduser.php?username=socket&amp;passwd=socket123&#x27;;</span><br><span class="line">$referer = &#x27;http://localhost/csrf/newuser.html&#x27;; // Referer</span><br><span class="line">$uagent =&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0&#x27;; //User-Agent自行修改</span><br><span class="line">$cookie =&#x27;PHPSESSID=9rfa50r1a7ff8os3pgo7ik5cna&#x27;;//自行修改</span><br><span class="line">$port = 80;</span><br><span class="line"></span><br><span class="line">$fp = fsockopen($server, $port, $errno, $errstr, 30);</span><br><span class="line">if (!$fp)</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;$errstr ($errno)\n&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">$out = &quot;GET $target HTTP/1.1\r\n&quot;;</span><br><span class="line">$out .= &quot;Host: $host\r\n&quot;;</span><br><span class="line">$out .= &quot;Referer: $referer\r\n&quot;;</span><br><span class="line">$out .= &quot;User-Agent: $uagent\r\n&quot;;</span><br><span class="line">$out .= &quot;Cookie: $cookie\r\n&quot;;</span><br><span class="line">$out .= &quot;Connection: Close\r\n\r\n&quot;;</span><br><span class="line">fwrite($fp, $out);</span><br><span class="line"></span><br><span class="line">while (!feof($fp))</span><br><span class="line">&#123;</span><br><span class="line">echo fgets($fp, 128);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fclose($fp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004259421.png" class="" title="image-20241204004259421">
+<p><code>csrf_auto.html</code>，访问<a target="_blank" rel="noopener" href="http://localhost/docsrf/csrf_auto.html">http://localhost/docsrf/csrf_auto.html</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>csrf<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://libs.baidu.com/jquery/2.1.4/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">getSessionId</span>(<span class="params"></span>)&#123;  </span></span><br><span class="line"><span class="language-javascript">	<span class="keyword">var</span> c_name = <span class="string">&#x27;PHPSESSID&#x27;</span>;  </span></span><br><span class="line"><span class="language-javascript">	<span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">cookie</span>.<span class="property">length</span>&gt;<span class="number">0</span>)&#123;  </span></span><br><span class="line"><span class="language-javascript">		c_start=<span class="variable language_">document</span>.<span class="property">cookie</span>.<span class="title function_">indexOf</span>(c_name + <span class="string">&quot;=&quot;</span>)  </span></span><br><span class="line"><span class="language-javascript">		<span class="keyword">if</span>(c_start!=-<span class="number">1</span>)&#123;   </span></span><br><span class="line"><span class="language-javascript">		c_start=c_start + c_name.<span class="property">length</span>+<span class="number">1</span>   </span></span><br><span class="line"><span class="language-javascript">		c_end=<span class="variable language_">document</span>.<span class="property">cookie</span>.<span class="title function_">indexOf</span>(<span class="string">&quot;;&quot;</span>,c_start)  </span></span><br><span class="line"><span class="language-javascript">		<span class="keyword">if</span>(c_end==-<span class="number">1</span>) c_end=<span class="variable language_">document</span>.<span class="property">cookie</span>.<span class="property">length</span>  </span></span><br><span class="line"><span class="language-javascript">			<span class="keyword">return</span> <span class="built_in">unescape</span>(<span class="variable language_">document</span>.<span class="property">cookie</span>.<span class="title function_">substring</span>(c_start,c_end));  </span></span><br><span class="line"><span class="language-javascript">		&#125;  </span></span><br><span class="line"><span class="language-javascript">	&#125;  </span></span><br><span class="line"><span class="language-javascript">&#125; </span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">load</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">	<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span>=<span class="string">&#x27;http://localhost/csrf/newuser.html&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span> = <span class="string">load()</span> &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">$(<span class="variable language_">document</span>).<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span>=<span class="string">&quot;http://localhost/docsrf/csrf_referer.php?sid=&quot;</span>+<span class="title function_">getSessionId</span>();</span></span><br><span class="line"><span class="language-javascript">&#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>csrf_referer.php</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;title&gt;csrf&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">if(!isset($_GET[&#x27;sid&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">	exit;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$SID = $_GET[&#x27;sid&#x27;];</span><br><span class="line"></span><br><span class="line">$server = &#x27;localhost&#x27;;</span><br><span class="line">$host = &#x27;localhost&#x27;;</span><br><span class="line">$target = &#x27;/csrf/do_adduser.php?username=socket1&amp;passwd=socket123&#x27;;</span><br><span class="line">$referer = &#x27;http://localhost/csrf/newuser.html&#x27;; // Referer</span><br><span class="line">$uagent =&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0&#x27;; //User-Agent自己改</span><br><span class="line">$port = 80;</span><br><span class="line"></span><br><span class="line">$fp = fsockopen($server, $port, $errno, $errstr, 30);</span><br><span class="line">if (!$fp)</span><br><span class="line">&#123;</span><br><span class="line">echo &quot;$errstr ($errno)\n&quot;;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">$out = &quot;GET $target HTTP/1.1\r\n&quot;;</span><br><span class="line">$out .= &quot;Host: $host\r\n&quot;;</span><br><span class="line">$out .= &quot;Referer: $referer\r\n&quot;;</span><br><span class="line">$out .= &quot;User-Agent: $uagent\r\n&quot;;</span><br><span class="line">$out .= &quot;Cookie: PHPSESSID=&quot; .$SID .&quot;\r\n&quot;;</span><br><span class="line">$out .= &quot;Connection: Close\r\n\r\n&quot;;</span><br><span class="line">fwrite($fp, $out);</span><br><span class="line"></span><br><span class="line">while (!feof($fp))</span><br><span class="line">&#123;</span><br><span class="line">echo fgets($fp, 128);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fclose($fp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204003402101.png" class="" title="image-20241204003402101"><img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004323230.png" class="" title="image-20241204004323230">
+</li>
+</ul>
+</li>
+</ol>
+<h6 id="3-4-2-方法二：设置操作确认对话框"><a href="#3-4-2-方法二：设置操作确认对话框" class="headerlink" title="3.4.2 方法二：设置操作确认对话框"></a><strong>3.4.2 方法二：设置操作确认对话框</strong></h6><ol>
+<li><p><strong>实现步骤</strong>：</p>
+<ul>
+<li><p>修改<code>do_adduser.php</code>（19行），添加操作确认逻辑：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;script language=&#x27;javascript&#x27;&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;var sure=confirm( &#x27;确认添加用户&quot;</span>.<span class="variable">$username</span> .<span class="string">&quot;吗 &#x27;); &quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;if (!sure)&#123;location.href=&#x27;newuser.html&#x27;; &#125;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/script&gt;&quot;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每次操作需要用户手动确认。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>测试结果</strong>：</p>
+<ul>
+<li><p>当用户访问攻击页面时，会弹出对话框提示操作，用户选择“否”后攻击被终止。</p>
+<img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004630322.png" class="" title="image-20241204004630322"><img src="/2024/12/04/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E6%8A%A4/image-20241204004703637.png" class="" title="image-20241204004703637">
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="4-实验结果与总结"><a href="#4-实验结果与总结" class="headerlink" title="4. 实验结果与总结"></a><strong>4. 实验结果与总结</strong></h4><ol>
+<li><p><strong>实验结果</strong>：</p>
+<ul>
+<li>CSRF攻击需要用户在登录目标网站的情况下访问恶意页面。</li>
+<li>HTTP Referer验证和操作确认对话框有效阻止了CSRF攻击。</li>
+</ul>
+</li>
+<li><p><strong>实验总结</strong>：</p>
+<ul>
+<li><strong>Referer验证</strong>：通过检查请求来源，可以识别非法请求。</li>
+<li><strong>用户交互</strong>：强制用户确认敏感操作，有效减少误操作带来的风险。</li>
+</ul>
+</li>
+<li><p><strong>安全建议</strong>：</p>
+<ul>
+<li>避免点击不明链接。</li>
+<li>针对敏感操作添加多因素验证机制（如验证码或Token）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="5-拓展思考"><a href="#5-拓展思考" class="headerlink" title="5. 拓展思考"></a><strong>5. 拓展思考</strong></h4><ol>
+<li><p><strong>POST方式的CSRF攻击</strong>：</p>
+<ul>
+<li><p>攻击者可通过表单隐藏参数的方式伪造POST请求。</p>
+</li>
+<li><p>示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">action</span>=<span class="string">&quot;http://localhost/csrf/do_adduser.php&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hacker&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hack123&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>Cookie验证的局限性</strong>：</p>
+<ul>
+<li>即使启用Cookie验证，浏览器仍会自动附加有效的Cookie，无法完全防止CSRF攻击。</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://raw.githubusercontent.com/moyuan10086/photo/main/alipay.jpg" alt="moyuan 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="https://raw.githubusercontent.com/moyuan10086/photo/main/Wechat.jpg">
+      </div>
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/03/XSS%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB%E4%B8%8ECookie%E9%AA%8C%E8%AF%81%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/" rel="prev" title="XSS跨站攻击与Cookie验证欺骗实验">
+                  <i class="fa fa-angle-left"></i> XSS跨站攻击与Cookie验证欺骗实验
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">我是 墨鸢（作为一名网络安全工程师来说要有一个虚拟名字，来保护自己的隐私性(～￣▽￣)～）</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
