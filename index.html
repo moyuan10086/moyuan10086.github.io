@@ -207,7 +207,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2025-01-05 19:54:51 / 修改时间：20:06:52" itemprop="dateCreated datePublished" datetime="2025-01-05T19:54:51+08:00">2025-01-05</time>
+      <time title="创建时间：2025-01-05 19:54:51 / 修改时间：20:14:13" itemprop="dateCreated datePublished" datetime="2025-01-05T19:54:51+08:00">2025-01-05</time>
     </span>
 
   
@@ -582,25 +582,20 @@
 <p> 函数对输入内容进行处理：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$id</span> = <span class="title function_ invoke__">mysqli_escape_string</span>(<span class="variable">$conn</span>, <span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"><span class="variable">$sql</span> = <span class="string">&quot;SELECT * FROM books WHERE id=&#x27;<span class="subst">$id</span>&#x27;&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> = <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">query</span>(<span class="variable">$sql</span>);</span><br></pre></td></tr></table></figure>
 <p>作用：</p>
-<ul>
-<li><p>将用户输入中可能影响SQL逻辑的字符进行转义，例如：</p>
+<p>将用户输入中可能影响SQL逻辑的字符进行转义，例如：</p>
 <ul>
 <li><code>&#39;</code> 转换为 <code>\&#39;</code></li>
 <li><code>&quot;</code> 转换为 <code>\&quot;</code></li>
 <li><code>;</code> 转换为 <code>\;</code></li>
 </ul>
-</li>
-<li><p>优点：</p>
+<p>优点：</p>
 <ul>
 <li>简单易用，能防护常见的注入攻击。</li>
 </ul>
-</li>
-<li><p>缺点：</p>
+<p>缺点：</p>
 <ul>
 <li><strong>宽字符绕过风险</strong>：在某些情况下，攻击者可以利用宽字符编码绕过转义。</li>
 <li>仍然属于 <strong>SQL语句拼接</strong> 的方式，不是最佳实践。</li>
-</ul>
-</li>
 </ul>
 <h6 id="使用参数化查询（推荐方法）"><a href="#使用参数化查询（推荐方法）" class="headerlink" title="使用参数化查询（推荐方法）"></a><strong>使用参数化查询（推荐方法）</strong></h6><p><strong>参数化查询</strong> 是目前最推荐的防护方式。它通过将用户输入与SQL语句分离，避免用户输入直接影响SQL逻辑。</p>
 <p><strong>为什么参数化查询更安全？</strong></p>
@@ -648,28 +643,20 @@
 <h6 id="其他防护措施"><a href="#其他防护措施" class="headerlink" title="其他防护措施"></a><strong>其他防护措施</strong></h6><p>除了代码防护，还可以通过其他手段增强安全性：</p>
 <ol>
 <li><p><strong>限制用户输入</strong></p>
-<ul>
-<li><p>对用户输入的数据进行严格的格式验证，例如只允许数字或字母。</p>
-</li>
-<li><p>示例：</p>
+<p>对用户输入的数据进行严格的格式验证，例如只允许数字或字母。</p>
+<p>示例：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;Invalid input&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>优点</strong>：能阻止部分注入攻击。</p>
-</li>
-<li><p><strong>缺点</strong>：对复杂数据的防护有限。</p>
-</li>
-</ul>
+<p><strong>优点</strong>：能阻止部分注入攻击。</p>
+<p><strong>缺点</strong>：对复杂数据的防护有限。</p>
 </li>
 <li><p><strong>限制数据库权限</strong></p>
+<p>最小权限原则：</p>
 <ul>
-<li>最小权限原则：<ul>
 <li>应用程序使用的数据库账户只授予必要的权限（如查询和插入）。</li>
 <li>禁止高权限操作（如删除或修改数据库结构）。</li>
 </ul>
-</li>
-<li><strong>优点</strong>：即使注入攻击成功，损失也会减少。</li>
-<li><strong>缺点</strong>：无法完全杜绝攻击。</li>
-</ul>
+<p><strong>优点</strong>：即使注入攻击成功，损失也会减少。</p>
+<p><strong>缺点</strong>：无法完全杜绝攻击。</p>
 </li>
 <li><p><strong>使用Web应用防火墙（WAF）</strong></p>
 <ul>
@@ -683,36 +670,36 @@
 <table>
 <thead>
 <tr>
-<th><strong>防护方式</strong></th>
-<th><strong>优点</strong></th>
-<th><strong>缺点</strong></th>
+<th style="text-align:center"><strong>防护方式</strong></th>
+<th style="text-align:center"><strong>优点</strong></th>
+<th style="text-align:center"><strong>缺点</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>转义函数</strong></td>
-<td>简单易用，能防护基本攻击</td>
-<td>有宽字符绕过风险，不彻底</td>
+<td style="text-align:center"><strong>转义函数</strong></td>
+<td style="text-align:center">简单易用，能防护基本攻击</td>
+<td style="text-align:center">有宽字符绕过风险，不彻底</td>
 </tr>
 <tr>
-<td><strong>参数化查询</strong></td>
-<td>根本性解决注入问题，安全性高</td>
-<td>需要学习新的语法，稍复杂</td>
+<td style="text-align:center"><strong>参数化查询</strong></td>
+<td style="text-align:center">根本性解决注入问题，安全性高</td>
+<td style="text-align:center">需要学习新的语法，稍复杂</td>
 </tr>
 <tr>
-<td><strong>限制用户输入</strong></td>
-<td>简单直接，适用于简单场景</td>
-<td>不适用于复杂的数据输入</td>
+<td style="text-align:center"><strong>限制用户输入</strong></td>
+<td style="text-align:center">简单直接，适用于简单场景</td>
+<td style="text-align:center">不适用于复杂的数据输入</td>
 </tr>
 <tr>
-<td><strong>限制数据库权限</strong></td>
-<td>减少攻击损失，增强数据库安全</td>
-<td>不能防止注入攻击发生</td>
+<td style="text-align:center"><strong>限制数据库权限</strong></td>
+<td style="text-align:center">减少攻击损失，增强数据库安全</td>
+<td style="text-align:center">不能防止注入攻击发生</td>
 </tr>
 <tr>
-<td><strong>Web应用防火墙</strong></td>
-<td>提供额外的安全层，拦截多种攻击</td>
-<td>需要额外配置，可能影响性能</td>
+<td style="text-align:center"><strong>Web应用防火墙</strong></td>
+<td style="text-align:center">提供额外的安全层，拦截多种攻击</td>
+<td style="text-align:center">需要额外配置，可能影响性能</td>
 </tr>
 </tbody>
 </table>
@@ -723,22 +710,20 @@
 <li><p>概念：SQL 注入攻击、二阶注入攻击、Session 验证、SQL 语句拼接、信息泄露。</p>
 </li>
 </ul>
-<h5 id="二阶SQL注入"><a href="#二阶SQL注入" class="headerlink" title="二阶SQL注入"></a><strong>二阶SQL注入</strong></h5><ul>
-<li><strong>定义</strong>：<ul>
+<h5 id="二阶SQL注入"><a href="#二阶SQL注入" class="headerlink" title="二阶SQL注入"></a><strong>二阶SQL注入</strong></h5><p><strong>定义</strong>：</p>
+<ul>
 <li>一阶注入：攻击字符串直接通过HTTP请求注入数据库，立即执行（如万能密码）。</li>
 <li>二阶注入：攻击字符串先存储在数据库中，再通过后续查询或更新操作引发攻击。</li>
 </ul>
-</li>
-<li><strong>特点</strong>：<ul>
+<p><strong>特点</strong>：</p>
+<ul>
 <li>隐蔽性强，绕过一次性防护措施（如转义）。</li>
 <li>攻击在二次数据库交互时发生。</li>
 </ul>
-</li>
-<li><strong>危害</strong>：<ul>
+<p><strong>危害</strong>：</p>
+<ul>
 <li>修改或删除数据库内容。</li>
 <li>篡改敏感数据（如用户密码）。</li>
-</ul>
-</li>
 </ul>
 <h5 id="更新密码与二阶注入攻击"><a href="#更新密码与二阶注入攻击" class="headerlink" title="更新密码与二阶注入攻击"></a><strong>更新密码与二阶注入攻击</strong></h5><p>在密码更新过程中，若SQL语句未对输入数据进行防护，可能引发二阶注入。</p>
 <p>示例：更新密码时，使用未处理的用户数据构造SQL语句：</p>
@@ -761,35 +746,21 @@
 <p>使用 <code>mysqli_real_escape_string()</code> 转义特殊字符。</p>
 <p>修改代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$username <span class="operator">=</span> mysqli_real_escape_string($conn, $_SESSION[<span class="string">&#x27;username&#x27;</span>]);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>测试结果：</p>
+<p>测试结果：</p>
 <p>重新登录并修改密码，数据库中<code>admin&#39;#</code>的密码被更新，而<code>admin</code>的密码保持不变。</p>
-</li>
-</ul>
 </li>
 <li><p><strong>MySQLi参数化更新</strong>：</p>
 <p>使用参数化查询防护注入攻击。</p>
 <p>示例代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$stmt</span> = <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">prepare</span>(<span class="string">&quot;UPDATE users SET passcode = ? WHERE username = ? AND passcode = ?&quot;</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">bind_param</span>(<span class="string">&quot;sss&quot;</span>, <span class="variable">$new_pass</span>, <span class="variable">$username</span>, <span class="variable">$current_pass</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">execute</span>();</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>测试结果：</p>
-<ul>
-<li>更新密码功能正常，防护二阶注入攻击。</li>
-</ul>
-</li>
-</ul>
+<p>测试结果：</p>
+<p>更新密码功能正常，防护二阶注入攻击。</p>
 </li>
 <li><p><strong>正则表达式过滤</strong>：</p>
-<ul>
-<li><p>对用户名和密码设置规范：</p>
-<ul>
-<li>只能使用小写字母、数字和下划线，长度限制32字符。</li>
-</ul>
-</li>
-<li><p>示例代码：</p>
+<p>对用户名和密码设置规范：</p>
+<p>只能使用小写字母、数字和下划线，长度限制32字符。</p>
+<p>示例代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^[a-z0-9_]&#123;1,32&#125;$/&#x27;</span>, <span class="variable">$username</span>)) &#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;用户名格式不合法&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 </li>
 </ol>
 <h4 id="项目6-Cookie-注入攻击"><a href="#项目6-Cookie-注入攻击" class="headerlink" title="项目6 Cookie 注入攻击"></a>项目6 Cookie 注入攻击</h4><ul>
