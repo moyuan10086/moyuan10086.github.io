@@ -148,7 +148,7 @@ function Graph(frame) {
 				$this.divs[i].dataset.row=$y;	//记录div所在的行
 				$this.divs[i].dataset.col=$x;	//记录div所在的列
 				$this.divs[i].className="smallDivblack";
-				$this.divs[i].style.backgroundColor="black";
+				$this.divs[i].style.opacity = '0.35';
 				//$this.parentFrame.datas[]
 			}
 				
