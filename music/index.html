@@ -1,0 +1,1846 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>音乐 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content=":root {   --music-ink: #394163;   --music-muted: #7680a6;   --music-line: rgba(135, 158, 224, 0.22);   --music-blue: #6f95f4;   --music-pink: #f39bd5;   --music-panel: rgba(255, 255, 255, 0.82);   --">
+<meta property="og:type" content="website">
+<meta property="og:title" content="音乐">
+<meta property="og:url" content="https://moyuan10086.github.io/music/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content=":root {   --music-ink: #394163;   --music-muted: #7680a6;   --music-line: rgba(135, 158, 224, 0.22);   --music-blue: #6f95f4;   --music-pink: #f39bd5;   --music-panel: rgba(255, 255, 255, 0.82);   --">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/newnewlogo.png">
+<meta property="article:published_time" content="2026-05-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-17T04:35:56.251Z">
+<meta property="article:author" content="moyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/newnewlogo.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/music/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '音乐',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header" style="background-image: url(/images/wallpaper.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">音乐</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><style>
+:root {
+  --music-ink: #394163;
+  --music-muted: #7680a6;
+  --music-line: rgba(135, 158, 224, 0.22);
+  --music-blue: #6f95f4;
+  --music-pink: #f39bd5;
+  --music-panel: rgba(255, 255, 255, 0.82);
+  --music-deep: rgba(31, 36, 82, 0.86);
+}
+
+#page-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 10px 32px rgba(111, 149, 244, 0.12);
+  backdrop-filter: none;
+}
+#page-header::before,
+#page-site-info {
+  display: none !important;
+}
+#nav {
+  top: 0 !important;
+  position: fixed !important;
+  height: 70px;
+  padding: 0 28px;
+  color: var(--music-ink) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#nav a,
+#nav #site-name,
+#nav .site-page {
+  color: var(--music-ink) !important;
+  text-shadow: none !important;
+}
+#content-inner.layout {
+  display: block !important;
+  max-width: none;
+  width: 100% !important;
+  padding: 0;
+}
+#body-wrap {
+  display: block !important;
+}
+#page {
+  width: 100% !important;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+#article-container {
+  width: 100% !important;
+  padding: 0;
+}
+#aside-content {
+  display: none;
+}
+#blog-statusbar,
+#daily-quote-widget {
+  display: none !important;
+}
+#footer {
+  margin-top: 0;
+  position: relative;
+  overflow: hidden;
+  color: #4b5b8f !important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 209, 234, 0.64), transparent 28%),
+    radial-gradient(circle at 82% 40%, rgba(143, 181, 255, 0.62), transparent 30%),
+    linear-gradient(135deg, #f8fbff 0%, #edf5ff 46%, #fff2fa 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.86), 0 -18px 44px rgba(93, 124, 190, 0.1);
+}
+#footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.72), rgba(255,255,255,0.18), rgba(255,255,255,0.64)),
+    repeating-linear-gradient(135deg, rgba(111,149,244,0.08) 0 1px, transparent 1px 18px);
+  pointer-events: none;
+}
+#footer::after {
+  content: '\266a';
+  position: absolute;
+  right: min(12vw, 150px);
+  top: 18px;
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: rgba(111, 149, 244, 0.5);
+  font-size: 38px;
+  background: conic-gradient(from 18deg, rgba(255,153,210,0.52), rgba(116,164,255,0.5), rgba(255,255,255,0.86), rgba(255,153,210,0.52));
+  box-shadow: inset 0 0 0 16px rgba(255,255,255,0.62), 0 18px 38px rgba(117, 150, 220, 0.18);
+  pointer-events: none;
+}
+#footer #footer-wrap,
+#footer .copyright,
+#footer .framework-info {
+  position: relative;
+  z-index: 1;
+  color: #5b6b9d !important;
+  text-shadow: none !important;
+}
+#footer a {
+  color: #5f89e8 !important;
+}
+
+.music-shell {
+  min-height: calc(100vh - 70px);
+  margin-top: 70px;
+  overflow: hidden;
+  color: var(--music-ink);
+  background:
+    radial-gradient(circle at 10% 42%, rgba(180, 207, 255, 0.56), transparent 28%),
+    radial-gradient(circle at 86% 58%, rgba(255, 214, 237, 0.64), transparent 30%),
+    linear-gradient(180deg, #eef5ff 0%, #f8fbff 42%, #ffffff 100%);
+}
+
+.music-hero {
+  position: relative;
+  min-height: 340px;
+  display: grid;
+  place-items: center start;
+  padding: 44px min(8vw, 120px);
+  overflow: hidden;
+  background-image:
+    linear-gradient(90deg, rgba(122, 159, 242, 0.58) 0%, rgba(234, 242, 255, 0.58) 43%, rgba(255, 255, 255, 0.18) 100%),
+    url('/images/wallpaper.png');
+  background-size: cover;
+  background-position: center 42%;
+}
+.music-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.8), transparent 16%),
+    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.5));
+}
+.music-hero::after {
+  content: '\266a  \266b  \266a';
+  position: absolute;
+  left: 18%;
+  bottom: 30px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 60px;
+  letter-spacing: 36px;
+  filter: drop-shadow(0 8px 20px rgba(85, 116, 200, 0.25));
+}
+.music-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(430px, 90vw);
+  text-align: center;
+  color: #2f3a63;
+  text-shadow: 0 8px 28px rgba(255, 255, 255, 0.72);
+}
+.music-hero-copy h1 {
+  margin: 0;
+  border: 0;
+  color: #2f3a63;
+  font-size: clamp(56px, 7vw, 86px);
+  font-weight: 800;
+  letter-spacing: 14px;
+  line-height: 1;
+}
+.music-hero-copy strong {
+  display: block;
+  margin-top: 12px;
+  color: rgba(54, 66, 110, 0.82);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 9px;
+}
+.music-hero-ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 8px 38px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, rgba(94, 136, 232, 0.18), rgba(100, 143, 235, 0.92), rgba(94, 136, 232, 0.18));
+  box-shadow: 0 14px 32px rgba(91, 126, 211, 0.18);
+}
+
+.music-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 18px;
+  width: min(1260px, calc(100% - 44px));
+  margin: -42px auto 22px;
+}
+.music-player,
+.music-card {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: var(--music-panel);
+  box-shadow: 0 12px 26px rgba(93, 124, 190, 0.14);
+  backdrop-filter: none;
+}
+.music-player {
+  min-height: 500px;
+  padding: 22px;
+  border-radius: 14px;
+}
+.music-player-inner {
+  position: relative;
+  min-height: 456px;
+  overflow: hidden;
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, rgba(238, 246, 255, 0.88), rgba(213, 226, 255, 0.62) 45%, rgba(255, 219, 242, 0.34)),
+    url('/music/assets/music-anime-player.png');
+  background-size: cover;
+  background-position: center;
+  color: #2e365d;
+}
+.music-player-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 255, 255, 0.7), transparent 24%),
+    linear-gradient(90deg, rgba(255,255,255,0.66), rgba(240,247,255,0.3) 48%, rgba(255,255,255,0.08));
+}
+.music-now {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 176px minmax(0, 1fr);
+  gap: 26px;
+  align-items: center;
+  padding: 40px 42px 22px;
+}
+.disc-wrap {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+.disc {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #0f7aa3 0 16%, #fff 17% 22%, transparent 23%),
+    conic-gradient(from 18deg, #50c8db 0 30%, #f15ba9 30% 65%, #f3f6ff 65% 72%, #50c8db 72% 100%);
+  box-shadow: 0 16px 34px rgba(5, 12, 40, 0.36), 0 0 0 12px rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.disc.is-playing {
+  animation: musicDiscSpin 4s linear infinite;
+}
+.disc img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  mix-blend-mode: screen;
+}
+.disc-button {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 2px solid rgba(255, 255, 255, 0.76);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(28, 143, 176, 0.86);
+  box-shadow: 0 8px 18px rgba(16, 65, 130, 0.34);
+  cursor: pointer;
+}
+.floating-note {
+  position: absolute;
+  color: rgba(151, 188, 255, 0.82);
+  font-size: 28px;
+  text-shadow: 0 6px 18px rgba(83, 128, 230, 0.42);
+}
+.note-a { left: -26px; top: 8px; }
+.note-b { right: -28px; top: 28px; color: rgba(247, 165, 219, 0.78); }
+.note-c { left: -10px; bottom: 8px; }
+
+.track-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.track-title-row h2 {
+  margin: 0;
+  border: 0;
+  color: #2f385f;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.track-title-row span {
+  color: #648fe8;
+  font-weight: 700;
+}
+.track-title-row .lyric-line {
+  flex: 1 1 260px;
+  min-width: 220px;
+  overflow: hidden;
+  color: rgba(62, 72, 115, 0.74);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.track-subtitle {
+  margin: 8px 0 26px;
+  color: rgba(62, 72, 115, 0.68);
+  font-size: 16px;
+}
+.progress-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+.progress {
+  position: relative;
+  height: 18px;
+  border-radius: 999px;
+  cursor: grab;
+  touch-action: none;
+}
+.progress:active {
+  cursor: grabbing;
+}
+.progress::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 7px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.progress-loaded,
+.progress-played {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 7px;
+  transform: translateY(-50%);
+  width: 0%;
+  border-radius: inherit;
+}
+.progress-loaded {
+  background: rgba(123, 153, 224, 0.18);
+}
+.progress-played {
+  background: linear-gradient(90deg, var(--music-pink), #8fb5ff);
+  box-shadow: 0 0 18px rgba(248, 156, 219, 0.48);
+}
+.progress-thumb {
+  position: absolute;
+  left: 0%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--music-pink);
+  box-shadow: 0 0 18px rgba(243, 155, 213, 0.72);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.time {
+  color: rgba(48, 57, 96, 0.76);
+  font-size: 14px;
+  white-space: nowrap;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 24px;
+}
+.control-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  color: rgba(68, 80, 126, 0.78);
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.control-btn:hover {
+  color: #2f385f;
+  background: rgba(255,255,255,0.56);
+  transform: translateY(-1px);
+}
+.control-btn.primary {
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  background: linear-gradient(135deg, #8bb3ff, #6f95f4);
+  box-shadow: 0 12px 26px rgba(111, 149, 244, 0.36);
+}
+.control-spacer {
+  flex: 1;
+}
+
+.playlist {
+  position: relative;
+  z-index: 1;
+  margin: 6px 26px 24px;
+  padding: 8px 20px;
+  max-height: 260px;
+  overflow: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.36);
+}
+.playlist button {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) minmax(110px, 190px) 28px;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-bottom: 1px solid rgba(118, 144, 210, 0.16);
+  color: rgba(50, 60, 103, 0.72);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.playlist button:last-child {
+  border-bottom: 0;
+}
+.playlist button:hover,
+.playlist button.is-active {
+  color: #26305a;
+}
+.playlist .track-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.playlist .track-artist {
+  overflow: hidden;
+  color: inherit;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.equalizer {
+  display: inline-flex;
+  gap: 3px;
+  align-items: end;
+  justify-content: end;
+  height: 18px;
+}
+.equalizer i {
+  display: block;
+  width: 3px;
+  height: 8px;
+  border-radius: 4px;
+  background: #72adff;
+  opacity: 0.28;
+}
+.playlist button.is-active .equalizer i {
+  opacity: 1;
+  animation: musicBars 0.8s ease-in-out infinite alternate;
+}
+.playlist button.is-active .equalizer i:nth-child(2) {
+  animation-delay: 0.14s;
+}
+.playlist button.is-active .equalizer i:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
+.music-side {
+  display: grid;
+  gap: 14px;
+}
+.music-card {
+  border-radius: 10px;
+  padding: 28px;
+}
+.profile-card {
+  text-align: center;
+}
+.profile-cover {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  padding: 5px;
+  background: linear-gradient(135deg, #ffd1ea, #8db5ff);
+  box-shadow: 0 16px 36px rgba(117, 150, 220, 0.24);
+}
+.profile-cover img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+}
+.profile-note {
+  position: absolute;
+  right: -10px;
+  top: 16px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #fff;
+  background: #8db5ff;
+  box-shadow: 0 8px 20px rgba(116, 148, 230, 0.24);
+}
+.profile-card h3 {
+  margin: 0;
+  color: var(--music-ink);
+  font-size: 26px;
+  font-weight: 800;
+}
+.profile-card p {
+  margin: 8px 0 20px;
+  color: var(--music-muted);
+}
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 20px;
+  color: var(--music-muted);
+}
+.profile-stats strong {
+  display: block;
+  color: var(--music-ink);
+  font-size: 20px;
+}
+.follow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 42px;
+  border-radius: 8px;
+  color: #fff !important;
+  background: linear-gradient(135deg, #77a1f4, #668df0);
+  box-shadow: 0 12px 24px rgba(96, 134, 230, 0.24);
+}
+.profile-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+.profile-links a {
+  color: #65708f !important;
+  font-size: 21px;
+}
+.notice-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 104px;
+  gap: 14px;
+  align-items: center;
+}
+.notice-card h3 {
+  margin: 0 0 16px;
+  color: var(--music-ink);
+  font-size: 20px;
+}
+.notice-card h3 i {
+  color: #79a4f8;
+  margin-right: 10px;
+}
+.notice-card p {
+  margin: 0;
+  color: var(--music-muted);
+}
+.notice-card img {
+  width: 104px;
+  height: 104px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+.quick-rail {
+  position: fixed;
+  right: 30px;
+  bottom: 98px;
+  z-index: 20;
+  display: grid;
+  gap: 14px;
+}
+.quick-rail button,
+.quick-rail a {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  border-radius: 50%;
+  color: #8db1ff !important;
+  background: rgba(255,255,255,0.86);
+  box-shadow: 0 10px 28px rgba(98, 132, 205, 0.22);
+  cursor: pointer;
+}
+
+[data-theme='dark'] {
+  --music-ink: #edf3ff;
+  --music-muted: #a8b4d5;
+  --music-line: rgba(143, 181, 255, 0.18);
+  --music-blue: #8fb5ff;
+  --music-pink: #f0a7d8;
+  --music-panel: rgba(20, 27, 49, 0.86);
+  --music-deep: rgba(8, 12, 26, 0.9);
+}
+
+[data-theme='dark'] #page-header {
+  background: rgba(12, 17, 34, 0.72) !important;
+  border-bottom: 1px solid rgba(143, 181, 255, 0.16);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] #nav a,
+[data-theme='dark'] #nav #site-name,
+[data-theme='dark'] #nav .site-name,
+[data-theme='dark'] #nav .site-page {
+  color: rgba(239, 245, 255, 0.9) !important;
+}
+
+[data-theme='dark'] #nav .site-page:hover {
+  color: #b9c9ff !important;
+}
+
+[data-theme='dark'] .music-shell {
+  color: var(--music-ink);
+  background:
+    radial-gradient(circle at 10% 42%, rgba(91, 128, 210, 0.24), transparent 30%),
+    radial-gradient(circle at 86% 58%, rgba(240, 167, 216, 0.16), transparent 31%),
+    linear-gradient(180deg, #0f1528 0%, #121a31 46%, #0d1222 100%);
+}
+
+[data-theme='dark'] .music-hero {
+  background-image:
+    linear-gradient(90deg, rgba(16, 24, 48, 0.74) 0%, rgba(16, 24, 48, 0.48) 46%, rgba(10, 15, 30, 0.26) 100%),
+    url('/images/wallpaper.png');
+}
+
+[data-theme='dark'] .music-hero::before {
+  background:
+    radial-gradient(circle at 15% 25%, rgba(143, 181, 255, 0.22), transparent 18%),
+    linear-gradient(180deg, rgba(9, 14, 30, 0.18), rgba(9, 14, 30, 0.58));
+}
+
+[data-theme='dark'] .music-hero::after {
+  color: rgba(185, 201, 255, 0.34);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.36));
+}
+
+[data-theme='dark'] .music-hero-copy {
+  color: #eef4ff;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.42);
+}
+
+[data-theme='dark'] .music-hero-copy h1 {
+  color: #f4f8ff;
+}
+
+[data-theme='dark'] .music-hero-copy strong {
+  color: rgba(220, 229, 255, 0.82);
+}
+
+[data-theme='dark'] .music-hero-ribbon {
+  color: #f7fbff;
+  background: linear-gradient(90deg, rgba(143, 181, 255, 0.08), rgba(111, 149, 244, 0.72), rgba(240, 167, 216, 0.12));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme='dark'] .music-player,
+[data-theme='dark'] .music-card {
+  border-color: rgba(143, 181, 255, 0.18);
+  background: var(--music-panel);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+}
+
+[data-theme='dark'] .music-player-inner {
+  color: #edf3ff;
+  background:
+    linear-gradient(90deg, rgba(16, 23, 45, 0.92), rgba(25, 34, 62, 0.72) 47%, rgba(81, 48, 86, 0.34)),
+    url('/music/assets/music-anime-player.png');
+  background-size: cover;
+  background-position: center;
+}
+
+[data-theme='dark'] .music-player-inner::before {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(143, 181, 255, 0.16), transparent 24%),
+    linear-gradient(90deg, rgba(13, 19, 39, 0.72), rgba(15, 21, 40, 0.34) 50%, rgba(13, 19, 39, 0.16));
+}
+
+[data-theme='dark'] .disc {
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.46), 0 0 0 12px rgba(143, 181, 255, 0.08);
+}
+
+[data-theme='dark'] .disc-button {
+  border-color: rgba(247, 251, 255, 0.72);
+  background: rgba(82, 111, 196, 0.9);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.34);
+}
+
+[data-theme='dark'] .track-title-row h2,
+[data-theme='dark'] .profile-card h3,
+[data-theme='dark'] .profile-stats strong,
+[data-theme='dark'] .notice-card h3 {
+  color: #f2f6ff;
+}
+
+[data-theme='dark'] .track-title-row span {
+  color: #b9c9ff;
+}
+
+[data-theme='dark'] .track-title-row .lyric-line,
+[data-theme='dark'] .track-subtitle,
+[data-theme='dark'] .time,
+[data-theme='dark'] .profile-card p,
+[data-theme='dark'] .profile-stats,
+[data-theme='dark'] .notice-card p {
+  color: rgba(218, 227, 250, 0.68);
+}
+
+[data-theme='dark'] .progress::before {
+  background: rgba(143, 181, 255, 0.14);
+}
+
+[data-theme='dark'] .progress-loaded {
+  background: rgba(143, 181, 255, 0.22);
+}
+
+[data-theme='dark'] .progress-played {
+  background: linear-gradient(90deg, #f0a7d8, #8fb5ff);
+  box-shadow: 0 0 20px rgba(143, 181, 255, 0.32);
+}
+
+[data-theme='dark'] .progress-thumb {
+  border-color: #101527;
+  background: #f0a7d8;
+}
+
+[data-theme='dark'] .control-btn {
+  color: rgba(222, 230, 252, 0.76);
+}
+
+[data-theme='dark'] .control-btn:hover {
+  color: #fff;
+  background: rgba(143, 181, 255, 0.12);
+}
+
+[data-theme='dark'] .control-btn.primary {
+  color: #fff;
+  background: linear-gradient(135deg, #8fb5ff, #6f95f4);
+  box-shadow: 0 14px 30px rgba(70, 98, 180, 0.34);
+}
+
+[data-theme='dark'] .playlist {
+  background: rgba(11, 16, 31, 0.42);
+}
+
+[data-theme='dark'] .playlist button {
+  border-bottom-color: rgba(143, 181, 255, 0.14);
+  color: rgba(218, 227, 250, 0.66);
+}
+
+[data-theme='dark'] .playlist button:hover,
+[data-theme='dark'] .playlist button.is-active {
+  color: #f4f8ff;
+}
+
+[data-theme='dark'] .equalizer i {
+  background: #8fb5ff;
+}
+
+[data-theme='dark'] .profile-cover {
+  background: linear-gradient(135deg, rgba(240, 167, 216, 0.9), rgba(143, 181, 255, 0.95));
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] .profile-cover img {
+  border-color: rgba(16, 21, 39, 0.92);
+}
+
+[data-theme='dark'] .profile-note {
+  background: #6f95f4;
+}
+
+[data-theme='dark'] .follow-btn {
+  background: linear-gradient(135deg, #6f95f4, #526fc4);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+}
+
+[data-theme='dark'] .profile-links a {
+  color: #b9c9ff !important;
+}
+
+[data-theme='dark'] .notice-card img {
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] .quick-rail button,
+[data-theme='dark'] .quick-rail a {
+  color: #dfe8ff !important;
+  background: rgba(21, 27, 48, 0.86);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] #footer {
+  color: rgba(218, 227, 250, 0.76) !important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(240, 167, 216, 0.14), transparent 28%),
+    radial-gradient(circle at 82% 40%, rgba(143, 181, 255, 0.18), transparent 30%),
+    linear-gradient(135deg, #0f1528 0%, #151d36 52%, #101527 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(143, 181, 255, 0.12), 0 -18px 44px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme='dark'] #footer::before {
+  background:
+    linear-gradient(90deg, rgba(16, 21, 39, 0.34), rgba(16, 21, 39, 0.12), rgba(16, 21, 39, 0.3)),
+    repeating-linear-gradient(135deg, rgba(143,181,255,0.08) 0 1px, transparent 1px 18px);
+}
+
+[data-theme='dark'] #footer::after {
+  color: rgba(185, 201, 255, 0.34);
+  background: conic-gradient(from 18deg, rgba(240,167,216,0.28), rgba(143,181,255,0.34), rgba(21,27,48,0.72), rgba(240,167,216,0.28));
+  box-shadow: inset 0 0 0 16px rgba(16, 21, 39, 0.54), 0 18px 38px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme='dark'] #footer #footer-wrap,
+[data-theme='dark'] #footer .copyright,
+[data-theme='dark'] #footer .framework-info {
+  color: rgba(218, 227, 250, 0.74) !important;
+}
+
+[data-theme='dark'] #footer a {
+  color: #b9c9ff !important;
+}
+
+#footer {
+  margin-top: 56px !important;
+  padding: 26px 16px 30px !important;
+  color: #7481a2 !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0), rgba(244,248,255,0.94) 36%, rgba(248,251,255,0.98)) !important;
+  border-top: 1px solid rgba(143, 181, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.76) !important;
+}
+
+#footer::before,
+#footer::after {
+  display: none !important;
+}
+
+#footer #footer-wrap,
+#footer .copyright,
+#footer .framework-info {
+  color: #7481a2 !important;
+  font-size: 13px;
+  line-height: 1.9;
+  text-shadow: none !important;
+}
+
+#footer a {
+  color: #5d79c8 !important;
+  text-decoration: none;
+}
+
+[data-theme='dark'] #footer {
+  color: rgba(207, 216, 240, 0.68) !important;
+  background:
+    linear-gradient(180deg, rgba(16,21,39,0), rgba(16,21,39,0.9) 36%, rgba(13,18,34,0.98)) !important;
+  border-top-color: rgba(143, 181, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(143,181,255,0.08) !important;
+}
+
+[data-theme='dark'] #footer #footer-wrap,
+[data-theme='dark'] #footer .copyright,
+[data-theme='dark'] #footer .framework-info {
+  color: rgba(207, 216, 240, 0.68) !important;
+}
+
+[data-theme='dark'] #footer a {
+  color: #b9c9ff !important;
+}
+
+@keyframes musicDiscSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes musicBars {
+  from { height: 6px; }
+  to { height: 18px; }
+}
+
+@media (max-width: 1024px) {
+  .music-stage {
+    grid-template-columns: 1fr;
+  }
+  .music-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .profile-card {
+    grid-row: span 2;
+  }
+}
+@media (max-width: 768px) {
+  #nav {
+    padding: 0 16px;
+  }
+  .music-shell {
+    margin-top: 70px;
+  }
+  .music-hero {
+    min-height: 260px;
+    padding: 34px 18px;
+    background-position: center;
+  }
+  .music-hero-copy h1 {
+    font-size: 50px;
+    letter-spacing: 8px;
+  }
+  .music-hero-copy strong {
+    letter-spacing: 5px;
+  }
+  .music-hero-ribbon {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+  .music-stage {
+    width: calc(100% - 22px);
+    margin-top: -30px;
+  }
+  .music-player {
+    padding: 12px;
+  }
+  .music-now {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 28px 18px 18px;
+    text-align: center;
+  }
+  .progress-row {
+    grid-template-columns: 1fr;
+  }
+  .controls {
+    justify-content: center;
+  }
+  .playlist {
+    margin: 0 12px 16px;
+    padding: 6px 10px;
+  }
+  .playlist button {
+    grid-template-columns: 32px minmax(0, 1fr) 24px;
+  }
+  .playlist .track-artist {
+    display: none;
+  }
+  .music-side {
+    grid-template-columns: 1fr;
+  }
+  #footer::after {
+    right: 18px;
+    opacity: 0.5;
+  }
+  .quick-rail {
+    display: none;
+  }
+}
+</style>
+
+<div class="music-shell">
+  <section class="music-hero" aria-label="Music hero">
+    <div class="music-hero-copy">
+      <h1>&#38899;&#20048;</h1>
+      <strong>MUSIC</strong>
+      <div class="music-hero-ribbon">&#8212; &#22312;&#38899;&#20048;&#37324;&#25214;&#21040;&#21478;&#19968;&#20010;&#19990;&#30028; &#8212;</div>
+    </div>
+  </section>
+
+  <main class="music-stage">
+    <section class="music-player" aria-label="Music player">
+      <div class="music-player-inner">
+        <div class="music-now">
+          <div class="disc-wrap">
+            <span class="floating-note note-a">&#9834;</span>
+            <span class="floating-note note-b">&#9835;</span>
+            <span class="floating-note note-c">&#9834;</span>
+            <div class="disc" id="music-disc"><img id="music-cover" src="/music/covers/track-01.jpg" alt=""></div>
+            <button class="disc-button" id="disc-toggle" type="button" aria-label="Play"><i class="fas fa-play"></i></button>
+          </div>
+          <div class="now-info">
+            <div class="track-title-row">
+              <h2 id="track-title"></h2>
+              <span id="track-artist"></span>
+              <span class="lyric-line" id="lyric-line">&#27468;&#35789;&#21152;&#36733;&#20013;...</span>
+            </div>
+            <p class="track-subtitle" id="track-subtitle">&#20170;&#22825;&#30340;&#27468;&#21333;&#24050;&#23601;&#32490;</p>
+            <div class="progress-row">
+              <div class="progress" id="progress" aria-label="Seek">
+                <span class="progress-loaded" id="progress-loaded"></span>
+                <span class="progress-played" id="progress-played"></span>
+                <span class="progress-thumb" id="progress-thumb"></span>
+              </div>
+              <span class="time"><span id="current-time">00:00</span> / <span id="duration">00:00</span></span>
+            </div>
+            <div class="controls">
+              <button class="control-btn" type="button" id="mute-btn" aria-label="Mute"><i class="fas fa-volume-up"></i></button>
+              <button class="control-btn" type="button" id="prev-btn" aria-label="Previous"><i class="fas fa-step-backward"></i></button>
+              <button class="control-btn primary" type="button" id="play-btn" aria-label="Play"><i class="fas fa-play"></i></button>
+              <button class="control-btn" type="button" id="next-btn" aria-label="Next"><i class="fas fa-step-forward"></i></button>
+              <span class="control-spacer"></span>
+              <button class="control-btn" type="button" id="loop-btn" aria-label="Loop"><i class="fas fa-retweet"></i></button>
+              <button class="control-btn" type="button" id="shuffle-btn" aria-label="Shuffle"><i class="fas fa-random"></i></button>
+              <button class="control-btn" type="button" aria-label="Playlist"><i class="fas fa-list-ul"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="playlist" id="playlist" aria-label="Playlist"></div>
+      </div>
+      <audio id="music-audio" preload="metadata"></audio>
+    </section>
+
+    <aside class="music-side">
+      <section class="music-card profile-card">
+        <div class="profile-cover">
+          <img src="/images/newnewlogo.png" alt="moyuan">
+          <span class="profile-note"><i class="fas fa-music"></i></span>
+        </div>
+        <h3>moyuan</h3>
+        <p>programing or coffee</p>
+        <div class="profile-stats">
+          <span>&#25991;&#31456;<strong>39</strong></span>
+          <span>&#26631;&#31614;<strong>45</strong></span>
+          <span>&#20998;&#31867;<strong>12</strong></span>
+        </div>
+        <a class="follow-btn" href="https://github.com/moyuan10086" target="_blank" rel="noopener"><i class="fab fa-github"></i> Follow Me</a>
+        <div class="profile-links">
+          <a href="https://github.com/moyuan10086" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="mailto:2572045628@qq.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </section>
+      <section class="music-card notice-card">
+        <div>
+          <h3><i class="fas fa-bullhorn"></i>&#20844;&#21578;</h3>
+          <p>This is my Blog</p>
+        </div>
+        <img src="/music/assets/music-anime-notice.png" alt="">
+      </section>
+    </aside>
+  </main>
+
+  <div class="quick-rail" aria-label="Quick actions">
+    <button type="button" id="mini-play" aria-label="Play"><i class="fas fa-music"></i></button>
+    <a href="#page-header" aria-label="Top"><i class="fas fa-arrow-up"></i></a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var musicTracks = [
+    { name: '\u7231\u5230\u5c3d\u5934', artist: '\u963f\u91ce', file: '\u7231\u5230\u5c3d\u5934 - \u963f\u91ce.mp3', lrc: '\u7231\u5230\u5c3d\u5934 - \u963f\u91ce.lrc', cover: '/music/covers/track-01.jpg' },
+    { name: '\u8f9e\u5bb6\u5343\u91cc\u53c8\u5343\u91cc', artist: '\u8c46\u8c46\u3001\u4e50\u5ca9', file: '\u8f9e\u5bb6\u5343\u91cc\u53c8\u5343\u91cc - \u8c46\u8c46\u3001\u4e50\u5ca9.mp3', lrc: '\u8f9e\u5bb6\u5343\u91cc\u53c8\u5343\u91cc - \u8c46\u8c46\u3001\u4e50\u5ca9.lrc', cover: '/music/covers/track-02.jpg' },
+    { name: '\u5355\u4eba\u5238', artist: '\u5218\u4e00\u751f', file: '\u5355\u4eba\u5238 (\u5408\u5531live\u7248) - \u5218\u4e00\u751f.mp3', lrc: '\u5355\u4eba\u5238 (\u5408\u5531live\u7248) - \u5218\u4e00\u751f.lrc', cover: '/music/covers/track-03.jpg' },
+    { name: '\u5815', artist: '\u661f\u706b\u793e', file: '\u5815 (\u5408\u5531\u7248) - \u661f\u706b\u793e.mp3', lrc: '\u5815 (\u5408\u5531\u7248) - \u661f\u706b\u793e.lrc', cover: '/music/covers/track-04.jpg' },
+    { name: '\u660e\u65e5\u5750\u6807', artist: '\u6797\u4fca\u6770\u3001\u738b\u8005\u8363\u8000', file: '\u660e\u65e5\u5750\u6807 - \u6797\u4fca\u6770\u3001\u738b\u8005\u8363\u8000.mp3', lrc: '\u660e\u65e5\u5750\u6807 - \u6797\u4fca\u6770\u3001\u738b\u8005\u8363\u8000.lrc', cover: '/music/covers/track-05.jpg' },
+    { name: '\u9752\u5c71\u5dc5', artist: '\u9648\u78d0\u3001\u82cf\u5ff5', file: '\u9752\u5c71\u5dc5 (\u7537\u5973\u5408\u5531) - \u9648\u78d0\u3001\u82cf\u5ff5.mp3', lrc: '\u9752\u5c71\u5dc5 (\u7537\u5973\u5408\u5531) - \u9648\u78d0\u3001\u82cf\u5ff5.lrc', cover: '/music/covers/track-06.jpg' },
+    { name: '\u9752\u8863', artist: '\u8349\u5e3d\u9171\u3001DJ\u963f\u6cfd', file: '\u9752\u8863 (DJ\u963f\u6cfd\u7248) - \u8349\u5e3d\u9171\u3001DJ\u963f\u6cfd.mp3', lrc: '\u9752\u8863 (DJ\u963f\u6cfd\u7248) - \u8349\u5e3d\u9171\u3001DJ\u963f\u6cfd.lrc', cover: '/music/covers/track-07.jpg' },
+    { name: '\u4e07\u7586', artist: '\u674e\u7389\u521a', file: '\u4e07\u7586 - \u674e\u7389\u521a.mp3', lrc: '\u4e07\u7586 - \u674e\u7389\u521a.lrc', cover: '/music/covers/track-08.jpg' },
+    { name: '\u6211\u773c\u91cc\u7684\u96e8', artist: '\u674e\u6797\u5915', file: '\u6211\u773c\u91cc\u7684\u96e8 - \u674e\u6797\u5915.mp3', lrc: '\u6211\u773c\u91cc\u7684\u96e8 - \u674e\u6797\u5915.lrc', cover: '/music/covers/track-09.jpg' },
+    { name: '\u4e00\u70b9\u70b9', artist: '\u8463\u5527\u5527\u3001\u828a\u828a\u9f8d', file: '\u4e00\u70b9\u70b9 (\u4e3a\u4ec0\u4e48\u665a\u4e0a\u603b\u662f\u6709\u661f\u661f) - \u8463\u5527\u5527\u3001\u828a\u828a\u9f8d.mp3', lrc: '\u4e00\u70b9\u70b9 (\u4e3a\u4ec0\u4e48\u665a\u4e0a\u603b\u662f\u6709\u661f\u661f) - \u8463\u5527\u5527\u3001\u828a\u828a\u9f8d.lrc', cover: '/music/covers/track-10.jpg' },
+    { name: '\u6e38\u4eac', artist: '\u5510\u4f2f\u864eAnnie', file: '\u6e38\u4eac (\u59ae\u853b\u8fdb\u884c\u66f2) - \u5510\u4f2f\u864eAnnie.mp3', lrc: '\u6e38\u4eac (\u59ae\u853b\u8fdb\u884c\u66f2) - \u5510\u4f2f\u864eAnnie.lrc', cover: '/music/covers/track-11.jpg' },
+    { name: '\u6709\u4f60\u5728', artist: 'Rosy\u8d75\u9732\u601d', file: '\u6709\u4f60\u5728 (Whatever\u5b98\u65b9\u4e2d\u6587\u7248) - Rosy\u8d75\u9732\u601d.mp3', lrc: '\u6709\u4f60\u5728 (Whatever\u5b98\u65b9\u4e2d\u6587\u7248) - Rosy\u8d75\u9732\u601d.lrc', cover: '/music/covers/track-12.jpg' },
+    { name: '\u865e\u516e\u53f9', artist: '\u95fb\u4eba\u542c\u66f8_', file: '\u865e\u516e\u53f9 - \u95fb\u4eba\u542c\u66f8_.mp3', lrc: '\u865e\u516e\u53f9 - \u95fb\u4eba\u542c\u66f8_.lrc', cover: '/music/covers/track-13.jpg' },
+    { name: '\u53ea\u4e3a\u4f60\u4e00\u7b11', artist: '\u767d\u5927\u767d', file: '\u53ea\u4e3a\u4f60\u4e00\u7b11 - \u767d\u5927\u767d.mp3', lrc: '\u53ea\u4e3a\u4f60\u4e00\u7b11 - \u767d\u5927\u767d.lrc', cover: '/music/covers/track-14.jpg' },
+    { name: 'Fading Light', artist: 'Ulaa\uff08\u5c24\u62c9\uff09', file: 'Fading Light - Ulaa\uff08\u5c24\u62c9\uff09.mp3', lrc: 'Fading Light - Ulaa\uff08\u5c24\u62c9\uff09.lrc', cover: '/music/covers/track-15.jpg' },
+    { name: 'Lose Control', artist: 'Hedley', file: 'Lose Control (Explicit) - Hedley.mp3', lrc: 'Lose Control (Explicit) - Hedley.lrc', cover: '/music/covers/track-16.jpg' },
+    { name: 'Zoo', artist: 'Disney\u3001Shakira', file: 'Zoo (From Zootopia 2) - Disney\u3001Shakira.mp3', lrc: 'Zoo (From Zootopia 2) - Disney\u3001Shakira.lrc', cover: '/music/covers/track-17.jpg' },
+    { name: '\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e47\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32', artist: 'PiXXiE\u3001Zom Marie', file: '\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e47\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32 - PiXXiE\u3001Zom Marie.mp3', lrc: '\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e47\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32 - PiXXiE\u3001Zom Marie.lrc', cover: '/music/covers/track-18.jpg' },
+    { name: '\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e47\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32', artist: 'PiXXiE\u3001Zom Marie', file: '\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e47\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32 (Whatever) - PiXXiE\u3001Zom Marie.mp3', lrc: '\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e47\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32 (Whatever) - PiXXiE\u3001Zom Marie.lrc', cover: '/music/covers/track-19.jpg' }
+  ];
+
+  var audio = document.getElementById('music-audio');
+  var title = document.getElementById('track-title');
+  var artist = document.getElementById('track-artist');
+  var cover = document.getElementById('music-cover');
+  var disc = document.getElementById('music-disc');
+  var playlist = document.getElementById('playlist');
+  var playBtn = document.getElementById('play-btn');
+  var discToggle = document.getElementById('disc-toggle');
+  var miniPlay = document.getElementById('mini-play');
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  var muteBtn = document.getElementById('mute-btn');
+  var loopBtn = document.getElementById('loop-btn');
+  var shuffleBtn = document.getElementById('shuffle-btn');
+  var progress = document.getElementById('progress');
+  var played = document.getElementById('progress-played');
+  var loaded = document.getElementById('progress-loaded');
+  var thumb = document.getElementById('progress-thumb');
+  var currentTime = document.getElementById('current-time');
+  var duration = document.getElementById('duration');
+  var lyricLine = document.getElementById('lyric-line');
+  var subtitle = document.getElementById('track-subtitle');
+  var index = 0;
+  var shuffle = false;
+  var loop = true;
+  var lyrics = [];
+  var isSeeking = false;
+  var isAudioReady = false;
+  var loadToken = 0;
+  var audioBlobUrls = {};
+  var isPlaying = false;
+  var pendingAutoplay = false;
+  var rafId = 0;
+
+  function assetUrl(file) {
+    return '/music/songs/' + encodeURIComponent(file).replace(/%2F/g, '/');
+  }
+
+  function audioUrl(trackIndex) {
+    return '/music/audio-cache/track-' + String(trackIndex + 1).padStart(2, '0') + '.mpga?v=20260505';
+  }
+
+  function formatTime(value) {
+    if (!Number.isFinite(value)) return '00:00';
+    var min = Math.floor(value / 60);
+    var sec = Math.floor(value % 60);
+    return String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+  }
+
+  function icon(name) {
+    return '<i class="fas fa-' + name + '"></i>';
+  }
+
+  function renderPlaylist() {
+    playlist.innerHTML = musicTracks.map(function (track, i) {
+      return '<button type="button" data-index="' + i + '">' +
+        '<span>' + String(i + 1) + '</span>' +
+        '<span class="track-name"></span>' +
+        '<span class="track-artist"></span>' +
+        '<span class="equalizer"><i></i><i></i><i></i></span>' +
+      '</button>';
+    }).join('');
+
+    Array.prototype.forEach.call(playlist.querySelectorAll('button'), function (button, i) {
+      button.querySelector('.track-name').textContent = musicTracks[i].name;
+      button.querySelector('.track-artist').textContent = musicTracks[i].artist;
+      button.addEventListener('click', function () {
+        loadTrack(Number(button.dataset.index), true);
+      });
+    });
+  }
+
+  function updateActive() {
+    Array.prototype.forEach.call(playlist.querySelectorAll('button'), function (button, i) {
+      button.classList.toggle('is-active', i === index);
+    });
+  }
+
+  function parseLyrics(text) {
+    return text.split(/\r?\n/).map(function (line) {
+      var match = line.match(/\[(\d{2}):(\d{2})(?:\.(\d{1,3}))?\](.*)/);
+      if (!match) return null;
+      return {
+        time: Number(match[1]) * 60 + Number(match[2]) + Number('0.' + (match[3] || '0')),
+        text: match[4].trim()
+      };
+    }).filter(Boolean);
+  }
+
+  function loadLyrics(track) {
+    lyrics = [];
+    lyricLine.textContent = '\u6b4c\u8bcd\u52a0\u8f7d\u4e2d...';
+    fetch(assetUrl(track.lrc))
+      .then(function (res) { return res.ok ? res.text() : ''; })
+      .then(function (text) {
+        lyrics = parseLyrics(text);
+        lyricLine.textContent = lyrics[0] ? lyrics[0].text : '\u6682\u65e0\u6b4c\u8bcd';
+      })
+      .catch(function () {
+        lyricLine.textContent = '\u6682\u65e0\u6b4c\u8bcd';
+      });
+  }
+
+  function setPlayingUI(isPlaying) {
+    var playIcon = isPlaying ? 'pause' : 'play';
+    playBtn.innerHTML = icon(playIcon);
+    discToggle.innerHTML = icon(playIcon);
+    miniPlay.innerHTML = icon(isPlaying ? 'pause' : 'music');
+    disc.classList.toggle('is-playing', isPlaying);
+  }
+
+  function getPosition() {
+    return audio.currentTime || 0;
+  }
+
+  function scheduleProgress() {
+    if (rafId) cancelAnimationFrame(rafId);
+    function tick() {
+      var position = getPosition();
+      currentTime.textContent = formatTime(position);
+      if (audio.duration && !isSeeking) setProgressPercent(position / audio.duration * 100);
+      updateLyric();
+      if (!audio.paused) rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function resetProgress() {
+    isPlaying = false;
+    pendingAutoplay = false;
+    audio.pause();
+    audio.removeAttribute('src');
+    audio.load();
+    played.style.width = '0%';
+    loaded.style.width = '0%';
+    thumb.style.left = '0%';
+    currentTime.textContent = '00:00';
+    duration.textContent = '00:00';
+  }
+
+  function playAudio() {
+    pendingAutoplay = false;
+    if (!isAudioReady || !audio.src) {
+      pendingAutoplay = true;
+      subtitle.textContent = '\u6b63\u5728\u52a0\u8f7d\u97f3\u9891...';
+      return;
+    }
+    var playPromise = audio.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(function (error) {
+        pendingAutoplay = error && error.name === 'NotAllowedError';
+        isPlaying = false;
+        if (pendingAutoplay) subtitle.textContent = '\u70b9\u51fb\u9875\u9762\u540e\u5f00\u59cb\u64ad\u653e';
+        setPlayingUI(false);
+      });
+    }
+  }
+
+  function applyAudioSource(src, autoplay) {
+    pendingAutoplay = !!autoplay;
+    audio.src = src;
+    audio.load();
+  }
+
+  function pauseAudio() {
+    pendingAutoplay = false;
+    audio.pause();
+  }
+
+  function setAudioLoadFailed() {
+    isAudioReady = false;
+    pendingAutoplay = false;
+    isPlaying = false;
+    subtitle.textContent = '\u97f3\u9891\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u5237\u65b0\u91cd\u8bd5';
+    setPlayingUI(false);
+  }
+
+  function loadAudio(trackIndex, token, autoplay) {
+    var url = audioUrl(trackIndex);
+    isAudioReady = false;
+    audio.removeAttribute('src');
+    audio.load();
+    subtitle.textContent = '\u6b63\u5728\u52a0\u8f7d\u97f3\u9891...';
+    if (token !== loadToken) return;
+    if (audioBlobUrls[url]) {
+      applyAudioSource(audioBlobUrls[url], autoplay);
+      return;
+    }
+
+    fetch(url, { cache: 'force-cache' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Audio request failed');
+        return res.blob();
+      })
+      .then(function (blob) {
+        if (token !== loadToken) return;
+        if (!blob.size) throw new Error('Audio file is empty');
+        audioBlobUrls[url] = URL.createObjectURL(new Blob([blob], { type: 'audio/mpeg' }));
+        applyAudioSource(audioBlobUrls[url], autoplay);
+      })
+      .catch(function () {
+        if (token !== loadToken) return;
+        setAudioLoadFailed();
+      });
+  }
+
+  function loadTrack(nextIndex, autoplay) {
+    loadToken += 1;
+    index = (nextIndex + musicTracks.length) % musicTracks.length;
+    var track = musicTracks[index];
+    title.textContent = track.name;
+    artist.textContent = track.artist;
+    cover.src = track.cover;
+    resetProgress();
+    setPlayingUI(false);
+    updateActive();
+    loadLyrics(track);
+    loadAudio(index, loadToken, autoplay);
+  }
+
+  function togglePlay() {
+    if (!isAudioReady) {
+      pendingAutoplay = true;
+      subtitle.textContent = '\u6b63\u5728\u52a0\u8f7d\u97f3\u9891...';
+      return;
+    }
+    if (isPlaying) pauseAudio();
+    else playAudio();
+  }
+
+  function finishAudioReady() {
+    if (isAudioReady) return;
+    isAudioReady = true;
+    duration.textContent = formatTime(audio.duration);
+    loaded.style.width = '100%';
+    subtitle.textContent = '\u4eca\u5929\u7684\u6b4c\u5355\u5df2\u5c31\u7eea';
+    if (pendingAutoplay) playAudio();
+  }
+
+  function nextTrack() {
+    var next = shuffle ? Math.floor(Math.random() * musicTracks.length) : index + 1;
+    if (next === index) next = (index + 1) % musicTracks.length;
+    loadTrack(next, true);
+  }
+
+  function prevTrack() {
+    loadTrack(index - 1, true);
+  }
+
+  function updateLyric() {
+    if (!lyrics.length) return;
+    var active = lyrics[0];
+    var position = getPosition();
+    for (var i = 0; i < lyrics.length; i++) {
+      if (lyrics[i].time <= position) active = lyrics[i];
+      else break;
+    }
+    if (active && lyricLine.textContent !== active.text) lyricLine.textContent = active.text;
+  }
+
+  function setProgressPercent(percent) {
+    var value = Math.max(0, Math.min(100, percent));
+    played.style.width = value + '%';
+    thumb.style.left = value + '%';
+  }
+
+  function seekFromEvent(event) {
+    if (!isAudioReady || !audio.duration) return;
+    var rect = progress.getBoundingClientRect();
+    var clientX = event.clientX;
+    var percent = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    var targetTime = percent * audio.duration;
+    audio.currentTime = targetTime;
+    setProgressPercent(percent * 100);
+    currentTime.textContent = formatTime(targetTime);
+    updateLyric();
+  }
+
+  renderPlaylist();
+  loadTrack(0, false);
+
+  [playBtn, discToggle, miniPlay].forEach(function (button) {
+    button.addEventListener('click', togglePlay);
+  });
+  prevBtn.addEventListener('click', prevTrack);
+  nextBtn.addEventListener('click', nextTrack);
+  muteBtn.addEventListener('click', function () {
+    audio.muted = !audio.muted;
+    muteBtn.innerHTML = icon(audio.muted ? 'volume-mute' : 'volume-up');
+  });
+  loopBtn.addEventListener('click', function () {
+    loop = !loop;
+    loopBtn.style.opacity = loop ? '1' : '0.45';
+  });
+  shuffleBtn.addEventListener('click', function () {
+    shuffle = !shuffle;
+    shuffleBtn.style.opacity = shuffle ? '1' : '0.45';
+  });
+  function handleSeekMove(event) {
+    if (!isSeeking) return;
+    event.preventDefault();
+    seekFromEvent(event);
+  }
+
+  function handleSeekEnd(event) {
+    if (!isSeeking) return;
+    event.preventDefault();
+    seekFromEvent(event);
+    isSeeking = false;
+    window.removeEventListener('pointermove', handleSeekMove);
+    window.removeEventListener('pointerup', handleSeekEnd);
+    window.removeEventListener('pointercancel', handleSeekCancel);
+  }
+
+  function handleSeekCancel() {
+    isSeeking = false;
+    window.removeEventListener('pointermove', handleSeekMove);
+    window.removeEventListener('pointerup', handleSeekEnd);
+    window.removeEventListener('pointercancel', handleSeekCancel);
+  }
+
+  progress.addEventListener('pointerdown', function (event) {
+    if (!isAudioReady || !audio.duration) return;
+    event.preventDefault();
+    isSeeking = true;
+    seekFromEvent(event);
+    window.addEventListener('pointermove', handleSeekMove);
+    window.addEventListener('pointerup', handleSeekEnd);
+    window.addEventListener('pointercancel', handleSeekCancel);
+  });
+  audio.addEventListener('loadedmetadata', finishAudioReady);
+  audio.addEventListener('loadeddata', finishAudioReady);
+  audio.addEventListener('canplay', finishAudioReady);
+  audio.addEventListener('durationchange', function () {
+    if (Number.isFinite(audio.duration)) finishAudioReady();
+  });
+  document.addEventListener('pointerdown', function () {
+    if (pendingAutoplay && isAudioReady && audio.paused) playAudio();
+  });
+  document.addEventListener('keydown', function () {
+    if (pendingAutoplay && isAudioReady && audio.paused) playAudio();
+  });
+  audio.addEventListener('play', function () {
+    isPlaying = true;
+    setPlayingUI(true);
+    scheduleProgress();
+  });
+  audio.addEventListener('pause', function () {
+    isPlaying = false;
+    setPlayingUI(false);
+  });
+  audio.addEventListener('timeupdate', function () {
+    currentTime.textContent = formatTime(audio.currentTime);
+    if (audio.duration && !isSeeking) setProgressPercent(audio.currentTime / audio.duration * 100);
+    updateLyric();
+  });
+  audio.addEventListener('ended', function () {
+    isPlaying = false;
+    if (loop) nextTrack();
+    else setPlayingUI(false);
+  });
+  audio.addEventListener('error', setAudioLoadFailed);
+})();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/04/%E8%80%83%E7%A0%94%E6%A6%82%E7%8E%87%E8%AE%BA-%E5%88%86%E5%B8%83%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" title="考研概率论：分布的物理意义与直觉模型"><img src="/images/post-covers/post-cover-11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="考研概率论：分布的物理意义与直觉模型"/></a><div class="content"><a class="title" href="/2026/05/04/%E8%80%83%E7%A0%94%E6%A6%82%E7%8E%87%E8%AE%BA-%E5%88%86%E5%B8%83%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" title="考研概率论：分布的物理意义与直觉模型">考研概率论：分布的物理意义与直觉模型</a><time datetime="2026-05-03T16:00:00.000Z" title="发表于 2026-05-04 00:00:00">2026-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/25%E5%B9%B4953%E8%80%83%E7%A0%94%E4%B8%93%E4%B8%9A%E8%AF%BE%E9%83%A8%E5%88%86%E7%9C%9F%E9%A2%98/" title="西电25年953考研专业课部分真题解析"><img src="/images/post-covers/post-cover-17.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西电25年953考研专业课部分真题解析"/></a><div class="content"><a class="title" href="/2025/08/21/25%E5%B9%B4953%E8%80%83%E7%A0%94%E4%B8%93%E4%B8%9A%E8%AF%BE%E9%83%A8%E5%88%86%E7%9C%9F%E9%A2%98/" title="西电25年953考研专业课部分真题解析">西电25年953考研专业课部分真题解析</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/Floyd-Warshall%E7%AE%97%E6%B3%95%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" title="Floyd-Warshall（弗洛伊德）算法考研笔记"><img src="/images/post-covers/post-cover-01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Floyd-Warshall（弗洛伊德）算法考研笔记"/></a><div class="content"><a class="title" href="/2025/08/21/Floyd-Warshall%E7%AE%97%E6%B3%95%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" title="Floyd-Warshall（弗洛伊德）算法考研笔记">Floyd-Warshall（弗洛伊德）算法考研笔记</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" title="卡特兰数"><img src="/images/post-covers/post-cover-18.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="卡特兰数"/></a><div class="content"><a class="title" href="/2025/08/21/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" title="卡特兰数">卡特兰数</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/%E7%AC%AC%E4%B8%89%E6%AC%A1%E7%BB%84%E4%BC%9A%E6%B1%87%E6%8A%A5-LLM%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%8EMCP%E5%B0%81%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="第三次组会汇报：LLM 安全测试与 MCP 封装实践"><img src="/images/post-covers/post-cover-09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第三次组会汇报：LLM 安全测试与 MCP 封装实践"/></a><div class="content"><a class="title" href="/2025/08/21/%E7%AC%AC%E4%B8%89%E6%AC%A1%E7%BB%84%E4%BC%9A%E6%B1%87%E6%8A%A5-LLM%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%8EMCP%E5%B0%81%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="第三次组会汇报：LLM 安全测试与 MCP 封装实践">第三次组会汇报：LLM 安全测试与 MCP 封装实践</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">Web安全</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/"><span class="card-category-list-name">Windows服务器</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="card-category-list-name">密码学</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/"><span class="card-category-list-name">科研</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">大模型安全</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">系统安全</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%80%83%E7%A0%94/"><span class="card-category-list-name">考研</span><span class="card-category-list-count">5</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.1em; color: #999">恶意程序</a> <a href="/tags/LFSR/" style="font-size: 1.1em; color: #999">LFSR</a> <a href="/tags/%E6%B5%81%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">流密码</a> <a href="/tags/DSS/" style="font-size: 1.1em; color: #999">DSS</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">数据结构</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 1.2em; color: #999da3">数字签名</a> <a href="/tags/LLM/" style="font-size: 1.1em; color: #999">LLM</a> <a href="/tags/ElGamal/" style="font-size: 1.2em; color: #999da3">ElGamal</a> <a href="/tags/%E7%9C%9F%E9%A2%98/" style="font-size: 1.1em; color: #999">真题</a> <a href="/tags/%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86/" style="font-size: 1.1em; color: #999">公钥加密</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">公式</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/" style="font-size: 1.1em; color: #999">椭圆曲线</a> <a href="/tags/Yakit/" style="font-size: 1.1em; color: #999">Yakit</a> <a href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.2em; color: #999da3">Windows服务器</a> <a href="/tags/XSS/" style="font-size: 1.1em; color: #999">XSS</a> <a href="/tags/Hash/" style="font-size: 1.1em; color: #999">Hash</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">病毒</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">计算机网络，数据结构</a> <a href="/tags/MCP/" style="font-size: 1.1em; color: #999">MCP</a> <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.1em; color: #999">概率论</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 1.4em; color: #99a5b6">考研</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.2em; color: #999da3">算法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.1em; color: #999">图论</a> <a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">溢出</a> <a href="/tags/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">分组密码</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">组合数学</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/garak/" style="font-size: 1.1em; color: #999">garak</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" style="font-size: 1.3em; color: #99a1ac">系统安全</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 1.1em; color: #999">复习</a> <a href="/tags/%E7%BE%A4%E9%9B%86/" style="font-size: 1.2em; color: #999da3">群集</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.2em; color: #999da3">Web安全</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/Rootkit/" style="font-size: 1.1em; color: #999">Rootkit</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/07/">
+            <span class="card-archive-list-date">
+              七月 2024
+            </span>
+            <span class="card-archive-list-count">22</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/02/">
+            <span class="card-archive-list-date">
+              二月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-18T02:31:16.939Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

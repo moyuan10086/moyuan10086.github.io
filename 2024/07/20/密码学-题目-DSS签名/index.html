@@ -1,0 +1,629 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>密码学题目 - DSS数字签名标准 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="在数字签名标准DSS中，设q&#x3D;13，p&#x3D;4q+1&#x3D;53，g&#x3D;16，签名者的私钥x&#x3D;3，公钥y&#x3D;16^3 mod 53&#x3D;15，消息m的Hash值为5，试给出选取随机数k&#x3D;2时的签名和验证过程。在数字签名标准（DSS）中，签名和验证过程涉及计算签名值和验证签名的有效性。让我们一步步进行计算。 给定参数 q &#x3D; 13 p &#x3D; 4q + 1 &#x3D; 4 \times 13 + 1 &#x3D; 53 g &#x3D; 16 私钥">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学题目 - DSS数字签名标准">
+<meta property="og:url" content="https://moyuan10086.github.io/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-DSS%E7%AD%BE%E5%90%8D/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="在数字签名标准DSS中，设q&#x3D;13，p&#x3D;4q+1&#x3D;53，g&#x3D;16，签名者的私钥x&#x3D;3，公钥y&#x3D;16^3 mod 53&#x3D;15，消息m的Hash值为5，试给出选取随机数k&#x3D;2时的签名和验证过程。在数字签名标准（DSS）中，签名和验证过程涉及计算签名值和验证签名的有效性。让我们一步步进行计算。 给定参数 q &#x3D; 13 p &#x3D; 4q + 1 &#x3D; 4 \times 13 + 1 &#x3D; 53 g &#x3D; 16 私钥">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-03.jpg">
+<meta property="article:published_time" content="2024-07-19T16:38:49.000Z">
+<meta property="article:modified_time" content="2026-05-03T21:11:07.782Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="密码学">
+<meta property="article:tag" content="DSS">
+<meta property="article:tag" content="数字签名">
+<meta property="article:tag" content="Hash">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-03.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "密码学题目 - DSS数字签名标准",
+  "url": "https://moyuan10086.github.io/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-DSS%E7%AD%BE%E5%90%8D/",
+  "image": "https://moyuan10086.github.io/images/post-covers/post-cover-03.jpg",
+  "datePublished": "2024-07-19T16:38:49.000Z",
+  "dateModified": "2026-05-03T21:11:07.782Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-DSS%E7%AD%BE%E5%90%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '密码学题目 - DSS数字签名标准',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/post-covers/post-cover-03.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">密码学题目 - DSS数字签名标准</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">密码学题目 - DSS数字签名标准</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-19T16:38:49.000Z" title="发表于 2024-07-20 00:38:49">2024-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-03T21:11:07.782Z" title="更新于 2026-05-04 05:11:07">2026-05-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="在数字签名标准DSS中，设q-13，p-4q-1-53，g-16，签名者的私钥x-3，公钥y-16-3-mod-53-15，消息m的Hash值为5，试给出选取随机数k-2时的签名和验证过程。"><a href="#在数字签名标准DSS中，设q-13，p-4q-1-53，g-16，签名者的私钥x-3，公钥y-16-3-mod-53-15，消息m的Hash值为5，试给出选取随机数k-2时的签名和验证过程。" class="headerlink" title="在数字签名标准DSS中，设q=13，p=4q+1=53，g=16，签名者的私钥x=3，公钥y=16^3 mod 53=15，消息m的Hash值为5，试给出选取随机数k=2时的签名和验证过程。"></a>在数字签名标准DSS中，设q=13，p=4q+1=53，g=16，签名者的私钥x=3，公钥y=16^3 mod 53=15，消息m的Hash值为5，试给出选取随机数k=2时的签名和验证过程。</h2><p>在数字签名标准（DSS）中，签名和验证过程涉及计算签名值和验证签名的有效性。让我们一步步进行计算。</p>
+<h3 id="给定参数"><a href="#给定参数" class="headerlink" title="给定参数"></a>给定参数</h3><ul>
+<li><script type="math/tex; mode=display">q = 13</script></li>
+<li><script type="math/tex; mode=display">p = 4q + 1 = 4 \times 13 + 1 = 53</script></li>
+<li><script type="math/tex; mode=display">g = 16</script></li>
+<li>私钥 <script type="math/tex">x = 3</script></li>
+<li>公钥 <script type="math/tex">y = 16^3 \mod 53 = 15</script></li>
+<li>消息的 Hash 值 <script type="math/tex">h(m) = 5</script></li>
+<li>随机数 <script type="math/tex">k = 2</script></li>
+</ul>
+<h3 id="签名过程"><a href="#签名过程" class="headerlink" title="签名过程"></a>签名过程</h3><ol>
+<li><p><strong>计算 <script type="math/tex">r</script></strong></p>
+<script type="math/tex; mode=display">
+r = (g^k \mod p) \mod q</script><p>代入已知值：</p>
+<script type="math/tex; mode=display">
+r = (16^2 \mod 53) \mod 13</script><p>计算 <script type="math/tex">16^2 \mod 53</script>：</p>
+<script type="math/tex; mode=display">
+16^2 = 256</script><p>然后取模 <script type="math/tex">p</script>：</p>
+<script type="math/tex; mode=display">
+256 \mod 53 = 44</script><p>然后取模 <script type="math/tex">q</script>：</p>
+<script type="math/tex; mode=display">
+44 \mod 13 = 5</script><p>所以，<script type="math/tex">r = 5</script>。</p>
+</li>
+<li><p><strong>计算 <script type="math/tex">s</script></strong></p>
+<script type="math/tex; mode=display">
+s = k^{-1} (h(m) + xr) \mod q</script><p>这里，<script type="math/tex">k^{-1}</script> 是 <script type="math/tex">k</script> 的模逆元，满足 <script type="math/tex">k \times k^{-1} \equiv 1 \pmod{q}</script>。</p>
+<p>计算 <script type="math/tex">k^{-1} \mod 13</script>：</p>
+<script type="math/tex; mode=display">
+k = 2 \Rightarrow 2 \times k^{-1} \equiv 1 \pmod{13}</script><p>用扩展欧几里得算法求解，得到 <script type="math/tex">k^{-1} = 7</script>，因为 <script type="math/tex">2 \times 7 \equiv 14 \equiv 1 \mod 13</script>。</p>
+<p>然后计算 <script type="math/tex">s</script>：</p>
+<script type="math/tex; mode=display">
+s = 7 \times (5 + 3 \times 5) \mod 13</script><p>先计算括号内的值：</p>
+<script type="math/tex; mode=display">
+5 + 3 \times 5 = 5 + 15 = 20</script><p>然后计算 <script type="math/tex">s</script>：</p>
+<script type="math/tex; mode=display">
+s = 7 \times 20 \mod 13</script><p>计算 <script type="math/tex">7 \times 20 = 140</script>，然后取模：</p>
+<script type="math/tex; mode=display">
+140 \mod 13 = 10</script><p>所以签名 <script type="math/tex">(r, s)</script> 为 <script type="math/tex">(5, 10)</script>。</p>
+</li>
+</ol>
+<h3 id="验证过程"><a href="#验证过程" class="headerlink" title="验证过程"></a>验证过程</h3><p>验证签名需要验证以下等式：</p>
+<script type="math/tex; mode=display">
+v = (g^u1 \cdot y^u2 \mod p) \mod q</script><p>其中：</p>
+<script type="math/tex; mode=display">
+u1 = h(m) \cdot s^{-1} \mod q</script><script type="math/tex; mode=display">
+u2 = r \cdot s^{-1} \mod q</script><ol>
+<li><p><strong>计算 <script type="math/tex">s^{-1}</script></strong><br>由于 <script type="math/tex">s = 10</script>，我们需要计算 <script type="math/tex">s^{-1} \mod 13</script>：</p>
+<script type="math/tex; mode=display">
+10 \times s^{-1} \equiv 1 \pmod{13}</script><p>通过扩展欧几里得算法，可以求得 <script type="math/tex">s^{-1} = 4</script>，因为 <script type="math/tex">10 \times 4 = 40 \equiv 1 \mod 13</script>。</p>
+</li>
+<li><p><strong>计算 <script type="math/tex">u1</script> 和 <script type="math/tex">u2</script></strong></p>
+<script type="math/tex; mode=display">
+u1 = 5 \cdot 4 \mod 13 = 20 \mod 13 = 7</script><script type="math/tex; mode=display">
+u2 = 5 \cdot 4 \mod 13 = 20 \mod 13 = 7</script></li>
+<li><p><strong>计算 <script type="math/tex">v</script></strong></p>
+<script type="math/tex; mode=display">
+v = (g^{u1} \cdot y^{u2} \mod p) \mod q</script><p>代入已知值：</p>
+<script type="math/tex; mode=display">
+v = (16^7 \cdot 15^7 \mod 53) \mod 13</script><p>计算 <script type="math/tex">16^7 \mod 53</script> 和 <script type="math/tex">15^7 \mod 53</script> ：</p>
+<p>使用快速幂计算 <script type="math/tex">16^7 \mod 53</script>：</p>
+<script type="math/tex; mode=display">
+16^2 \equiv 44 \mod 53</script><script type="math/tex; mode=display">
+16^4 \equiv 44^2 = 1936 \equiv 28 \mod 53</script><script type="math/tex; mode=display">
+16^7 \equiv 16^4 \cdot 16^2 \cdot 16 = 28 \cdot 44 \cdot 16 = 19712 \equiv 49 \mod 53</script><p>使用快速幂计算 <script type="math/tex">15^7 \mod 53</script>：</p>
+<script type="math/tex; mode=display">
+15^2 \equiv 225 \equiv 13 \mod 53</script><script type="math/tex; mode=display">
+15^4 \equiv 13^2 = 169 \equiv 10 \mod 53</script><script type="math/tex; mode=display">
+15^7 \equiv 15^4 \cdot 15^2 \cdot 15 = 10 \cdot 13 \cdot 15 = 1950 \equiv 42 \mod 53</script><p>计算 <script type="math/tex">49 \cdot 42 \mod 53</script>：</p>
+<script type="math/tex; mode=display">
+49 \cdot 42 = 405 \equiv 44 \mod 53</script><p>计算 <script type="math/tex">44 \mod 13</script>:</p>
+<script type="math/tex; mode=display">
+44 \mod 13 = 5</script></li>
+</ol>
+<p>由于计算得到 <script type="math/tex">v = 5</script>，这与 <script type="math/tex">r = 5</script> 相等，签名验证通过。</p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><ul>
+<li>签名 <script type="math/tex">(r, s) = (5, 10)</script></li>
+<li>验证通过，签名有效。</li>
+</ul>
+<h3 id="数字签名标准（DSS）和ElGamal签名的区别"><a href="#数字签名标准（DSS）和ElGamal签名的区别" class="headerlink" title="数字签名标准（DSS）和ElGamal签名的区别"></a>数字签名标准（DSS）和ElGamal签名的区别</h3><h4 id="数字签名标准（DSS）"><a href="#数字签名标准（DSS）" class="headerlink" title="数字签名标准（DSS）"></a>数字签名标准（DSS）</h4><p>数字签名标准（DSS，Digital Signature Standard）是由美国国家标准技术研究院（NIST）开发并由美国联邦政府采用的数字签名标准。DSS 主要包含了 DSA（Digital Signature Algorithm，数字签名算法）。</p>
+<p><strong>主要特点</strong>：</p>
+<ol>
+<li><p><strong>基础算法</strong>：DSA</p>
+<ul>
+<li>DSA 是 DSS 的核心算法，基于离散对数问题，使用模数 <script type="math/tex">p</script> 和子模数 <script type="math/tex">q</script>。</li>
+</ul>
+</li>
+<li><p><strong>签名过程</strong>：</p>
+<ul>
+<li><strong>参数选择</strong>：<ul>
+<li>素数 <script type="math/tex">p</script>，通常为1024到3072位。</li>
+<li>素数 <script type="math/tex">q</script>，通常为160到256位，且 <script type="math/tex">q \mid (p-1)</script>。</li>
+<li>生成元 <script type="math/tex">g</script>，其中 <script type="math/tex">g = h^{(p-1)/q} \mod p</script>，且 <script type="math/tex">h</script> 为模 <script type="math/tex">p</script> 的一个元素。</li>
+</ul>
+</li>
+<li><strong>密钥生成</strong>：<ul>
+<li>私钥 <script type="math/tex">x</script>，随机选择，满足 <script type="math/tex">0 < x < q</script>。</li>
+<li>公钥 <script type="math/tex">y = g^x \mod p</script>。</li>
+</ul>
+</li>
+<li><strong>签名生成</strong>：<ul>
+<li>随机数 <script type="math/tex">k</script>，满足 <script type="math/tex">0 < k < q</script>。</li>
+<li>计算 <script type="math/tex">r = (g^k \mod p) \mod q</script>。</li>
+<li>计算 <script type="math/tex">s = k^{-1} (h(m) + xr) \mod q</script>，其中 <script type="math/tex">h(m)</script> 是消息的哈希值。</li>
+</ul>
+</li>
+<li><strong>签名</strong>：签名结果为 <script type="math/tex">(r, s)</script>。</li>
+</ul>
+</li>
+<li><p><strong>验证过程</strong>：</p>
+<ul>
+<li>验证签名 <script type="math/tex">(r, s)</script> 的有效性：<ul>
+<li>检查 <script type="math/tex">0 < r < q</script> 和 <script type="math/tex">0 < s < q</script>。</li>
+<li>计算 <script type="math/tex">w = s^{-1} \mod q</script>。</li>
+<li>计算 <script type="math/tex">u1 = h(m) \cdot w \mod q</script>。</li>
+<li>计算 <script type="math/tex">u2 = r \cdot w \mod q</script>。</li>
+<li>计算 <script type="math/tex">v = (g^{u1} \cdot y^{u2} \mod p) \mod q</script>。</li>
+<li>签名有效当且仅当 <script type="math/tex">v = r</script>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="ElGamal签名"><a href="#ElGamal签名" class="headerlink" title="ElGamal签名"></a>ElGamal签名</h4><p>ElGamal签名方案是基于离散对数问题的一种数字签名算法，与ElGamal加密算法有相似的数学基础，但用于签名。</p>
+<p><strong>主要特点</strong>：</p>
+<ol>
+<li><p><strong>基础算法</strong>：ElGamal签名</p>
+<ul>
+<li>ElGamal签名基于离散对数问题，使用模数 <script type="math/tex">p</script> 和生成元 <script type="math/tex">g</script>。</li>
+</ul>
+</li>
+<li><p><strong>签名过程</strong>：</p>
+<ul>
+<li><strong>参数选择</strong>：<ul>
+<li>素数 <script type="math/tex">p</script>，通常为1024到3072位。</li>
+<li>生成元 <script type="math/tex">g</script>，模 <script type="math/tex">p</script> 的一个原根。</li>
+</ul>
+</li>
+<li><strong>密钥生成</strong>：<ul>
+<li>私钥 <script type="math/tex">x</script>，随机选择，满足 <script type="math/tex">0 < x < p-1</script>。</li>
+<li>公钥 <script type="math/tex">y = g^x \mod p</script>。</li>
+</ul>
+</li>
+<li><strong>签名生成</strong>：<ul>
+<li>随机数 <script type="math/tex">k</script>，满足 <script type="math/tex">0 < k < p-1</script> 且 <script type="math/tex">k</script> 与 <script type="math/tex">p-1</script> 互素。</li>
+<li>计算 <script type="math/tex">r = g^k \mod p</script>。</li>
+<li>计算 <script type="math/tex">s = k^{-1} (h(m) - xr) \mod (p-1)</script>，其中 <script type="math/tex">h(m)</script> 是消息的哈希值。</li>
+</ul>
+</li>
+<li><strong>签名</strong>：签名结果为 <script type="math/tex">(r, s)</script>。</li>
+</ul>
+</li>
+<li><p><strong>验证过程</strong>：</p>
+<ul>
+<li>验证签名 <script type="math/tex">(r, s)</script> 的有效性：<ul>
+<li>计算 <script type="math/tex">v1 = g^{h(m)} \mod p</script>。</li>
+<li>计算 <script type="math/tex">v2 = y^r \cdot r^s \mod p</script>。</li>
+<li>签名有效当且仅当 <script type="math/tex">v1 = v2</script>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>DSS</th>
+<th>ElGamal签名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心算法</td>
+<td>DSA</td>
+<td>基于ElGamal的签名算法</td>
+</tr>
+<tr>
+<td>参数结构</td>
+<td><script type="math/tex">p</script>、<script type="math/tex">q</script>、<script type="math/tex">g</script></td>
+<td><script type="math/tex">p</script>、<script type="math/tex">g</script></td>
+</tr>
+<tr>
+<td>私钥和公钥</td>
+<td>私钥 <script type="math/tex">x</script>，公钥 <script type="math/tex">y = g^x \mod p</script></td>
+<td>私钥 <script type="math/tex">x</script>，公钥 <script type="math/tex">y = g^x \mod p</script></td>
+</tr>
+<tr>
+<td>签名公式</td>
+<td><script type="math/tex">r = (g^k \mod p) \mod q</script></td>
+<td><script type="math/tex">r = g^k \mod p</script></td>
+</tr>
+<tr>
+<td></td>
+<td><script type="math/tex">s = k^{-1} (h(m) + xr) \mod q</script></td>
+<td><script type="math/tex">s = k^{-1} (h(m) - xr) \mod (p-1)</script></td>
+</tr>
+<tr>
+<td>签名验证</td>
+<td><script type="math/tex">v = (g^{u1} \cdot y^{u2} \mod p) \mod q</script></td>
+<td><script type="math/tex">v1 = g^{h(m)} \mod p</script> <script type="math/tex">\ v2 = y^r \cdot r^s \mod p</script></td>
+</tr>
+<tr>
+<td>签名结果</td>
+<td><script type="math/tex">(r, s)</script></td>
+<td><script type="math/tex">(r, s)</script></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>DSS</strong>：包括 DSA 算法，使用模数 <script type="math/tex">p</script> 和子模数 <script type="math/tex">q</script>，签名和验证过程中涉及更多的模运算。主要由 NIST 标准化，用于数字签名。</li>
+<li><strong>ElGamal签名</strong>：使用模数 <script type="math/tex">p</script> 和生成元 <script type="math/tex">g</script>，签名和验证过程相对简单一些。基于 ElGamal 离散对数问题。</li>
+</ul>
+<p>这两种算法在数学基础上有相似之处，但在具体签名和验证过程中存在细节上的差异。选择哪种算法取决于具体的应用需求和安全要求。</p>
+<h3 id="什么是Hash函数？"><a href="#什么是Hash函数？" class="headerlink" title="什么是Hash函数？"></a>什么是Hash函数？</h3><p><strong>定义</strong>：<br>Hash函数是一种将任意长度的输入（称为消息）通过算法变换成固定长度的输出（称为哈希值或消息摘要）的函数。这个输出通常用来确保数据的完整性和真实性。</p>
+<h3 id="Hash函数的基本要求"><a href="#Hash函数的基本要求" class="headerlink" title="Hash函数的基本要求"></a>Hash函数的基本要求</h3><ol>
+<li><strong>输入长度可变</strong>：可以处理任意长度的输入消息。</li>
+<li><strong>输出长度固定</strong>：输出的哈希值长度是固定的，通常是一个较短的位串（如128位、160位、256位等）。</li>
+<li><strong>计算高效</strong>：对任意给定的输入，计算其哈希值应该是快速和高效的。</li>
+<li><strong>确定性</strong>：对于相同的输入，总是产生相同的输出哈希值。</li>
+</ol>
+<h3 id="Hash函数的安全性要求"><a href="#Hash函数的安全性要求" class="headerlink" title="Hash函数的安全性要求"></a>Hash函数的安全性要求</h3><ol>
+<li><p><strong>单向性（Pre-image Resistance）</strong>：</p>
+<ul>
+<li>给定一个哈希值y，找到一个输入x，使得h(x) = y，在计算上应该是不可行的。</li>
+<li>单向性确保攻击者无法从哈希值反推原始输入。</li>
+</ul>
+</li>
+<li><p><strong>弱抗碰撞性（Second Pre-image Resistance）</strong>：</p>
+<ul>
+<li>给定一个输入x1，找到一个不同的输入x2，使得h(x1) = h(x2)，在计算上应该是不可行的。</li>
+<li>弱抗碰撞性防止攻击者找到与特定消息具有相同哈希值的另一条消息。</li>
+</ul>
+</li>
+<li><p><strong>强抗碰撞性（Collision Resistance）</strong>：</p>
+<ul>
+<li>找到任意两条不同的输入x1和x2，使得h(x1) = h(x2)，在计算上应该是不可行的。</li>
+<li>强抗碰撞性防止攻击者找到任意两条具有相同哈希值的消息，确保哈希值唯一对应一条消息。</li>
+</ul>
+</li>
+</ol>
+<h3 id="额外的安全性要求（扩展）"><a href="#额外的安全性要求（扩展）" class="headerlink" title="额外的安全性要求（扩展）"></a>额外的安全性要求（扩展）</h3><ol>
+<li><p><strong>扩展抗性</strong>：</p>
+<ul>
+<li>哈希函数应该能够防止“长度扩展攻击”，即攻击者不能利用h(x)和x的部分信息推导出h(x||m)，其中||表示连接操作。</li>
+</ul>
+</li>
+<li><p><strong>随机分布性</strong>：</p>
+<ul>
+<li>哈希函数的输出应该表现得像随机分布，确保输入的微小变化会导致输出的显著变化（雪崩效应）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="常见的Hash函数"><a href="#常见的Hash函数" class="headerlink" title="常见的Hash函数"></a>常见的Hash函数</h3><ul>
+<li><strong>MD5</strong>：输出128位哈希值，已被发现存在安全漏洞，不推荐用于安全应用。</li>
+<li><strong>SHA-1</strong>：输出160位哈希值，也已被发现存在安全漏洞，不推荐用于安全应用。</li>
+<li><strong>SHA-2</strong>：包括SHA-224、SHA-256、SHA-384、SHA-512等，输出长度分别为224位、256位、384位、512位，被广泛使用并被认为安全。</li>
+<li><strong>SHA-3</strong>：一种基于Keccak算法的哈希函数，设计用于替代SHA-2，提供更高的安全性。</li>
+</ul>
+<p>Hash函数在密码学和信息安全中扮演着重要角色，广泛应用于数据完整性验证、数字签名、消息认证码（MAC）和其他安全协议中。确保Hash函数的安全性是保障整体系统安全的关键。</p>
+<h3 id="MD5和SHA-1的相同点和不同点"><a href="#MD5和SHA-1的相同点和不同点" class="headerlink" title="MD5和SHA-1的相同点和不同点"></a>MD5和SHA-1的相同点和不同点</h3><h4 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h4><ol>
+<li><p><strong>用途</strong>：</p>
+<ul>
+<li>都是常见的密码学Hash函数，用于生成固定长度的消息摘要。</li>
+<li>主要用于数据完整性验证、数字签名、消息认证码等应用。</li>
+</ul>
+</li>
+<li><p><strong>基本属性</strong>：</p>
+<ul>
+<li>都能处理任意长度的输入消息。</li>
+<li>都生成固定长度的输出：MD5生成128位哈希值，SHA-1生成160位哈希值。</li>
+<li>都是迭代型哈希函数，利用压缩函数处理固定长度的消息分组。</li>
+</ul>
+</li>
+<li><p><strong>结构</strong>：</p>
+<ul>
+<li>都使用Merkl-Damgård结构，通过将消息分块并逐块处理来生成最终的哈希值。</li>
+<li>都采用了初始向量（Initial Vector, IV）作为开始状态。</li>
+</ul>
+</li>
+</ol>
+<h4 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h4><ol>
+<li><p><strong>安全性</strong>：</p>
+<ul>
+<li><strong>MD5</strong>：已被广泛认为是不安全的。存在碰撞漏洞，攻击者可以找到不同的输入产生相同的哈希值。</li>
+<li><strong>SHA-1</strong>：尽管比MD5更安全，但也已被发现存在碰撞漏洞。NIST已停止对SHA-1的认证，建议使用更安全的SHA-2或SHA-3。</li>
+</ul>
+</li>
+<li><p><strong>输出长度</strong>：</p>
+<ul>
+<li><strong>MD5</strong>：输出128位（16字节）的哈希值。</li>
+<li><strong>SHA-1</strong>：输出160位（20字节）的哈希值。</li>
+</ul>
+</li>
+<li><p><strong>算法复杂度</strong>：</p>
+<ul>
+<li><strong>MD5</strong>：算法相对简单，处理速度较快。</li>
+<li><strong>SHA-1</strong>：算法较复杂，处理速度稍慢，但安全性较高。</li>
+</ul>
+</li>
+<li><p><strong>设计细节</strong>：</p>
+<ul>
+<li><strong>MD5</strong>：将消息填充到长度为512位的倍数，填充消息包括附加一个“1”比特和若干个“0”比特，以及消息的长度。然后进行4轮共64步的迭代运算。</li>
+<li><strong>SHA-1</strong>：将消息填充到长度为512位的倍数，填充消息包括附加一个“1”比特和若干个“0”比特，以及消息的长度。然后进行5轮共80步的迭代运算。</li>
+</ul>
+</li>
+<li><p><strong>哈希计算过程</strong>：</p>
+<ul>
+<li><strong>MD5</strong>：分组处理的每一轮包括四个不同行为的非线性函数F、G、H和I，每一轮都有16次操作。</li>
+<li><strong>SHA-1</strong>：分组处理的每一轮使用五个逻辑函数f1, f2, f3, f4和f5，每一轮有20次操作。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong>相同点</strong>：MD5和SHA-1都是迭代型哈希函数，处理任意长度输入并生成固定长度的哈希值，用于数据完整性和安全性应用。</li>
+<li><strong>不同点</strong>：MD5生成128位哈希值，SHA-1生成160位哈希值。SHA-1较MD5安全性更高但计算更复杂。MD5因存在安全漏洞已被认为不安全，SHA-1也逐渐被弃用，推荐使用SHA-2或SHA-3。</li>
+</ul>
+<p>由于MD5和SHA-1都已被发现存在安全漏洞，推荐在实际应用中使用更安全的哈希算法，如SHA-2或SHA-3，以确保数据的完整性和安全性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-DSS%E7%AD%BE%E5%90%8D/">https://moyuan10086.github.io/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-DSS%E7%AD%BE%E5%90%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a><a class="post-meta__tags" href="/tags/DSS/">DSS</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/">数字签名</a><a class="post-meta__tags" href="/tags/Hash/">Hash</a></div><div class="post-share"><div class="social-share" data-image="/images/post-covers/post-cover-03.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-DES%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/" title="密码学 - DES五种工作模式"><img class="cover" src="/images/post-covers/post-cover-20.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">密码学 - DES五种工作模式</div></div><div class="info-2"><div class="info-item-1">DES 的五种主要工作模式DES（数据加密标准）是一种对称加密算法，它可以在多种工作模式下使用。不同的工作模式提供了不同的安全特性和操作方式。以下是 DES 的五种主要工作模式： 1.电子密码本模式（ECB，Electronic Codebook）工作原理：  明文被分割成固定大小的块（通常是64位），每个块独立地加密或解密。 相同的明文块总是被加密成相同的密文块。  优点：  实现简单，适合加密小数据量或无关数据。  缺点：  不提供数据的混淆和扩散效果。 相同的明文块总是被加密成相同的密文块，容易被攻击者利用模式分析攻击。  示例：  适用于随机数据或少量数据的加密。  2. 密文分组链接模式（CBC，Cipher Block Chaining）工作原理：  第一个明文块与初始向量（IV）进行异或，然后加密。 每个后续明文块在加密前与前一个密文块进行异或。  优点：  提供了混淆和扩散效果。 相同的明文块不会加密成相同的密文块。  缺点：  需要初始向量（IV）。 加密和解密不能并行处理。  示例：  广泛用于各种安全通信协议中，如 SSL/TLS。  3. 密文反馈模式（C...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86%E5%85%AC%E5%BC%8F/" title="密码学 - 公钥加密公式整理"><img class="cover" src="/images/post-covers/post-cover-24.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">密码学 - 公钥加密公式整理</div></div><div class="info-2"><div class="info-item-1">公钥加密的公式分类整理RSA 公钥加密 RSA 加密方案  密钥生成:  选择两个大素数 $ p $ 和 $ q $ 计算 $ n = pq $ 计算 $ \phi(n) = (p-1)(q-1) $ 选择一个整数 $ e $（满足 $ 1 &lt; e &lt; \phi(n) $ 且 $ \gcd(e, \phi(n)) = 1 $） 计算私钥 $ d $（满足 $ ed \equiv 1 \pmod{\phi(n)} $） 公钥为 $ (e, n) $，私钥为 $ (d, n) $   加密:  明文 $ m $ 密文 $ c = m^e \mod n $   解密:  密文 $ c $ 明文 $ m = c^d \mod n $      基于离散对数的公钥加密 ElGamal 加密方案  密钥生成:  选定大素数 $ p $ 和生成元 $ g $ 选择私钥 $ x $（随机数），计算公钥 $ y = g^x \mod p $ 公钥为 $ (p, g, y) $，私钥为 $ x $   加密:  明文 $ m $ 选择随机数 $ k $（满足 $ 1 &lt; k &lt...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-RSA%E7%AD%BE%E5%90%8D/" title="密码学题目 - RSA签名方案"><img class="cover" src="/images/post-covers/post-cover-06.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题目 - RSA签名方案</div></div><div class="info-2"><div class="info-item-1">在RSA签名方案中，设p=7，q=17，公钥e=5，消息m的Hash值为19，试计算私钥d并给出对消息的签名和验证过程。求私钥 d 的计算过程已知参数：  p = 7 q = 17 n = p \times q = 7 \times 17 = 119 \phi(n) = (p - 1) \times (q - 1) = 6 \times 16 = 96 公钥 e = 5  我们需要找到私钥 d，满足： d \equiv e^{-1} \mod 96即： 5 \times d \equiv 1 \pmod{96}5×d 与 1 在模 96 下是同余的 使用扩展欧几里得算法求解逆元扩展欧几里得算法步骤： 使用欧几里得算法找到 e 和 \phi(n) 的最大公约数：  96 = 5 \times 19 + 1这里我们得到了 1 = 96 - 5 \times 19。  改写成扩展欧几里得算法形式：  1 = 96 - 5 \times 19即：  1 = 96 \times 1 - 5 \times 19从而：  1 \equiv -5 \times 19 \pmod{96}因此： d...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-ElGamal%E7%AD%BE%E5%90%8D/" title="密码学题目 - ElGamal签名方案"><img class="cover" src="/images/post-covers/post-cover-30.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题目 - ElGamal签名方案</div></div><div class="info-2"><div class="info-item-1">在ElGamal签名方案中，设P=19，g=2，私钥x=9，则公钥y=2^9 mod 19=18。若消息m的Hash值为152，试给出选取随机数k=5时的签名和验证过程。ElGamal签名方案重新生成给定参数 P = 19 g = 2 私钥 x = 9 公钥 y = g^x \mod P = 2^9 \mod 19 = 18 消息的 Hash 值 h(m) = 152 随机数 k = 5  签名过程 计算 r  r = g^k \mod P代入已知值：  r = 2^5 \mod 19计算 2^5 = 32，然后取模：  r = 32 \mod 19 = 13 计算 s  s = k^{-1} (h(m) - xr) \mod (P-1)这里，k^{-1} 是 k 的模逆元，满足 k \times k^{-1} \equiv 1 \mod (P-1)。 计算 k^{-1} \mod 18（因为 P-1 = 18）：  k = 5 \Rightarrow 5 \times k^{-1} \equiv 1 \pmod{18}用扩展欧几里得算法求解，得到 k^{-1} = 11，因为 ...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E9%A2%98%E7%9B%AE-ElGamal%E5%8A%A0%E5%AF%86/" title="密码学题目 - ElGamal密码体制加密"><img class="cover" src="/images/post-covers/post-cover-08.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题目 - ElGamal密码体制加密</div></div><div class="info-2"><div class="info-item-1">在ElGamal密码体制中，设素数p=71，生成元g=7。（1）如果接收者B的公钥为yB=3，发送者A随机选择整数k=2，求明文m=30所对应的密文。（2）如果发送者A选择另一个随机整数k，使得明文m=30加密后的密文为c=(59, c2)，求c2。ElGamal密码体制已知条件：  素数 p = 71 生成元 g = 7 接收者B的公钥 y_B = 3 明文 m = 30  （1）随机整数 k = 2计算密文 c = (C_1, C_2)： 计算 C_1：  C_1 = g^k \mod p = 7^2 \mod 71计算 7^2：  7^2 = 49所以：  C_1 = 49 \mod 71 = 49 计算 C_2：  C_2 = m \cdot (y_B)^k \mod p = 30 \cdot 3^2 \mod 71计算 3^2：  3^2 = 9所以：  C_2 = 30 \cdot 9 \mod 71 = 270 \mod 71计算 270 \mod 71：  270 = 3 \cdot 71 + 57 \implies 270 \mod 71 = 57  因此，密文...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E7%AE%97%E6%B3%95%E6%95%B4%E7%90%86/" title="密码学 - 加密和签名算法整理"><img class="cover" src="/images/post-covers/post-cover-39.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 加密和签名算法整理</div></div><div class="info-2"><div class="info-item-1">加密和签名算法整理对比RSA加密目的：保护数据的机密性，确保只有拥有相应私钥的人能够解密数据。 过程：  加密：  使用接收方的公钥 $ e $ 对消息 $ m $ 进行加密。 加密公式：$ c \equiv m^e \pmod{n} $ 这里，$ c $ 是密文，$ m $ 是明文，$ n $ 是两个大素数的乘积（$ n = p \times q $），$ e $ 是公钥。   解密：  使用接收方的私钥 $ d $ 对密文 $ c $ 进行解密。 解密公式：$ m \equiv c^d \pmod{n} $ 这里，$ m $ 是解密后的明文，$ c $ 是密文，$ d $ 是私钥。    应用：  安全的消息传输，例如电子邮件加密、文件加密等。  RSA签名目的：验证消息的真实性和完整性，确保消息来自合法发送者且未被篡改。 过程：  签名：  使用发送方的私钥 $ d $ 对消息的哈希值 $ h(m) $ 进行签名。 签名公式：$ s \equiv h(m)^d \pmod{n} $ 这里，$ s $ 是签名，$ h(m) $ 是消息 $ m $ 的哈希值，$ d $ 是私钥...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86%E5%85%AC%E5%BC%8F/" title="密码学 - 公钥加密公式整理"><img class="cover" src="/images/post-covers/post-cover-24.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 公钥加密公式整理</div></div><div class="info-2"><div class="info-item-1">公钥加密的公式分类整理RSA 公钥加密 RSA 加密方案  密钥生成:  选择两个大素数 $ p $ 和 $ q $ 计算 $ n = pq $ 计算 $ \phi(n) = (p-1)(q-1) $ 选择一个整数 $ e $（满足 $ 1 &lt; e &lt; \phi(n) $ 且 $ \gcd(e, \phi(n)) = 1 $） 计算私钥 $ d $（满足 $ ed \equiv 1 \pmod{\phi(n)} $） 公钥为 $ (e, n) $，私钥为 $ (d, n) $   加密:  明文 $ m $ 密文 $ c = m^e \mod n $   解密:  密文 $ c $ 明文 $ m = c^d \mod n $      基于离散对数的公钥加密 ElGamal 加密方案  密钥生成:  选定大素数 $ p $ 和生成元 $ g $ 选择私钥 $ x $（随机数），计算公钥 $ y = g^x \mod p $ 公钥为 $ (p, g, y) $，私钥为 $ x $   加密:  明文 $ m $ 选择随机数 $ k $（满足 $ 1 &lt; k &lt...</div></div></div></a><a class="pagination-related" href="/2024/07/20/%E5%AF%86%E7%A0%81%E5%AD%A6-%E7%AC%AC5%E7%AB%A0-%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81/" title="密码学 - 第5章 散列函数与消息认证"><img class="cover" src="/images/post-covers/post-cover-36.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 第5章 散列函数与消息认证</div></div><div class="info-2"><div class="info-item-1">第5章：单向散列函数和消息认证单向散列函数基础Hash函数的定义  Hash函数h是一个公开函数，用于将任意长的消息m映射为较短的、固定长度的一个值h(m)，称为消息摘要或哈希值。  Hash函数的性质  输入任意长：函数的输入可以是任意长的消息。 输出固定长：函数的输出是固定长度的摘要。 计算简便：对任意给定的x，计算$h(x)$比较容易。 单向性：对任意给定的Hash值z，找到满足$h(x)=z$的$x$在计算上是不可行的。 抗弱碰撞性：已知x，找到另一个$y(y≠x)$使得$h(y)=h(x)$在计算上是不可行的。 抗强碰撞性：找到任意两个不同的输入$x, y$，使$h(y)=h(x)$在计算上是不可行的。  碰撞性  碰撞是指对于两个不同的消息x和y，如果它们的Hash值相同，则发生了碰撞。Hash函数必须具有碰撞抵抗性，确保找到碰撞在计算上是不可行的。  Hash与加密的对比  加密是双向的，需要使用密钥进行加密和解密。Hash是单向的，没有解Hash的过程。  迭代型Hash函数的一般结构  Merkle基于压缩函数f提出了一个Hash函数的一般结构。输入m被分为L个...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%A0%87%E5%87%86DSS%E4%B8%AD%EF%BC%8C%E8%AE%BEq-13%EF%BC%8Cp-4q-1-53%EF%BC%8Cg-16%EF%BC%8C%E7%AD%BE%E5%90%8D%E8%80%85%E7%9A%84%E7%A7%81%E9%92%A5x-3%EF%BC%8C%E5%85%AC%E9%92%A5y-16-3-mod-53-15%EF%BC%8C%E6%B6%88%E6%81%AFm%E7%9A%84Hash%E5%80%BC%E4%B8%BA5%EF%BC%8C%E8%AF%95%E7%BB%99%E5%87%BA%E9%80%89%E5%8F%96%E9%9A%8F%E6%9C%BA%E6%95%B0k-2%E6%97%B6%E7%9A%84%E7%AD%BE%E5%90%8D%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E7%A8%8B%E3%80%82"><span class="toc-text">在数字签名标准DSS中，设q&#x3D;13，p&#x3D;4q+1&#x3D;53，g&#x3D;16，签名者的私钥x&#x3D;3，公钥y&#x3D;16^3 mod 53&#x3D;15，消息m的Hash值为5，试给出选取随机数k&#x3D;2时的签名和验证过程。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99%E5%AE%9A%E5%8F%82%E6%95%B0"><span class="toc-text">给定参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E8%BF%87%E7%A8%8B"><span class="toc-text">签名过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">验证过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%A0%87%E5%87%86%EF%BC%88DSS%EF%BC%89%E5%92%8CElGamal%E7%AD%BE%E5%90%8D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">数字签名标准（DSS）和ElGamal签名的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E6%A0%87%E5%87%86%EF%BC%88DSS%EF%BC%89"><span class="toc-text">数字签名标准（DSS）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ElGamal%E7%AD%BE%E5%90%8D"><span class="toc-text">ElGamal签名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-text">主要区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFHash%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-text">什么是Hash函数？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash%E5%87%BD%E6%95%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A6%81%E6%B1%82"><span class="toc-text">Hash函数的基本要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E8%A6%81%E6%B1%82"><span class="toc-text">Hash函数的安全性要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E8%A6%81%E6%B1%82%EF%BC%88%E6%89%A9%E5%B1%95%EF%BC%89"><span class="toc-text">额外的安全性要求（扩展）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84Hash%E5%87%BD%E6%95%B0"><span class="toc-text">常见的Hash函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5%E5%92%8CSHA-1%E7%9A%84%E7%9B%B8%E5%90%8C%E7%82%B9%E5%92%8C%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="toc-text">MD5和SHA-1的相同点和不同点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B8%E5%90%8C%E7%82%B9"><span class="toc-text">相同点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="toc-text">不同点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/04/%E8%80%83%E7%A0%94%E6%A6%82%E7%8E%87%E8%AE%BA-%E5%88%86%E5%B8%83%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" title="考研概率论：分布的物理意义与直觉模型"><img src="/images/post-covers/post-cover-11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="考研概率论：分布的物理意义与直觉模型"/></a><div class="content"><a class="title" href="/2026/05/04/%E8%80%83%E7%A0%94%E6%A6%82%E7%8E%87%E8%AE%BA-%E5%88%86%E5%B8%83%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" title="考研概率论：分布的物理意义与直觉模型">考研概率论：分布的物理意义与直觉模型</a><time datetime="2026-05-03T16:00:00.000Z" title="发表于 2026-05-04 00:00:00">2026-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/25%E5%B9%B4953%E8%80%83%E7%A0%94%E4%B8%93%E4%B8%9A%E8%AF%BE%E9%83%A8%E5%88%86%E7%9C%9F%E9%A2%98/" title="西电25年953考研专业课部分真题解析"><img src="/images/post-covers/post-cover-17.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西电25年953考研专业课部分真题解析"/></a><div class="content"><a class="title" href="/2025/08/21/25%E5%B9%B4953%E8%80%83%E7%A0%94%E4%B8%93%E4%B8%9A%E8%AF%BE%E9%83%A8%E5%88%86%E7%9C%9F%E9%A2%98/" title="西电25年953考研专业课部分真题解析">西电25年953考研专业课部分真题解析</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/Floyd-Warshall%E7%AE%97%E6%B3%95%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" title="Floyd-Warshall（弗洛伊德）算法考研笔记"><img src="/images/post-covers/post-cover-01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Floyd-Warshall（弗洛伊德）算法考研笔记"/></a><div class="content"><a class="title" href="/2025/08/21/Floyd-Warshall%E7%AE%97%E6%B3%95%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" title="Floyd-Warshall（弗洛伊德）算法考研笔记">Floyd-Warshall（弗洛伊德）算法考研笔记</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" title="卡特兰数"><img src="/images/post-covers/post-cover-18.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="卡特兰数"/></a><div class="content"><a class="title" href="/2025/08/21/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" title="卡特兰数">卡特兰数</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/%E7%AC%AC%E4%B8%89%E6%AC%A1%E7%BB%84%E4%BC%9A%E6%B1%87%E6%8A%A5-LLM%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%8EMCP%E5%B0%81%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="第三次组会汇报：LLM 安全测试与 MCP 封装实践"><img src="/images/post-covers/post-cover-09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第三次组会汇报：LLM 安全测试与 MCP 封装实践"/></a><div class="content"><a class="title" href="/2025/08/21/%E7%AC%AC%E4%B8%89%E6%AC%A1%E7%BB%84%E4%BC%9A%E6%B1%87%E6%8A%A5-LLM%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%8EMCP%E5%B0%81%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="第三次组会汇报：LLM 安全测试与 MCP 封装实践">第三次组会汇报：LLM 安全测试与 MCP 封装实践</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

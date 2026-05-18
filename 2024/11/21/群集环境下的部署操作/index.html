@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Windows Server 群集环境下的部署操作 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="Windows Server 群集环境下的部署操作实验目的 学习在 Windows Server 群集环境下的部署操作。 掌握共享磁盘的设计与应用。  实验环境 操作系统：Windows Server 2019 实验工具：FreeNAS  实验过程与分析一、虚拟机安装与配置 安装与克隆：  下载 Windows Server 2019 的镜像文件。  安装并配置一台主机 (Master) 后，克隆">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Windows Server 群集环境下的部署操作">
+<meta property="og:url" content="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="Windows Server 群集环境下的部署操作实验目的 学习在 Windows Server 群集环境下的部署操作。 掌握共享磁盘的设计与应用。  实验环境 操作系统：Windows Server 2019 实验工具：FreeNAS  实验过程与分析一、虚拟机安装与配置 安装与克隆：  下载 Windows Server 2019 的镜像文件。  安装并配置一台主机 (Master) 后，克隆">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-10.jpg">
+<meta property="article:published_time" content="2024-11-21T06:31:34.000Z">
+<meta property="article:modified_time" content="2026-05-03T20:42:46.876Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="Windows服务器">
+<meta property="article:tag" content="群集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-10.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows Server 群集环境下的部署操作',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'windows'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header" style="background-image: url(/images/wallpaper.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">Windows Server 群集环境下的部署操作</h1></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Windows-Server-群集环境下的部署操作"><a href="#Windows-Server-群集环境下的部署操作" class="headerlink" title="Windows Server 群集环境下的部署操作"></a>Windows Server 群集环境下的部署操作</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
+<li>学习在 Windows Server 群集环境下的部署操作。</li>
+<li>掌握共享磁盘的设计与应用。</li>
+</ul>
+<h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><ul>
+<li><strong>操作系统</strong>：Windows Server 2019</li>
+<li><strong>实验工具</strong>：FreeNAS</li>
+</ul>
+<h2 id="实验过程与分析"><a href="#实验过程与分析" class="headerlink" title="实验过程与分析"></a>实验过程与分析</h2><h3 id="一、虚拟机安装与配置"><a href="#一、虚拟机安装与配置" class="headerlink" title="一、虚拟机安装与配置"></a>一、虚拟机安装与配置</h3><ol>
+<li><p><strong>安装与克隆</strong>：</p>
+<ul>
+<li><p>下载 Windows Server 2019 的镜像文件。</p>
+</li>
+<li><p>安装并配置一台主机 (Master) 后，克隆两个相同的虚拟机节点。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112084901967-1733186736398-1.png" class="" title="image-20241112084901967">
+</li>
+<li><p>克隆方式为选择“克隆全部内容”。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085502663-1733186736398-2.png" class="" title="image-20241112085502663">
+</li>
+</ul>
+</li>
+<li><p><strong>配置网络适配器</strong>：</p>
+<ul>
+<li><p><strong>NodeA</strong>和<strong>NodeB</strong>的网卡适配器设置如下：</p>
+<ul>
+<li><p>适配器 1：设为“仅主机模式”。</p>
+</li>
+<li><p>适配器 2：设为“NAT”模式。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112085924208-1733186736398-4.png" class="" title="image-20241112085924208">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、群集环境部署"><a href="#二、群集环境部署" class="headerlink" title="二、群集环境部署"></a>二、群集环境部署</h3><ol>
+<li><p><strong>账户配置</strong>：</p>
+<ul>
+<li><p>同时启动 NodeA 和 NodeB。</p>
+</li>
+<li><p>进入 NodeA 的控制面板，调整账户名称为“nodeA”，NodeB 做相应设置。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090616213-1733186736398-3.png" class="" title="image-20241112090616213">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112090741343-1733186736398-5.png" class="" title="image-20241112090741343">
+</li>
+</ul>
+</li>
+<li><p><strong>防火墙关闭</strong>：</p>
+<ul>
+<li><p>在每个节点上关闭防火墙。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091309461-1733186736398-6.png" class="" title="image-20241112091309461">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091533092-1733186736398-7.png" class="" title="image-20241112091533092">
+</li>
+</ul>
+</li>
+<li><p><strong>网络配置</strong>：</p>
+<ul>
+<li><p>进入网络和共享中心，调整网络适配器：</p>
+<ul>
+<li><strong>内网网卡</strong>设置为“Private”。</li>
+<li><strong>外网网卡</strong>设置为“Public”（最好用已连接网络的设置为public)。</li>
+</ul>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112091657493-1733186736399-8.png" class="" title="image-20241112091657493">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092240766-1733186736399-9.png" class="" title="image-20241112092240766">
+</li>
+<li><p>配置心跳网卡和公网网卡的 IP 地址和子网掩码</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092516561-1733186736399-10.png" class="" title="image-20241112092516561">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092758227-1733186736399-11.png" class="" title="image-20241112092758227">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092817918-1733186736399-12.png" class="" title="image-20241112092817918">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092902919-1731374944717-1-1733186736399-13.png" class="" title="image-20241112092902919">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112092953871-1733186736399-14.png" class="" title="image-20241112092953871">
+<p>右键公网网卡“public”，配置ip地址及子网掩码，首选DNS指向master节点。</p>
+<p>首先查看自动分配的IP</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">ipconfig /all<br></code></pre></td></tr></table></figure>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128035442121.png" class="" title="image-20241128035442121">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128035547570.png" class="" title="image-20241128035547570">
+<p>同理配置另一节点</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128040201315.png" class="" title="image-20241128040201315">
+</li>
+<li><p>在 NodeB 上通过 <code>ping</code> 指令测试与 NodeA 的连通性，以确保节点互通。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241128040631177.png" class="" title="image-20241128040631177">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112100124326-1733186736399-15.png" class="" title="image-20241112100124326">
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="三、共享磁盘的配置"><a href="#三、共享磁盘的配置" class="headerlink" title="三、共享磁盘的配置"></a>三、共享磁盘的配置</h3><ol>
+<li><p><strong>iSCSI 配置</strong>：</p>
+<ul>
+<li><p>在 NodeA 上启动 Windows Server 2019 自带的 iSCSI 发起程序。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094515268-1733186736399-16.png" class="" title="image-20241112094515268">
+</li>
+<li><p>输入 FreeNAS 的 IP 地址，进行快速连接。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094554062-1733186736399-17.png" class="" title="image-20241112094554062">
+</li>
+</ul>
+</li>
+<li><p><strong>磁盘管理</strong>：</p>
+<ul>
+<li><p>进入计算机管理中的磁盘管理，将 iSCSI 磁盘设为联机状态。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112094723629-1733186736399-18.png" class="" title="image-20241112094723629">
+</li>
+<li><p>在“此电脑”中查看共享磁盘是否可见。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095154638-1733186736399-19.png" class="" title="image-20241112095154638">
+</li>
+</ul>
+</li>
+<li><p><strong>NodeB 的配置</strong>：</p>
+<ul>
+<li><p>在 NodeB 上重复 NodeA 的磁盘联机步骤，无需关闭 NodeA。</p>
+</li>
+<li><p>至此，共享磁盘环境配置完成。</p>
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095452487-1733186736399-20.png" class="" title="image-20241112095452487">
+<img src="/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/image-20241112095554706-1733186736399-21.png" class="" title="image-20241112095554706">
+</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/">https://moyuan10086.github.io/2024/11/21/%E7%BE%A4%E9%9B%86%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/">Windows服务器</a><a class="post-meta__tags" href="/tags/%E7%BE%A4%E9%9B%86/">群集</a></div><div class="post-share"><div class="social-share" data-image="/images/post-covers/post-cover-10.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav id="pagination"><div class="pagination"></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/11/21/Microsoft%20%E7%BE%A4%E9%9B%86%E6%9C%8D%E5%8A%A1%EF%BC%88MSCS%EF%BC%89%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA/" title="Microsoft 群集服务（MSCS）环境的搭建"><img class="cover" src="/images/post-covers/post-cover-26.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-21</div><div class="info-item-2">Microsoft 群集服务（MSCS）环境的搭建</div></div><div class="info-2"><div class="info-item-1">Microsoft 群集服务（MSCS）环境的搭建实验目的 利用 Windows Server 构建群集环境，具体包括：   创建三个虚拟机环境  部署群集环境  配置共享磁盘系统   实验环境 操作系统： Windows Server 2019  工具： FreeNAS  网络配置：  Node A：  Public IP：192.168.80.10  Private IP：10.1.1.2  群集 IP：192.168.80.15    Node B：  Public IP：192.168.80.11  Private IP：10.1.1.3  群集 IP：192.168.80.15    Windows 2019：  Public IP：192.168.80.6    NAS：  Public IP：192.168.80.8       注意： Windows Server 2019 需创建三个独立的虚拟机，避免使用克隆方式，以防止域的 SID 冲突导致无法完成域加入。   修改 SID 的方法在避免克隆 SID 冲突的情况下，推荐使用内置的 Sysprep 工具来生成新的...</div></div></div></a><a class="pagination-related" href="/2024/12/03/%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB%E7%BE%A4%E9%9B%86%E6%90%AD%E5%BB%BA%E4%B8%8E%E7%BE%A4%E9%9B%86%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/" title="故障转移群集搭建与群集系统安装"><img class="cover" src="/images/post-covers/post-cover-07.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-03</div><div class="info-item-2">故障转移群集搭建与群集系统安装</div></div><div class="info-2"><div class="info-item-1">故障转移群集搭建与群集系统安装一、实验目的 搭建故障转移群集：实现服务和应用程序的高可用性。 群集系统安装环境设置：掌握搭建环境的配置要求。   二、实验环境 操作环境:   Windows Server 2019   SQL Server 2019   实验工具:   VMware     三、实验原理故障转移群集故障转移群集通过在多台服务器上部署相同的服务和应用程序，利用监控与自动切换机制，实现单点故障时的服务迁移，提高系统的可用性和容错能力。 群集系统安装环境设置确保以下要求：  服务器之间的网络连接正常。 操作系统兼容并满足群集系统要求。 硬件配置满足最低要求。 主机名和 IP 地址配置正确。  四、实验步骤与分析（调整后）（一）前期准备1. 检查IP配置    节点 Public IP Private IP 群集IP 域名 群集名     Server1 192.168.80.27 10.1.1.2 192.168.80.16 nodeA moyu   Server2 192.168.80.32 10.1.1.3 192.168.80.16 nodeB moyu   M...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">39</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/04/%E8%80%83%E7%A0%94%E6%A6%82%E7%8E%87%E8%AE%BA-%E5%88%86%E5%B8%83%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" title="考研概率论：分布的物理意义与直觉模型"><img src="/images/post-covers/post-cover-11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="考研概率论：分布的物理意义与直觉模型"/></a><div class="content"><a class="title" href="/2026/05/04/%E8%80%83%E7%A0%94%E6%A6%82%E7%8E%87%E8%AE%BA-%E5%88%86%E5%B8%83%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89%E4%B8%8E%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" title="考研概率论：分布的物理意义与直觉模型">考研概率论：分布的物理意义与直觉模型</a><time datetime="2026-05-03T16:00:00.000Z" title="发表于 2026-05-04 00:00:00">2026-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/25%E5%B9%B4953%E8%80%83%E7%A0%94%E4%B8%93%E4%B8%9A%E8%AF%BE%E9%83%A8%E5%88%86%E7%9C%9F%E9%A2%98/" title="西电25年953考研专业课部分真题解析"><img src="/images/post-covers/post-cover-17.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="西电25年953考研专业课部分真题解析"/></a><div class="content"><a class="title" href="/2025/08/21/25%E5%B9%B4953%E8%80%83%E7%A0%94%E4%B8%93%E4%B8%9A%E8%AF%BE%E9%83%A8%E5%88%86%E7%9C%9F%E9%A2%98/" title="西电25年953考研专业课部分真题解析">西电25年953考研专业课部分真题解析</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/Floyd-Warshall%E7%AE%97%E6%B3%95%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" title="Floyd-Warshall（弗洛伊德）算法考研笔记"><img src="/images/post-covers/post-cover-01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Floyd-Warshall（弗洛伊德）算法考研笔记"/></a><div class="content"><a class="title" href="/2025/08/21/Floyd-Warshall%E7%AE%97%E6%B3%95%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" title="Floyd-Warshall（弗洛伊德）算法考研笔记">Floyd-Warshall（弗洛伊德）算法考研笔记</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" title="卡特兰数"><img src="/images/post-covers/post-cover-18.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="卡特兰数"/></a><div class="content"><a class="title" href="/2025/08/21/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" title="卡特兰数">卡特兰数</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/21/%E7%AC%AC%E4%B8%89%E6%AC%A1%E7%BB%84%E4%BC%9A%E6%B1%87%E6%8A%A5-LLM%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%8EMCP%E5%B0%81%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="第三次组会汇报：LLM 安全测试与 MCP 封装实践"><img src="/images/post-covers/post-cover-09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="第三次组会汇报：LLM 安全测试与 MCP 封装实践"/></a><div class="content"><a class="title" href="/2025/08/21/%E7%AC%AC%E4%B8%89%E6%AC%A1%E7%BB%84%E4%BC%9A%E6%B1%87%E6%8A%A5-LLM%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E4%B8%8EMCP%E5%B0%81%E8%A3%85%E5%AE%9E%E8%B7%B5/" title="第三次组会汇报：LLM 安全测试与 MCP 封装实践">第三次组会汇报：LLM 安全测试与 MCP 封装实践</a><time datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">Web安全</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/"><span class="card-category-list-name">Windows服务器</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="card-category-list-name">密码学</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/"><span class="card-category-list-name">科研</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">大模型安全</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">系统安全</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%80%83%E7%A0%94/"><span class="card-category-list-name">考研</span><span class="card-category-list-count">5</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.1em; color: #999">恶意程序</a> <a href="/tags/LFSR/" style="font-size: 1.1em; color: #999">LFSR</a> <a href="/tags/%E6%B5%81%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">流密码</a> <a href="/tags/DSS/" style="font-size: 1.1em; color: #999">DSS</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">数据结构</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 1.2em; color: #999da3">数字签名</a> <a href="/tags/LLM/" style="font-size: 1.1em; color: #999">LLM</a> <a href="/tags/ElGamal/" style="font-size: 1.2em; color: #999da3">ElGamal</a> <a href="/tags/%E7%9C%9F%E9%A2%98/" style="font-size: 1.1em; color: #999">真题</a> <a href="/tags/%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86/" style="font-size: 1.1em; color: #999">公钥加密</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">公式</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/" style="font-size: 1.1em; color: #999">椭圆曲线</a> <a href="/tags/Yakit/" style="font-size: 1.1em; color: #999">Yakit</a> <a href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.2em; color: #999da3">Windows服务器</a> <a href="/tags/XSS/" style="font-size: 1.1em; color: #999">XSS</a> <a href="/tags/Hash/" style="font-size: 1.1em; color: #999">Hash</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">病毒</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">计算机网络，数据结构</a> <a href="/tags/MCP/" style="font-size: 1.1em; color: #999">MCP</a> <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.1em; color: #999">概率论</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 1.4em; color: #99a5b6">考研</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.2em; color: #999da3">算法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.1em; color: #999">图论</a> <a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">溢出</a> <a href="/tags/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">分组密码</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">组合数学</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/garak/" style="font-size: 1.1em; color: #999">garak</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" style="font-size: 1.3em; color: #99a1ac">系统安全</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 1.1em; color: #999">复习</a> <a href="/tags/%E7%BE%A4%E9%9B%86/" style="font-size: 1.2em; color: #999da3">群集</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.2em; color: #999da3">Web安全</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/Rootkit/" style="font-size: 1.1em; color: #999">Rootkit</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/07/">
+            <span class="card-archive-list-date">
+              七月 2024
+            </span>
+            <span class="card-archive-list-count">22</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/02/">
+            <span class="card-archive-list-date">
+              二月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-18T02:31:16.939Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
