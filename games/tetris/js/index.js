@@ -2,7 +2,7 @@ var frame;
 
 function initGame()
 {
-	frame = new GameFrame(38,14,16);
+	frame = new GameFrame(38,10,20);
 	frame.init();
 
    document.body.addEventListener("keydown",MoveOrChange)
