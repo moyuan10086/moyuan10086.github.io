@@ -229,10 +229,60 @@
 			border: 1px solid rgba(255,255,255,0.1);
 			position: absolute;
 		}
+
+		/* ── Game-over overlay ── */
+		.game-over-overlay {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 9999;
+			background: rgba(5, 10, 22, 0.86);
+			backdrop-filter: blur(6px);
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			gap: 18px;
+		}
+		.game-over-overlay.is-visible {
+			display: flex;
+		}
+		.game-over-title {
+			font-size: 36px;
+			font-weight: 950;
+			color: #fff;
+			letter-spacing: 0.06em;
+			text-shadow: 0 0 40px rgba(95, 135, 239, 0.5);
+		}
+		.game-over-score {
+			font-size: 16px;
+			color: rgba(188, 200, 232, 0.7);
+			font-weight: 700;
+		}
+		.game-over-restart {
+			margin-top: 6px;
+			height: 40px;
+			padding: 0 28px;
+			border: 1px solid rgba(95, 135, 239, 0.4);
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 900;
+			color: #fff;
+			background: linear-gradient(135deg, var(--accent), var(--accent2));
+			box-shadow: 0 6px 18px rgba(95, 135, 239, 0.2);
+			cursor: pointer;
+			transition: transform 120ms, box-shadow 120ms;
+		}
+		.game-over-restart:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 8px 22px rgba(95, 135, 239, 0.35);
+		}
+		.game-over-restart:active {
+			transform: scale(0.97);
+		}
 	</style>
-	<script src="js/GameFrame.js?v=2" type="text/javascript" charset="utf-8"></script>
-	<script src="js/graph.js?v=2" type="text/javascript" charset="utf-8"></script>
-	<script src="js/index.js?v=4" type="text/javascript" charset="utf-8"></script>
+	<script src="js/GameFrame.js?v=3" type="text/javascript" charset="utf-8"></script>
+	<script src="js/graph.js?v=3" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js?v=5" type="text/javascript" charset="utf-8"></script>
 </head>
 <body onLoad="initGame()">
 
@@ -265,6 +315,12 @@
 	</div>
 </div>
 
+<div class="game-over-overlay" id="game-over-overlay">
+	<div class="game-over-title">GAME OVER</div>
+	<div class="game-over-score" id="game-over-score">Score: 0</div>
+	<button class="game-over-restart" onClick="location.reload()">重新开始</button>
+</div>
+
 <script>
 (function() {
 	var viewport = document.getElementById('game-viewport');
@@ -282,11 +338,22 @@
 	}
 
 	window.addEventListener('resize', scaleTetris);
-	// Multiple timeouts for progressive DOM layout
 	setTimeout(scaleTetris, 50);
 	setTimeout(scaleTetris, 200);
 	setTimeout(scaleTetris, 600);
 })();
+
+// Called by GameFrame.js when game ends (non-blocking overlay, replaces alert)
+function showGameOver() {
+	var overlay = document.getElementById('game-over-overlay');
+	if (!overlay) return;
+	var scoreEl = document.getElementById('score');
+	var finalScoreEl = document.getElementById('game-over-score');
+	if (finalScoreEl && scoreEl) {
+		finalScoreEl.textContent = 'Score: ' + scoreEl.textContent;
+	}
+	overlay.classList.add('is-visible');
+}
 </script>
 </body>
 </html>

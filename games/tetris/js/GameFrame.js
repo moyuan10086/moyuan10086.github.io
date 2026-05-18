@@ -112,7 +112,7 @@ function GameFrame(unit,row,col)
     	//判断游戏是否结束
     	if (this.frame.samlldiv.movedown()){
     			clearInterval(this.frame.intervalid);
-				alert("游戏结束！");
+				setTimeout(function(){ showGameOver(); }, 1);
 			}
 	}
 	
