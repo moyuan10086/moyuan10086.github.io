@@ -17,16 +17,27 @@ html, body {
 	align-items: center;
 	justify-content: center;
 }
-.scale-wrap {
-	width: 1366px;
-	height: 621px;
-	transform-origin: center center;
+.game-wrapper {
+	width: 100%;
+	max-width: 100%;
+	aspect-ratio: 1366 / 621;
+	margin: 0 auto;
 	overflow: hidden;
+	position: relative;
 }
-.scale-wrap canvas {
+.game-wrapper canvas {
 	display: block;
-	width: 1366px;
-	height: 621px;
+	width: 100%;
+	height: 100%;
+}
+.game-wrapper:fullscreen {
+	width: 100vw;
+	max-width: 100vw;
+	height: 100vh;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 </style>
 
@@ -36,37 +47,61 @@ html, body {
 </head>
 <body>
 
-<div class="scale-wrap">
+<div class="game-wrapper" id="gameWrapper">
 	<canvas id="linkScreen" width="1366" height="621">
 		很遗憾，您的浏览器不支持HTML5，请使用支持HTML5的浏览器。
 	</canvas>
 </div>
 
 <script>
-// Scale the wrapper to fit viewport. Canvas inside is untouched — no flicker.
 (function() {
-	var NATIVE_W = 1366;
-	var NATIVE_H = 621;
-	var wrap = document.querySelector('.scale-wrap');
+	var wrapper = document.getElementById('gameWrapper');
+	var canvas = document.getElementById('linkScreen');
 
-	function rescale() {
-		var vw = window.innerWidth;
-		var vh = window.innerHeight;
-		var s = Math.min(vw / NATIVE_W, vh / NATIVE_H, 1);
-		wrap.style.transform = 'scale(' + s + ')';
-		// Fix canvas style in case game engine overwrites it
-		var c = document.getElementById('linkScreen');
-		if (c) { c.style.width = NATIVE_W + 'px'; c.style.height = NATIVE_H + 'px'; }
+	function getWrapperSize() {
+		var w = wrapper.clientWidth;
+		var h = wrapper.clientHeight;
+		if (w < 1 || h < 1) { w = 1366; h = 621; }
+		return { w: w, h: h };
 	}
 
-	rescale();
-	window.addEventListener('resize', function() {
-		setTimeout(rescale, 50);
+	// Intercept canvas.width/height setters so game engine always gets wrapper dimensions
+	var widthDesc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, 'width');
+	var heightDesc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, 'height');
+
+	Object.defineProperty(canvas, 'width', {
+		get: function() { return widthDesc.get.call(this); },
+		set: function() {
+			var size = getWrapperSize();
+			widthDesc.set.call(this, size.w);
+		},
+		configurable: true
 	});
 
-	// Delayed re-fix for after game engine async init
-	[300, 800, 1500, 3000].forEach(function(d) {
-		setTimeout(rescale, d);
+	Object.defineProperty(canvas, 'height', {
+		get: function() { return heightDesc.get.call(this); },
+		set: function() {
+			var size = getWrapperSize();
+			heightDesc.set.call(this, size.h);
+		},
+		configurable: true
+	});
+
+	// Also sync on container resize (e.g. fullscreen change, orientation change)
+	var syncTimer;
+	function onResize() {
+		clearTimeout(syncTimer);
+		syncTimer = setTimeout(function() {
+			var size = getWrapperSize();
+			if (canvas.width !== size.w) widthDesc.set.call(canvas, size.w);
+			if (canvas.height !== size.h) heightDesc.set.call(canvas, size.h);
+		}, 80);
+	}
+	window.addEventListener('resize', onResize);
+
+	// Sync after engine async init (engine may have set dimensions before wrapper had layout)
+	[300, 800, 1600, 3000].forEach(function(d) {
+		setTimeout(onResize, d);
 	});
 })();
 </script>
