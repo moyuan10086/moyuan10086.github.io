@@ -30,6 +30,9 @@ html, body {
 }
 .game-stage canvas {
 	display: block;
+	max-width: 100%;
+	max-height: 100%;
+	aspect-ratio: 1366 / 621;
 }
 </style>
 
@@ -47,50 +50,65 @@ html, body {
 
 <script>
 // Fix canvas dimensions for dual-lane rendering (needs ≥640px height)
-// Game loads async via require.js + image preload, so we poll until ready
+// Game loads async via require.js + image pre-load, then overwrites canvas
+// via window.onresize(). We intercept onresize + poll aggressively to undo it.
 (function() {
 	var minH = 640;
 	var ratio = 1366 / 621;
-	var attempts = 0;
-	var maxAttempts = 30;
+	var fixTimer = null;
 
 	function fixCanvas() {
 		var c = document.getElementById('linkScreen');
-		if (!c || !c.getContext) return false;
-
-		// 1. Set buffer dimensions for proper dual-lane rendering
-		c.width = Math.floor(minH * ratio);
-		c.height = minH;
-
-		// 2. Compute display size that fits within viewport while preserving ratio
-		var vw = window.innerWidth;
-		var vh = window.innerHeight;
-		var dw = c.width;
-		var dh = c.height;
-		if (dw > vw) { dw = vw; dh = Math.floor(dw / ratio); }
-		if (dh > vh) { dh = vh; dw = Math.floor(dh * ratio); }
-		c.style.width = dw + 'px';
-		c.style.height = dh + 'px';
-
-		return true;
+		if (!c || !c.getContext) return;
+		var currentRatio = c.width / c.height;
+		if (Math.abs(currentRatio - ratio) < 0.01 && c.height >= minH) return; // already good
+		var w = Math.max(c.width, Math.floor(minH * ratio));
+		var h = Math.max(c.height, minH);
+		if (w / h > ratio) w = Math.floor(h * ratio);
+		else h = Math.floor(w / ratio);
+		if (h < minH) { h = minH; w = Math.floor(h * ratio); }
+		c.width = w;
+		c.height = h;
+		c.style.width = w + 'px';
+		c.style.height = h + 'px';
 	}
 
-	function poll() {
-		attempts++;
-		var done = fixCanvas();
-		if (!done && attempts < maxAttempts) {
-			setTimeout(poll, 200);
+	// Intercept window.onresize assignments: game engine's handler fires first,
+	// then we immediately correct the canvas back.
+	var _origResize = null;
+	Object.defineProperty(window, 'onresize', {
+		configurable: true,
+		enumerable: true,
+		get: function() { return _origResize; },
+		set: function(fn) {
+			_origResize = function() {
+				if (fn) fn.apply(this, arguments);
+				clearTimeout(fixTimer);
+				fixTimer = setTimeout(fixCanvas, 0);
+			};
 		}
+	});
+	// Save handle in case game engine already set onresize before our interceptor
+	var _saved = window.onresize;
+	window.onresize = _saved;
+
+	// Poll aggressively while game is loading, then slowly in background
+	var fastCount = 0;
+	function poll() {
+		fixCanvas();
+		fastCount++;
+		if (fastCount < 15) setTimeout(poll, 200);
 	}
 
-	// Start polling after a short delay for the game engine to init
-	setTimeout(poll, 100);
+	// Phase 1: fast polling during game load (3 seconds)
+	setTimeout(poll, 200);
 
-	// Also re-fix after resize (game's onresize may overwrite)
+	// Phase 2: slow background guard + catch real browser resize
 	window.addEventListener('resize', function() {
-		attempts = 0;
-		setTimeout(poll, 100);
+		clearTimeout(fixTimer);
+		fixTimer = setTimeout(fixCanvas, 100);
 	});
+	setInterval(fixCanvas, 2000);
 })();
 </script>
 
