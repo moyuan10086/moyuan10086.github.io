@@ -60,17 +60,18 @@ html, body {
 	function fixCanvas() {
 		var c = document.getElementById('linkScreen');
 		if (!c || !c.getContext) return;
-		var currentRatio = c.width / c.height;
-		if (Math.abs(currentRatio - ratio) < 0.01 && c.height >= minH) return; // already good
-		var w = Math.max(c.width, Math.floor(minH * ratio));
-		var h = Math.max(c.height, minH);
-		if (w / h > ratio) w = Math.floor(h * ratio);
-		else h = Math.floor(w / ratio);
-		if (h < minH) { h = minH; w = Math.floor(h * ratio); }
-		c.width = w;
-		c.height = h;
-		c.style.width = w + 'px';
-		c.style.height = h + 'px';
+		// 1. Buffer: always fix to native size for correct dual-lane rendering
+		c.width = Math.floor(minH * ratio);
+		c.height = minH;
+		// 2. Display: scale to fit available viewport, preserving aspect ratio
+		var vw = window.innerWidth;
+		var vh = window.innerHeight;
+		var dw = c.width;
+		var dh = c.height;
+		if (dw > vw) { dw = vw; dh = Math.floor(dw / ratio); }
+		if (dh > vh) { dh = vh; dw = Math.floor(dh * ratio); }
+		c.style.width = dw + 'px';
+		c.style.height = dh + 'px';
 	}
 
 	// Intercept window.onresize assignments: game engine's handler fires first,
