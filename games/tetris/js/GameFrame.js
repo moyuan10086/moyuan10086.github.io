@@ -150,16 +150,31 @@ function GameFrame(unit,row,col)
 				break;
 			}
 		}
-		//绘制图形
+		//绘制图形（缩放到预览区合适大小）
+		var previewUnit = 24;
 		var smallarr = this.frame.arr[this.frame.next].split(",");
+		var minX = 3, minY = 3, maxX = 0, maxY = 0;
+		for (var i = 0; i < 8; i += 2) {
+			var py = smallarr[i] - 0;
+			var px = smallarr[i + 1] - 0;
+			if (px < minX) minX = px;
+			if (px > maxX) maxX = px;
+			if (py < minY) minY = py;
+			if (py > maxY) maxY = py;
+		}
+		var pieceW = (maxX - minX + 1) * previewUnit;
+		var pieceH = (maxY - minY + 1) * previewUnit;
+		var container = document.getElementById("nextfigure");
+		var offsetX = (container.clientWidth - pieceW) / 2 - minX * previewUnit;
+		var offsetY = (container.clientHeight - pieceH) / 2 - minY * previewUnit;
 		for (var i = 0; i < 8; i += 2) {
 		var drawdiv = document.createElement("div");
 		drawdiv.className = "drawdiv";
 		drawdiv.style.backgroundColor=this.frame.nextcolor;
-		drawdiv.style.width = (this.frame.unit - 2) + "px";
-		drawdiv.style.height = (this.frame.unit - 2) + "px";
-		drawdiv.style.top = (((smallarr[i] - 0) * this.frame.unit)+18) + "px";
-		drawdiv.style.left = (((smallarr[i + 1] - 0) * this.frame.unit)+18) + "px";
+		drawdiv.style.width = (previewUnit - 2) + "px";
+		drawdiv.style.height = (previewUnit - 2) + "px";
+		drawdiv.style.top = ((smallarr[i] - 0) * previewUnit + offsetY) + "px";
+		drawdiv.style.left = ((smallarr[i + 1] - 0) * previewUnit + offsetX) + "px";
 		document.getElementById("nextfigure").appendChild(drawdiv);
 		}
 	}
