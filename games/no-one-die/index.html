@@ -13,17 +13,20 @@ html, body {
 	width: 100%;
 	height: 100%;
 	background: #000;
-}
-.game-stage {
-	width: 100%;
-	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-.game-stage canvas {
-	display: block;
+.scale-wrap {
+	width: 1366px;
+	height: 621px;
 	transform-origin: center center;
+	overflow: hidden;
+}
+.scale-wrap canvas {
+	display: block;
+	width: 1366px;
+	height: 621px;
 }
 </style>
 
@@ -33,37 +36,37 @@ html, body {
 </head>
 <body>
 
-<div class="game-stage">
+<div class="scale-wrap">
 	<canvas id="linkScreen" width="1366" height="621">
 		很遗憾，您的浏览器不支持HTML5，请使用支持HTML5的浏览器。
 	</canvas>
 </div>
 
 <script>
-// Scale canvas to fit viewport when window is smaller than native size.
-// Does NOT touch canvas.width/height (buffer), so no flicker.
+// Scale the wrapper to fit viewport. Canvas inside is untouched — no flicker.
 (function() {
 	var NATIVE_W = 1366;
 	var NATIVE_H = 621;
+	var wrap = document.querySelector('.scale-wrap');
 
-	function scaleCanvas() {
-		var c = document.getElementById('linkScreen');
-		if (!c) return;
+	function rescale() {
 		var vw = window.innerWidth;
 		var vh = window.innerHeight;
-		var scale = Math.min(vw / NATIVE_W, vh / NATIVE_H, 1);
-		c.style.transform = 'scale(' + scale + ')';
-		// Reset inline width/height so transform scaling is correct
-		c.style.width = NATIVE_W + 'px';
-		c.style.height = NATIVE_H + 'px';
+		var s = Math.min(vw / NATIVE_W, vh / NATIVE_H, 1);
+		wrap.style.transform = 'scale(' + s + ')';
+		// Fix canvas style in case game engine overwrites it
+		var c = document.getElementById('linkScreen');
+		if (c) { c.style.width = NATIVE_W + 'px'; c.style.height = NATIVE_H + 'px'; }
 	}
 
-	scaleCanvas();
-	window.addEventListener('resize', scaleCanvas);
+	rescale();
+	window.addEventListener('resize', function() {
+		setTimeout(rescale, 50);
+	});
 
-	// Re-apply after game engine init (fire-and-forget timeouts)
+	// Delayed re-fix for after game engine async init
 	[300, 800, 1500, 3000].forEach(function(d) {
-		setTimeout(scaleCanvas, d);
+		setTimeout(rescale, d);
 	});
 })();
 </script>
