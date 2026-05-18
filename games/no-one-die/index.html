@@ -50,43 +50,69 @@ html, body {
 
 <script>
 // Fix canvas dimensions for dual-lane rendering (needs ≥640px height)
-// Game loads async via require.js and overwrites canvas dimensions during
-// init. We poll aggressively at first, then keep a slow background guard.
+// Game loads async via require.js and overwrites canvas during init.
+// Setting canvas.width/height clears the buffer (causes flicker), so we:
+//   - Only set buffer when actually wrong (guarded by ratio check)
+//   - Always set CSS display size (safe, no flicker)
+//   - Use staged timeouts + onresize interceptor instead of aggressive interval
 (function() {
 	var MIN_H = 640;
 	var RATIO = 1366 / 621;
 
+	function getFixedBufferSize() {
+		return { w: Math.floor(MIN_H * RATIO), h: MIN_H };
+	}
+
 	function fixCanvas() {
 		var c = document.getElementById('linkScreen');
 		if (!c || !c.getContext) return;
-		// Always set buffer to correct native size
-		c.width = Math.floor(MIN_H * RATIO);
-		c.height = MIN_H;
-		// Scale display to fit available space while preserving ratio
+
+		// 1. Fix buffer ONLY when game engine overwrote it (avoids flicker from clear)
+		var curRatio = c.width / c.height;
+		var offRatio = Math.abs(curRatio - RATIO) > 0.01;
+		var tooShort = c.height < MIN_H;
+		if (offRatio || tooShort) {
+			var bs = getFixedBufferSize();
+			c.width = bs.w;
+			c.height = bs.h;
+		}
+
+		// 2. Always fix CSS display size (safe — no buffer clear)
 		var vw = window.innerWidth;
 		var vh = window.innerHeight;
-		var dw = c.width;
-		var dh = c.height;
+		var bs = getFixedBufferSize();
+		var dw = bs.w, dh = bs.h;
 		if (dw > vw) { dw = vw; dh = Math.floor(dw / RATIO); }
 		if (dh > vh) { dh = vh; dw = Math.floor(dh * RATIO); }
 		c.style.width = dw + 'px';
 		c.style.height = dh + 'px';
 	}
 
-	// Phase 1: aggressive polling every 100ms for 10 seconds
-	var count = 0;
-	var fastId = setInterval(function() {
-		fixCanvas();
-		count++;
-		if (count >= 100) { clearInterval(fastId); }
-	}, 100);
+	// Intercept window.onresize so fixCanvas runs after every game-engine resize
+	var _origResize = null;
+	Object.defineProperty(window, 'onresize', {
+		configurable: true,
+		enumerable: true,
+		get: function() { return _origResize; },
+		set: function(fn) {
+			_origResize = function() {
+				if (fn) fn.apply(this, arguments);
+				setTimeout(fixCanvas, 0);
+			};
+		}
+	});
+	// Apply if game engine already set onresize before our interceptor
+	var _saved = window.onresize;
+	window.onresize = _saved;
 
-	// Phase 2: slow background guard forever
-	var slowId = setInterval(fixCanvas, 2000);
+	// Staged polls at increasing intervals (game loads async, we don't know when)
+	[100, 300, 600, 1000, 1500, 2000, 3000, 5000, 8000, 12000, 20000].forEach(function(d) {
+		setTimeout(fixCanvas, d);
+	});
 
-	// Also catch real browser resize events
+	// Real browser resize
 	window.addEventListener('resize', function() {
-		fixCanvas();
+		setTimeout(fixCanvas, 50);
 	});
 })();
 </script>
