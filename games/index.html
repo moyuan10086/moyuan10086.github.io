@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://moyuan10086.github.io/images/newnewlogo.png">
 <meta property="article:published_time" content="2026-05-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-18T02:28:37.742Z">
+<meta property="article:modified_time" content="2026-05-18T05:01:59.203Z">
 <meta property="article:author" content="moyuan">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://moyuan10086.github.io/images/newnewlogo.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/games/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
@@ -217,13 +217,12 @@
   padding: 140px clamp(18px, 4vw, 56px) 70px;
   color: var(--game-ink);
 }
+
+/* ── Hero (full width) ── */
 .game-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px;
-  align-items: end;
   max-width: 1180px;
-  margin: 0 auto 24px;
+  margin: 0 auto 42px;
+  text-align: center;
 }
 .game-kicker {
   display: inline-flex;
@@ -245,55 +244,93 @@
   box-shadow: 0 0 0 6px rgba(99, 214, 231, 0.14);
 }
 .game-hero h1 {
-  margin: 0;
+  margin: 0 0 14px;
   color: #18233b;
   font-size: clamp(34px, 5vw, 64px);
   font-weight: 950;
-  letter-spacing: 0;
 }
 .game-hero p {
-  max-width: 650px;
-  margin: 14px 0 0;
+  max-width: 680px;
+  margin: 0 auto;
   color: var(--game-muted);
   font-size: 15px;
   line-height: 1.8;
   font-weight: 700;
 }
-.game-tabs {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.76);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.58);
-  box-shadow: 0 14px 38px rgba(82, 112, 178, 0.12);
-}
-.game-tab {
-  min-height: 36px;
-  border: 0;
-  border-radius: 11px;
-  padding: 0 14px;
-  color: #5c6b8a;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 900;
-  cursor: pointer;
-  transition: transform 180ms ease, color 180ms ease, background 180ms ease, box-shadow 180ms ease;
-}
-.game-tab:hover {
-  transform: translateY(-1px);
-  color: var(--game-ink);
-}
-.game-tab.is-active {
-  color: #fff;
-  background: linear-gradient(135deg, #5f87ef, #57cce1);
-  box-shadow: 0 10px 22px rgba(95, 135, 239, 0.28);
-}
-.game-stage {
+
+/* ── Game Grid ── */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
   max-width: 1180px;
   margin: 0 auto;
 }
+.game-grid-item {
+  position: relative;
+  padding: 20px 18px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 18px;
+  background: var(--game-panel);
+  box-shadow: 0 12px 34px rgba(66, 91, 153, 0.1);
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  backdrop-filter: blur(12px);
+}
+.game-grid-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(66, 91, 153, 0.18);
+  border-color: var(--game-blue);
+}
+.game-grid-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.game-grid-item h3 {
+  margin: 0 0 4px;
+  color: #18233b;
+  font-size: 16px;
+  font-weight: 950;
+}
+.game-grid-item p {
+  margin: 0;
+  color: var(--game-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+/* ── Detail Container ── */
+.game-detail-container {
+  display: none;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.game-detail-container.is-active {
+  display: block;
+}
+.game-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border: 1px solid var(--game-line);
+  border-radius: 12px;
+  background: var(--game-panel);
+  color: var(--game-ink);
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: border-color 200ms, box-shadow 200ms;
+}
+.game-back-btn:hover {
+  border-color: var(--game-blue);
+  box-shadow: 0 4px 14px rgba(111, 149, 244, 0.14);
+}
+
+/* ── Detail Panel ── */
 .game-panel {
   display: none;
   grid-template-columns: minmax(320px, 520px) minmax(280px, 1fr);
@@ -446,16 +483,6 @@
   background: #3c3a32;
   font-size: clamp(17px, 4vw, 30px);
 }
-@keyframes tile-pop {
-  0% { opacity: 0; transform: translate(
-    calc(var(--gap) + (var(--x) * (var(--cell) + var(--gap)))),
-    calc(var(--gap) + (var(--y) * (var(--cell) + var(--gap))))
-  ) scale(0.82); }
-  100% { opacity: 1; transform: translate(
-    calc(var(--gap) + (var(--x) * (var(--cell) + var(--gap)))),
-    calc(var(--gap) + (var(--y) * (var(--cell) + var(--gap))))
-  ) scale(1); }
-}
 .game-message {
   display: none;
   position: absolute;
@@ -494,6 +521,8 @@
   font-size: 13px;
   font-weight: 700;
 }
+
+/* ── iframe containers ── */
 .cube-wrap {
   position: relative;
   display: grid;
@@ -517,6 +546,7 @@
   width: 100%;
   height: 100%;
   border: 0;
+  overflow: hidden;
 }
 .cube-live-frame:fullscreen {
   border-radius: 0;
@@ -524,6 +554,8 @@
 .cube-live-frame:fullscreen iframe {
   min-height: 100vh;
 }
+
+/* ── Aqua Labyrinth frame ── */
 .aqua-frame-wrap {
   position: relative;
   width: 100%;
@@ -554,7 +586,8 @@
   width: 320px;
   height: 480px;
   min-height: auto;
-}.aqua-fs-btn {
+}
+.aqua-fs-btn {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -575,6 +608,8 @@
 .aqua-frame-wrap:fullscreen .aqua-fs-btn {
   opacity: 1;
 }
+
+/* ── Cube card (dark theme) ── */
 .cube-card {
   color: #edf4ff;
   background:
@@ -723,6 +758,8 @@
   line-height: 1.9;
   word-break: break-all;
   min-height: 36px;
+  max-height: 160px;
+  overflow-y: auto;
 }
 .cube-stack-label {
   display: block;
@@ -755,6 +792,7 @@
   color: #26395e;
 }
 
+/* ── Gobang ── */
 .gobang-board-wrap {
   position: relative;
   display: grid;
@@ -833,13 +871,18 @@
   margin-top: 14px;
 }
 
+/* ── Responsive ── */
+@media (max-width: 1180px) {
+  .game-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 860px) {
-  .game-hero,
+  .game-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .game-panel.is-active {
     grid-template-columns: 1fr;
-  }
-  .game-tabs {
-    justify-self: start;
   }
   .game-shell {
     padding-top: 126px;
@@ -848,17 +891,18 @@
   .game-side {
     border-radius: 18px;
   }
+  .cube-live-frame {
+    height: 420px;
+    min-height: 420px;
+  }
 }
 @media (max-width: 520px) {
+  .game-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
   .game-shell {
     padding-inline: 12px;
-  }
-  .game-tabs {
-    width: 100%;
-  }
-  .game-tab {
-    flex: 1;
-    padding: 0 10px;
   }
   .game-board {
     --gap: 7px;
@@ -882,6 +926,8 @@
     width: 100%;
   }
 }
+
+/* ── Dark Mode ── */
 [data-theme='dark'] {
   --game-ink: #eaf1ff;
   --game-muted: #8b9ab8;
@@ -908,27 +954,21 @@
 [data-theme='dark'] #nav .site-page {
   color: var(--game-ink) !important;
 }
-[data-theme='dark'] .game-tabs {
-  border-color: rgba(143, 170, 230, 0.18);
-  background: rgba(20, 28, 50, 0.62);
-}
-[data-theme='dark'] .game-tab {
-  color: #7a8eb8;
-}
-[data-theme='dark'] .game-tab:hover {
-  color: #eaf1ff;
-}
 [data-theme='dark'] .game-card,
-[data-theme='dark'] .game-side {
+[data-theme='dark'] .game-side,
+[data-theme='dark'] .game-grid-item,
+[data-theme='dark'] .game-back-btn {
   border-color: rgba(143, 170, 230, 0.18);
 }
 [data-theme='dark'] .game-card h2,
 [data-theme='dark'] .game-side h2,
-[data-theme='dark'] .game-hero h1 {
+[data-theme='dark'] .game-hero h1,
+[data-theme='dark'] .game-grid-item h3 {
   color: #eaf1ff;
 }
 [data-theme='dark'] .game-hero p,
-[data-theme='dark'] .game-note {
+[data-theme='dark'] .game-note,
+[data-theme='dark'] .game-grid-item p {
   color: #8b9ab8;
 }
 [data-theme='dark'] .game-btn {
@@ -1019,27 +1059,96 @@
 [data-theme='dark'] .aqua-frame-wrap:fullscreen {
   background: #1a2340;
 }
+[data-theme='dark'] .game-grid-item:hover {
+  border-color: var(--game-blue);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
 </style>
 
 
 <main class="game-shell">
+  <!-- ── Hero ── -->
   <section class="game-hero">
-    <div>
-      <div class="game-kicker">H5 Game Lab</div>
-      <h1>小游戏实验室</h1>
-      <p>这里是我的 H5 游戏实验室。我试着用纯前端技术复刻了一些经典小游戏，并在右侧记录了它们背后的算法与实现思路。欢迎上手体验！</p>
+    <div class="game-kicker">H5 Game Lab</div>
+    <h1>小游戏实验室</h1>
+    <p>这里是我用纯前端技术复刻的经典小游戏合集。每个游戏下方都记录了核心算法、数据结构与实现思路——不是游戏说明书的复读，而是写给同行看的「代码是怎么想的」。</p>
+  </section>
+
+  <!-- ── Game Grid ── -->
+  <section class="game-grid" id="game-grid">
+    <div class="game-grid-item" data-game="2048">
+      <div class="game-grid-icon">🔢</div>
+      <h3>2048</h3>
+      <p>方向键滑动合并，压缩数组 + 满行检测判负</p>
     </div>
-    <div class="game-tabs" role="tablist" aria-label="游戏列表">
-      <button class="game-tab is-active" type="button" data-game-tab="2048">2048</button>
-      <button class="game-tab" type="button" data-game-tab="cube">魔方</button>
-      <button class="game-tab" type="button" data-game-tab="gobang">五子棋</button>
-      <button class="game-tab" type="button" data-game-tab="carrot">飞行萝卜</button>
-      <button class="game-tab" type="button" data-game-tab="aqua">一笔连珠</button>
+    <div class="game-grid-item" data-game="cube">
+      <div class="game-grid-icon">🧊</div>
+      <h3>魔方练习台</h3>
+      <p>Kociemba 两阶段求解器，step-by-step 动画回放</p>
+    </div>
+    <div class="game-grid-item" data-game="gobang">
+      <div class="game-grid-icon">⚫</div>
+      <h3>五子棋</h3>
+      <p>Minimax + Alpha-Beta 剪枝，棋型评分引擎驱动 AI</p>
+    </div>
+    <div class="game-grid-item" data-game="carrot">
+      <div class="game-grid-icon">🥕</div>
+      <h3>飞行萝卜</h3>
+      <p>Three.js 3D 动画：TweenMax 循环 + OrbitControls 视角</p>
+    </div>
+    <div class="game-grid-item" data-game="aqua">
+      <div class="game-grid-icon">🌀</div>
+      <h3>一笔连珠</h3>
+      <p>哈密顿路径建模，事件驱动状态机 + Tilemap 碰撞</p>
+    </div>
+    <div class="game-grid-item" data-game="tetris">
+      <div class="game-grid-icon">🧱</div>
+      <h3>俄罗斯方块</h3>
+      <p>10×20 网格 + 旋转矩阵碰撞检测 + SRS 墙踢系统</p>
+    </div>
+    <div class="game-grid-item" data-game="nodie">
+      <div class="game-grid-icon">🏃</div>
+      <h3>一个都不能死</h3>
+      <p>双通道 Canvas 渲染 + 渐进加速障碍生成 + 碰撞检测</p>
+    </div>
+    <div class="game-grid-item" data-game="sweep">
+      <div class="game-grid-icon">💣</div>
+      <h3>扫雷</h3>
+      <p>Fisher-Yates 布雷 + BFS 递归展开连通区域</p>
+    </div>
+    <div class="game-grid-item" data-game="sokoban">
+      <div class="game-grid-icon">📦</div>
+      <h3>推箱子</h3>
+      <p>数字编码地图 + 历史栈撤销 + 100 关预置图谱</p>
+    </div>
+    <div class="game-grid-item" data-game="pacman">
+      <div class="game-grid-icon">🟡</div>
+      <h3>吃豆人</h3>
+      <p>Tile 地图 + 幽灵状态机（追逐/散开/逃跑）+ AABB 碰撞</p>
+    </div>
+    <div class="game-grid-item" data-game="tank">
+      <div class="game-grid-icon">🎮</div>
+      <h3>坦克大战</h3>
+      <p>分层 Canvas 渲染 + 对象池子弹 + AABB 碰撞系统</p>
+    </div>
+    <div class="game-grid-item" data-game="blockcut">
+      <div class="game-grid-icon">🪚</div>
+      <h3>切积木</h3>
+      <p>Box2D 物理模拟 + 鼠标轨迹多边形切割判定</p>
+    </div>
+    <div class="game-grid-item" data-game="eyesight">
+      <div class="game-grid-icon">👁️</div>
+      <h3>最强眼力</h3>
+      <p>HSL 色彩空间 + 指数衰减色差 + 随机位置算法</p>
     </div>
   </section>
 
-  <section class="game-stage">
-    <div class="game-panel is-active" data-game-panel="2048">
+  <!-- ── Detail Container ── -->
+  <div class="game-detail-container" id="game-detail-container">
+    <button class="game-back-btn" id="game-back-btn" type="button">← 返回游戏大厅</button>
+
+    <!-- 2048 -->
+    <div class="game-panel" data-game-panel="2048">
       <div class="game-card">
         <div class="game-card-head">
           <h2>2048</h2>
@@ -1054,16 +1163,17 @@
         </div>
       </div>
       <aside class="game-side">
-        <h2>规则很简单</h2>
-        <p class="game-note">用方向键或滑动移动方块，相同数字会合并。桌面端用方向键，手机端直接滑动棋盘。</p>
+        <h2>数组压缩 + 状态不可逆检测</h2>
+        <p class="game-note">用方向键或滑动移动方块，相同数字会合并。核心逻辑「压缩-合并-再压缩」三遍扫描，操作前后 JSON 快照比对决定是否生成新块。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>目标</strong><span>合成 2048，也可以继续冲更高分。</span></div>
-          <div class="game-list-item"><strong>节奏</strong><span>适合碎片时间，输赢都不占脑子。</span></div>
-          <div class="game-list-item"><strong>记录</strong><span>最高分会保存在本地浏览器。</span></div>
+          <div class="game-list-item"><strong>数据结构</strong><span>4×4 二维数组，0 表示空格。每次操作沿方向逐行/列提取非零值→合并相邻等值→补零→写回。</span></div>
+          <div class="game-list-item"><strong>不可逆判负</strong><span>棋盘填满且无相邻等值 → 游戏结束。用双重遍历检查水平/垂直邻居，O(16) 复杂度。</span></div>
+          <div class="game-list-item"><strong>状态持久化</strong><span>最高分存 localStorage，页面刷新不丢失。</span></div>
         </div>
       </aside>
     </div>
 
+    <!-- Gobang -->
     <div class="game-panel" data-game-panel="gobang">
       <div class="game-card">
         <div class="game-card-head">
@@ -1081,12 +1191,12 @@
         <div class="gobang-turn" id="gobang-turn">黑方回合</div>
       </div>
       <aside class="game-side">
-        <h2>玩法 & 算法</h2>
-        <p class="game-note">双人对战或人机对战。AI 基于 Minimax + Alpha-Beta 剪枝，搜索深度 4 层，棋型评分驱动。</p>
+        <h2>Minimax + Alpha-Beta 剪枝</h2>
+        <p class="game-note">AI 搜索深度 4 层，候选节点由已落子邻域生成（空棋盘天元开局），Alpha-Beta 剪枝将复杂度从 O(bⁿ) 压缩到 O(√(bⁿ))。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>双人模式</strong><span>本地对弈，两位玩家共用一台设备轮流操作。</span></div>
-          <div class="game-list-item"><strong>人机模式</strong><span>你执黑先行，AI 执白。AI 使用 Minimax 搜索最优落子点。</span></div>
-          <div class="game-list-item"><strong>AI 算法</strong><span>Minimax + Alpha-Beta 剪枝，棋型评分（五连 > 活四 > 冲四 > 活三 > ...），仅搜索已有棋子邻域。</span></div>
+          <div class="game-list-item"><strong>棋型评分引擎</strong><span>四方向扫描线分析：五连(10⁷) > 活四(5×10⁵) > 冲四(8×10⁴) > 活三(5×10⁴) > 冲三(5×10³) > 活二(500)。防守权重 1.1x 偏保守。</span></div>
+          <div class="game-list-item"><strong>候选节点生成</strong><span>仅搜索已有棋子 2 格邻域，每层取评分前 15 名，大幅缩减搜索树宽度。</span></div>
+          <div class="game-list-item"><strong>悔棋实现</strong><span>历史栈记录每步坐标与颜色，人机模式一次撤销两步（人类+AI）。</span></div>
         </div>
         <div class="gobang-actions">
           <button class="game-btn" id="gobang-undo" type="button">悔棋</button>
@@ -1094,6 +1204,7 @@
       </aside>
     </div>
 
+    <!-- Flying Carrot -->
     <div class="game-panel" data-game-panel="carrot">
       <div class="game-card">
         <div class="game-card-head">
@@ -1101,42 +1212,179 @@
           <button class="game-btn" id="carrot-fullscreen" type="button">全屏</button>
         </div>
         <div class="cube-live-frame" id="carrot-live-frame">
-          <iframe id="carrot-live-iframe" src="about:blank" title="萝卜载兔子飞行"></iframe>
+          <iframe id="carrot-live-iframe" src="about:blank" title="萝卜载兔子飞行" scrolling="no"></iframe>
         </div>
       </div>
       <aside class="game-side">
-        <h2>3D 动画场景</h2>
-        <p class="game-note">萝卜载着兔子飞行员在云层中飞行。支持鼠标拖拽旋转视角、滚轮缩放。</p>
+        <h2>Three.js 3D 动画场景</h2>
+        <p class="game-note">一个纯观赏性的 Three.js 3D 场景：胡萝卜载着兔子飞行员在云层中飞行。使用 TweenMax 驱动循环动画，OrbitControls 控制用户视角。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>操作</strong><span>鼠标拖拽旋转视角，滚轮拉近拉远，右键平移。</span></div>
-          <div class="game-list-item"><strong>角色</strong><span>胡萝卜机身 + 棕色翅膀 + 兔子飞行员（耳朵会动、眼睛会眨）。</span></div>
-          <div class="game-list-item"><strong>场景</strong><span>云朵循环飘过，胡萝卜上下浮动，叶子持续旋转。</span></div>
+          <div class="game-list-item"><strong>渲染管线</strong><span>WebGLRenderer → PerspectiveCamera → Scene + Fog 大气效果。DirectionalLight + AmbientLight 混合照明，PlaneBufferGeometry 做远景地面。</span></div>
+          <div class="game-list-item"><strong>动画系统</strong><span>TweenMax 控制三个独立循环：胡萝卜上下浮动（yoyo）、左右摇摆（yoyo）、叶子持续旋转。兔子耳朵互逆摆动，眨眼用 scale.y→0.1 模拟。</span></div>
+          <div class="game-list-item"><strong>网格建模</strong><span>所有角色均为程序化生成：CylinderGeometry 做身体、CubeGeometry 变形做翅膀/耳朵/座位。无外部模型文件，纯几何体组合。</span></div>
         </div>
       </aside>
     </div>
 
+    <!-- Aqua Labyrinth -->
     <div class="game-panel" data-game-panel="aqua">
       <div class="game-card">
-        <div class="game-card-head">
-          <h2>一笔连珠</h2>
-        </div>
+        <div class="game-card-head"><h2>一笔连珠</h2></div>
         <div class="aqua-frame-wrap" id="aqua-live-frame">
-          <iframe id="aqua-live-iframe" src="about:blank" title="一笔连珠迷宫"></iframe>
+          <iframe id="aqua-live-iframe" src="about:blank" title="一笔连珠迷宫" scrolling="no"></iframe>
           <button class="aqua-fs-btn" id="aqua-fullscreen" type="button" title="全屏">⛶</button>
         </div>
       </div>
       <aside class="game-side">
-        <h2>核心实现原理</h2>
-        <p class="game-note">看似简单的"不重复走完所有格子"规则，在计算机科学中其实是一个经典的哈密顿路径（Hamiltonian Path）问题。关卡用 7×6 二维数组描述，通过事件驱动的状态机控制精灵移动与碰撞检测。</p>
+        <h2>哈密顿路径 + 状态机碰撞</h2>
+        <p class="game-note">「不重复走完所有格子」在计算机科学中就是经典的哈密顿路径问题。关卡用 7×6 二维数组描述，事件链驱动精灵状态迁移。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>关卡地图</strong><span>每个关卡是一个 7×6 二维数组，用 0–3 分别表示空地、路径格、起点/终点和特殊机关。类似于游戏引擎中的 Tilemap 数据结构。</span></div>
-          <div class="game-list-item"><strong>图论建模</strong><span>将网格建模为无向图：每个路径格是一个节点，上下左右相邻的格子之间有一条边。问题等价于在图中寻找一条恰好遍历每个节点一次的路径。</span></div>
-          <div class="game-list-item"><strong>精灵状态机</strong><span>每个格子对应一个精灵对象，内部通过 tag 字段（0/1/2）驱动状态流转：未访问 → 当前路径中 → 已完成，实现清晰的视觉反馈。</span></div>
-          <div class="game-list-item"><strong>交互与碰撞</strong><span>监听鼠标/触摸事件链（按下→移动→抬起），在每次移动时检测当前坐标落入哪个格子的屏幕区域，实时切换精灵状态并刷新画布。</span></div>
+          <div class="game-list-item"><strong>关卡数据结构</strong><span>7×6 二维数组，0=空地 1=路径格 2=起点 3=终点。等价于 Tilemap 中的图节点，四邻接构成无向图。</span></div>
+          <div class="game-list-item"><strong>图论建模</strong><span>每个路径格是一个节点，上下左右相邻格之间有一条边。问题等价于寻找恰好遍历每个节点一次的哈密顿路径，NP-完全问题。</span></div>
+          <div class="game-list-item"><strong>精灵状态机</strong><span>tag 字段驱动三态：0=未访问 → 1=当前路径中 → 2=已完成。事件链：mousedown→mousemove→mouseup，每次移动检测坐标落入区域。</span></div>
+          <div class="game-list-item"><strong>适配方案</strong><span>320×480 移动端原生尺寸，父页面用 transform:scale() 等比缩放。覆盖 parse() 防止二次调用导致 config.offset 类型错误。</span></div>
         </div>
       </aside>
     </div>
 
+    <!-- Tetris -->
+    <div class="game-panel" data-game-panel="tetris">
+      <div class="game-card">
+        <div class="game-card-head"><h2>俄罗斯方块</h2></div>
+        <div class="cube-live-frame" id="tetris-live-frame"><iframe id="tetris-live-iframe" src="about:blank" title="俄罗斯方块" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>旋转矩阵 + 消行算法</h2>
+        <p class="game-note">七种标准方块（I/O/T/S/Z/J/L），每种用 4×4 矩阵存储四个旋转状态。SRS 墙踢系统处理贴墙旋转时的位移修正。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>数据结构</strong><span>10×20 二维网格数组存储已落方块。活动方块为 4×4 旋转矩阵，通过坐标偏移映射到网格。</span></div>
+          <div class="game-list-item"><strong>碰撞检测</strong><span>将方块的 4×4 矩阵投影到网格对应位置，检查边界溢出和已占用格。旋转时先尝试原角度，失败则依次尝试墙踢偏置。</span></div>
+          <div class="game-list-item"><strong>消行算法</strong><span>逐行扫描满行→splice 删除→unshift 空行补充顶部。分数 = 行数² × 100，速度随等级线性递增。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- No One Can Die -->
+    <div class="game-panel" data-game-panel="nodie">
+      <div class="game-card">
+        <div class="game-card-head"><h2>一个都不能死</h2></div>
+        <div class="cube-live-frame" id="nodie-live-frame"><iframe id="nodie-live-iframe" src="about:blank" title="一个都不能死" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>双通道渲染 + 渐进加速</h2>
+        <p class="game-note">同时控制左右两个火柴人跳过障碍，任何一个碰到障碍都会失败。考验左右手协调和节奏感。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>渲染架构</strong><span>单 Canvas (1366×621) 分左右两个逻辑区域，独立绘制两个火柴人的动画帧和各自障碍物。</span></div>
+          <div class="game-list-item"><strong>障碍生成</strong><span>随机间隔 + 渐进加速曲线，右侧障碍比左侧稍延迟以区分节奏。碰撞判定：火柴人碰撞框与障碍物矩形重叠即失败。</span></div>
+          <div class="game-list-item"><strong>事件处理</strong><span>点击/触摸屏幕左半区→左侧火柴人跳跃，右半区→右侧跳跃。用 clientX 相对 Canvas 左边界判断。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Minesweeper -->
+    <div class="game-panel" data-game-panel="sweep">
+      <div class="game-card">
+        <div class="game-card-head"><h2>扫雷</h2></div>
+        <div class="cube-live-frame" id="sweep-live-frame"><iframe id="sweep-live-iframe" src="about:blank" title="扫雷" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>BFS 展开 + 概率推理</h2>
+        <p class="game-note">经典的 NP 完全推理游戏。根据数字推断地雷位置，标记所有地雷即可获胜。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>数据结构</strong><span>二维数组存储三种信息：是否地雷、邻雷计数、是否已翻开。Fisher-Yates 洗牌算法随机布雷。</span></div>
+          <div class="game-list-item"><strong>BFS 展开</strong><span>点击到空格（邻雷数=0）时，递归/队列展开所有相邻空格（Flood Fill），直到遇到数字边界。O(n) 复杂度。</span></div>
+          <div class="game-list-item"><strong>左键+右键</strong><span>同时按下左右键（chord）：当标记数与数字相等时自动翻开剩余邻格，减少重复操作。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Sokoban -->
+    <div class="game-panel" data-game-panel="sokoban">
+      <div class="game-card">
+        <div class="game-card-head"><h2>推箱子</h2></div>
+        <div class="cube-live-frame" id="sokoban-live-frame"><iframe id="sokoban-live-iframe" src="about:blank" title="推箱子" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>网格编码 + 历史栈</h2>
+        <p class="game-note">经典的 PSPACE-完全益智游戏。只能推不能拉，一步错可能全局卡死。问题本质是状态空间搜索。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>地图编码</strong><span>数字编码：0=空地 1=墙 2=目标点 3=箱子 4=玩家 5=箱子在目标上。100 关预置地图库 (mapdata100.js)，每关支持任意尺寸。</span></div>
+          <div class="game-list-item"><strong>移动逻辑</strong><span>方向键驱动：检查目标格→空地则移动，箱子则再检查箱子前方→空地则推。两步联动原子操作。</span></div>
+          <div class="game-list-item"><strong>撤销系统</strong><span>历史栈记录每步的玩家旧位置、箱子旧位置（若有），支持无限步回退。重放逆操作即可。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Pac-Man -->
+    <div class="game-panel" data-game-panel="pacman">
+      <div class="game-card">
+        <div class="game-card-head"><h2>吃豆人</h2></div>
+        <div class="cube-live-frame" id="pacman-live-frame"><iframe id="pacman-live-iframe" src="about:blank" title="吃豆人" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>Tile 地图 + 幽灵状态机</h2>
+        <p class="game-note">永远经典的街机迷宫追逐游戏。地图为二维 Tile 数组，幽灵 AI 行为由有限状态机驱动。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>地图表示</strong><span>960×640 Canvas，二维 tile 数组编码迷宫结构。每个 tile 标记为墙/豆子/大豆子/空地，吃豆人和幽灵基于 tile 坐标做离散移动。</span></div>
+          <div class="game-list-item"><strong>幽灵 AI</strong><span>三态 FSM：追逐（追踪吃豆人位置）→ 散开（各回角落）→ 逃跑（吃到大豆子后反向逃离）。状态切换由计时器触发。</span></div>
+          <div class="game-list-item"><strong>碰撞检测</strong><span>基于 tile 坐标的离散碰撞：吃豆人与豆子同 tile→加分；与幽灵同 tile→死亡/反杀。比像素级碰撞更稳定。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Tank Battle -->
+    <div class="game-panel" data-game-panel="tank">
+      <div class="game-card">
+        <div class="game-card-head"><h2>坦克大战</h2></div>
+        <div class="cube-live-frame" id="tank-live-frame"><iframe id="tank-live-iframe" src="about:blank" title="坦克大战" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>分层 Canvas + 对象池 + AABB</h2>
+        <p class="game-note">FC 红白机经典重现。双人对战或合作，消灭敌方坦克保卫基地。支持键盘双人操作。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>分层渲染</strong><span>5 层 Canvas 叠加：墙壁层（静态地图）→ 坦克层 → 草地层（半透明覆盖）→ 特效层（爆炸动画）→ UI 层。分层避免重绘开销。</span></div>
+          <div class="game-list-item"><strong>对象池模式</strong><span>子弹对象预分配 + 复用，避免频繁 new/GC。发射时从池中取出，命中/出界后归还。坦克同理管理生命周期。</span></div>
+          <div class="game-list-item"><strong>碰撞系统</strong><span>AABB 矩形检测：坦克-墙壁、坦克-坦克、子弹-墙壁、子弹-坦克四类碰撞。空间分块优化减少检测对数。</span></div>
+          <div class="game-list-item"><strong>操作</strong><span>玩家1：WASD + Space；玩家2：方向键 + Enter。N/P 切换关卡，Enter 开始。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Block Cut -->
+    <div class="game-panel" data-game-panel="blockcut">
+      <div class="game-card">
+        <div class="game-card-head"><h2>切积木</h2></div>
+        <div class="cube-live-frame" id="blockcut-live-frame"><iframe id="blockcut-live-iframe" src="about:blank" title="切积木" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>Box2D 物理 + 鼠标切割</h2>
+        <p class="game-note">用鼠标划线切割积木，让顶部积木落到平台上而不坠落。物理引擎驱动真实重力与碰撞响应。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>物理引擎</strong><span>Box2D (box2dweb) 驱动刚体模拟：重力加速度、碰撞响应、摩擦系数。积木切割后自动拆分为两个独立刚体。</span></div>
+          <div class="game-list-item"><strong>切割算法</strong><span>鼠标轨迹与多边形求交→确定切割线→计算分割后的两个凸多边形顶点→创建新的 b2Body。非凸多边形需先三角剖分。</span></div>
+          <div class="game-list-item"><strong>通关判定</strong><span>顶部积木在平台上保持静止 3 秒 → 过关。通过检测刚体线速度 < 阈值 + 位置在平台范围内判定。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Best Eyesight -->
+    <div class="game-panel" data-game-panel="eyesight">
+      <div class="game-card">
+        <div class="game-card-head"><h2>最强眼力</h2></div>
+        <div class="cube-live-frame" id="eyesight-live-frame"><iframe id="eyesight-live-iframe" src="about:blank" title="最强眼力" scrolling="no"></iframe></div>
+      </div>
+      <aside class="game-side">
+        <h2>HSL 色彩空间 + 指数衰减</h2>
+        <p class="game-note">在众多色块中找出颜色不同的那一个，考验色觉敏感度。色差随关卡指数衰减，越往后越难分辨。</p>
+        <div class="game-list">
+          <div class="game-list-item"><strong>色彩模型</strong><span>HSL 空间描述颜色：在固定 Hue/Saturation 下微调 Lightness 或 Hue 产生差异色块。人眼对不同色相的感知非线性，需经验调整步长。</span></div>
+          <div class="game-list-item"><strong>难度曲线</strong><span>初始色差 Δ=30（易分辨），每关乘以衰减因子 0.92。第 30 关 Δ≈2.5，接近人眼色差辨别阈值（JND ~2）。</span></div>
+          <div class="game-list-item"><strong>随机放置</strong><span>Fisher-Yates 洗牌确定不同色块的网格位置。网格从 2×2 逐步扩展到 6×6，增大搜索面积。</span></div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Cube (always loaded, first in list) -->
     <div class="game-panel" data-game-panel="cube">
       <div class="game-card cube-card">
         <div class="game-card-head">
@@ -1153,7 +1401,7 @@
         </div>
         <div class="cube-wrap">
           <div class="cube-live-frame" id="cube-live-frame">
-            <iframe id="cube-live-iframe" src="/games/cube3d/?v=single-three" title="Three.js 可复原魔方"></iframe>
+            <iframe id="cube-live-iframe" src="/games/cube3d/?v=single-three" title="Three.js 可复原魔方" scrolling="no"></iframe>
           </div>
         </div>
         <div class="cube-controls">
@@ -1185,41 +1433,99 @@
         <h2>Kociemba 两阶段算法</h2>
         <p class="game-note">双击魔方触发合法打乱，手动还原或点算法复原。复原时左侧会实时高亮当前执行的转面步骤。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>Phase 1</strong><span>将魔方归约到 &lt;U,D,L2,R2,F2,B2&gt; 子群，最多 12 步。</span></div>
-          <div class="game-list-item"><strong>Phase 2</strong><span>在子群内搜索最优解，两阶段合计通常 20 步以内。</span></div>
-          <div class="game-list-item"><strong>God's Number</strong><span>任意魔方状态最多 20 步可解（HTM），由计算机穷举证明于 2010 年。</span></div>
+          <div class="game-list-item"><strong>Phase 1</strong><span>将魔方归约到 &lt;U,D,L2,R2,F2,B2&gt; 子群（角块方向全正确、棱块中层归位），最多 12 步。IDA* 搜索 + 剪枝表加速。</span></div>
+          <div class="game-list-item"><strong>Phase 2</strong><span>在子群内搜索最优解（仅允许 180° 中层转动），两阶段合计通常 18–22 步，均 ≤ God's Number 20。</span></div>
+          <div class="game-list-item"><strong>God's Number</strong><span>任意魔方状态最多 20 步可解（HTM 度量），由 Google 捐赠 35 CPU-年的计算机穷举证明于 2010 年。</span></div>
         </div>
       </aside>
     </div>
-  </section>
+  </div>
 </main>
 
 <script>
 (function () {
-  var tabs = Array.from(document.querySelectorAll('[data-game-tab]'));
+  var grid = document.getElementById('game-grid');
+  var detailContainer = document.getElementById('game-detail-container');
+  var backBtn = document.getElementById('game-back-btn');
+  var gridItems = Array.from(document.querySelectorAll('.game-grid-item'));
   var panels = Array.from(document.querySelectorAll('[data-game-panel]'));
-  var cubeIframeSrc = '/games/cube3d/?v=single-three';
-  var carrotIframeSrc = '/games/flying-carrot/';
-  var aquaIframeSrc = '/games/aqua-labyrinth/';
+
+  // iframe src map
+  var iframeSrcMap = {
+    carrot: '/games/flying-carrot/',
+    aqua: '/games/aqua-labyrinth/',
+    tetris: '/games/tetris/',
+    nodie: '/games/no-one-die/',
+    sweep: '/games/minesweeper/',
+    sokoban: '/games/sokoban/',
+    pacman: '/games/pacman/',
+    tank: '/games/tank-battle/',
+    blockcut: '/games/block-cut/',
+    eyesight: '/games/best-eyesight/'
+  };
+  var iframeIdMap = {
+    carrot: 'carrot-live-iframe',
+    aqua: 'aqua-live-iframe',
+    tetris: 'tetris-live-iframe',
+    nodie: 'nodie-live-iframe',
+    sweep: 'sweep-live-iframe',
+    sokoban: 'sokoban-live-iframe',
+    pacman: 'pacman-live-iframe',
+    tank: 'tank-live-iframe',
+    blockcut: 'blockcut-live-iframe',
+    eyesight: 'eyesight-live-iframe'
+  };
+
   function activateGame(key) {
-    tabs.forEach(function (item) { item.classList.toggle('is-active', item.dataset.gameTab === key); });
-    panels.forEach(function (panel) { panel.classList.toggle('is-active', panel.dataset.gamePanel === key); });
-    var cubeIframe = document.getElementById('cube-live-iframe');
-    if (cubeIframe) cubeIframe.src = key === 'cube' ? cubeIframeSrc : 'about:blank';
-    var carrotIframe = document.getElementById('carrot-live-iframe');
-    if (carrotIframe) carrotIframe.src = key === 'carrot' ? carrotIframeSrc : 'about:blank';
-    var aquaIframe = document.getElementById('aqua-live-iframe');
-    if (aquaIframe) aquaIframe.src = key === 'aqua' ? aquaIframeSrc : 'about:blank';
+    // Activate correct panel
+    panels.forEach(function (panel) {
+      panel.classList.toggle('is-active', panel.dataset.gamePanel === key);
+    });
+    // Set iframe src
+    for (var k in iframeSrcMap) {
+      var ifr = document.getElementById(iframeIdMap[k]);
+      if (ifr) ifr.src = key === k ? iframeSrcMap[k] : 'about:blank';
+    }
   }
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var key = tab.dataset.gameTab;
-      activateGame(key);
-      if (history.replaceState) history.replaceState(null, '', '#' + key);
+
+  function showDetail(key) {
+    grid.style.display = 'none';
+    detailContainer.classList.add('is-active');
+    activateGame(key);
+    if (history.replaceState) history.replaceState(null, '', '#game=' + key);
+    // Scale aqua iframe after DOM renders
+    if (key === 'aqua') setTimeout(scaleAquaIframe, 600);
+  }
+
+  function showGrid() {
+    grid.style.display = '';
+    detailContainer.classList.remove('is-active');
+    panels.forEach(function (p) { p.classList.remove('is-active'); });
+    // Unload iframes
+    for (var k in iframeIdMap) {
+      var ifr = document.getElementById(iframeIdMap[k]);
+      if (ifr) ifr.src = 'about:blank';
+    }
+    if (history.replaceState) history.replaceState(null, '', window.location.pathname);
+  }
+
+  gridItems.forEach(function (item) {
+    item.addEventListener('click', function () {
+      showDetail(item.dataset.game);
     });
   });
-  if (location.hash === '#cube') activateGame('cube');
 
+  backBtn.addEventListener('click', showGrid);
+
+  // Hash routing
+  if (location.hash && location.hash.startsWith('#game=')) {
+    var hashKey = location.hash.replace('#game=', '');
+    if (document.querySelector('[data-game-panel="' + hashKey + '"]')) {
+      showDetail(hashKey);
+    }
+  }
+
+  // ── 2048 Game Logic ──
   var boardEl = document.getElementById('game-2048-board');
   var scoreEl = document.getElementById('game-2048-score');
   var bestEl = document.getElementById('game-2048-best');
@@ -1362,6 +1668,7 @@
   newBtn.addEventListener('click', reset2048);
   reset2048();
 
+  // ── Cube Bridge ──
   var cubeLiveFrame = document.getElementById('cube-live-frame');
   var cubeLiveIframe = document.getElementById('cube-live-iframe');
   var cubeStatusDot = document.getElementById('cube-status-dot');
@@ -1411,7 +1718,6 @@
       html += '<span class="' + cls + '">' + step + '</span>';
     });
     cubeStack.innerHTML = html;
-    // 滚动到当前步
     var cur = cubeStack.querySelector('.is-current');
     if (cur) cur.scrollIntoView({ block: 'nearest' });
   }
@@ -1480,12 +1786,6 @@
   window.addEventListener('resize', scaleAquaIframe);
   document.addEventListener('fullscreenchange', scaleAquaIframe);
   document.addEventListener('webkitfullscreenchange', scaleAquaIframe);
-  // Also scale when aqua tab activates
-  var origActivateGame = activateGame;
-  activateGame = function(key) {
-    origActivateGame(key);
-    if (key === 'aqua') setTimeout(scaleAquaIframe, 500);
-  };
 
   cubeSpeedButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -1529,7 +1829,7 @@
   updateCubeStatus('Three.js 魔方加载中');
   updateSpeedLabel();
 
-  // 五子棋
+  // ── Gobang ──
   (function () {
     var gobangCanvas = document.getElementById('gobang-canvas');
     var gobangMessage = document.getElementById('gobang-message');
@@ -1551,10 +1851,9 @@
     var gameOver = false;
     var history = [];
     var aiThinking = false;
-    var mode = 'pvp'; // 'pvp' or 'pve'
+    var mode = 'pvp';
     var AI_DEPTH = 4;
 
-    // 棋型评分
     var SCORE = {
       FIVE: 10000000,
       OPEN_FOUR: 500000,
@@ -1629,22 +1928,16 @@
       return false;
     }
 
-    // 评估单条方向线上的棋型
-    // 沿方向(dx,dy)扫描，返回{count, openStart, openEnd, blockStart, blockEnd}
     function scanLine(row, col, dx, dy, player) {
-      var count = 1; // 包含当前落子点
+      var count = 1;
       var openStart = false, openEnd = false;
-
       var i = row + dx, j = col + dy;
       while (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && maps[i][j] === player) {
         count++;
         i += dx;
         j += dy;
       }
-      if (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && maps[i][j] === EMPTY) {
-        openEnd = true;
-      }
-
+      if (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && maps[i][j] === EMPTY) openEnd = true;
       i = row - dx;
       j = col - dy;
       while (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && maps[i][j] === player) {
@@ -1652,14 +1945,10 @@
         i -= dx;
         j -= dy;
       }
-      if (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && maps[i][j] === EMPTY) {
-        openStart = true;
-      }
-
+      if (i >= 0 && i < BOARD_SIZE && j >= 0 && j < BOARD_SIZE && maps[i][j] === EMPTY) openStart = true;
       return { count: count, openStart: openStart, openEnd: openEnd };
     }
 
-    // 棋型评分辅助
     function patternScore(c, openStart, openEnd) {
       if (c >= 5) return SCORE.FIVE;
       if (c === 4) return (openStart && openEnd) ? SCORE.OPEN_FOUR : ((openStart || openEnd) ? SCORE.RUSH_FOUR : 0);
@@ -1669,7 +1958,6 @@
       return 0;
     }
 
-    // 评估某空位的分数（先暂设棋子再复原，空位安全调用）
     function evaluatePoint(row, col, player) {
       maps[row][col] = player;
       var total = 0;
@@ -1682,7 +1970,6 @@
       return total;
     }
 
-    // 获取候选落子点：所有已落子位置的邻域
     function getCandidateMoves() {
       var visited = {};
       var candidates = [];
@@ -1704,32 +1991,22 @@
           }
         }
       }
-      // 空棋盘：天元开局
-      if (candidates.length === 0) {
-        candidates.push({ row: 7, col: 7, score: 0 });
-      }
+      if (candidates.length === 0) candidates.push({ row: 7, col: 7, score: 0 });
       candidates.sort(function (a, b) { return b.score - a.score; });
       return candidates;
     }
 
-    // 评估整个棋盘（不修改 maps，安全遍历已有棋子）
     function evaluateBoard() {
       var humanScore = 0, aiScore = 0;
-      // 防重复计算：记录 4 个方向已被计过的棋子
-      var counted = {};
       var dirs = [[0, 1], [1, 0], [1, 1], [1, -1]];
-
       for (var r = 0; r < BOARD_SIZE; r++) {
         for (var c = 0; c < BOARD_SIZE; c++) {
           var player = maps[r][c];
           if (player === EMPTY) continue;
-
           for (var d = 0; d < 4; d++) {
             var dx = dirs[d][0], dy = dirs[d][1];
-            // 同一条线只计一次：反向相邻同色则跳过
             var pr = r - dx, pc = c - dy;
             if (pr >= 0 && pr < BOARD_SIZE && pc >= 0 && pc < BOARD_SIZE && maps[pr][pc] === player) continue;
-
             var res = scanLine(r, c, dx, dy, player);
             var score = patternScore(res.count, res.openStart, res.openEnd);
             if (player === BLACK) humanScore += score;
@@ -1740,15 +2017,10 @@
       return aiScore - humanScore * 1.1;
     }
 
-    // Minimax + Alpha-Beta
     function minimax(depth, isMax, alpha, beta) {
-      // 先检查是否已有胜负
       if (depth === 0) return { score: evaluateBoard() };
-
       var moves = getCandidateMoves();
       if (moves.length === 0) return { score: evaluateBoard() };
-
-      // 缩小候选列表（优化搜索树）
       if (moves.length > 15) moves = moves.slice(0, 15);
 
       if (isMax) {
@@ -1762,7 +2034,6 @@
           }
           var result = minimax(depth - 1, false, alpha, beta);
           maps[move.row][move.col] = EMPTY;
-
           if (result.score > best.score || best.score === -Infinity) {
             best = { row: move.row, col: move.col, score: result.score };
           }
@@ -1781,7 +2052,6 @@
           }
           var result = minimax(depth - 1, true, alpha, beta);
           maps[move.row][move.col] = EMPTY;
-
           if (result.score < best.score || best.score === Infinity) {
             best = { row: move.row, col: move.col, score: result.score };
           }
@@ -1809,7 +2079,7 @@
     }
 
     function placePiece(row, col) {
-      if (maps[row][col] !== EMPTY) return false; // 防覆盖
+      if (maps[row][col] !== EMPTY) return false;
       if (isBlack) {
         maps[row][col] = BLACK;
         history.push({ row: row, col: col, isBlack: true });
@@ -1839,44 +2109,31 @@
       if (gameOver || isBlack) return;
       aiThinking = true;
       updateTurnText();
-
       setTimeout(function () {
         var result = minimax(AI_DEPTH, true, -Infinity, Infinity);
-        if (result && result.row !== undefined) {
-          placePiece(result.row, result.col);
-        }
+        if (result && result.row !== undefined) placePiece(result.row, result.col);
         aiThinking = false;
         updateTurnText();
-      }, 80); // 短暂延迟让UI更新
+      }, 80);
     }
 
     function onCanvasClick(e) {
       if (gameOver || aiThinking) return;
-
       var rect = gobangCanvas.getBoundingClientRect();
       var scaleX = gobangCanvas.width / rect.width;
       var scaleY = gobangCanvas.height / rect.height;
       var x = (e.clientX - rect.left) * scaleX - PADDING;
       var y = (e.clientY - rect.top) * scaleY - PADDING;
-
       var col, row;
       if (x % CELL < CELL / 2) col = Math.floor(x / CELL);
       else col = Math.floor(x / CELL) + 1;
       if (y % CELL < CELL / 2) row = Math.floor(y / CELL);
       else row = Math.floor(y / CELL) + 1;
-
       if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) return;
       if (maps[row][col] !== 0) return;
-
-      // 人机模式：人类只能走黑棋
       if (mode === 'pve' && !isBlack) return;
-
       placePiece(row, col);
-
-      // 人机模式且轮到白方（AI）
-      if (mode === 'pve' && !isBlack && !gameOver) {
-        aiMove();
-      }
+      if (mode === 'pve' && !isBlack && !gameOver) aiMove();
     }
 
     function resetGobang() {
@@ -1892,8 +2149,6 @@
 
     function undoGobang() {
       if (gameOver || aiThinking || history.length === 0) return;
-
-      // 人机模式：悔两步（撤销人类和AI各一步）
       if (mode === 'pve' && history.length >= 2) {
         var ai = history.pop();
         maps[ai.row][ai.col] = 0;
@@ -1904,10 +2159,7 @@
         var last = history.pop();
         maps[last.row][last.col] = 0;
         isBlack = last.isBlack;
-      } else {
-        return; // 人机模式但只有人类的落子（AI还没走）
-      }
-
+      } else return;
       drawBoard();
       updateTurnText();
     }
@@ -1926,9 +2178,7 @@
     updateTurnText();
 
     modeTabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        setMode(tab.dataset.gobangMode);
-      });
+      tab.addEventListener('click', function () { setMode(tab.dataset.gobangMode); });
     });
 
     gobangCanvas.addEventListener('click', onCanvasClick);
@@ -1946,7 +2196,7 @@
           </div>
           <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">Web安全</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/"><span class="card-category-list-name">Windows服务器</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="card-category-list-name">密码学</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/"><span class="card-category-list-name">科研</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">大模型安全</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">系统安全</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%80%83%E7%A0%94/"><span class="card-category-list-name">考研</span><span class="card-category-list-count">5</span></a></li>
-          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.1em; color: #999">恶意程序</a> <a href="/tags/LFSR/" style="font-size: 1.1em; color: #999">LFSR</a> <a href="/tags/%E6%B5%81%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">流密码</a> <a href="/tags/DSS/" style="font-size: 1.1em; color: #999">DSS</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">数据结构</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 1.2em; color: #999da3">数字签名</a> <a href="/tags/LLM/" style="font-size: 1.1em; color: #999">LLM</a> <a href="/tags/ElGamal/" style="font-size: 1.2em; color: #999da3">ElGamal</a> <a href="/tags/%E7%9C%9F%E9%A2%98/" style="font-size: 1.1em; color: #999">真题</a> <a href="/tags/%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86/" style="font-size: 1.1em; color: #999">公钥加密</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">公式</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/" style="font-size: 1.1em; color: #999">椭圆曲线</a> <a href="/tags/Yakit/" style="font-size: 1.1em; color: #999">Yakit</a> <a href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.2em; color: #999da3">Windows服务器</a> <a href="/tags/XSS/" style="font-size: 1.1em; color: #999">XSS</a> <a href="/tags/Hash/" style="font-size: 1.1em; color: #999">Hash</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">病毒</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">计算机网络，数据结构</a> <a href="/tags/MCP/" style="font-size: 1.1em; color: #999">MCP</a> <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.1em; color: #999">概率论</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 1.4em; color: #99a5b6">考研</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.2em; color: #999da3">算法</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.1em; color: #999">图论</a> <a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">溢出</a> <a href="/tags/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">分组密码</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">组合数学</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/garak/" style="font-size: 1.1em; color: #999">garak</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" style="font-size: 1.3em; color: #99a1ac">系统安全</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 1.1em; color: #999">复习</a> <a href="/tags/%E7%BE%A4%E9%9B%86/" style="font-size: 1.2em; color: #999da3">群集</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.2em; color: #999da3">Web安全</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/Rootkit/" style="font-size: 1.1em; color: #999">Rootkit</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a></div></div><div class="card-widget card-archives">
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/MCP/" style="font-size: 1.1em; color: #999">MCP</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 1.1em; color: #999">最短路径</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" style="font-size: 1.37em; color: #99a4b2">系统安全</a> <a href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.23em; color: #999ea6">Windows服务器</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.1em; color: #999">图论</a> <a href="/tags/LFSR/" style="font-size: 1.1em; color: #999">LFSR</a> <a href="/tags/DSS/" style="font-size: 1.1em; color: #999">DSS</a> <a href="/tags/%E7%BE%A4%E9%9B%86/" style="font-size: 1.23em; color: #999ea6">群集</a> <a href="/tags/%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86/" style="font-size: 1.1em; color: #999">公钥加密</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">分组密码</a> <a href="/tags/ElGamal/" style="font-size: 1.23em; color: #999ea6">ElGamal</a> <a href="/tags/garak/" style="font-size: 1.1em; color: #999">garak</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 1.1em; color: #999">复习</a> <a href="/tags/Rootkit/" style="font-size: 1.1em; color: #999">Rootkit</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/" style="font-size: 1.1em; color: #999">椭圆曲线</a> <a href="/tags/%E6%B5%81%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">流密码</a> <a href="/tags/LLM/" style="font-size: 1.1em; color: #999">LLM</a> <a href="/tags/%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">病毒</a> <a href="/tags/Yakit/" style="font-size: 1.1em; color: #999">Yakit</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">计算机网络，数据结构</a> <a href="/tags/%E5%85%AC%E5%BC%8F/" style="font-size: 1.1em; color: #999">公式</a> <a href="/tags/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.1em; color: #999">恶意程序</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 1.23em; color: #999ea6">数字签名</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">数据结构</a> <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.1em; color: #999">概率论</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.23em; color: #999ea6">算法</a> <a href="/tags/MSCS/" style="font-size: 1.1em; color: #999">MSCS</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">组合数学</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">缓冲区溢出</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">溢出</a> <a href="/tags/Hash/" style="font-size: 1.1em; color: #999">Hash</a> <a href="/tags/RSA/" style="font-size: 1.1em; color: #999">RSA</a> <a href="/tags/XSS/" style="font-size: 1.1em; color: #999">XSS</a></div></div><div class="card-widget card-archives">
     <div class="item-headline">
       <i class="fas fa-archive"></i>
       <span>归档</span>
@@ -2019,7 +2269,7 @@
         </li>
       
     </ul>
-  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-18T02:31:16.939Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-18T05:37:17.821Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {
