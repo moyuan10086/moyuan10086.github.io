@@ -1,32 +1,84 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta id="viewport" name="viewport" content="width=540,user-scalable=no,target-densitydpi=high-dpi">
-<script src="js/require.js"></script>
-<title>一个都不能死HTML5网页小游戏代码</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一个都不能死</title>
 
 <style type="text/css">
-html,body{
-	margin:0px;
-	padding:0px;
-	overflow:hidden;
-	width:100%;
-	height:100%;
-	background:#000;
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.game-stage {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	max-width: 100vw;
+	max-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.game-stage canvas {
+	display: block;
+	/* Preserve native aspect ratio: 1366×621 ≈ 2.2:1 */
+	max-width: 100% !important;
+	max-height: 100% !important;
+	width: auto !important;
+	height: auto !important;
+	aspect-ratio: 1366 / 621;
 }
 </style>
 
+<script type="text/javascript" src="js/require.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
 </head>
 <body>
 
-<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-	<canvas id="linkScreen" width="1366" height="621" style="max-width:100%;max-height:100%;display:block;">
+<div class="game-stage">
+	<canvas id="linkScreen" width="1366" height="621">
 		很遗憾，您的浏览器不支持HTML5，请使用支持HTML5的浏览器。
 	</canvas>
 </div>
+
+<script>
+// Fix canvas dimensions for dual-lane rendering (needs ≥640px height)
+(function() {
+	var minH = 640;
+	var ratio = 1366 / 621;
+
+	function fixCanvas() {
+		var c = document.getElementById('linkScreen');
+		if (!c || !c.getContext) return;
+		var w = Math.max(c.width, Math.floor(minH * ratio));
+		var h = Math.max(c.height, minH);
+		// Maintain aspect ratio
+		if (w / h > ratio) w = Math.floor(h * ratio);
+		else h = Math.floor(w / ratio);
+		if (h < minH) { h = minH; w = Math.floor(h * ratio); }
+		c.width = w;
+		c.height = h;
+		c.style.width = w + 'px';
+		c.style.height = h + 'px';
+	}
+
+	// Run after game init
+	setTimeout(fixCanvas, 80);
+	setTimeout(fixCanvas, 300);
+	window.addEventListener('resize', function() {
+		setTimeout(fixCanvas, 50);
+	});
+})();
+</script>
+
 </body>
 </html>
-
