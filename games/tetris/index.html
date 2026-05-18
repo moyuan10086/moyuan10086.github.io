@@ -1,147 +1,289 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>俄罗斯方块</title>
-		<style type="text/css">
-			html,body{overflow:hidden;margin:0;padding:0;width:100%;height:100%;background:silver}
-			.MainFrame
-			{
-				border: 1px solid burlywood;
-				margin: 10px auto;
-				position: relative;
-				background-color: silver;
-			}
-			
-			.MainFramediv
-			{
-				float: left;
-				margin: 1px;
-				position: absolute;
-				/*z-index: -1;*/
-			}
-			
-			.smallDiv
-			{
-				margin: 1px;
-				position: absolute;
-			}
-			
-			.smallDivblack
-			{
-				/*float: left;*/
-				margin: 1px;
-				/*margin: 1px;*/
-				position: absolute;
-				/*z-index: 2;*/
-			}
-			
-			#tetris{
-				width: 50%;
-				margin: 0 auto;
-				padding: 0;
-				/*border: 1px solid silver;*/
-			}
-			#tetris:after{
-				content:  "";
-				Display:  block;
-				Clear:  both;
-			}
-			
-			#control{
-				float: left;
-				border: 1px solid silver;
-				width: 150px;
-				height: 578px;
-				margin-top: 10px;
-				margin-left: 20px;
-				padding-top: 30px;
-				font-size: 24px;
-				font-weight: 400;
-				color: blue;
-				text-align: center;
-			}
-			#level,#regame{
-				width: 100px;
-				height: 30px;
-				border: 1px solid blue;
-				font-size: 16px;
-				color: red;
-				font-weight: 300;
-			}
-			#control p{
-				margin-top: 200px;
-			}
-			#regame{
-				margin-top: 100px;
-				font-weight: 600;
-				background-color: azure;
-			}
-			
-			
-			#TFrime{
-				float: left;
-			}
-			
-			
-			#info{
-				float: left;
-				border: 1px solid silver;
-				width: 150px;
-				height: 578px;
-				margin: 10px auto;
-				padding-top: 30px;
-				text-align: center;
-				color: blue;
-				font-size: 24px;
-				font-weight: 400;
-			}
-			#nextfigure{
-				width: 100px;
-				height: 100px;
-				background-color: silver;
-				margin: 0 auto;
-				margin-bottom: 100px;
-				position: relative;
-			}
-			
-			.drawdiv{
-				background-color: red;
-				margin: 1px;
-				border: 1px solid silver;
-				position: absolute;
-			}
-			
-		</style>
-		<script src="js/GameFrame.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/graph.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
-	</head>
-	<body onLoad="initGame()">
-		<div id="tetris">
-			<div id="control">
-				难度：
-				<div><select id="level" onChange="changespeed()">
-					<option value="1000">简单</option>
-					<option value="500">一般</option>
-					<option value="200">困难</option>
-				</select></div>
-				<input type="button" id="regame" value="重 新 开 始" onClick="regame()" />
-				<p>
-					【↑】变换<br />
-					【←】左移<br />
-					【→】右移<br />
-					【↓】加速<br />
-				</p>
-			</div>
-			<div id="TFrime"></div>
-			<div id="info">
-				下一个图形:
-				<div id="nextfigure">
-					
-				</div>
-				<div>分数：<span id="score">0</span></div>
+<head>
+	<meta charset="utf-8" />
+	<title>俄罗斯方块</title>
+	<style>
+		:root {
+			--bg: #0c1222;
+			--surface: rgba(255,255,255,0.06);
+			--border: rgba(255,255,255,0.1);
+			--text: #bcc8e8;
+			--accent: #5f87ef;
+			--accent2: #57cce1;
+		}
+		html, body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			background: var(--bg);
+			font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+			color: var(--text);
+			-webkit-font-smoothing: antialiased;
+		}
+
+		/* ── Scale wrapper ── */
+		.game-viewport {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform-origin: center center;
+		}
+
+		#tetris {
+			display: flex;
+			gap: 0;
+			padding: 12px;
+			background: var(--bg);
+			border-radius: 14px;
+			align-items: flex-start;
+		}
+
+		/* ── Left panel: controls ── */
+		#control {
+			width: 140px;
+			flex-shrink: 0;
+			padding: 16px 14px 12px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			background: var(--surface);
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		#control .section-title {
+			font-size: 11px;
+			font-weight: 900;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: rgba(188, 200, 232, 0.45);
+			margin: 0;
+		}
+		#control select {
+			width: 100%;
+			height: 32px;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 0 10px;
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text);
+			background: rgba(0,0,0,0.3);
+			cursor: pointer;
+			outline: none;
+			appearance: none;
+			-webkit-appearance: none;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23bcc8e8'/%3E%3C/svg%3E");
+			background-repeat: no-repeat;
+			background-position: right 10px center;
+		}
+		#control select option {
+			background: #151d30;
+			color: #bcc8e8;
+		}
+		#regame {
+			width: 100%;
+			height: 34px;
+			border: 1px solid rgba(95,135,239,0.4);
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 900;
+			color: #fff;
+			background: linear-gradient(135deg, var(--accent), var(--accent2));
+			box-shadow: 0 6px 18px rgba(95,135,239,0.2);
+			cursor: pointer;
+			transition: transform 120ms, box-shadow 120ms;
+		}
+		#regame:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 8px 22px rgba(95,135,239,0.35);
+		}
+		#regame:active {
+			transform: scale(0.97);
+		}
+
+		/* keycaps */
+		.key-hints {
+			margin-top: auto;
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+		}
+		.key-row {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+		.keycap {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 26px;
+			height: 22px;
+			padding: 0 6px;
+			border: 1px solid rgba(255,255,255,0.15);
+			border-radius: 5px;
+			background: rgba(255,255,255,0.08);
+			font-size: 11px;
+			font-weight: 900;
+			color: #8fa6de;
+		}
+		.key-label {
+			font-size: 11px;
+			font-weight: 700;
+			color: rgba(188,200,232,0.5);
+		}
+
+		/* ── Center: game board ── */
+		#TFrime {
+			flex-shrink: 0;
+			padding: 0 10px;
+		}
+		.MainFrame {
+			border: 1px solid rgba(255,255,255,0.12);
+			border-radius: 6px;
+			box-shadow: 0 0 30px rgba(95,135,239,0.08), inset 0 0 0 1px rgba(255,255,255,0.03);
+			background: #050a16;
+			overflow: hidden;
+		}
+		.MainFramediv {
+			float: left;
+			margin: 1px;
+			position: absolute;
+			background: rgba(255,255,255,0.03);
+			border-radius: 2px;
+		}
+		.smallDiv {
+			margin: 1px;
+			position: absolute;
+			border-radius: 3px;
+			box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.2);
+		}
+		.smallDivblack {
+			margin: 1px;
+			position: absolute;
+			border-radius: 3px;
+			box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+		}
+
+		/* ── Right panel: info ── */
+		#info {
+			width: 140px;
+			flex-shrink: 0;
+			padding: 16px 14px 12px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			background: var(--surface);
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		#info .section-title {
+			font-size: 11px;
+			font-weight: 900;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			color: rgba(188,200,232,0.45);
+		}
+		#nextfigure {
+			width: 110px;
+			height: 90px;
+			margin: 0 auto;
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			background: rgba(0,0,0,0.25);
+			position: relative;
+		}
+		.score-display {
+			margin-top: auto;
+			padding: 10px;
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			background: rgba(0,0,0,0.2);
+		}
+		.score-label {
+			display: block;
+			font-size: 10px;
+			font-weight: 900;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: rgba(188,200,232,0.4);
+			margin-bottom: 3px;
+		}
+		#score {
+			font-size: 28px;
+			font-weight: 950;
+			color: #fff;
+			display: block;
+		}
+
+		.drawdiv {
+			background-color: red;
+			margin: 1px;
+			border-radius: 2px;
+			border: 1px solid rgba(255,255,255,0.1);
+			position: absolute;
+		}
+	</style>
+	<script src="js/GameFrame.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/graph.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body onLoad="initGame()">
+
+<div class="game-viewport" id="game-viewport">
+	<div id="tetris">
+		<div id="control">
+			<div class="section-title">Difficulty</div>
+			<select id="level" onChange="changespeed()">
+				<option value="1000">简单</option>
+				<option value="500" selected>一般</option>
+				<option value="200">困难</option>
+			</select>
+			<input type="button" id="regame" value="重新开始" onClick="regame()" />
+			<div class="key-hints">
+				<div class="key-row"><span class="keycap">↑</span><span class="key-label">变换</span></div>
+				<div class="key-row"><span class="keycap">←</span><span class="key-label">左移</span></div>
+				<div class="key-row"><span class="keycap">→</span><span class="key-label">右移</span></div>
+				<div class="key-row"><span class="keycap">↓</span><span class="key-label">加速</span></div>
 			</div>
 		</div>
-	</body>
+		<div id="TFrime"></div>
+		<div id="info">
+			<div class="section-title">Next Piece</div>
+			<div id="nextfigure"></div>
+			<div class="score-display">
+				<span class="score-label">Score</span>
+				<span id="score">0</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+(function() {
+	var viewport = document.getElementById('game-viewport');
+	if (!viewport) return;
+
+	function scaleTetris() {
+		var tetris = document.getElementById('tetris');
+		if (!tetris) return;
+		var maxW = window.innerWidth - 16;
+		var maxH = window.innerHeight - 16;
+		var scaleX = maxW / tetris.offsetWidth;
+		var scaleY = maxH / tetris.offsetHeight;
+		var scale = Math.min(scaleX, scaleY, 1);
+		viewport.style.transform = 'translate(-50%,-50%) scale(' + scale + ')';
+	}
+
+	window.addEventListener('resize', scaleTetris);
+	// Scale once DOM is ready
+	setTimeout(scaleTetris, 100);
+	setTimeout(scaleTetris, 500);
+})();
+</script>
+</body>
 </html>
