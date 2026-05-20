@@ -148,7 +148,6 @@ function Graph(frame) {
 				$this.divs[i].dataset.row=$y;	//记录div所在的行
 				$this.divs[i].dataset.col=$x;	//记录div所在的列
 				$this.divs[i].className="smallDivblack";
-				$this.divs[i].style.opacity = '0.35';
 				//$this.parentFrame.datas[]
 			}
 				
@@ -170,8 +169,7 @@ function Graph(frame) {
 							y=parseInt(getsmalldiv[a].dataset.row);
 							x=parseInt(getsmalldiv[a].dataset.col);
 							if(y==i){		//消除该行
-								debugger;
-								$this.parentFrame.datas[y*$this.parentFrame.row+ x]=0;
+										$this.parentFrame.datas[y*$this.parentFrame.row+ x]=0;
 								getsmalldiv[a].remove();
 								a--;
 							}
@@ -288,7 +286,13 @@ function Graph(frame) {
 	
 	this.rescore=function(){
 		var gamescore=document.getElementById("score");
-		gamescore.innerHTML=parseInt(gamescore.innerHTML)+this.parentFrame.score[this.line];
+		var newScore=parseInt(gamescore.innerHTML)+this.parentFrame.score[this.line];
+		gamescore.innerHTML=newScore;
+		var best=document.getElementById("best-score");
+		if(best&&newScore>parseInt(best.innerHTML))best.innerHTML=newScore;
+		var lines=document.getElementById("lines-score");
+		if(lines)lines.innerHTML=parseInt(lines.innerHTML)+this.line;
+		this.line=0;
 	}
 
 }

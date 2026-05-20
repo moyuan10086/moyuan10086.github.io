@@ -36,6 +36,53 @@ $(document).ready(function(){
 	setInterval(gameLoop,20);
 });
 
+function handleKeyDownCode(keyCode){
+	switch(gameState){
+	case GAME_STATE_MENU:
+		if(keyCode == keyboard.ENTER){
+			gameState = GAME_STATE_INIT;
+			//只有一个玩家
+			if(menu.playNum == 1){
+				player2.lives = 0;
+			}
+		}else{
+			var n = 0;
+			if(keyCode == keyboard.DOWN){
+				n = 1;
+			}else if(keyCode == keyboard.UP){
+				n = -1;
+			}
+			menu.next(n);
+		}
+		break;
+	case GAME_STATE_START:
+		if(!keys.contain(keyCode)){
+			keys.push(keyCode);
+		}
+		//射击
+		if(keyCode == keyboard.SPACE && player1.lives > 0){
+			player1.shoot(BULLET_TYPE_PLAYER);
+		}else if(keyCode == keyboard.ENTER && player2.lives > 0){
+			player2.shoot(BULLET_TYPE_ENEMY);
+		}else if(keyCode == keyboard.N){
+			nextLevel();
+		}else if(keyCode == keyboard.P){
+			preLevel();
+		}
+		break;
+	}
+}
+
+function handleKeyUpCode(keyCode){
+	keys.remove(keyCode);
+}
+
+function isGameControlKey(keyCode){
+	return keyCode == keyboard.UP || keyCode == keyboard.DOWN || keyCode == keyboard.LEFT || keyCode == keyboard.RIGHT ||
+		keyCode == keyboard.W || keyCode == keyboard.A || keyCode == keyboard.S || keyCode == keyboard.D ||
+		keyCode == keyboard.SPACE || keyCode == keyboard.ENTER || keyCode == keyboard.N || keyCode == keyboard.P;
+}
+
 function initScreen(){
 	var canvas = $("#stageCanvas");
 	ctx = canvas[0].getContext("2d");
@@ -117,44 +164,27 @@ function gameLoop(){
 }
 
 $(document).keydown(function(e){
-	switch(gameState){
-	case GAME_STATE_MENU:
-		if(e.keyCode == keyboard.ENTER){
-			gameState = GAME_STATE_INIT;
-			//只有一个玩家
-			if(menu.playNum == 1){
-				player2.lives = 0;
-			}
-		}else{
-			var n = 0;
-			if(e.keyCode == keyboard.DOWN){
-				n = 1;
-			}else if(e.keyCode == keyboard.UP){
-				n = -1;
-			}
-			menu.next(n);
-		}
-		break;
-	case GAME_STATE_START:
-		if(!keys.contain(e.keyCode)){
-			keys.push(e.keyCode);
-		}
-		//射击
-		if(e.keyCode == keyboard.SPACE && player1.lives > 0){
-			player1.shoot(BULLET_TYPE_PLAYER);
-		}else if(e.keyCode == keyboard.ENTER && player2.lives > 0){
-			player2.shoot(BULLET_TYPE_ENEMY);
-		}else if(e.keyCode == keyboard.N){
-			nextLevel();
-		}else if(e.keyCode == keyboard.P){
-			preLevel();
-		}
-		break;
+	if(isGameControlKey(e.keyCode)){
+		e.preventDefault();
 	}
+	handleKeyDownCode(e.keyCode);
 });
 
 $(document).keyup(function(e){
-	keys.remove(e.keyCode);
+	if(isGameControlKey(e.keyCode)){
+		e.preventDefault();
+	}
+	handleKeyUpCode(e.keyCode);
+});
+
+window.addEventListener("message", function(event){
+	var data = event.data || {};
+	if(data.type !== "tank-key") return;
+	if(data.event === "down"){
+		handleKeyDownCode(data.keyCode);
+	}else if(data.event === "up"){
+		handleKeyUpCode(data.keyCode);
+	}
 });
 
 function initMap(){
@@ -184,24 +214,29 @@ function drawBullet(){
 }
 
 function keyEvent(){
-	if(keys.contain(keyboard.W)){
+	var p1Up = keys.contain(keyboard.W) || (menu && menu.playNum == 1 && keys.contain(keyboard.UP));
+	var p1Down = keys.contain(keyboard.S) || (menu && menu.playNum == 1 && keys.contain(keyboard.DOWN));
+	var p1Left = keys.contain(keyboard.A) || (menu && menu.playNum == 1 && keys.contain(keyboard.LEFT));
+	var p1Right = keys.contain(keyboard.D) || (menu && menu.playNum == 1 && keys.contain(keyboard.RIGHT));
+	if(p1Up){
 		player1.dir = UP;
 		player1.hit = false;
 		player1.move();
-	}else if(keys.contain(keyboard.S)){
+	}else if(p1Down){
 		player1.dir = DOWN;
 		player1.hit = false;
 		player1.move();
-	}else if(keys.contain(keyboard.A)){
+	}else if(p1Left){
 		player1.dir = LEFT;
 		player1.hit = false;
 		player1.move();
-	}else if(keys.contain(keyboard.D)){
+	}else if(p1Right){
 		player1.dir = RIGHT;
 		player1.hit = false;
 		player1.move();
 	}
 	
+	if(menu && menu.playNum == 1) return;
 	if(keys.contain(keyboard.UP)){
 		player2.dir = UP;
 		player2.hit = false;

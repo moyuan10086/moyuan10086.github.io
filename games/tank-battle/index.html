@@ -22,15 +22,28 @@
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<style type="text/css">
 			html,body{overflow:hidden;margin:0;padding:0;width:100%;height:100%;background:#000}
-			.container{width:100%;height:100%;overflow:hidden}
+			.container{position:relative;width:100%;height:100%;overflow:hidden}
+			.tank-help{display:none}
+			.main{position:absolute;inset:0;display:grid;place-items:center;width:100%;height:100%;overflow:hidden}
+			#canvasDiv{
+				position:relative;
+				width:512px;
+				height:448px;
+				background:#000;
+			}
 			#canvasDiv canvas{
 				position:absolute;
+				left:0;
+				top:0;
+				width:100%;
+				height:100%;
+				image-rendering: pixelated;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<head><h3>---玩家1：大键盘移动，Space射击<br>---玩家2：小键盘移动，Enter射击<br>---N：下一关，P：上一关，Enter：开始</h3></head>
+			<div class="tank-help">玩家1：WASD 移动，Space 射击；玩家2：方向键移动，Enter 射击；N/P 切换关卡。</div>
 			<div class="main clearfix">
 				<div id="canvasDiv" >
 					<canvas id="wallCanvas" ></canvas> 
@@ -42,6 +55,22 @@
 			</div>
 			
 		</div><!-- /container -->
+		<script>
+			(function () {
+				var BASE_W = 512;
+				var BASE_H = 448;
+				var canvasDiv = document.getElementById("canvasDiv");
+				if (!canvasDiv) return;
+				function fit() {
+					var scale = Math.min(window.innerWidth / BASE_W, window.innerHeight / BASE_H);
+					canvasDiv.style.width = Math.floor(BASE_W * scale) + "px";
+					canvasDiv.style.height = Math.floor(BASE_H * scale) + "px";
+				}
+				window.addEventListener("resize", fit);
+				window.addEventListener("orientationchange", fit);
+				fit();
+			}());
+		</script>
 
 	</body>
 </html>

@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://moyuan10086.github.io/images/newnewlogo.png">
 <meta property="article:published_time" content="2026-05-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-18T17:14:50.043Z">
+<meta property="article:modified_time" content="2026-05-20T01:23:03.350Z">
 <meta property="article:author" content="moyuan">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://moyuan10086.github.io/images/newnewlogo.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/games/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
@@ -310,6 +310,9 @@
 .game-detail-container.is-active {
   display: block;
 }
+.game-detail-container.is-active:has(.game-panel[data-game-panel="tetris"].is-active) {
+  max-width: min(1840px, calc(100vw - 56px));
+}
 .game-back-btn {
   display: inline-flex;
   align-items: center;
@@ -547,8 +550,488 @@
 }
 .game-panel[data-game-panel="nodie"] .cube-live-frame {
   height: auto;
-  min-height: 420px;
-  aspect-ratio: 1366 / 621;
+  min-height: 480px;
+  aspect-ratio: 1366 / 880;
+}
+.game-panel[data-game-panel="sweep"] {
+  --sweep-purple: #8d74df;
+  position: relative;
+  grid-template-columns: minmax(1080px, 1.6fr) minmax(320px, 0.45fr);
+}
+.game-panel[data-game-panel="sweep"]::before {
+  content: "";
+  position: absolute;
+  left: -72px;
+  bottom: -38px;
+  width: min(380px, 22vw);
+  height: min(660px, 72vh);
+  background: url('/games/minesweeper/img/dongxuelian.png') 50% 100% / contain no-repeat;
+  opacity: 0.34;
+  filter: saturate(0.9);
+  pointer-events: none;
+  z-index: 0;
+}
+.game-panel[data-game-panel="sweep"]::after {
+  content: "✦  ✿";
+  position: absolute;
+  right: 300px;
+  top: -38px;
+  color: rgba(141, 116, 223, 0.22);
+  font-size: 74px;
+  font-weight: 900;
+  letter-spacing: 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+.game-panel[data-game-panel="sweep"] .game-card,
+.game-panel[data-game-panel="sweep"] .game-side {
+  position: relative;
+  z-index: 1;
+  border-color: rgba(141, 116, 223, 0.18);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.9), rgba(247,244,255,0.76)),
+    radial-gradient(circle at 95% 0%, rgba(141,116,223,0.13), transparent 26%);
+}
+.game-panel[data-game-panel="sweep"] .game-card {
+  overflow: visible;
+}
+.game-panel[data-game-panel="sweep"] .game-card::before {
+  content: "";
+  position: absolute;
+  inset: 20px auto auto 28px;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(141,116,223,0.18), transparent 62%),
+    repeating-linear-gradient(45deg, rgba(141,116,223,0.13) 0 2px, transparent 2px 10px);
+  opacity: 0.52;
+  pointer-events: none;
+}
+.game-panel[data-game-panel="sweep"] .game-side {
+  overflow: hidden;
+  min-height: 800px;
+}
+.game-panel[data-game-panel="sweep"] .game-side::before {
+  content: "";
+  position: absolute;
+  right: -34px;
+  bottom: 18px;
+  width: 240px;
+  height: 370px;
+  background: url('/games/minesweeper/img/dongxuelian.png') 50% 100% / contain no-repeat;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.game-panel[data-game-panel="sweep"] .game-side::after {
+  content: "✿";
+  position: absolute;
+  right: 34px;
+  top: 32px;
+  color: rgba(141, 116, 223, 0.18);
+  font-size: 92px;
+  line-height: 1;
+  pointer-events: none;
+}
+.game-panel[data-game-panel="sweep"] .game-card-head h2,
+.game-panel[data-game-panel="sweep"] .game-side h2 {
+  color: var(--sweep-purple);
+}
+.game-detail-container.is-active:has(.game-panel[data-game-panel="sweep"].is-active) {
+  max-width: min(1780px, calc(100vw - 48px));
+}
+.game-panel[data-game-panel="sweep"] .cube-live-frame {
+  height: min(84vh, 940px);
+  min-height: 800px;
+  background:
+    radial-gradient(circle at 8% 14%, rgba(141,116,223,0.12), transparent 22%),
+    linear-gradient(135deg, rgba(255,255,255,0.72), rgba(239,244,255,0.84));
+  border-color: rgba(141, 116, 223, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.58), 0 24px 60px rgba(98, 82, 170, 0.12);
+}
+.game-panel[data-game-panel="tetris"] {
+  position: relative;
+  grid-template-columns: minmax(980px, 1.55fr) minmax(340px, 0.55fr);
+  gap: 22px;
+  align-items: stretch;
+  --rikka-purple: #9a73ee;
+  --rikka-deep: #4b2a84;
+  --rikka-soft: rgba(157, 122, 239, 0.16);
+  color: #4a3a73;
+}
+.game-panel[data-game-panel="tetris"]::before {
+  content: "";
+  position: fixed;
+  right: -18px;
+  top: 88px;
+  width: min(430px, 24vw);
+  height: min(840px, 78vh);
+  background: url('/games/tetris/assets/rikka-character.png') 50% 18% / cover no-repeat;
+  opacity: 0.15;
+  filter: saturate(0.9);
+  border-radius: 36px;
+  pointer-events: none;
+}
+.tetris-hero {
+  grid-column: 1 / -1;
+  position: relative;
+  min-height: 210px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  margin: 28px 0 -4px;
+  padding-top: 18px;
+  overflow: hidden;
+}
+.tetris-hero::before,
+.tetris-hero::after {
+  content: "GO";
+  position: absolute;
+  color: rgba(154, 115, 238, 0.12);
+  font-size: 118px;
+  font-weight: 950;
+  line-height: 1;
+  transform: rotate(-18deg);
+}
+.tetris-hero::before {
+  left: -8px;
+  top: 4px;
+}
+.tetris-hero::after {
+  right: 12px;
+  bottom: -36px;
+  font-size: 82px;
+}
+.tetris-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #8b6ee7;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.tetris-kicker::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b9dcff;
+  box-shadow: 0 0 0 6px rgba(154, 115, 238, 0.1);
+}
+.tetris-hero h1 {
+  margin: 18px 0 12px;
+  color: #7250d8;
+  font-size: clamp(36px, 4.2vw, 58px);
+  font-weight: 950;
+  letter-spacing: 0;
+}
+.tetris-hero p {
+  max-width: 720px;
+  margin: 0 auto;
+  color: #7b66c9;
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 800;
+}
+.game-panel[data-game-panel="tetris"] .game-card {
+  position: relative;
+  min-height: 620px;
+  padding: 18px;
+  border: 1px solid rgba(154, 115, 238, 0.22);
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.88), rgba(249,246,255,0.76)),
+    radial-gradient(circle at 8% 12%, rgba(154,115,238,0.15), transparent 24%);
+  box-shadow: 0 22px 58px rgba(111, 85, 185, 0.16);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+}
+.game-panel[data-game-panel="tetris"] .game-card-head {
+  display: flex;
+  padding: 0 4px 12px;
+  border-bottom: 1px dashed rgba(154, 115, 238, 0.22);
+}
+.game-panel[data-game-panel="tetris"] .game-card-head h2 {
+  color: #8d66e6;
+  font-size: 22px;
+}
+.tetris-play-layout {
+  display: block;
+  padding-top: 12px;
+}
+.tetris-character-card,
+.tetris-mini-panel,
+.tetris-score-card {
+  border: 1px solid rgba(154, 115, 238, 0.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.68);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.42);
+}
+.tetris-character-card {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.38), rgba(244,238,255,0.78)),
+    url('/games/tetris/assets/rikka-character.png') 50% 18% / auto 112% no-repeat;
+}
+.tetris-character-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 44%, rgba(255,255,255,0.9) 82%),
+    radial-gradient(circle at 18% 20%, rgba(154,115,238,0.2), transparent 24%);
+}
+.tetris-speech {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 16px;
+  z-index: 1;
+  padding: 10px 12px;
+  border: 1px solid rgba(154,115,238,0.22);
+  border-radius: 16px 16px 16px 4px;
+  color: #7a5ad6;
+  background: rgba(255,255,255,0.84);
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 900;
+}
+.tetris-mini-panel {
+  padding: 12px;
+  align-self: start;
+}
+.tetris-mini-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #9b7aea;
+  font-size: 12px;
+  font-weight: 950;
+}
+.tetris-mini-panel .game-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #8a63e8, #b767e7);
+  box-shadow: 0 12px 26px rgba(138, 99, 232, 0.22);
+}
+.tetris-mini-panel select {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid rgba(154,115,238,0.25);
+  border-radius: 8px;
+  color: #5b438d;
+  background: rgba(255,255,255,0.82);
+  font-weight: 800;
+}
+.game-panel[data-game-panel="tetris"] .cube-live-frame {
+  width: 100%;
+  height: min(88vh, 980px);
+  min-height: 820px;
+  border-radius: 8px;
+  border: 1px solid rgba(80, 49, 134, 0.26);
+  background:
+    linear-gradient(rgba(180, 143, 245, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 143, 245, 0.12) 1px, transparent 1px),
+    #2c1c4a;
+  background-size: 32px 32px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 18px 34px rgba(70, 43, 132, 0.18);
+}
+.game-panel[data-game-panel="tetris"] .cube-live-frame iframe {
+  width: 100%;
+  height: 100%;
+}
+.tetris-score-stack {
+  display: grid;
+  gap: 8px;
+}
+.tetris-next {
+  height: 72px;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 52% 42%, rgba(185, 122, 255, 0.52), transparent 32%),
+    linear-gradient(145deg, #55308d, #37215f);
+}
+.tetris-score-card {
+  padding: 10px 11px;
+  min-height: 88px;
+}
+.tetris-score-card span {
+  display: block;
+  color: #9778df;
+  font-size: 11px;
+  font-weight: 950;
+}
+.tetris-score-card strong {
+  display: block;
+  margin-top: 5px;
+  color: #4d367f;
+  font-size: 18px;
+  font-weight: 950;
+  text-align: right;
+}
+.game-panel[data-game-panel="tetris"] .game-side {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid rgba(154, 115, 238, 0.2);
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.88), rgba(250,247,255,0.74)),
+    radial-gradient(circle at 100% 0%, rgba(154,115,238,0.14), transparent 28%);
+  box-shadow: 0 22px 58px rgba(111, 85, 185, 0.14);
+}
+.game-panel[data-game-panel="tetris"] .game-side h2,
+.game-panel[data-game-panel="tetris"] .game-side .game-note {
+  color: #8d66e6;
+}
+.game-panel[data-game-panel="tetris"] .game-side .game-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.game-panel[data-game-panel="tetris"] .game-side .game-list-item {
+  position: relative;
+  min-height: 78px;
+  border-color: rgba(154, 115, 238, 0.18);
+  border-radius: 12px;
+  padding: 13px 14px 13px 48px;
+  background: rgba(255,255,255,0.62);
+}
+.game-panel[data-game-panel="tetris"] .game-side .game-list-item::before {
+  content: "☆";
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  color: #a276f0;
+  font-size: 22px;
+  line-height: 1;
+}
+.game-panel[data-game-panel="tetris"] .game-side .game-list-item strong {
+  color: #8d66e6;
+  font-size: 15px;
+}
+.game-panel[data-game-panel="tetris"] .game-side .game-list-item span {
+  color: #66538f;
+  line-height: 1.62;
+}
+.tetris-quote {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 13px 16px;
+  border: 1px solid rgba(154, 115, 238, 0.2);
+  border-radius: 16px;
+  color: #8b66e3;
+  background: linear-gradient(135deg, rgba(248,243,255,0.88), rgba(239,230,255,0.72));
+  font-size: 13px;
+  font-weight: 900;
+}
+.tetris-avatar {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: url('/games/tetris/assets/rikka-character.png') 50% 16% / 76px auto no-repeat;
+  box-shadow: 0 0 0 3px rgba(154, 115, 238, 0.18);
+}
+.tetris-live-panel {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(154, 115, 238, 0.2);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 92% 16%, rgba(82, 214, 242, 0.14), transparent 30%),
+    linear-gradient(145deg, rgba(255,255,255,0.82), rgba(246,240,255,0.68));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.48);
+}
+.tetris-live-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tetris-live-status {
+  color: #6f4fd0;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.tetris-live-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.tetris-live-stat {
+  min-height: 66px;
+  padding: 10px;
+  border: 1px solid rgba(154, 115, 238, 0.16);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.62);
+}
+.tetris-live-stat span,
+.tetris-live-mini span {
+  display: block;
+  color: #9778df;
+  font-size: 11px;
+  font-weight: 950;
+}
+.tetris-live-stat strong,
+.tetris-live-mini strong {
+  display: block;
+  margin-top: 6px;
+  color: #4d367f;
+  font-size: 20px;
+  font-weight: 950;
+  text-align: right;
+}
+.tetris-live-pieces {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.tetris-live-mini {
+  min-height: 54px;
+  padding: 9px 10px;
+  border: 1px solid rgba(154, 115, 238, 0.16);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 70% 26%, rgba(180, 143, 245, 0.22), transparent 28%),
+    rgba(255,255,255,0.58);
+}
+.tetris-live-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.tetris-action-btn {
+  min-height: 38px;
+  border: 1px solid rgba(154, 115, 238, 0.24);
+  border-radius: 10px;
+  color: #6a4ac8;
+  background: rgba(255,255,255,0.72);
+  font-weight: 950;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.48);
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+.tetris-action-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(154, 115, 238, 0.42);
+  background: rgba(250,246,255,0.94);
+}
+.tetris-action-btn.is-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #8a63e8, #b767e7);
+  box-shadow: 0 12px 24px rgba(138, 99, 232, 0.22);
 }
 .cube-live-frame iframe {
   display: block;
@@ -920,6 +1403,9 @@
   .game-panel.is-active {
     grid-template-columns: 1fr;
   }
+  .game-panel[data-game-panel="tetris"] {
+    grid-template-columns: 1fr;
+  }
   .game-shell {
     padding-top: 126px;
   }
@@ -934,6 +1420,28 @@
   .game-panel[data-game-panel="nodie"] .cube-live-frame {
     height: auto;
     min-height: 300px;
+  }
+  .game-panel[data-game-panel="tetris"] .cube-live-frame {
+    height: 620px;
+    min-height: 620px;
+  }
+  .tetris-hero {
+    min-height: 150px;
+    margin-top: 16px;
+  }
+  .tetris-play-layout {
+    grid-template-columns: 1fr;
+  }
+  .tetris-character-card {
+    min-height: 300px;
+    background-size: cover;
+  }
+  .game-panel[data-game-panel="tetris"] .game-side {
+    grid-template-columns: 1fr;
+  }
+  .tetris-live-stats,
+  .tetris-live-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 520px) {
@@ -958,6 +1466,17 @@
   .game-panel[data-game-panel="nodie"] .cube-live-frame {
     height: auto;
     min-height: 220px;
+  }
+  .game-panel[data-game-panel="tetris"] .cube-live-frame {
+    height: 540px;
+    min-height: 540px;
+  }
+  .game-panel[data-game-panel="tetris"] .game-card,
+  .game-panel[data-game-panel="tetris"] .game-side {
+    padding: 14px;
+  }
+  .tetris-hero h1 {
+    font-size: 32px;
   }
   .aqua-frame-wrap {
     height: 420px;
@@ -1146,9 +1665,9 @@
       <p>哈密顿路径建模，事件驱动状态机 + Tilemap 碰撞</p>
     </div>
     <div class="game-grid-item" data-game="tetris">
-      <div class="game-grid-icon">🧱</div>
-      <h3>俄罗斯方块</h3>
-      <p>10×20 网格 + 旋转矩阵碰撞检测 + 基础墙踢系统</p>
+      <div class="game-grid-icon">✦</div>
+      <h3>六花方块</h3>
+      <p>小鸟游六花主题 Tetris：7-bag 随机、Hold、Ghost 与墙踢</p>
     </div>
     <div class="game-grid-item" data-game="nodie">
       <div class="game-grid-icon">🏃</div>
@@ -1207,12 +1726,12 @@
         </div>
       </div>
       <aside class="game-side">
-        <h2>数组压缩 + 状态不可逆检测</h2>
-        <p class="game-note">用方向键或滑动移动方块，相同数字会合并。核心逻辑「压缩-合并-再压缩」三遍扫描，操作前后 JSON 快照比对决定是否生成新块。</p>
+        <h2>合并到 2048，你能做到吗？</h2>
+        <p class="game-note">用方向键或滑动移动方块，相同数字碰在一起会合并。不断叠加，直到拼出 2048。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>数据结构</strong><span>4×4 二维数组，0 表示空格。每次操作沿方向逐行/列提取非零值→合并相邻等值→补零→写回。</span></div>
-          <div class="game-list-item"><strong>不可逆判负</strong><span>棋盘填满且无相邻等值 → 游戏结束。用双重遍历检查水平/垂直邻居，O(16) 复杂度。</span></div>
-          <div class="game-list-item"><strong>状态持久化</strong><span>最高分存 localStorage，页面刷新不丢失。</span></div>
+          <div class="game-list-item"><strong>为什么有时候滑了没反应？</strong><span>操作前后棋盘状态完全相同时，不会生成新方块——这一步对局面没有意义。</span></div>
+          <div class="game-list-item"><strong>什么时候游戏结束？</strong><span>棋盘填满且没有任何相邻格子数字相同，无路可走。</span></div>
+          <div class="game-list-item"><strong>最高分</strong><span>存在本地，刷新页面不会丢失。</span></div>
         </div>
       </aside>
     </div>
@@ -1235,12 +1754,12 @@
         <div class="gobang-turn" id="gobang-turn">黑方回合</div>
       </div>
       <aside class="game-side">
-        <h2>Minimax + Alpha-Beta 剪枝</h2>
-        <p class="game-note">AI 搜索深度 4 层，候选节点由已落子邻域生成（空棋盘天元开局），Alpha-Beta 剪枝将复杂度从 O(bⁿ) 压缩到 O(√(bⁿ))。</p>
+        <h2>和 AI 下一局五子棋</h2>
+        <p class="game-note">先连成五子的一方获胜。支持双人对战和人机对战，人机模式下 AI 会主动进攻也会封堵你的活三活四。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>棋型评分引擎</strong><span>四方向扫描线分析：五连(10⁷) > 活四(5×10⁵) > 冲四(8×10⁴) > 活三(5×10⁴) > 冲三(5×10³) > 活二(500)。防守权重 1.1x 偏保守。</span></div>
-          <div class="game-list-item"><strong>候选节点生成</strong><span>仅搜索已有棋子 2 格邻域，每层取评分前 15 名，大幅缩减搜索树宽度。</span></div>
-          <div class="game-list-item"><strong>悔棋实现</strong><span>历史栈记录每步坐标与颜色，人机模式一次撤销两步（人类+AI）。</span></div>
+          <div class="game-list-item"><strong>Minimax + Alpha-Beta 剪枝</strong><span>AI 搜索深度 4 层。Minimax 假设双方都走最优着法，AI 选对自己评分最高、对对手评分最低的落点。Alpha-Beta 剪枝在搜索过程中丢弃已经不会影响结果的分支——复杂度从 O(bⁿ) 降到 O(√(bⁿ))。</span></div>
+          <div class="game-list-item"><strong>评分函数</strong><span>沿四个方向扫描线评估棋型：五连 > 活四 > 冲四 > 活三 > 冲三 > 活二。防守权重 1.1x，AI 略偏保守。候选节点只从已有棋子 2 格邻域生成，每层取评分前 15 名，大幅缩减搜索宽度。</span></div>
+          <div class="game-list-item"><strong>悔棋</strong><span>历史栈记录每步坐标与颜色，人机模式一次撤销两步（你的 + AI 的）。</span></div>
         </div>
         <div class="gobang-actions">
           <button class="game-btn" id="gobang-undo" type="button">悔棋</button>
@@ -1260,12 +1779,11 @@
         </div>
       </div>
       <aside class="game-side">
-        <h2>Three.js 3D 动画场景</h2>
-        <p class="game-note">一个纯观赏性的 Three.js 3D 场景：胡萝卜载着兔子飞行员在云层中飞行。使用 TweenMax 驱动循环动画，OrbitControls 控制用户视角。</p>
+        <h2>一只兔子驾着萝卜飞过云层</h2>
+        <p class="game-note">纯观赏性的 3D 动画场景，拖动鼠标可以转动视角。没有目标，就是好看。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>渲染管线</strong><span>WebGLRenderer → PerspectiveCamera → Scene + Fog 大气效果。DirectionalLight + AmbientLight 混合照明，PlaneBufferGeometry 做远景地面。</span></div>
-          <div class="game-list-item"><strong>动画系统</strong><span>TweenMax 控制三个独立循环：胡萝卜上下浮动（yoyo）、左右摇摆（yoyo）、叶子持续旋转。兔子耳朵互逆摆动，眨眼用 scale.y→0.1 模拟。</span></div>
-          <div class="game-list-item"><strong>网格建模</strong><span>所有角色均为程序化生成：CylinderGeometry 做身体、CubeGeometry 变形做翅膀/耳朵/座位。无外部模型文件，纯几何体组合。</span></div>
+          <div class="game-list-item"><strong>所有模型都是代码画的</strong><span>没有导入任何外部模型文件，兔子、萝卜、翅膀全部用几何体拼出来。</span></div>
+          <div class="game-list-item"><strong>动画怎么循环的？</strong><span>浮动、摇摆、耳朵摆动各自独立循环，互不干扰，叠在一起就有了自然的节奏感。</span></div>
         </div>
       </aside>
     </div>
@@ -1280,31 +1798,70 @@
         </div>
       </div>
       <aside class="game-side">
-        <h2>哈密顿路径 + 状态机碰撞</h2>
-        <p class="game-note">「不重复走完所有格子」在计算机科学中就是经典的哈密顿路径问题。关卡用 7×6 二维数组描述，事件链驱动精灵状态迁移。</p>
+        <h2>一笔画过所有格子</h2>
+        <p class="game-note">从起点出发，不重复地走过每一个格子，到达终点。看起来简单，越到后面越容易把自己堵死。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>关卡数据结构</strong><span>7×6 二维数组，0=空地 1=路径格 2=起点 3=终点。等价于 Tilemap 中的图节点，四邻接构成无向图。</span></div>
-          <div class="game-list-item"><strong>图论建模</strong><span>每个路径格是一个节点，上下左右相邻格之间有一条边。问题等价于寻找恰好遍历每个节点一次的哈密顿路径，NP-完全问题。</span></div>
-          <div class="game-list-item"><strong>精灵状态机</strong><span>tag 字段驱动三态：0=未访问 → 1=当前路径中 → 2=已完成。事件链：mousedown→mousemove→mouseup，每次移动检测坐标落入区域。</span></div>
-          <div class="game-list-item"><strong>适配方案</strong><span>320×480 移动端原生尺寸，父页面用 transform:scale() 等比缩放。覆盖 parse() 防止二次调用导致 config.offset 类型错误。</span></div>
+          <div class="game-list-item"><strong>为什么会堵死？</strong><span>「不重复走完所有格子」在数学上叫哈密顿路径问题，是经典的 NP 完全问题——没有捷径，只能靠预判。</span></div>
         </div>
       </aside>
     </div>
 
     <!-- Tetris -->
     <div class="game-panel" data-game-panel="tetris">
+      <section class="tetris-hero" aria-label="六花方块介绍">
+        <div>
+          <div class="tetris-kicker">HS Game Lab</div>
+          <h1>小鸟游 · 六花主题&nbsp;&nbsp;俄罗斯方块</h1>
+          <p>以小鸟游六花为主题的俄罗斯方块游戏，紫色的方块与星辰相伴，守护高效与开发的世界！</p>
+        </div>
+      </section>
       <div class="game-card">
-        <div class="game-card-head"><h2>俄罗斯方块</h2></div>
-        <div class="cube-live-frame" id="tetris-live-frame"><iframe id="tetris-live-iframe" src="about:blank" title="俄罗斯方块" scrolling="no"></iframe></div>
+        <div class="game-card-head">
+          <h2>☆ 小鸟游 · 六花&nbsp;&nbsp;俄罗斯方块</h2>
+          <div class="game-actions">
+            <button class="game-btn" id="tetris-window-open" type="button">新窗口打开</button>
+          </div>
+        </div>
+        <div class="tetris-play-layout">
+          <div class="cube-live-frame" id="tetris-live-frame"><iframe id="tetris-live-iframe" src="about:blank" title="小鸟游六花主题俄罗斯方块" scrolling="no"></iframe></div>
+        </div>
       </div>
       <aside class="game-side">
-        <h2>旋转矩阵 + 消行算法</h2>
-        <p class="game-note">七种标准方块（I/O/T/S/Z/J/L），每种用 4×4 矩阵存储四个旋转状态。基础墙踢系统处理贴墙旋转时的位移修正。</p>
-        <div class="game-list">
-          <div class="game-list-item"><strong>数据结构</strong><span>10×20 二维网格数组存储已落方块。活动方块为 4×4 旋转矩阵，通过坐标偏移映射到网格。</span></div>
-          <div class="game-list-item"><strong>碰撞检测</strong><span>将方块的 4×4 矩阵投影到网格对应位置，检查边界溢出和已占用格。旋转时先尝试原角度，失败则依次尝试墙踢偏置。</span></div>
-          <div class="game-list-item"><strong>消行算法</strong><span>逐行扫描满行→splice 删除→unshift 空行补充顶部。分数 = 行数² × 100，速度随等级线性递增。</span></div>
+        <h2>游戏说明 ☆</h2>
+        <p class="game-note">在经典俄罗斯方块规则上重构了六花主题 UI：发光方块、幽灵落点、暂存方块、按住连发、经典清行计分和自动暂停。</p>
+        <div class="tetris-live-panel" aria-label="俄罗斯方块实时状态">
+          <div class="tetris-live-head">
+            <span class="tetris-live-status" id="tetris-live-status">READY</span>
+            <button class="tetris-action-btn is-primary" type="button" data-tetris-action="start" id="tetris-live-start">开始</button>
+          </div>
+          <div class="tetris-live-stats">
+            <div class="tetris-live-stat"><span>得分</span><strong id="tetris-live-score">0</strong></div>
+            <div class="tetris-live-stat"><span>最高</span><strong id="tetris-live-best">0</strong></div>
+            <div class="tetris-live-stat"><span>行数</span><strong id="tetris-live-lines">0</strong></div>
+            <div class="tetris-live-stat"><span>等级</span><strong id="tetris-live-level">1</strong></div>
+          </div>
+          <div class="tetris-live-pieces">
+            <div class="tetris-live-mini"><span>Next</span><strong id="tetris-live-next">-</strong></div>
+            <div class="tetris-live-mini"><span>Hold</span><strong id="tetris-live-hold">-</strong></div>
+          </div>
+          <div class="tetris-live-actions">
+            <button class="tetris-action-btn" type="button" data-tetris-action="left">←</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="rotate">旋转</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="right">→</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="down">↓</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="hold">Hold</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="drop">硬降</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="pause">暂停</button>
+            <button class="tetris-action-btn" type="button" data-tetris-action="restart">重开</button>
+          </div>
         </div>
+        <div class="game-list">
+          <div class="game-list-item"><strong>操作说明</strong><span>方向键移动方块，↑ 或 X 旋转方块，↓ 加速下落，空格硬降，C 暂存，P 暂停或开始。</span></div>
+          <div class="game-list-item"><strong>游戏目标</strong><span>通过移动、旋转和放置方块，填满一行或多行来消除它们并获得分数。消除的行数越多，获得的分数越高。</span></div>
+          <div class="game-list-item"><strong>得分规则</strong><span>单行消除 100 分，双行消除 300 分，三行消除 500 分，四行消除（Tetris）800 分。</span></div>
+          <div class="game-list-item"><strong>游戏特色</strong><span>小鸟游六花主题界面、紫色星空背景、可爱的 Golang 小地鼠，以及流畅的游戏体验。</span></div>
+        </div>
+        <div class="tetris-quote"><span class="tetris-avatar"></span><span>记住！编写优雅的代码就像玩俄罗斯方块一样，需要思考、规划和完美的执行！</span></div>
       </aside>
     </div>
 
@@ -1315,12 +1872,11 @@
         <div class="cube-live-frame" id="nodie-live-frame"><iframe id="nodie-live-iframe" src="about:blank" title="一个都不能死" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>双通道渲染 + 渐进加速</h2>
-        <p class="game-note">同时控制左右两个火柴人跳过障碍，任何一个碰到障碍都会失败。考验左右手协调和节奏感。</p>
+        <h2>一个都不能死</h2>
+        <p class="game-note">同时操控两个火柴人，任何一个倒下就算失败。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>渲染架构</strong><span>单 Canvas (1366×621) 分左右两个逻辑区域，独立绘制两个火柴人的动画帧和各自障碍物。</span></div>
-          <div class="game-list-item"><strong>障碍生成</strong><span>随机间隔 + 渐进加速曲线，右侧障碍比左侧稍延迟以区分节奏。碰撞判定：火柴人碰撞框与障碍物矩形重叠即失败。</span></div>
-          <div class="game-list-item"><strong>事件处理</strong><span>点击/触摸屏幕左半区→左侧火柴人跳跃，右半区→右侧跳跃。用 clientX 相对 Canvas 左边界判断。</span></div>
+          <div class="game-list-item"><strong>玩法</strong><span>点击角色本身让它跳跃，两个角色需要分别点击。任何一个被障碍碰到即失败。</span></div>
+          <div class="game-list-item"><strong>难度</strong><span>障碍速度随存活时间持续加快，越到后期压力越大。四种难度模式可选，炼狱模式从一开始就不给喘息机会。</span></div>
         </div>
       </aside>
     </div>
@@ -1332,12 +1888,12 @@
         <div class="cube-live-frame" id="sweep-live-frame"><iframe id="sweep-live-iframe" src="about:blank" title="扫雷" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>BFS 展开 + 概率推理</h2>
-        <p class="game-note">经典的 NP 完全推理游戏。根据数字推断地雷位置，标记所有地雷即可获胜。</p>
+        <h2>东雪莲主题扫雷</h2>
+        <p class="game-note">每一次点击，都是一次智慧的探索。用数字推理揭开安全格子，避开隐藏的雷区。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>数据结构</strong><span>二维数组存储三种信息：是否地雷、邻雷计数、是否已翻开。Fisher-Yates 洗牌算法随机布雷。</span></div>
-          <div class="game-list-item"><strong>BFS 展开</strong><span>点击到空格（邻雷数=0）时，递归/队列展开所有相邻空格（Flood Fill），直到遇到数字边界。O(n) 复杂度。</span></div>
-          <div class="game-list-item"><strong>左键+右键</strong><span>同时按下左右键（chord）：当标记数与数字相等时自动翻开剩余邻格，减少重复操作。</span></div>
+          <div class="game-list-item"><strong>目标</strong><span>找出所有不是地雷的格子，同时避免点到地雷。</span></div>
+          <div class="game-list-item"><strong>数字提示</strong><span>数字表示周围 8 个格子中地雷的数量，用它推断下一步是否安全。</span></div>
+          <div class="game-list-item"><strong>操作说明</strong><span>左键翻开格子，右键标记或取消标记。点到空白区域会自动展开周围安全区域。</span></div>
         </div>
       </aside>
     </div>
@@ -1349,12 +1905,11 @@
         <div class="cube-live-frame" id="sokoban-live-frame"><iframe id="sokoban-live-iframe" src="about:blank" title="推箱子" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>网格编码 + 历史栈</h2>
-        <p class="game-note">经典的 PSPACE-完全益智游戏。只能推不能拉，一步错可能全局卡死。问题本质是状态空间搜索。</p>
+        <h2>只能推，不能拉</h2>
+        <p class="game-note">把所有箱子推到目标点上。一步走错可能全局卡死，支持无限步撤销。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>地图编码</strong><span>数字编码：0=空地 1=墙 2=目标点 3=箱子 4=玩家 5=箱子在目标上。100 关预置地图库 (mapdata100.js)，每关支持任意尺寸。</span></div>
-          <div class="game-list-item"><strong>移动逻辑</strong><span>方向键驱动：检查目标格→空地则移动，箱子则再检查箱子前方→空地则推。两步联动原子操作。</span></div>
-          <div class="game-list-item"><strong>撤销系统</strong><span>历史栈记录每步的玩家旧位置、箱子旧位置（若有），支持无限步回退。重放逆操作即可。</span></div>
+          <div class="game-list-item"><strong>为什么这么难？</strong><span>推箱子在计算机科学里是 PSPACE 完全问题，比 NP 还难——即使给你无限时间枚举，状态空间也可能爆炸。</span></div>
+          <div class="game-list-item"><strong>撤销</strong><span>每步操作都记录在历史栈里，随时可以一步步退回去。</span></div>
         </div>
       </aside>
     </div>
@@ -1366,12 +1921,11 @@
         <div class="cube-live-frame" id="pacman-live-frame"><iframe id="pacman-live-iframe" src="about:blank" title="吃豆人" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>Tile 地图 + 幽灵状态机</h2>
-        <p class="game-note">永远经典的街机迷宫追逐游戏。地图为二维 Tile 数组，幽灵 AI 行为由有限状态机驱动。</p>
+        <h2>吃豆人</h2>
+        <p class="game-note">在迷宫里吃掉所有豆子，躲开四只幽灵。吃到大豆子后幽灵会变蓝，这时候可以反过来追它们。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>地图表示</strong><span>960×640 Canvas，二维 tile 数组编码迷宫结构。每个 tile 标记为墙/豆子/大豆子/空地，吃豆人和幽灵基于 tile 坐标做离散移动。</span></div>
-          <div class="game-list-item"><strong>幽灵 AI</strong><span>三态 FSM：追逐（追踪吃豆人位置）→ 散开（各回角落）→ 逃跑（吃到大豆子后反向逃离）。状态切换由计时器触发。</span></div>
-          <div class="game-list-item"><strong>碰撞检测</strong><span>基于 tile 坐标的离散碰撞：吃豆人与豆子同 tile→加分；与幽灵同 tile→死亡/反杀。比像素级碰撞更稳定。</span></div>
+          <div class="game-list-item"><strong>幽灵的行为模式</strong><span>每只幽灵由有限状态机驱动：追逐态（直奔吃豆人位置）、散开态（各自回角落）、逃跑态（吃到大豆子后变蓝反向逃离）。状态由计时器轮换，不是一直追着你跑。</span></div>
+          <div class="game-list-item"><strong>碰撞用 Tile 坐标</strong><span>吃豆人和幽灵的位置都映射到迷宫格子上做离散碰撞检测，比像素级碰撞更稳定，不会出现「擦边也算碰」的问题。</span></div>
         </div>
       </aside>
     </div>
@@ -1383,13 +1937,13 @@
         <div class="cube-live-frame" id="tank-live-frame"><iframe id="tank-live-iframe" src="about:blank" title="坦克大战" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>分层 Canvas + 对象池 + AABB</h2>
-        <p class="game-note">FC 红白机经典重现。双人对战或合作，消灭敌方坦克保卫基地。支持键盘双人操作。</p>
+        <h2>FC 坦克大战，双人对战</h2>
+        <p class="game-note">消灭敌方坦克，保卫鹰巢基地。支持键盘双人同时操作，可以合作也可以互坑。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>分层渲染</strong><span>5 层 Canvas 叠加：墙壁层（静态地图）→ 坦克层 → 草地层（半透明覆盖）→ 特效层（爆炸动画）→ UI 层。分层避免重绘开销。</span></div>
-          <div class="game-list-item"><strong>对象池模式</strong><span>子弹对象预分配 + 复用，避免频繁 new/GC。发射时从池中取出，命中/出界后归还。坦克同理管理生命周期。</span></div>
-          <div class="game-list-item"><strong>碰撞系统</strong><span>AABB 矩形检测：坦克-墙壁、坦克-坦克、子弹-墙壁、子弹-坦克四类碰撞。空间分块优化减少检测对数。</span></div>
-          <div class="game-list-item"><strong>操作</strong><span>玩家1：WASD + Space；玩家2：方向键 + Enter。N/P 切换关卡，Enter 开始。</span></div>
+          <div class="game-list-item"><strong>分层渲染</strong><span>5 层 Canvas 叠加而非单层全量重绘：墙壁层（静态地图，改了才重绘）→ 坦克层 → 草地层（半透明）→ 特效层（爆炸动画）→ UI 层。分层后每帧只重绘有变化的那几层。</span></div>
+          <div class="game-list-item"><strong>对象池</strong><span>子弹和爆炸特效不随用随 new，而是预分配后复用。用过的对象标记空闲放回池里，下一发射直接从池里取。避免频繁 GC 造成的帧率抖动。</span></div>
+          <div class="game-list-item"><strong>AABB 碰撞</strong><span>所有碰撞检测都用轴对齐矩形（AABB）判断：坦克-墙壁、坦克-坦克、子弹-墙壁、子弹-坦克四类。空间分块后每帧只需检查附近对象对，不用 O(n²) 穷举。</span></div>
+          <div class="game-list-item"><strong>操作</strong><span>玩家1：WASD + Space；玩家2：方向键 + Enter。N/P 切换关卡。</span></div>
         </div>
       </aside>
     </div>
@@ -1401,12 +1955,11 @@
         <div class="cube-live-frame" id="blockcut-live-frame"><iframe id="blockcut-live-iframe" src="about:blank" title="切积木" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>Box2D 物理 + 鼠标切割</h2>
-        <p class="game-note">用鼠标划线切割积木，让顶部积木落到平台上而不坠落。物理引擎驱动真实重力与碰撞响应。</p>
+        <h2>鼠标画线，把积木切下来</h2>
+        <p class="game-note">用鼠标在积木上划线，把顶部积木切下来落到平台上。切得太碎可能立不住。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>物理引擎</strong><span>Box2D (box2dweb) 驱动刚体模拟：重力加速度、碰撞响应、摩擦系数。积木切割后自动拆分为两个独立刚体。</span></div>
-          <div class="game-list-item"><strong>切割算法</strong><span>鼠标轨迹与多边形求交→确定切割线→计算分割后的两个凸多边形顶点→创建新的 b2Body。非凸多边形需先三角剖分。</span></div>
-          <div class="game-list-item"><strong>通关判定</strong><span>顶部积木在平台上保持静止 3 秒 → 过关。通过检测刚体线速度 < 阈值 + 位置在平台范围内判定。</span></div>
+          <div class="game-list-item"><strong>物理引擎</strong><span>Box2D 驱动真实的重力加速度和碰撞响应。切割后积木自动拆分为两个独立刚体，各自独立运动。</span></div>
+          <div class="game-list-item"><strong>多边形切割算法</strong><span>鼠标轨迹与刚体多边形求交，确定切割线，计算分割后的两个凸多边形顶点，分别创建新的 b2Body。非凸多边形需先三角剖分再处理。</span></div>
         </div>
       </aside>
     </div>
@@ -1418,12 +1971,11 @@
         <div class="cube-live-frame" id="eyesight-live-frame"><iframe id="eyesight-live-iframe" src="about:blank" title="最强眼力" scrolling="no"></iframe></div>
       </div>
       <aside class="game-side">
-        <h2>HSL 色彩空间 + 指数衰减</h2>
-        <p class="game-note">在众多色块中找出颜色不同的那一个，考验色觉敏感度。色差随关卡指数衰减，越往后越难分辨。</p>
+        <h2>找出颜色不同的那一块</h2>
+        <p class="game-note">在一堆色块中找出颜色不同的那个。越往后色差越小，接近人眼的极限。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>色彩模型</strong><span>HSL 空间描述颜色：在固定 Hue/Saturation 下微调 Lightness 或 Hue 产生差异色块。人眼对不同色相的感知非线性，需经验调整步长。</span></div>
-          <div class="game-list-item"><strong>难度曲线</strong><span>初始色差 Δ=30（易分辨），每关乘以衰减因子 0.92。第 30 关 Δ≈2.5，接近人眼色差辨别阈值（JND ~2）。</span></div>
-          <div class="game-list-item"><strong>随机放置</strong><span>Fisher-Yates 洗牌确定不同色块的网格位置。网格从 2×2 逐步扩展到 6×6，增大搜索面积。</span></div>
+          <div class="game-list-item"><strong>色差怎么计算的？</strong><span>用 HSL 色彩空间生成色块：固定色相和饱和度，微调亮度产生差异。人眼对不同色相敏感度不同（对绿色最敏感，对蓝色最钝），步长需要根据色相经验调整。</span></div>
+          <div class="game-list-item"><strong>难度曲线</strong><span>初始色差 Δ=30，每关乘 0.92 衰减。到第 30 关 Δ≈2.5，接近人眼色差辨别阈（JND ≈ 2）。网格也从 2×2 扩到 6×6。</span></div>
         </div>
       </aside>
     </div>
@@ -1474,12 +2026,12 @@
         </div>
       </div>
       <aside class="game-side">
-        <h2>Kociemba 两阶段算法</h2>
-        <p class="game-note">双击魔方触发合法打乱，手动还原或点算法复原。复原时左侧会实时高亮当前执行的转面步骤。</p>
+        <h2>点击「算法复原」，看魔方自己转回去</h2>
+        <p class="game-note">双击打乱，然后用 Kociemba 两阶段算法自动求解。左侧会实时高亮当前执行的转面步骤。</p>
         <div class="game-list">
-          <div class="game-list-item"><strong>Phase 1</strong><span>将魔方归约到 &lt;U,D,L2,R2,F2,B2&gt; 子群（角块方向全正确、棱块中层归位），最多 12 步。IDA* 搜索 + 剪枝表加速。</span></div>
-          <div class="game-list-item"><strong>Phase 2</strong><span>在子群内搜索最优解（仅允许 180° 中层转动），两阶段合计通常 18–22 步，均 ≤ God's Number 20。</span></div>
-          <div class="game-list-item"><strong>God's Number</strong><span>任意魔方状态最多 20 步可解（HTM 度量），由 Google 捐赠 35 CPU-年的计算机穷举证明于 2010 年。</span></div>
+          <div class="game-list-item"><strong>Kociemba 两阶段算法</strong><span>Phase 1 把魔方归约到一个受限子群（角块方向全正确、棱块中层归位），最多 12 步；Phase 2 在子群内搜索最优解。用 IDA*（迭代加深 A*）搜索 + 预计算的剪枝表剪掉不可能的分支。两阶段合计通常 18–22 步。</span></div>
+          <div class="game-list-item"><strong>God's Number</strong><span>任意三阶魔方从任一状态到还原，最多只需要 20 步（HTM 度量：每次 90°/180° 转面算 1 步）。Google 用了 35 CPU-年穷举证明于 2010 年。</span></div>
+          <div class="game-list-item"><strong>操作</strong><span>鼠标拖拽旋转视角，双击任意棱面打乱，空格键切换单层/双层转法。</span></div>
         </div>
       </aside>
     </div>
@@ -1489,6 +2041,7 @@
 <script>
 (function () {
   var grid = document.getElementById('game-grid');
+  var hero = document.querySelector('.game-hero');
   var detailContainer = document.getElementById('game-detail-container');
   var backBtn = document.getElementById('game-back-btn');
   var gridItems = Array.from(document.querySelectorAll('.game-grid-item'));
@@ -1524,7 +2077,7 @@
     aqua: '/games/aqua-labyrinth/',
     tetris: '/games/tetris/',
     nodie: '/games/no-one-die/',
-    sweep: '/games/minesweeper/',
+    sweep: '/games/minesweeper/?v=dongxuelian-board-3',
     sokoban: '/games/sokoban/',
     pacman: '/games/pacman/',
     tank: '/games/tank-battle/',
@@ -1543,6 +2096,58 @@
     blockcut: 'blockcut-live-iframe',
     eyesight: 'eyesight-live-iframe'
   };
+  var tetrisLiveEls = {
+    status: document.getElementById('tetris-live-status'),
+    start: document.getElementById('tetris-live-start'),
+    score: document.getElementById('tetris-live-score'),
+    best: document.getElementById('tetris-live-best'),
+    lines: document.getElementById('tetris-live-lines'),
+    level: document.getElementById('tetris-live-level'),
+    next: document.getElementById('tetris-live-next'),
+    hold: document.getElementById('tetris-live-hold')
+  };
+
+  function tetrisIframeWindow() {
+    var iframe = document.getElementById('tetris-live-iframe');
+    return iframe && iframe.contentWindow ? iframe.contentWindow : null;
+  }
+
+  function sendTetrisAction(action, value) {
+    var target = tetrisIframeWindow();
+    if (!target) return;
+    target.postMessage({ type: 'tetris-action', action: action, value: value }, '*');
+  }
+
+  function activeIframeWindow(key) {
+    var iframeId = iframeIdMap[key];
+    var iframe = iframeId ? document.getElementById(iframeId) : null;
+    return iframe && iframe.contentWindow ? iframe.contentWindow : null;
+  }
+
+  function resetTetrisLivePanel() {
+    if (!tetrisLiveEls.status) return;
+    tetrisLiveEls.status.textContent = 'READY';
+    tetrisLiveEls.start.textContent = '开始';
+    tetrisLiveEls.score.textContent = '0';
+    tetrisLiveEls.best.textContent = '0';
+    tetrisLiveEls.lines.textContent = '0';
+    tetrisLiveEls.level.textContent = '1';
+    tetrisLiveEls.next.textContent = '-';
+    tetrisLiveEls.hold.textContent = '-';
+  }
+
+  function updateTetrisLivePanel(payload) {
+    if (!payload || !tetrisLiveEls.status) return;
+    tetrisLiveEls.status.textContent = payload.status || 'READY';
+    tetrisLiveEls.start.textContent = payload.running && !payload.paused && !payload.over ? '暂停' : '开始';
+    tetrisLiveEls.start.dataset.tetrisAction = payload.running && !payload.paused && !payload.over ? 'pause' : 'start';
+    tetrisLiveEls.score.textContent = String(payload.score || 0);
+    tetrisLiveEls.best.textContent = String(payload.best || 0);
+    tetrisLiveEls.lines.textContent = String(payload.lines || 0);
+    tetrisLiveEls.level.textContent = String(payload.level || 1);
+    tetrisLiveEls.next.textContent = payload.next || '-';
+    tetrisLiveEls.hold.textContent = payload.hold || '-';
+  }
 
   function activateGame(key) {
     // Activate correct panel
@@ -1553,19 +2158,39 @@
     for (var k in iframeSrcMap) {
       var ifr = document.getElementById(iframeIdMap[k]);
       if (ifr) ifr.src = key === k ? iframeSrcMap[k] : 'about:blank';
+      if (key === k) {
+        ifr.setAttribute('tabindex', '0');
+        setTimeout(function (targetIframe) {
+          try { targetIframe.focus(); } catch (err) {}
+        }, 260, ifr);
+      }
     }
+    if (key === 'tetris') resetTetrisLivePanel();
   }
 
   function showDetail(key) {
     grid.style.display = 'none';
+    if (hero) hero.style.display = 'none';
     detailContainer.classList.add('is-active');
     activateGame(key);
     if (history.replaceState) history.replaceState(null, '', '#game=' + key);
+    var activePanel = document.querySelector('[data-game-panel="' + key + '"]');
+    if (activePanel) {
+      var jumpToPanel = function () {
+        var scrollTarget = key === 'tetris' ? detailContainer : activePanel;
+        var offset = key === 'tetris' ? 158 : 112;
+        var top = scrollTarget.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+      };
+      setTimeout(jumpToPanel, 120);
+      setTimeout(jumpToPanel, 520);
+    }
     // Scale aqua iframe after DOM renders
     if (key === 'aqua') setTimeout(scaleAquaIframe, 600);
   }
 
   function showGrid() {
+    if (hero) hero.style.display = '';
     grid.style.display = '';
     detailContainer.classList.remove('is-active');
     panels.forEach(function (p) { p.classList.remove('is-active'); });
@@ -1584,6 +2209,59 @@
   });
 
   backBtn.addEventListener('click', showGrid);
+  var tetrisWindowOpen = document.getElementById('tetris-window-open');
+  if (tetrisWindowOpen) {
+    tetrisWindowOpen.addEventListener('click', function () {
+      window.open('/games/tetris/', '_blank', 'noopener');
+    });
+  }
+  document.querySelectorAll('[data-tetris-action]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      sendTetrisAction(button.dataset.tetrisAction);
+    });
+  });
+  window.addEventListener('message', function (event) {
+    var data = event.data || {};
+    if (data.type === 'tetris-state') updateTetrisLivePanel(data.payload);
+  });
+  document.addEventListener('keydown', function (event) {
+    if (!detailContainer.classList.contains('is-active')) return;
+    var activePanel = document.querySelector('.game-panel.is-active');
+    if (!activePanel || activePanel.dataset.gamePanel !== 'tank') return;
+    var keyCodes = {
+      ArrowUp: 38, ArrowDown: 40, ArrowLeft: 37, ArrowRight: 39,
+      w: 87, W: 87, a: 65, A: 65, s: 83, S: 83, d: 68, D: 68,
+      ' ': 32, Enter: 13, n: 78, N: 78, p: 80, P: 80
+    };
+    var keyCode = keyCodes[event.key];
+    if (!keyCode) return;
+    event.preventDefault();
+    var target = activeIframeWindow('tank');
+    if (target) target.postMessage({ type: 'tank-key', event: 'down', keyCode: keyCode }, '*');
+  }, { passive: false });
+  document.addEventListener('keyup', function (event) {
+    if (!detailContainer.classList.contains('is-active')) return;
+    var activePanel = document.querySelector('.game-panel.is-active');
+    if (!activePanel || activePanel.dataset.gamePanel !== 'tank') return;
+    var keyCodes = {
+      ArrowUp: 38, ArrowDown: 40, ArrowLeft: 37, ArrowRight: 39,
+      w: 87, W: 87, a: 65, A: 65, s: 83, S: 83, d: 68, D: 68
+    };
+    var keyCode = keyCodes[event.key];
+    if (!keyCode) return;
+    event.preventDefault();
+    var target = activeIframeWindow('tank');
+    if (target) target.postMessage({ type: 'tank-key', event: 'up', keyCode: keyCode }, '*');
+  }, { passive: false });
+  window.addEventListener('blur', function () {
+    var activePanel = document.querySelector('.game-panel.is-active');
+    if (!activePanel || activePanel.dataset.gamePanel !== 'tank') return;
+    var target = activeIframeWindow('tank');
+    if (!target) return;
+    [37, 38, 39, 40, 65, 68, 83, 87].forEach(function (keyCode) {
+      target.postMessage({ type: 'tank-key', event: 'up', keyCode: keyCode }, '*');
+    });
+  });
 
   // Hash routing
   if (location.hash && location.hash.startsWith('#game=')) {
@@ -1854,6 +2532,12 @@
   window.addEventListener('resize', scaleAquaIframe);
   document.addEventListener('fullscreenchange', scaleAquaIframe);
   document.addEventListener('webkitfullscreenchange', scaleAquaIframe);
+  document.addEventListener('fullscreenchange', function() {
+    var nodieIframe = document.getElementById('nodie-live-iframe');
+    if (nodieIframe && nodieIframe.contentWindow) {
+      nodieIframe.contentWindow.postMessage({ type: 'fullscreen', value: !!document.fullscreenElement }, '*');
+    }
+  });
 
   cubeSpeedButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -2264,7 +2948,7 @@
           </div>
           <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">Web安全</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/"><span class="card-category-list-name">Windows服务器</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="card-category-list-name">密码学</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/"><span class="card-category-list-name">科研</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">大模型安全</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">系统安全</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%80%83%E7%A0%94/"><span class="card-category-list-name">考研</span><span class="card-category-list-count">5</span></a></li>
-          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/LFSR/" style="font-size: 1.1em; color: #999">LFSR</a> <a href="/tags/Yakit/" style="font-size: 1.1em; color: #999">Yakit</a> <a href="/tags/CSRF/" style="font-size: 1.1em; color: #999">CSRF</a> <a href="/tags/%E7%9C%9F%E9%A2%98/" style="font-size: 1.1em; color: #999">真题</a> <a href="/tags/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">缓冲区溢出</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 1.4em; color: #99a5b6">考研</a> <a href="/tags/MCP/" style="font-size: 1.1em; color: #999">MCP</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.2em; color: #999da3">算法</a> <a href="/tags/%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">病毒</a> <a href="/tags/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.1em; color: #999">恶意程序</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a> <a href="/tags/RSA/" style="font-size: 1.1em; color: #999">RSA</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 1.1em; color: #999">复习</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/MSCS/" style="font-size: 1.1em; color: #999">MSCS</a> <a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.1em; color: #999">概率论</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.2em; color: #999da3">Web安全</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 1.2em; color: #999da3">数字签名</a> <a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">溢出</a> <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" style="font-size: 1.1em; color: #999">最短路径</a> <a href="/tags/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">分组密码</a> <a href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.2em; color: #999da3">Windows服务器</a> <a href="/tags/XSS/" style="font-size: 1.1em; color: #999">XSS</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/%E6%B5%81%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">流密码</a> <a href="/tags/Hash/" style="font-size: 1.1em; color: #999">Hash</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8/" style="font-size: 1.3em; color: #99a1ac">系统安全</a> <a href="/tags/ElGamal/" style="font-size: 1.2em; color: #999da3">ElGamal</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">计算机网络，数据结构</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/garak/" style="font-size: 1.1em; color: #999">garak</a> <a href="/tags/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/" style="font-size: 1.1em; color: #999">椭圆曲线</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">组合数学</a> <a href="/tags/Rootkit/" style="font-size: 1.1em; color: #999">Rootkit</a> <a href="/tags/DSS/" style="font-size: 1.1em; color: #999">DSS</a> <a href="/tags/%E7%BE%A4%E9%9B%86/" style="font-size: 1.2em; color: #999da3">群集</a></div></div><div class="card-widget card-archives">
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/" style="font-size: 1.1em; color: #999">概率论</a> <a href="/tags/Web%E5%AE%89%E5%85%A8/" style="font-size: 1.23em; color: #999ea6">Web安全</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">计算机网络，数据结构</a> <a href="/tags/%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">分组密码</a> <a href="/tags/DSS/" style="font-size: 1.1em; color: #999">DSS</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">数据结构</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a> <a href="/tags/LLM/" style="font-size: 1.1em; color: #999">LLM</a> <a href="/tags/%E6%B5%81%E5%AF%86%E7%A0%81/" style="font-size: 1.1em; color: #999">流密码</a> <a href="/tags/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/" style="font-size: 1.23em; color: #999ea6">Windows服务器</a> <a href="/tags/Rootkit/" style="font-size: 1.1em; color: #999">Rootkit</a> <a href="/tags/Yakit/" style="font-size: 1.1em; color: #999">Yakit</a> <a href="/tags/%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86/" style="font-size: 1.1em; color: #999">公钥加密</a> <a href="/tags/%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">数学</a> <a href="/tags/garak/" style="font-size: 1.1em; color: #999">garak</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 1.1em; color: #999">二叉树</a> <a href="/tags/%E7%9C%9F%E9%A2%98/" style="font-size: 1.1em; color: #999">真题</a> <a href="/tags/%E8%80%83%E7%A0%94/" style="font-size: 1.37em; color: #99a4b2">考研</a> <a href="/tags/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF/" style="font-size: 1.1em; color: #999">椭圆曲线</a> <a href="/tags/Hash/" style="font-size: 1.1em; color: #999">Hash</a> <a href="/tags/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">缓冲区溢出</a> <a href="/tags/%E5%9B%BE%E8%AE%BA/" style="font-size: 1.1em; color: #999">图论</a> <a href="/tags/%E5%A4%8D%E4%B9%A0/" style="font-size: 1.1em; color: #999">复习</a> <a href="/tags/MSCS/" style="font-size: 1.1em; color: #999">MSCS</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" style="font-size: 1.23em; color: #999ea6">数字签名</a> <a href="/tags/%E6%BA%A2%E5%87%BA/" style="font-size: 1.1em; color: #999">溢出</a> <a href="/tags/CSRF/" style="font-size: 1.1em; color: #999">CSRF</a> <a href="/tags/%E6%81%B6%E6%84%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 1.1em; color: #999">恶意程序</a> <a href="/tags/%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">病毒</a> <a href="/tags/XSS/" style="font-size: 1.1em; color: #999">XSS</a> <a href="/tags/ElGamal/" style="font-size: 1.23em; color: #999ea6">ElGamal</a> <a href="/tags/RSA/" style="font-size: 1.1em; color: #999">RSA</a> <a href="/tags/AES/" style="font-size: 1.1em; color: #999">AES</a> <a href="/tags/MCP/" style="font-size: 1.1em; color: #999">MCP</a> <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" style="font-size: 1.1em; color: #999">组合数学</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">机器学习</a> <a href="/tags/%E7%BE%A4%E9%9B%86/" style="font-size: 1.23em; color: #999ea6">群集</a> <a href="/tags/%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95/" style="font-size: 1.1em; color: #999">安全测试</a></div></div><div class="card-widget card-archives">
     <div class="item-headline">
       <i class="fas fa-archive"></i>
       <span>归档</span>
@@ -2337,7 +3021,7 @@
         </li>
       
     </ul>
-  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-19T02:05:19.713Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">39</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-20T03:56:23.367Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
   const loadMathjax = () => {
     if (!window.MathJax) {
       window.MathJax = {

@@ -13,10 +13,14 @@ html, body {
 	width: 100%;
 	height: 100%;
 	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .game-wrapper {
 	width: 100%;
-	height: 100%;
+	max-width: 100%;
+	aspect-ratio: 1366 / 880;
 	overflow: hidden;
 	position: relative;
 }
@@ -25,25 +29,15 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
-.game-wrapper:fullscreen {
-	width: 100vw;
-	max-width: 100vw;
-	height: 100vh;
-	background: #000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
 </style>
 
 <script type="text/javascript" src="js/require.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-
 </head>
 <body>
 
 <div class="game-wrapper" id="gameWrapper">
-	<canvas id="linkScreen" width="1366" height="621">
+	<canvas id="linkScreen" width="1366" height="880">
 		很遗憾，您的浏览器不支持HTML5，请使用支持HTML5的浏览器。
 	</canvas>
 </div>
@@ -52,54 +46,28 @@ html, body {
 (function() {
 	var wrapper = document.getElementById('gameWrapper');
 	var canvas = document.getElementById('linkScreen');
-
-	function getWrapperSize() {
-		var w = window.innerWidth || wrapper.clientWidth;
-		var h = window.innerHeight || wrapper.clientHeight;
-		if (w < 1 || h < 1) { w = 1366; h = 621; }
-		return { w: w, h: h };
-	}
-
-	// Intercept canvas.width/height setters so game engine always gets wrapper dimensions
 	var widthDesc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, 'width');
 	var heightDesc = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, 'height');
+	var fs = false;
+
+	window.addEventListener('message', function(e) {
+		if (e.data && e.data.type === 'fullscreen') {
+			fs = e.data.value;
+			if (!fs && window.onresize) setTimeout(function() { window.onresize(); }, 50);
+		}
+	});
 
 	Object.defineProperty(canvas, 'width', {
 		get: function() { return widthDesc.get.call(this); },
-		set: function() {
-			var size = getWrapperSize();
-			widthDesc.set.call(this, size.w);
-		},
+		set: function(v) { widthDesc.set.call(this, fs ? v : wrapper.clientWidth || 1366); },
 		configurable: true
 	});
-
 	Object.defineProperty(canvas, 'height', {
 		get: function() { return heightDesc.get.call(this); },
-		set: function() {
-			var size = getWrapperSize();
-			heightDesc.set.call(this, size.h);
-		},
+		set: function(v) { heightDesc.set.call(this, fs ? v : wrapper.clientHeight || 880); },
 		configurable: true
-	});
-
-	// Also sync on container resize (e.g. fullscreen change, orientation change)
-	var syncTimer;
-	function onResize() {
-		clearTimeout(syncTimer);
-		syncTimer = setTimeout(function() {
-			var size = getWrapperSize();
-			if (canvas.width !== size.w) widthDesc.set.call(canvas, size.w);
-			if (canvas.height !== size.h) heightDesc.set.call(canvas, size.h);
-		}, 80);
-	}
-	window.addEventListener('resize', onResize);
-
-	// Sync after engine async init (engine may have set dimensions before wrapper had layout)
-	[300, 800, 1600, 3000].forEach(function(d) {
-		setTimeout(onResize, d);
 	});
 })();
 </script>
-
 </body>
 </html>

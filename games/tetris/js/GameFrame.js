@@ -31,7 +31,7 @@ function GameFrame(unit,row,col)
 	//保存7种图形相对坐标的数组
 	this.arr = "0,1,0,2,1,2,2,2;0,1,1,1,1,2,2,2;0,1,0,2,1,1,2,1;0,2,1,1,1,2,2,1;1,0,1,1,1,2,1,3;1,1,1,2,2,1,2,2;1,1,2,0,2,1,2,2".split(";");
 	//保存小方块的颜色
-	this.color=["red","blue","green","yellow","#00FFFF","#930093","#F80000","#984B4B"];
+	this.color=["#ff6eb4","#7eb8ff","#b57fff","#ff9de2","#5bc8f5","#ff7eb3","#a78bfa","#f472b6"];
 	
 	//初始化容器div
 	this.init = function()

@@ -1,210 +1,548 @@
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>扫雷</title>
-	<script src="js/jquery.min.js"></script>
-<style>
-	html,body{
-		height:100%;
-		margin:0;
-		padding:0;
-		overflow:hidden;
-		background:#1a3a1a;
-		display:flex;
-		align-items:center;
-		justify-content:center;
-	}
-	.game-wrapper {
-		position:relative;
-		transform-origin:center center;
-	}
-	.box{
-		transform:perspective(1200px) rotatex(28deg);
-		width:500px;
-		height:500px;
-		margin:0 auto;
-		border-top:1px solid #B25F27;
-		border-left:1px solid #B25F27;
-		box-shadow:5px 5px 5px rgba(0,0,0,0.3);
-	}
-	.block{
-		width:49px;
-		height:49px;
-		border-right:1px solid #B25F27;
-		border-bottom:1px solid #B25F27;
-		float:left;
-		box-shadow:0 0 4px #333 inset;
-		background:url(img/cao.jpg);
-	}
-	.show{
-		background:url(img/dilei.jpg) no-repeat;
-	}
-	.num{
-		background:#ECD0A1;
-		font-size:18px;
-		font-weight:bold;
-		text-align:center;
-		line-height:49px;
-	}
-	.time{
-		width:50px;
-		height:50px;
-		border:1px solid red;
-		text-align:center;
-		line-height:50px;
-		font-size:20px;
-		font-weight:bold;
-		position:absolute;
-		right:10px;
-		top:8px;
-		background:url(img/shizhong.jpg) no-repeat;
-		color:#fff;
-		z-index:1;
-	}
-	.flagbox{
-		width:40px;
-		height:40px;
-		padding:5px;
-		background:url(img/hongqi.jpg) no-repeat;
-		border:1px solid red;
-		position:absolute;
-		right:10px;
-		top:70px;
-		text-align:center;
-		line-height:50px;
-		font-size:20px;
-		font-weight:bold;
-		z-index:1;
-	}
-	.flag{
-		background:url(img/hongqi.jpg) no-repeat;
-	}
-	.restart-link {
-		text-align:center;
-		margin-top:6px;
-	}
-	.restart-link a {
-		color:#ffd700;
-		font-size:13px;
-		text-decoration:none;
-		font-weight:bold;
-	}
-</style>
-<script>
-	$(function(){
-		var $box = $(".box");
-		var $flagbox = $(".flagbox");
-		var $time = $(".time");
-		var timer;
-
-		function initGame() {
-			$box.empty();
-			$flagbox.text("10");
-			$time.text("100");
-			clearInterval(timer);
-			do {
-				$box.empty();
-				for(var i=0;i<10;i++){
-					for(var j=0;j<10;j++){
-						var islei=Math.random()>0.9;
-						$("<div></div>").addClass(function(){
-							return "block"+(islei? " lei":"");
-						}).data("pos",{x:i,y:j}).attr("id",i+"-"+j).mousedown(mousedownhandler).appendTo($box);
-					}
-				}
-			} while($(".lei").length!=10);
-			startTimer();
-		}
-
-		$(document).on("contextmenu",false);
-
-		function startTimer() {
-			clearInterval(timer);
-			timer = setInterval(function(){
-				var n = parseInt($time.text()) - 1;
-				$time.text(n);
-				if(n <= 0){
-					clearInterval(timer);
-					alert("时间到，游戏结束！");
-				}
-			},1000);
-		}
-
-		function mousedownhandler(e){
-			e.preventDefault();
-			if(e.which==1) leftclick.call(this);
-			else if(e.which==3) rightclick.call(this);
-		}
-
-		function leftclick(){
-			if($(this).hasClass("flag")) return;
-			if($(this).hasClass("lei")){
-				alert("你踩到地雷了!");
-				clearInterval(timer);
-				$(".lei").addClass("show");
-			} else {
-				var n=0;
-				var pos=$(this).data("pos");
-				$(this).addClass("num");
-				for(var i=pos.x-1;i<=pos.x+1;i++){
-					for(var j=pos.y-1;j<=pos.y+1;j++){
-						if($("#"+i+"-"+j).hasClass("lei")) n++;
-					}
-				}
-				$(this).text(n||"");
-				if(n==0){
-					for(var i=pos.x-1;i<=pos.x+1;i++){
-						for(var j=pos.y-1;j<=pos.y+1;j++){
-							if($("#"+i+"-"+j).length!=0){
-								if(!$("#"+i+"-"+j).data("check")){
-									$("#"+i+"-"+j).data("check",true);
-									leftclick.call($("#"+i+"-"+j)[0]);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		function rightclick(){
-			if($(this).hasClass("num")) return;
-			if($(this).hasClass("flag")){
-				$flagbox.text(function(index,num){ return parseInt(num)+1; });
-			} else {
-				if($(".flag").length==10) return;
-				$flagbox.text(function(index,num){ return parseInt(num)-1; });
-			}
-			$(this).toggleClass("flag");
-			if($(".flag").filter(".lei").length==10){
-				clearInterval(timer);
-				alert("Success!");
-			}
-		}
-
-		// Scale to fit container
-		function scaleGame() {
-			var wrap = document.querySelector('.game-wrapper');
-			if (!wrap) return;
-			var maxW = window.innerWidth;
-			var maxH = window.innerHeight;
-			var scale = Math.min(maxW / 520, maxH / 580, 1);
-			wrap.style.transform = 'scale(' + scale + ')';
-		}
-		window.addEventListener('resize', scaleGame);
-
-		initGame();
-		scaleGame();
-	});
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>东雪莲主题扫雷</title>
+  <script src="js/jquery.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: #363057;
+      font-family: "Microsoft YaHei", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(166, 151, 237, 0.18), transparent 24%),
+        radial-gradient(circle at 88% 88%, rgba(205, 195, 250, 0.2), transparent 28%),
+        linear-gradient(135deg, #f9f8ff 0%, #edf4ff 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      left: -86px;
+      bottom: -112px;
+      width: min(360px, 28vw);
+      height: min(620px, 76vh);
+      background: url("img/dongxuelian.png") 50% 100% / contain no-repeat;
+      opacity: 0.22;
+      filter: saturate(0.88);
+      pointer-events: none;
+    }
+    body::after {
+      content: "✦";
+      position: fixed;
+      right: 9vw;
+      top: 8vh;
+      color: rgba(141, 116, 224, 0.18);
+      font-size: 90px;
+      pointer-events: none;
+    }
+    .app {
+      position: relative;
+      z-index: 1;
+      width: min(1220px, calc(100vw - 28px));
+      height: min(900px, calc(100vh - 28px));
+      margin: 14px auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: stretch;
+    }
+    .game-card,
+    .side-card {
+      border: 1px solid rgba(151, 130, 229, 0.18);
+      border-radius: 16px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.86), rgba(246,242,255,0.74)),
+        radial-gradient(circle at 96% 0%, rgba(151, 130, 229, 0.13), transparent 26%);
+      box-shadow: 0 24px 70px rgba(101, 89, 174, 0.16);
+      backdrop-filter: blur(18px);
+    }
+    .game-card {
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px;
+      overflow: hidden;
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .title-row h1 {
+      margin: 0;
+      color: #8d74df;
+      font-size: 24px;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+    .hud {
+      display: grid;
+      grid-template-columns: 1fr 104px 1fr;
+      gap: 12px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hud-card {
+      min-height: 66px;
+      padding: 10px 12px;
+      border: 1px solid rgba(151, 130, 229, 0.18);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.66);
+    }
+    .hud-card span {
+      display: block;
+      color: #9788dc;
+      font-size: 11px;
+      font-weight: 950;
+    }
+    .hud-card strong {
+      display: block;
+      margin-top: 5px;
+      color: #3c335f;
+      font-size: 24px;
+      font-weight: 950;
+      line-height: 1;
+    }
+    .face {
+      width: 58px;
+      height: 58px;
+      justify-self: center;
+      border: 0;
+      border-radius: 50%;
+      color: #fff;
+      background: radial-gradient(circle at 34% 28%, #d9d1ff, #9276e0 70%);
+      box-shadow: 0 12px 26px rgba(125, 94, 230, 0.22);
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .select,
+    .primary-btn {
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(151, 130, 229, 0.22);
+      padding: 0 14px;
+      color: #55467d;
+      background: rgba(255,255,255,0.72);
+      font: inherit;
+      font-weight: 900;
+    }
+    .select { min-width: 160px; }
+    .primary-btn {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, #8d74df, #a88cf0);
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(141, 116, 223, 0.2);
+    }
+    .board-wrap {
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border-radius: 14px;
+      background:
+        linear-gradient(rgba(151,130,229,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(151,130,229,0.08) 1px, transparent 1px),
+        rgba(247, 244, 255, 0.72);
+      background-size: 24px 24px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .box {
+      display: grid;
+      gap: 3px;
+      width: var(--board-width, min(100%, 672px));
+      height: var(--board-height, min(100%, 672px));
+      padding: 4px;
+      border: 1px solid rgba(151, 130, 229, 0.22);
+      border-radius: 10px;
+      background: rgba(226, 220, 255, 0.55);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.54);
+    }
+    .block {
+      display: grid;
+      place-items: center;
+      width: var(--cell-size, 36px);
+      height: var(--cell-size, 36px);
+      min-width: 0;
+      min-height: 0;
+      border: 1px solid rgba(151, 130, 229, 0.24);
+      border-radius: 6px;
+      color: #56407d;
+      background:
+        radial-gradient(circle at 30% 24%, rgba(255,255,255,0.78), transparent 36%),
+        linear-gradient(145deg, #f1edff, #dcd5ff);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.52), 0 2px 6px rgba(111, 91, 190, 0.1);
+      font-size: var(--cell-font, 18px);
+      font-weight: 950;
+      user-select: none;
+      cursor: pointer;
+      transition: transform 100ms ease, filter 100ms ease;
+    }
+    .block:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.02);
+    }
+    .block.num {
+      background: rgba(255,255,255,0.64);
+      box-shadow: inset 0 0 0 1px rgba(151,130,229,0.1);
+      cursor: default;
+    }
+    .block.mine-hit,
+    .block.show {
+      color: #fff;
+      background: linear-gradient(145deg, #3d315f, #8f5bcf);
+    }
+    .block.flag::before { content: "⚑"; color: #8d74df; }
+    .block.show::before { content: "✹"; }
+    .num-1 { color: #6f74dd; }
+    .num-2 { color: #43a876; }
+    .num-3 { color: #d4639c; }
+    .num-4 { color: #8053ca; }
+    .num-5, .num-6, .num-7, .num-8 { color: #cc7048; }
+    .side-card {
+      position: relative;
+      padding: 18px;
+      overflow: hidden;
+      display: none;
+    }
+    .side-card::before {
+      content: "";
+      position: absolute;
+      right: -42px;
+      bottom: -34px;
+      width: 180px;
+      height: 260px;
+      background: url("img/dongxuelian.png") 50% 100% / contain no-repeat;
+      opacity: 0.14;
+      pointer-events: none;
+    }
+    .side-card h2 {
+      margin: 0 0 16px;
+      color: #8d74df;
+      font-size: 22px;
+      font-weight: 950;
+    }
+    .rule {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 6px;
+      margin-top: 14px;
+      padding: 13px 14px;
+      border: 1px solid rgba(151, 130, 229, 0.15);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.5);
+    }
+    .rule strong { color: #7960d1; font-size: 14px; }
+    .rule span { color: #5f587b; font-size: 13px; line-height: 1.7; font-weight: 800; }
+    .quote {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      padding: 12px 14px;
+      border: 1px solid rgba(151, 130, 229, 0.2);
+      border-radius: 14px;
+      color: #7960d1;
+      background: rgba(255,255,255,0.72);
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 900;
+    }
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 10;
+      transform: translate(-50%, -50%) scale(0.96);
+      min-width: 220px;
+      padding: 16px 20px;
+      border-radius: 18px;
+      color: #fff;
+      background: rgba(45, 35, 74, 0.9);
+      box-shadow: 0 20px 50px rgba(60, 40, 120, 0.26);
+      text-align: center;
+      font-size: 20px;
+      font-weight: 950;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    @media (max-width: 920px) {
+      body::before { display: none; }
+        .app {
+          grid-template-columns: 1fr;
+          height: calc(100vh - 18px);
+          width: calc(100vw - 18px);
+          margin: 9px auto;
+        }
+      .side-card { display: none; }
+    }
+  </style>
 </head>
 <body>
-<div class="game-wrapper">
-	<div class="box"></div>
-	<div class="flagbox">10</div>
-	<div class="time">100</div>
-	<div class="restart-link"><a href="javascript:location.reload()">重新开始</a></div>
-</div>
+  <main class="app" aria-label="东雪莲主题扫雷">
+    <section class="game-card">
+      <div class="title-row">
+        <h1>✿ 东雪莲主题 扫雷游戏</h1>
+        <div class="toolbar">
+          <select class="select" id="difficulty" aria-label="难度">
+            <option value="easy">初级 10x10</option>
+            <option value="normal" selected>中级 16x16</option>
+            <option value="hard">高级 22x16</option>
+          </select>
+          <button class="primary-btn" id="restart" type="button">开始游戏</button>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="hud-card"><span>剩余雷数</span><strong id="flag-count">40</strong></div>
+        <button class="face" id="face" type="button" aria-label="重新开始">☺</button>
+        <div class="hud-card"><span>用时</span><strong id="time">00:00</strong></div>
+      </div>
+      <div class="board-wrap">
+        <div class="box" id="board"></div>
+      </div>
+    </section>
+    <aside class="side-card">
+      <h2>✿ 游戏说明</h2>
+      <div class="rule"><strong>目标</strong><span>找出所有地雷，同时避开危险格子。</span></div>
+      <div class="rule"><strong>数字提示</strong><span>数字表示周围 8 个格子里的地雷数量。</span></div>
+      <div class="rule"><strong>操作</strong><span>左键翻开格子，右键标记或取消标记，点到空白会自动展开。</span></div>
+      <div class="quote">“谨慎地迈出每一步。”<br>—— 东雪莲</div>
+    </aside>
+  </main>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    $(function () {
+      var configs = {
+        easy: { rows: 10, cols: 10, mines: 12 },
+        normal: { rows: 16, cols: 16, mines: 40 },
+        hard: { rows: 16, cols: 22, mines: 70 }
+      };
+      var $board = $("#board");
+      var $boardWrap = $(".board-wrap");
+      var $flagCount = $("#flag-count");
+      var $time = $("#time");
+      var $face = $("#face");
+      var $difficulty = $("#difficulty");
+      var $toast = $("#toast");
+      var timer = null;
+      var elapsed = 0;
+      var state = null;
+
+      function initGame() {
+        var cfg = configs[$difficulty.val()];
+        state = {
+          rows: cfg.rows,
+          cols: cfg.cols,
+          mines: cfg.mines,
+          flags: 0,
+          opened: 0,
+          locked: false,
+          started: false,
+          grid: []
+        };
+        elapsed = 0;
+        clearInterval(timer);
+        $time.text("00:00");
+        $face.text("☺");
+        $flagCount.text(cfg.mines);
+        $board.empty()
+          .css("grid-template-columns", "")
+          .css("grid-template-rows", "");
+        buildGrid(cfg);
+        renderBoard();
+      }
+
+      function setBoardMetrics(cfg) {
+        if (!cfg && !state) return;
+        var rows = cfg ? cfg.rows : state.rows;
+        var cols = cfg ? cfg.cols : state.cols;
+        var gap = 3;
+        var pad = 8;
+        var wrapW = Math.max(240, $boardWrap.innerWidth() - 20);
+        var wrapH = Math.max(240, $boardWrap.innerHeight() - 20);
+        var size = Math.floor(Math.min(
+          (wrapW - pad - gap * (cols - 1)) / cols,
+          (wrapH - pad - gap * (rows - 1)) / rows
+        ));
+        size = Math.max(18, size);
+        $board.css({
+          "--cell-size": size + "px",
+          "--cell-font": Math.max(12, Math.min(24, Math.floor(size * 0.52))) + "px",
+          "--board-width": (size * cols + gap * (cols - 1) + pad) + "px",
+          "--board-height": (size * rows + gap * (rows - 1) + pad) + "px",
+          "grid-template-columns": "repeat(" + cols + ", " + size + "px)",
+          "grid-template-rows": "repeat(" + rows + ", " + size + "px)"
+        });
+      }
+
+      function buildGrid(cfg) {
+        for (var r = 0; r < cfg.rows; r += 1) {
+          state.grid[r] = [];
+          for (var c = 0; c < cfg.cols; c += 1) {
+            state.grid[r][c] = { mine: false, flag: false, open: false, count: 0 };
+          }
+        }
+        var placed = 0;
+        while (placed < cfg.mines) {
+          var rr = Math.floor(Math.random() * cfg.rows);
+          var cc = Math.floor(Math.random() * cfg.cols);
+          if (!state.grid[rr][cc].mine) {
+            state.grid[rr][cc].mine = true;
+            placed += 1;
+          }
+        }
+        for (var y = 0; y < cfg.rows; y += 1) {
+          for (var x = 0; x < cfg.cols; x += 1) {
+            state.grid[y][x].count = neighbors(y, x).filter(function (p) {
+              return state.grid[p.r][p.c].mine;
+            }).length;
+          }
+        }
+      }
+
+      function renderBoard() {
+        setBoardMetrics();
+        $board.empty();
+        for (var r = 0; r < state.rows; r += 1) {
+          for (var c = 0; c < state.cols; c += 1) {
+            var cell = state.grid[r][c];
+            var $cell = $("<button></button>")
+              .attr("type", "button")
+              .addClass("block")
+              .data("pos", { r: r, c: c })
+              .on("mousedown", handleMouseDown)
+              .appendTo($board);
+            if (cell.flag) $cell.addClass("flag");
+            if (cell.open) {
+              $cell.addClass("num");
+              if (cell.mine) {
+                $cell.addClass("show");
+              } else if (cell.count) {
+                $cell.addClass("num-" + cell.count).text(cell.count);
+              }
+            }
+          }
+        }
+      }
+
+      function startTimer() {
+        if (state.started) return;
+        state.started = true;
+        timer = setInterval(function () {
+          elapsed += 1;
+          var min = String(Math.floor(elapsed / 60)).padStart(2, "0");
+          var sec = String(elapsed % 60).padStart(2, "0");
+          $time.text(min + ":" + sec);
+        }, 1000);
+      }
+
+      function handleMouseDown(event) {
+        event.preventDefault();
+        if (state.locked) return;
+        var pos = $(this).data("pos");
+        if (event.which === 1) openCell(pos.r, pos.c);
+        if (event.which === 3) toggleFlag(pos.r, pos.c);
+        renderBoard();
+        checkWin();
+      }
+
+      function openCell(r, c) {
+        var cell = state.grid[r][c];
+        if (cell.open || cell.flag) return;
+        startTimer();
+        cell.open = true;
+        state.opened += 1;
+        if (cell.mine) {
+          revealMines();
+          finish(false);
+          return;
+        }
+        if (cell.count === 0) {
+          neighbors(r, c).forEach(function (p) { openCell(p.r, p.c); });
+        }
+      }
+
+      function toggleFlag(r, c) {
+        var cell = state.grid[r][c];
+        if (cell.open) return;
+        startTimer();
+        if (!cell.flag && state.flags >= state.mines) return;
+        cell.flag = !cell.flag;
+        state.flags += cell.flag ? 1 : -1;
+        $flagCount.text(state.mines - state.flags);
+      }
+
+      function neighbors(r, c) {
+        var list = [];
+        for (var y = r - 1; y <= r + 1; y += 1) {
+          for (var x = c - 1; x <= c + 1; x += 1) {
+            if (y === r && x === c) continue;
+            if (y >= 0 && y < state.rows && x >= 0 && x < state.cols) list.push({ r: y, c: x });
+          }
+        }
+        return list;
+      }
+
+      function revealMines() {
+        for (var r = 0; r < state.rows; r += 1) {
+          for (var c = 0; c < state.cols; c += 1) {
+            if (state.grid[r][c].mine) state.grid[r][c].open = true;
+          }
+        }
+      }
+
+      function checkWin() {
+        if (state.locked) return;
+        if (state.opened === state.rows * state.cols - state.mines) finish(true);
+      }
+
+      function finish(win) {
+        state.locked = true;
+        clearInterval(timer);
+        $face.text(win ? "✿" : "×");
+        showToast(win ? "清扫完成" : "踩到地雷了");
+        renderBoard();
+      }
+
+      function showToast(text) {
+        $toast.text(text).addClass("is-visible");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(function () {
+          $toast.removeClass("is-visible");
+        }, 1100);
+      }
+
+      $(document).on("contextmenu", function (event) { event.preventDefault(); });
+      $("#restart, #face").on("click", initGame);
+      $difficulty.on("change", initGame);
+      $(window).on("resize", function () {
+        setBoardMetrics();
+      });
+      if (window.ResizeObserver) {
+        new ResizeObserver(function () { setBoardMetrics(); }).observe($boardWrap[0]);
+      }
+      initGame();
+    });
+  </script>
 </body>
 </html>
