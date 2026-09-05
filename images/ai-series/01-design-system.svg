@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="“AI味”从哪里来">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">“AI味”从哪里来</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">成熟设计系统先统一规则，生成工具再降低调用门槛</text>
+  <g><rect x="62" y="165" width="300" height="260" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="90" y="211" class="card-title" text-anchor="start">设计系统</text><text x="90" y="253" class="small" text-anchor="start">栅格与间距</text><text x="90" y="285" class="small" text-anchor="start">组件与交互</text><text x="90" y="317" class="small" text-anchor="start">颜色与字体</text></g><g><line x1="380" y1="295" x2="465" y2="295" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="422.5" y="283" class="tiny" text-anchor="middle">标准化</text></g><g><rect x="485" y="165" width="300" height="260" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="513" y="211" class="card-title" text-anchor="start">组件库</text><text x="513" y="253" class="small" text-anchor="start">表格、表单、导航</text><text x="513" y="285" class="small" text-anchor="start">后台与商业界面</text><text x="513" y="317" class="small" text-anchor="start">可重复组合</text></g><g><line x1="803" y1="295" x2="888" y2="295" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="845.5" y="283" class="tiny" text-anchor="middle">低成本调用</text></g><g><rect x="908" y="165" width="230" height="260" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="936" y="211" class="card-title" text-anchor="start">生成工具</text><text x="936" y="253" class="small" text-anchor="start">更快拼装</text><text x="936" y="285" class="small" text-anchor="start">更多人可用</text><text x="936" y="317" class="small" text-anchor="start">外观趋同</text></g><text x="600" y="505" class="body" text-anchor="middle">专业外观越来越普及，人们便开始把“标准化”误认成“机器生成”。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜依据 Ant Design 与 Material Design 公开设计体系整理</text>
+</svg>

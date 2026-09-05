@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="同一个项目，三套评价系统">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">同一个项目，三套评价系统</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">项目能运行，只回答了其中一部分问题</text>
+  <g><rect x="80" y="175" width="300" height="300" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="108" y="221" class="card-title" text-anchor="start">论文</text><text x="108" y="263" class="small" text-anchor="start">有没有新问题</text><text x="108" y="295" class="small" text-anchor="start">方法能否验证</text><text x="108" y="327" class="small" text-anchor="start">结论能否复现</text></g><g><rect x="450" y="175" width="300" height="300" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="478" y="221" class="card-title" text-anchor="start">商业</text><text x="478" y="263" class="small" text-anchor="start">是否解决需求</text><text x="478" y="295" class="small" text-anchor="start">成本是否可控</text><text x="478" y="327" class="small" text-anchor="start">能否持续交付</text></g><g><rect x="820" y="175" width="300" height="300" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="848" y="221" class="card-title" text-anchor="start">开源</text><text x="848" y="263" class="small" text-anchor="start">别人能否使用</text><text x="848" y="295" class="small" text-anchor="start">文档是否清楚</text><text x="848" y="327" class="small" text-anchor="start">社区能否参与</text></g><text x="600" y="535" class="body" text-anchor="middle">系统集成很难，但不同场域会追问完全不同的价值证明。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜论文、商业与开源评价维度对照</text>
+</svg>

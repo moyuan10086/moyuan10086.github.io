@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="同一套设计语法，两种生产方式">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">同一套设计语法，两种生产方式</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">相似的外观，不能直接证明相同的制作过程</text>
+  <g><rect x="90" y="175" width="450" height="300" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="118" y="221" class="card-title" text-anchor="start">设计师 / 开发者手工组合</text><text x="118" y="263" class="small" text-anchor="start">阅读规范</text><text x="118" y="295" class="small" text-anchor="start">选择组件</text><text x="118" y="327" class="small" text-anchor="start">调整业务细节</text><text x="118" y="359" class="small" text-anchor="start">反复测试</text></g><g><rect x="660" y="175" width="450" height="300" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="688" y="221" class="card-title" text-anchor="start">AI 辅助生成初版</text><text x="688" y="263" class="small" text-anchor="start">理解自然语言需求</text><text x="688" y="295" class="small" text-anchor="start">调用常见界面模式</text><text x="688" y="327" class="small" text-anchor="start">快速输出初版</text><text x="688" y="359" class="small" text-anchor="start">仍需人工校验</text></g><text x="600" y="535" class="body" text-anchor="middle">两条路径可能抵达相似界面，差别藏在需求理解、细节取舍和后续维护里。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜用于解释“结果相似”与“过程相同”的区别</text>
+</svg>

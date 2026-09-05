@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="全栈不是一张无限增长的技能清单">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">全栈不是一张无限增长的技能清单</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">它更像一张系统地图，每一层都有边界，也会互相牵动</text>
+  <g><rect x="55" y="180" width="180" height="250" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="83" y="226" class="card-title" text-anchor="start">界面层</text><text x="83" y="268" class="small" text-anchor="start">Vue</text><text x="83" y="300" class="small" text-anchor="start">Three.js</text><text x="83" y="332" class="small" text-anchor="start">交互与配色</text></g><g><line x1="245" y1="305" x2="285" y2="305" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="295" y="180" width="180" height="250" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="323" y="226" class="card-title" text-anchor="start">服务层</text><text x="323" y="268" class="small" text-anchor="start">API</text><text x="323" y="300" class="small" text-anchor="start">业务逻辑</text><text x="323" y="332" class="small" text-anchor="start">权限</text></g><g><line x1="485" y1="305" x2="525" y2="305" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="535" y="180" width="180" height="250" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="563" y="226" class="card-title" text-anchor="start">数据层</text><text x="563" y="268" class="small" text-anchor="start">数据库</text><text x="563" y="300" class="small" text-anchor="start">模型训练</text><text x="563" y="332" class="small" text-anchor="start">推理适配</text></g><g><line x1="725" y1="305" x2="765" y2="305" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="775" y="180" width="180" height="250" rx="8" fill="#fff0ef" stroke="#c43d36" stroke-width="2"/><text x="803" y="226" class="card-title" text-anchor="start">运行层</text><text x="803" y="268" class="small" text-anchor="start">服务器</text><text x="803" y="300" class="small" text-anchor="start">显存与环境</text><text x="803" y="332" class="small" text-anchor="start">网络</text></g><g><line x1="965" y1="305" x2="1005" y2="305" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="1015" y="180" width="130" height="250" rx="8" fill="#f3f5f7" stroke="#58616b" stroke-width="2"/><text x="1043" y="226" class="card-title" text-anchor="start">接入层</text><text x="1043" y="268" class="small" text-anchor="start">域名</text><text x="1043" y="300" class="small" text-anchor="start">隧道</text><text x="1043" y="332" class="small" text-anchor="start">监控</text></g><text x="600" y="510" class="body" text-anchor="middle">工程判断力来自理解连接处，而不是把每一项都学到专家级。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜依据作者的个人全栈开发经历整理</text>
+</svg>

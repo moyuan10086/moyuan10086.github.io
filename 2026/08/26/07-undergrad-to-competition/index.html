@@ -1,0 +1,939 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>拿了国赛三等奖之后，我才想明白一个更扎心的问题 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="我原以为这个项目的问题是做得太散，后来才发现核心问题从一开始就存在。真正出错的，是我曾经把“有没有算法增量”当成了判断一个问题是否值得继续研究的尺子。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拿了国赛三等奖之后，我才想明白一个更扎心的问题">
+<meta property="og:url" content="https://moyuan10086.github.io/2026/08/26/07-undergrad-to-competition/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="我原以为这个项目的问题是做得太散，后来才发现核心问题从一开始就存在。真正出错的，是我曾经把“有没有算法增量”当成了判断一个问题是否值得继续研究的尺子。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/ai-series/covers/07-undergrad-to-competition-cover.png">
+<meta property="article:published_time" content="2026-08-26T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-05T16:00:00.000Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="学科竞赛">
+<meta property="article:tag" content="信息安全">
+<meta property="article:tag" content="平台复利">
+<meta property="article:tag" content="团队开荒">
+<meta property="article:tag" content="大模型安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/ai-series/covers/07-undergrad-to-competition-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "拿了国赛三等奖之后，我才想明白一个更扎心的问题",
+  "url": "https://moyuan10086.github.io/2026/08/26/07-undergrad-to-competition/",
+  "image": "https://moyuan10086.github.io/images/ai-series/covers/07-undergrad-to-competition-cover.png",
+  "datePublished": "2026-08-26T02:00:00.000Z",
+  "dateModified": "2026-09-05T16:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2026/08/26/07-undergrad-to-competition/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '拿了国赛三等奖之后，我才想明白一个更扎心的问题',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/ai-series/covers/07-undergrad-to-competition-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">拿了国赛三等奖之后，我才想明白一个更扎心的问题</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">拿了国赛三等奖之后，我才想明白一个更扎心的问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-26T02:00:00.000Z" title="发表于 2026-08-26 10:00:00">2026-08-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T16:00:00.000Z" title="更新于 2026-09-06 00:00:00">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%97%B6%E4%BB%A3%E6%8A%80%E6%9C%AF%E4%BA%BA%E6%88%90%E9%95%BF%E7%B3%BB%E5%88%97/">AI时代技术人成长系列</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>第十九届全国大学生信息安全竞赛（作品赛）暨第三届“长城杯”网数智安全大赛（作品赛），到这里算是彻底结束了。</p>
+<p>我们的作品《面向 AIGC 伪造的跨域泛化检测与可解释性防御平台》，最后拿到了全国三等奖。</p>
+<p>结果出来的时候，我没有特别强烈的情绪，更多是一种终于可以停下来的感觉。这个项目从本科毕设一路做到比赛，前前后后折腾了很久，最后呈现出来的东西也越来越多：多模态大模型图像真实性分析、CLIP 图像伪造检测、不同数据集上的泛化评测、图片内容审核、大模型安全护栏、Agent 执行审计、来源取证、人工复核，模型重新训练过，平台重新搭过，又因为实习期间正好在研究 NPU，把其中一部分模型迁到了华为昇腾上。</p>
+<p>如果只看最后的作品报告，很容易产生一种错觉，好像这些东西从第一天起就在白板上排好了队，我们先画出一张完整架构，再让 Deepfake、MLLM、大模型安全护栏、Agent 和来源取证按照施工计划依次进场。最后的报告也确实被整理成了一套很工整的结构：Deepfake 检测、MLLM 真实性分析、内容安全审核、大模型安全护栏、Agent 执行安全、来源取证，再到统一编排。[12]</p>
+<p>真实情况当然没有这么富有远见，很多东西都是做到一半以后才长出来的。</p>
+<p>比赛刚结束的时候，我最自然的复盘是：项目做得太散，下次应该更聚焦一点。我甚至很快给自己找到了一个听起来相当合理的解释——我很容易让一个项目跟着“最近又学会了什么”不断往外长，却不太擅长让它围着一个问题持续往下长。</p>
+<p>这个解释能够说明 CLIP、NPU、安全护栏、C2PA 为什么一个个进来，却解释不了一个更早的事实：</p>
+<p><strong>在这些模块出现以前，问题其实已经在那里。</strong></p>
+<p>最开始真正想做的，本来就是：</p>
+<blockquote>
+<p><strong>能不能用多模态大模型判断一张图像有没有被伪造？</strong></p>
+</blockquote>
+<p>我不是没找到问题。我找到过。只是后来，我亲手把它判了死刑。</p>
+<hr>
+<h2 id="一、问题一直在那里"><a href="#一、问题一直在那里" class="headerlink" title="一、问题一直在那里"></a>一、问题一直在那里</h2><p>本科毕设刚开始的时候，我最直接的想法其实不复杂：传统图像伪造检测模型通常给出一个分类结果，而多模态大模型既能看图，又能输出自然语言，那么能不能直接让它判断一张图像是真是假，同时把为什么这么判断说出来？</p>
+<p>这就是整个项目最早的研究核心。</p>
+<p>真正开始做以后，我很快产生了一个不满意：如果只是把图片交给一个已经很强的多模态大模型，然后问它“这张图是真的吗”，作为产品功能当然没什么问题，可如果拿来做本科毕设、参加信息安全竞赛，技术层面的东西是不是有点薄？</p>
+<p>模型不是自己训练的，也没有一个特别明显的新算法，最后很容易变成：</p>
+<blockquote>
+<p>调用了一个很强的大模型，然后又搭了一套系统。</p>
+</blockquote>
+<p>于是我开始往算法层补。</p>
+<p>那段时间看到一篇生成图像检测相关的工作，用 CLIP 做检测，却没有把整个模型全部微调，而是只调整很小一部分参数，尤其是归一化层，也能够取得不错的效果。我把这个结果复现下来，又重新训练、做不同数据集上的验证，于是项目里逐渐有了后来所谓的 Deepfake / AIGC 图像检测模块。</p>
+<p>所以 Deepfake 从来不是这个项目真正的起点，它更像后来长出来的一根枝条，用来补足算法层面的内容。</p>
+<p>偏偏那段时间，我实习研究的又是 NPU 和大模型推理，于是另一个想法很自然地出现了：模型既然已经有了，为什么不放到华为昇腾上跑？</p>
+<p>于是又有了 NPU 适配。</p>
+<p>如果把这件事写进项目材料，可以变成一句非常有规划的话：</p>
+<blockquote>
+<p>面向国产异构算力构建高效 AIGC 伪造检测能力。</p>
+</blockquote>
+<p>真实的人类思维过程则朴素很多：</p>
+<blockquote>
+<p>最近正好在搞 NPU，这个模型也能迁，那就试试看。</p>
+</blockquote>
+<p>再后来，我开始更系统地接触大模型安全。</p>
+<p>比赛初赛提交得比较早，当时最现实的选择就是把已经完成度比较高的毕设直接往前推。那时候我当然不是完全不知道大模型存在安全问题，提示词注入知道一点，内容审核知道一点，Agent 调工具会有权限风险也知道一点，敏感信息泄漏、模型输出不合规，这些东西多少都碰到过，只是它们在脑子里还是散的。</p>
+<p>到了七月左右，实习里开始更系统地接触大模型安全，课题组也在研究相关内容，再沿着 JoySafety 等框架往下看，才慢慢意识到，原来内容安全、数据泄露、提示注入，以及再往后的 Agent 身份权限、数据与记忆、工具执行和 MCP 安全，并不是几个互不相关的小功能，它们已经可以被放进一套更完整的大模型安全问题空间里。[8] JoySafety 自身也直接将内容安全、数据泄露、提示词攻击作为大模型落地面临的主要风险。</p>
+<p>于是，大模型安全护栏又长进了项目。</p>
+<p>来源取证也是类似。看到产业里越来越重视 C2PA、Content Credentials 和内容来源证明，我很自然地觉得，这也是现实 AIGC 内容安全系统需要的一部分，于是又去学习来源、签名和证据链。C2PA 本身就是为数字媒体的来源和历史信息建立可验证的 provenance 标准。[11]</p>
+<p>再后来 Agent 越来越多，风险从“模型说了什么”进一步变成“模型实际做了什么”，工具调用、权限和执行轨迹审计也被接了进来。</p>
+<p>最后回头一看，平台确实完整了很多，同时它也越来越像一份过去一年多的学习记录：</p>
+<p><strong>我学过什么，它身上就长过什么。</strong></p>
+<p>我过去很多时候做项目，大概都是这个过程：先遇到 A，觉得有意思，学进去；后来碰到 B，发现和 A 好像能接，于是接上；再看到 C，C 又正好能补前两者的一块短板，于是最后非常自然地变成 A+B+C。</p>
+<p>A 没有错，B 没有错，C 往往也相当合理。</p>
+<p>麻烦恰恰在这里。</p>
+<p><strong>一个项目失去重心，很少是因为连续做了很多明显错误的决定，更常见的是连续做了很多局部正确的决定。</strong></p>
+<p>可现在重新看，我觉得真正值得复盘的还不是后面加了多少东西，而是最开始那个判决：</p>
+<p>为什么我那么快就认为 MLLM 图像判伪“不够有技术含量”？</p>
+<p>因为那时候我手里其实有一把很具体的尺子：有没有自己训练的模型？有没有一个很容易写进“创新点”的算法增量？有没有新的网络结构、新的 loss、新的训练方式，或者至少有一段东西能让人一眼看出来——这个算法是我做的。</p>
+<p>按照这把尺子，直接让一个现成的多模态大模型判断图像真假，确实显得有些“薄”。</p>
+<p>问题在于：</p>
+<p><strong>“有没有自己训练模型”和“这里还有没有没被回答的问题”，本来就是两件事。</strong></p>
+<p>如果换一把尺子，最开始那个看起来很简单的问题其实远没有死。</p>
+<p>比如一个非常直接的问题：</p>
+<blockquote>
+<p><strong>模型给出的那段判断理由，真的是它做出真假判断时依赖的依据吗？</strong></p>
+</blockquote>
+<p>它说，这张图的手部结构异常，所以认为它是一张生成图像。</p>
+<p>听起来很合理。</p>
+<p>可如果“手部结构异常”真的构成了它做判断的证据，那么当我改变这部分信息时，模型的判断是不是也应该发生某种可预测的变化？把它声称关注的区域遮掉会怎样？只修改这部分区域又会怎样？同一个最终分类结果下，它能不能生成两段互相不同、却都听起来十分合理的解释？</p>
+<p>它是在<strong>解释自己为什么这样判断</strong>，还是先完成判断，再根据结果补出一段语言上合理的说明？</p>
+<p>这些问题不一定要求重新训练一个模型，甚至不一定首先需要新的算法。</p>
+<p>它只是要求把原本那个看起来很简单的功能，再往下追问一步。</p>
+<p>所以现在回头看，有一句话比“我当时没有问题意识”准确得多：</p>
+<p><strong>我不是没有找到问题，而是找到以后，嫌它不够像我想象中的科研。</strong></p>
+<p>真正被放弃的，也许不是一个太薄的问题，只是一个还没有来得及被问深的问题。</p>
+<p>我把“方法够不够新”和“问题值不值得追”压成了同一条坐标轴，而它们本来应该是两回事。一个方法当然可以很新，却只回答一个并不重要的问题；一个问题也完全可能很重要，而暂时根本不需要再训练一个模型。</p>
+<p><strong>问题的价值和方法的新颖度，本来就是两条轴。</strong></p>
+<p>只是当时的我，用错了一把尺子。</p>
+<hr>
+<h2 id="二、作品赛的尺度"><a href="#二、作品赛的尺度" class="headerlink" title="二、作品赛的尺度"></a>二、作品赛的尺度</h2><p>这里也需要避免另一个极端。</p>
+<p>毕竟，这是信息安全竞赛的<strong>作品赛</strong>，不是论文赛。</p>
+<p>现在回头复盘，没有必要突然把一切工程工作都降级成“不够科研”，然后要求自己当时必须把 MLLM 图像判伪做成一篇纯算法论文，那只不过是换了一把同样不合适的尺子。</p>
+<p>我们的项目首先就是一个 <strong>AIGC 内容安全检测与防御平台</strong>。</p>
+<p>怎样把图像真实性检测、图片内容审核、来源证据、大模型安全能力和人工复核组织进同一条链路，怎样把算法真正变成可以运行和演示的系统，怎样处理异常、展示结果、留下证据，这些本来就是作品赛里合理的工程工作。</p>
+<p>系统做得宽，本身不是原罪。</p>
+<p>真正的问题是：</p>
+<blockquote>
+<p><strong>为什么有些系统功能很多，却仍然让人感觉它在解决一个很清楚的问题；有些系统每个模块单独拿出来都说得过去，放在一起却更像功能展览？</strong></p>
+</blockquote>
+<p>从赛事本身的定位就能看出，它从来不是一个单纯比较谁做的软件功能更多的比赛。第十九届作品赛仍由中国信息安全测评中心与教育部高等学校网络空间安全专业教学指导委员会主办，赛事目标本身就同时强调创新意识、网络安全技术水平、创新实践和综合设计能力。[1]</p>
+<p>再看评委组成就更明显。2024 年第十七届作品赛决赛邀请的 84 位评审专家，来自网络空间安全专业教指委、国家一流示范网络安全学院、其他网络安全领域以及网安企业；2025 年第十八届的 77 位评审专家，同样包括高校网络空间安全专业教指委、网络安全领域、企业和创投领域代表。[3][4]</p>
+<p>这当然不能推出“某个高校专家一定偏爱与自己课题接近的项目”，更不能用可能存在的专业背景去解释某一个具体奖项。</p>
+<p>但评审不会是没有知识背景的抽象打分器。长期做研究的人，更自然地关注问题定义、技术区别、实验设计和真正的技术增量；长期做产业安全的人，则会更敏感于现实场景、部署、性能和可用性。</p>
+<p>长期下来，这类比赛形成一种自己的“审美”并不奇怪：</p>
+<p><strong>具体的安全问题 + 能辨认出来的技术解决方案 + 可以真正演示的系统。</strong></p>
+<p>系统是载体。</p>
+<p>问题和方案决定它为什么不是另一个系统。</p>
+<p>所以如果下一次再参加类似比赛，我不会简单告诉自己“少做几个模块”，也不会反过来要求“必须硬凹一个新算法”，而应该在项目刚开始时先问：</p>
+<blockquote>
+<p><strong>我们究竟要接住哪一个具体的安全问题？核心解决方案是什么？其他模块为什么必须围着这个方案存在？</strong></p>
+</blockquote>
+<p>如果这几件事足够清楚，系统完全可以继续做得很大。</p>
+<p>“大”和“散”本来就不是一回事。</p>
+<hr>
+<p>而作品赛还有一种自己的标题语法。</p>
+<p>我们的作品名字里恰好有两个很典型的词：</p>
+<p><strong>“跨域泛化”和“可解释性”。</strong></p>
+<p>如果放进严格的机器学习研究语境里，“解决跨域泛化”其实是一个很重的说法。通常意味着提出某种方法，让模型面对陌生分布、陌生生成器时依然能够保持性能，可能是新的训练方式、域不变表示、特征选择，也可能是对为什么失效进行系统分析。</p>
+<p>我们实际做得要朴素得多。</p>
+<p>主要还是把已有方法放到没见过的数据集上测试，看它在新数据上性能会掉多少。</p>
+<p>这个实验当然有意义，对作品赛来说，它也可以说明模型不是只在一个数据集上有效。</p>
+<p>但是：</p>
+<blockquote>
+<p>换一个数据集做测试。</p>
+</blockquote>
+<p>和：</p>
+<blockquote>
+<p>提出一套解决跨域泛化的方法。</p>
+</blockquote>
+<p>不是一回事。</p>
+<p>“可解释性”也类似。</p>
+<p>严格意义上的模型可解释性研究，可能会追问模型到底依赖什么内部表示、什么图像区域、哪些特征做出判断，需要特征归因、探针、表示分析，甚至更严格的因果干预。</p>
+<p>我们当时做的更多是让多模态大模型给出真假判断以后，再生成一段自然语言说明。</p>
+<p>这对于真实审核系统当然有价值，用户不希望只看到一个 0 和 1。</p>
+<p>但它更接近<strong>可读的判断理由</strong>，而不是严格意义上的模型可解释性研究。</p>
+<p>这并不丢人。</p>
+<p>作品赛本来就需要在有限的标题、报告和答辩时间里压缩信息。跨数据集验证被浓缩成“跨域泛化”，让大模型输出理由被浓缩成“可解释性”，自动结果之后接人工确认被概括成“人机协同闭环”，大家都熟悉这种项目语言。</p>
+<p><strong>真正危险的不是比赛时这样写，而是赛后把翻译后的词当真，再用它反推自己“已经做过什么研究”。</strong></p>
+<p>更有意思的是，把这两个词重新拆开以后，我发现它们并不只是“说大了”。</p>
+<p>它们恰好各自指向了一个当时没有继续做下去的真问题。</p>
+<p>“可解释性”虽然做得不严格，可它背后最直接的问题就站在项目起点：</p>
+<blockquote>
+<p>模型说出来的理由，到底是不是它实际判断的依据？</p>
+</blockquote>
+<p>“跨域泛化”虽然主要做的是跨数据集测试，可如果测试真的发现模型面对某些生成器时明显失效，下一步真正的问题也已经出现：</p>
+<blockquote>
+<p><strong>它为什么会在那里失效？</strong></p>
+</blockquote>
+<p>模型到底学到了“伪造”的共性，还是某几个生成器留下的特定指纹？换了生成器以后，究竟是什么特征失效了？数据预处理、压缩方式、语义分布和生成器本身，又分别承担了多少影响？</p>
+<p>所以现在再看这个题目，我不太愿意把它简单叫做“包装”。</p>
+<p>它更像两张没有完全兑现的欠条。</p>
+<p><strong>题目先用比赛语言把问题说大了，而后续真正值得做的事情，本来应该是慢慢把里面的词做实。</strong></p>
+<hr>
+<h2 id="三、名字和地图"><a href="#三、名字和地图" class="headerlink" title="三、名字和地图"></a>三、名字和地图</h2><p>这又把我带回“大模型安全护栏”这件事。</p>
+<p>它让我开始认真对待一种过去很容易忽略的信息：</p>
+<p><strong>领域语言。</strong></p>
+<p>不知道“大模型安全护栏”这个名字的时候，我已经知道提示词注入，知道内容审核，也知道 Agent 调工具可能存在安全风险。</p>
+<p>可这些知识是散的。</p>
+<p>真正接触到“大模型安全护栏”“AI Guardrails”以后，搜索方式突然发生了变化。</p>
+<p>以前可能分别搜 Agent 怎么防越权、LLM 怎么过滤恶意输入、大模型输出怎么做安全审核；后来沿着一个领域词往下走，很快就会遇到企业方案、开源框架、论文、评测和岗位，再从这些东西里面继续长出新的概念。</p>
+<p>知识并没有因为多知道一个词而凭空增加。</p>
+<p>可检索方式变了。</p>
+<p><strong>一个专有名词当然不会凭空增加知识，但它会给已有知识建立索引。</strong></p>
+<p>JoySafety 把内容安全、数据泄露、提示词攻击放进同一个“大模型安全框架”下；产业里也直接出现“大模型安全护栏”这样的产品类别。深信服的方案就以“大模型安全护栏”为核心，将提示注入、有害输出、多语种绕过、多模态攻击等风险放进一套实时防护方案里。[8]</p>
+<p>这件事也让我重新理解了一些过去觉得“听了好像没学到什么”的信息源。</p>
+<p>比如学校论坛。</p>
+<p>很多人评价一场论坛，会自然地问：听完这一个小时，我到底学会了什么？</p>
+<p>如果标准是晚上能不能马上多写一段代码、多会一个算法，那么不少论坛确实很容易令人失望，因为台上的内容经常比较宏观，讲趋势、讲问题、讲一个方向过去几年发生了什么，听完以后不会自动多一篇论文。</p>
+<p>可现在我反而觉得，它还有一种很难计算的收益：</p>
+<p><strong>它让你知道，这个领域最近正在用什么词讨论什么问题。</strong></p>
+<p>我现在大概会这样使用这些信息：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>信号源</th>
+<th>更适合告诉我什么</th>
+<th>我会拿它做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>论文 / 顶会</td>
+<td>一个问题已经做到哪里</td>
+<td>找技术边界和真正没回答的部分</td>
+</tr>
+<tr>
+<td>企业解决方案</td>
+<td>客户开始把哪些风险归成同一种需求</td>
+<td>学领域语言，看现实系统怎样定义问题</td>
+</tr>
+<tr>
+<td>招聘信息</td>
+<td>企业正在为什么能力配置岗位和预算</td>
+<td>判断某种能力有没有形成稳定需求</td>
+</tr>
+<tr>
+<td>课题组组会</td>
+<td>哪些路线试过、哪些坑踩过、最近真正关心什么</td>
+<td>获得论文之外的隐性经验</td>
+</tr>
+<tr>
+<td>学校论坛 / 行业交流</td>
+<td>哪些概念正在进入更广泛的讨论</td>
+<td>更新关键词和方向感，找到新的检索入口</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这些东西不是裁判。</p>
+<p><strong>它们更像发现方向的传感器。</strong></p>
+<p>招聘信息出现一百次“大模型安全护栏”，不能证明它是一个好论文题目；可如果论文、企业方案、岗位、课题组和论坛都开始围绕相似的问题说话，我至少应该知道，这里已经形成了一片值得认真调查的问题区域。</p>
+<p>很多时候，一个主要靠自己开荒的人真正浪费的时间，并不是某项技术学不会。</p>
+<p>而是：</p>
+<p><strong>连应该搜索什么都不知道。</strong></p>
+<hr>
+<p>可一个领域词真正厉害的地方，还不只是帮人搜索。</p>
+<p><strong>它往往顺便规定了问题应该怎样被看。</strong></p>
+<p>比如“大模型安全护栏”。</p>
+<p>沿着 Guardrails 这个词进入行业，很容易获得一种已经比较成熟的系统想象：模型调用以前检查输入，生成以后检查输出，中间检测提示注入、敏感信息和有害内容，必要时阻断、改写或者进入进一步的安全流程。深信服的公开方案就明显体现了“攻击行为进不来、有害内容出不去”这一典型边界防护思路。[8]</p>
+<p>这些能力当然重要。</p>
+<p>问题在于，当一个词和某套典型架构长期绑定以后，人也很容易在不知不觉之间接受它附带的问题定义：</p>
+<blockquote>
+<p>大模型安全主要发生在输入和输出边界，因此防御的基本形态就是在边界上增加检测器。</p>
+</blockquote>
+<p>这不是 Guardrails 唯一可能的定义，却很容易成为第一次进入这个领域时最先获得的默认框架。</p>
+<p>Agent 出现以后，风险可能发生在身份权限、状态、记忆、工具调用链和最终执行结果里；JoySafety 自身的规划也已经把 Agent 身份与权限、数据与记忆、工具执行、MCP 代码及供应链安全列入体系。[8]</p>
+<p>所以一个名字在给我地图的同时，也可能悄悄替我把道路画好了。</p>
+<p><strong>领域语言不只告诉我“去哪里找”，还会影响我觉得“问题应该长什么样”。</strong></p>
+<p>这和最开始那把“有没有新算法”的尺子其实很像。</p>
+<p>人很少在完全没有框架的情况下直接看见一个问题。我们总是在用一些已有标准判断：什么值得注意，什么算一个问题，什么样的答案才像答案。</p>
+<p>最开始，我用的是一种很算法中心的科研想象：</p>
+<blockquote>
+<p>有自己训练的模型，才更像研究。</p>
+</blockquote>
+<p>进入一个新领域以后，又可能不知不觉接受它已经形成的问题语言：</p>
+<blockquote>
+<p>大家都这样描述，那问题大概就应该这样切。</p>
+</blockquote>
+<p>尺子和地图都很重要。</p>
+<p>但它们都不是现实本身。</p>
+<hr>
+<p>领域语言还有第三种风险：</p>
+<p>它会制造幻觉。</p>
+<p>前面说的“跨域泛化”和“可解释性”就是最具体的例子。</p>
+<p>刚开始不知道一个词的时候，我们很容易看不见一整片已经存在的研究；刚学会一个词的时候，又很容易什么都往这个词里面装。</p>
+<p>做了一次不同数据集测试，开始觉得自己在研究跨域泛化；让模型输出一段理由，开始觉得自己已经做了可解释性；接了几个输入输出检测接口，开始说自己完成了一套大模型安全护栏。</p>
+<p>在比赛、产品和工程汇报里，这些表达未必不合理，不同场景本来就允许不同精度的抽象。</p>
+<p>可到了研究讨论里，应该重新问一次：</p>
+<blockquote>
+<p><strong>我这里究竟有一个新方法、一个新度量、一个被实验支持的新现象，还是只是给已有动作换了一个更标准的名字？</strong></p>
+</blockquote>
+<p>知道术语，是知道别人怎么叫它。</p>
+<p>真正进入一个领域，是开始知道这个词预设了什么、覆盖了什么，又遗漏了什么。</p>
+<p>所以领域语言同时在做三件事：</p>
+<p><strong>它建立索引，也提供框架，还可能制造错觉。</strong></p>
+<p>名字先帮我看见一张地图，然后告诉我地图通常应该怎么画，最后甚至可能让我误以为，地图上的名字就是自己真正走过的路。</p>
+<hr>
+<p>这也是为什么，我现在越来越在意那些<strong>现有名字装不下的东西</strong>。</p>
+<p>有些真正新的问题，在一开始根本没有自己的术语。</p>
+<p>一个方向真正开创的时候，不可能总是先有标准关键词，然后研究者按照关键词进入。很多时候顺序正好相反：先有人反复遇到一个奇怪现象，理论上应该发生 A，实验却稳定出现 B；一个新系统悄悄改变了原来的安全边界；一个用了很久的指标不断变好，真实使用效果却没有跟着变好；两个理论上应该一致的判断，在某些条件下不断发生冲突。</p>
+<p>这个时候甚至没有一个现成名词能够准确装下它。</p>
+<p>名字是后来的。</p>
+<p><strong>异常才是最早的。</strong></p>
+<p>而一旦意识到领域语言本身会携带问题框架，这里还有一个很值得警惕的动作：</p>
+<p>看到异常以后，太急着给它找一个熟悉的名字。</p>
+<p>一个名字进来的同时，它背后已经成熟的问题定义也会一起进来，原本很奇怪的东西可能很快就被塞进一个熟悉的抽屉里。</p>
+<p>所以有些时候，也许值得先不命名，只留下几个很笨的问题：</p>
+<blockquote>
+<p>我原本以为什么应该发生？实际发生了什么？现有解释为什么装不下它？</p>
+</blockquote>
+<p>如果这种矛盾反复出现，再去查它到底有没有名字。如果认真找了一圈，仍然没有一个现成概念能够解释，也许那里反而更值得停一会。</p>
+<p>所以现在我越来越喜欢一句话：</p>
+<p><strong>成熟方向往往从关键词进入，原创问题往往从异常进入。</strong></p>
+<p>关键词帮我们进入别人已经画好的地图。</p>
+<p>异常提醒我们：</p>
+<p>这张地图也许还有一块没画，或者画错了。</p>
+<hr>
+<h2 id="四、问题地图"><a href="#四、问题地图" class="headerlink" title="四、问题地图"></a>四、问题地图</h2><p>这些事情想明白以后，再回头看这届获奖名单，我对“为什么有些本科项目从一开始就能切得很深”也有了另一种理解。</p>
+<p>这一届智能体相关作品非常多，所以看到不同学校都在做 Agent、MCP、Skill，并不能直接说明它们背后有什么共同学术谱系，热点本身就会把很多人吸引到相近区域。</p>
+<p>更有意思的是继续往学校内部看。</p>
+<p>按最终获奖名单中的学校字段统计，哈尔滨工业大学本部共有 12 个不重复的一、二、三等奖项目，其中 4 个一等奖、8 个二等奖；如果把哈尔滨工业大学（威海）和哈尔滨工业大学（深圳）各自的一个三等奖也计算进去，整个哈工大体系共有 14 个获奖项目。为了避免不同校区口径混在一起，下面只看本部这 12 项。[2]</p>
+<p>本部这 12 个项目里，有 8 项直接落在 Agent、智能体、MCP 或 Skill 等智能体生态问题上，四个一等奖全部与智能体安全直接相关。[2]</p>
+<p>如果只看这一张比赛名单，最多只能说明：这个学校今年智能体安全作品特别集中。</p>
+<p>可把时间轴往前拉，就会发现这并不是一个突然冒出来的比赛选题。2025 年，哈尔滨工业大学联合多家高校、科研院所和企业发布了《智能体发展与安全（2025）》与《大模型生成内容安全与评测（2025）》，并发布大模型安全漏洞库与 AI 安全开源社区，公开研究议程本身就已经明显覆盖智能体安全和生成式 AI 安全。[5]</p>
+<p>至少在这种案例里，我觉得没有必要为了显得谨慎，而假装所有解释都一样有力。</p>
+<p><strong>本科生最后做什么项目，与所在环境长期关注什么问题之间，显然存在很强的关系。</strong></p>
+<p>这当然不能说明几个获奖项目用了同一套代码，也不能凭公开材料猜它们是不是属于同一个导师。</p>
+<p>真正重要的是：</p>
+<p><strong>学生最先看见什么问题，本来就不是一个与环境无关的随机过程。</strong></p>
+<p>山东大学今年的“枢盾 MCP Guardrails”更加具体。公开报道显示，项目由网络空间安全学院 CTF 实验室的四名本科生完成，在邓子壮副研究员指导下，直接针对 Agent 通过 MCP 调用外部工具所产生的越权调用、提示注入、多步调用链组合攻击和敏感数据外泄，设计本地优先的双层智能防护网关，并获得自由作品赛一等奖。[6]</p>
+<p>这里的“平台”已经不能只理解成学校名气或者 GPU。</p>
+<p>它落实到了：这里有人长期在研究什么，学生最早会听到什么问题语言，老师知道过去有哪些路线，团队已经踩过哪些坑，以及一个看起来很大的方向究竟应该切在哪一层。</p>
+<p>武汉大学上一届的比赛组织也能说明这种差别。2025 年，武汉大学国家网络安全学院组织 124 名学生组成 32 支队伍，通过校赛、国赛初赛等环节筛选，最终有 8 支进入决赛。[7]</p>
+<p>这时候所谓平台，更像一整套持续运行的组织：有人把学生带进来，有人筛问题，上一届留下经验，下一届不用每一次从零开始。</p>
+<hr>
+<p>当然，获奖名单也展示了另一面。</p>
+<p>一等奖并没有被少数传统网安强校完全垄断。</p>
+<p>北京工业大学的大语言模型增强工控联邦学习入侵检测系统拿到了一等奖，西安理工大学的混合专家模型与 RAG 入侵检测系统同样获得一等奖；苏州工学院有 IoT 固件模糊测试和 Web 攻击检测两个一等奖，南京审计大学金审学院的“天问——大模型安全检测系统”也拿到了一等奖。[2]</p>
+<p>这些例子至少说明：</p>
+<p><strong>平台重要，不能被偷换成校名重要。</strong></p>
+<p>我们不知道这些项目背后具体有怎样的导师和团队积累，所以也不能反过来断言它们“没有平台”。</p>
+<p>真正有用的变量，是在你想做的那个具体方向上，有没有人、资源、经验，以及能够跨届传递的判断。</p>
+<p>个体反例能够证明平台不是命运。</p>
+<p>不能证明平台不重要。</p>
+<p>这件事在计算机科学的学术谱系研究里也能找到一个更长期的版本。2024 年一项 <em>Journal of Informetrics</em> 研究分析了 16,852 名计算机科学研究者、613,277 篇论文和 11,988 条导师关系，发现计算机科学内部存在明显的导师知识传递，知识会沿学术谱系发生继承，同时又产生变化与“突变”。[10]</p>
+<p>所以我现在越来越觉得，平台真正值钱的甚至不只是算力。</p>
+<p>它更像一张已经画过一部分的问题地图。</p>
+<p>想象两个本科生同时进入一个陌生方向。一个人第一天拿到师兄整理好的数据、跑通过的 baseline、训练脚本和评测环境，旁边还有人顺口告诉他：“这个方法去年试过了，不要再花时间。”另一个人也很努力，第一周找论文，第二周配环境，第三周发现 GitHub 里的数据预处理和论文正文不完全一样，一个月以后终于跑起来 baseline，又花几周弄清楚为什么结果总是差几个点。</p>
+<p>半年以后，前一个人可能已经围着一个很窄的问题跑过三轮实验，后一个人才刚刚把整条链路跑通。</p>
+<p>说前一个人“研究得更深”可能没错。</p>
+<p>只是别忘了，后一个人前两个月的主要科研对象很可能是 CUDA、依赖版本、失效的数据下载链接和 README。</p>
+<p>两个人未必谁更聪明，也未必谁更努力。</p>
+<p><strong>他们只是把同样的半年花在了不同的地方。</strong></p>
+<p>一个主要在购买新知识。</p>
+<p>另一个还在重新购买旧知识。</p>
+<p>平台真正卖的，很大一部分其实就是：</p>
+<p><strong>前人已经替后来者支付过的试错时间。</strong></p>
+<p>算力可能让一轮实验提前两天结束。</p>
+<p><strong>一张成熟的问题地图，有时候能让研究提前半年开始。</strong></p>
+<p>而平台传递的不只是知识。</p>
+<p>有时候，连兴趣也是在这种长期暴露里慢慢形成的。</p>
+<p>一个人未必因为一开始就“热爱某个问题”才进入实验室，也可能只是因为导师、比赛或者项目先站了进去，在那里待得足够久，真正开始看懂这个问题的细节以后，才越来越在意它。</p>
+<hr>
+<h2 id="五、分叉"><a href="#五、分叉" class="headerlink" title="五、分叉"></a>五、分叉</h2><p>平台这么重要，另一个问题自然就来了。</p>
+<p>如果导师、课题组和已有研究方向，会强烈影响一个人最开始看见什么，那么所谓“自己的方向”到底还剩多少？</p>
+<p>如果一个本科生根本不可能从整个知识世界里自由挑一个问题，那么“主动选择”会不会只是一种安慰？</p>
+<p>我的答案现在很明确：</p>
+<p><strong>绝对自由当然不存在，但真实选择一直存在，而且它主要发生在分叉处。</strong></p>
+<p>一个本科生不可能真的站在一张白纸前，把全世界所有科研问题摊在桌上，然后像选外卖一样自由挑一个“最属于自己的方向”。</p>
+<p>这种场景本来就不存在。</p>
+<p>环境决定最初站在哪里，导师影响最早看到什么，资源决定眼下哪些实验可以做，领域语言决定哪些成熟问题更容易被看见。</p>
+<p>这些东西都很重要，但它们依然无法替我决定，为什么某个异常结果让我觉得不对，为什么别人觉得这个指标已经够了，我却怀疑它遗漏了什么，为什么一个团队已经习惯的问题定义，我开始觉得它问偏了，也无法替我决定，当一个问题进入连续失败、没有 Demo、没有比赛奖项的阶段以后，我还愿不愿意继续。</p>
+<p>如果把研究想成一棵树，平台决定我最开始站在哪根枝条上，前人的工作也决定这棵树已经长到了哪里。</p>
+<p><strong>可我仍然可以决定沿哪根枝继续，在什么地方开始怀疑，又在哪里自己分叉。</strong></p>
+<p>所以我很喜欢一个说法：</p>
+<blockquote>
+<p><strong>好的研究训练，不是摆脱继承，而是先继承，再分叉。</strong></p>
+</blockquote>
+<p>一个问题最开始可能是导师给的，数据可能是师兄留下的，baseline 甚至都已经跑过。但为什么这个实验让我觉得不对，为什么我要重新换一种评价方式，为什么别人觉得已经做够了而我还想多问一步，为什么新技术来了以后我沿着这一根枝继续，而不是直接换一棵树——这些东西才慢慢把一项“接来的课题”变成自己的问题。</p>
+<p>这里还有一个不太容易量化的变量：</p>
+<p><strong>敢不敢让一个不确定的问题占用正式时间。</strong></p>
+<p>有时候我们并不是不知道哪个问题更重要，只是重要的问题往往意味着更高的不确定性。</p>
+<p>比赛初赛的时候，直接把已经完成度比较高的毕设往前推，是一个完全理性的决定，我到现在也不觉得当时应该突然把全部东西推倒，去赌一个刚刚接触的新方向。</p>
+<p>可如果把时间尺度从一次比赛拉长到几年，事情就不同了。</p>
+<p>如果一个人每一次都选择最现实、最有把握、最容易交付的问题，那么回头看时，每一个决定可能都非常合理，却可能一次也没有真正把正式时间押在一个自己认为重要、但不知道结果的问题上。</p>
+<p>这和鲁莽不是一回事。</p>
+<p>一个问题宏大得不得了，却完全不知道从哪里下手，没有必要为了显得有勇气硬冲进去。</p>
+<p>真正难的是那个中间状态：</p>
+<blockquote>
+<p><strong>这个问题确实重要，也隐约能找到攻击路径，只是没有人能保证一定做得出来。</strong></p>
+</blockquote>
+<p>平台可以把人送到这个分叉口。</p>
+<p>最后那一步，平台替不了。</p>
+<hr>
+<p>写这篇文章的时候，我重新看了一遍 Richard Hamming（理查德·汉明）1986 年的演讲《You and Your Research》。</p>
+<p>这篇演讲很值得直接读原文。Hamming 当时讨论的就是，为什么在能力和条件看起来都不错的一群研究者里，最终只有很少一部分人做出了真正留下来的工作；其中一个我很喜欢的习惯，是长期在脑子里留着一些真正重要的问题，再不断拿新工具、新想法去碰这些旧问题。[9]</p>
+<p>一种方式是不断问：</p>
+<blockquote>
+<p>最近又出了什么？</p>
+</blockquote>
+<p>另一种方式是：</p>
+<blockquote>
+<p><strong>它能不能打到我已经关心的问题？</strong></p>
+</blockquote>
+<p>看起来都在“追新东西”。实际完全不同。前一种特别容易不断产生新项目。后一种才比较容易形成积累。</p>
+<p>所以如果一定要把平台和个人之间的关系压成一句话，我现在更愿意这样说：</p>
+<p><strong>平台把人送到更好的分叉口，判断告诉人哪条路值得走，而最后愿不愿意真的走进去，仍然是个人的选择。</strong></p>
+<hr>
+<h2 id="六、旧问题，新变量"><a href="#六、旧问题，新变量" class="headerlink" title="六、旧问题，新变量"></a>六、旧问题，新变量</h2><p>这样再看所谓“追热点”，逻辑也会发生一点变化。</p>
+<p>我并不反对热点。</p>
+<p>计算机变化这么快，完全不关心新技术反而很危险。</p>
+<p>但新技术最有价值的时候，不是它突然提供一个新的项目标题，而是它让一个已经存在的问题发生新的变化。</p>
+<p>访问控制不是 Agent 时代才有，但 Agent 开始代表用户主动调用工具以后，权限边界重新变复杂了；供应链安全也不是 MCP 出现以后才发明，可模型开始连接越来越多第三方 Server 和 Tool，新的信任链和执行链自然产生新的攻击面；内容审核早就存在，但 AIGC 出现以后，真实性、来源和内容凭证又变成新的变量；软件安全更是一个老问题，大模型和 AI Coding 又重新改变了代码生成、漏洞发现和审计的方式。</p>
+<p>所以我反对的不是热点。</p>
+<p>而是：</p>
+<p><strong>每来一个热点，就把自己也重新初始化一次。</strong></p>
+<p>今天 Agent 火了，从头学 Agent；明天具身智能火了，再开机器人；后天又冒出一个新协议，再建一个新仓库。</p>
+<p>这样的好处非常明显：永远处在 0 到 1 最刺激的阶段，每隔几天都会感觉自己又多会了一样东西。</p>
+<p>代价同样明显：</p>
+<p>几年以后学会很多名词，却可能没有一个问题真正从 1 做到 10。</p>
+<p>我朋友后来有一句话，我觉得说得很准确：</p>
+<blockquote>
+<p>最舒服的情况，是老师原来的课题本身有积累，再结合一些新的东西。</p>
+</blockquote>
+<p>我现在基本同意。</p>
+<p><strong>更有效的创新，不是旧方向和热点二选一，而是旧积累遇到新变量。</strong></p>
+<p>原来做权限，Agent 来了。</p>
+<p>原来做取证，AIGC 来了。</p>
+<p>原来做软件安全，MCP 和 AI Coding 来了。</p>
+<p>好的热点不是给旧课题贴一个新标签。</p>
+<p><strong>是把旧课题重新弄坏一遍。</strong></p>
+<p>新技术把原来的假设打坏了，旧问题才会重新长出新的枝条。</p>
+<hr>
+<p>从这个角度再看“大模型安全护栏”，它和最开始的图像判伪甚至没有想象中那么远。</p>
+<p>一开始的图像真实性检测问的是：</p>
+<blockquote>
+<p>模型说这张图是假的，我能相信吗？</p>
+</blockquote>
+<p>大模型安全护栏问的是：</p>
+<blockquote>
+<p>安全模型说这个输入、输出或者调用存在风险，我能相信吗？</p>
+</blockquote>
+<p>它们面对的对象不同，可问题结构有明显的相似之处：都会有误报和漏报，都会遇到分布变化，也都会面对攻击者有意识寻找绕过方式。</p>
+<p>更根本的问题其实很像：</p>
+<blockquote>
+<p><strong>检测器自己的判断到底值多少钱？</strong></p>
+</blockquote>
+<p>所以如果从这个角度靠过去，大模型安全护栏未必一定意味着“重新换了一个方向”。</p>
+<p>它也可以是：</p>
+<p><strong>带着一个旧问题，进入一张新的地图。</strong></p>
+<p>这对我来说是一个很重要的区别。</p>
+<p>以前我很容易把“换技术”理解成“换方向”。</p>
+<p>现在反而觉得，真正形成长期积累的状态，也许恰恰是：</p>
+<p>技术一直在变。</p>
+<p>问题没有完全变。</p>
+<hr>
+<p>Deepfake 对我来说也应该这样理解，而不是简单写成“我们选错了一个过于拥挤的赛道”。</p>
+<p>它本来就不是项目最初的主轴，只是后面补进去的一条算法线。</p>
+<p>这一届相近的图像 Deepfake、语音伪造检测作品确实不少，比如华东师大的持续学习图像 DeepFake 检测拿到二等奖，我们自己的项目则是三等奖。</p>
+<p>这当然不能证明“Deepfake 的天花板就是二等奖”。</p>
+<p>一届比赛承担不起这么重的因果结论。</p>
+<p>它真正提醒我的，是另一个更实际的问题：</p>
+<p><strong>当很多强队都进入同一种评价坐标以后，被记住的成本会越来越高。</strong></p>
+<p>大家都比准确率，你再提高一点；大家都做不同数据集测试，你也做；大家都开始让模型输出文字说明，再多接一个大模型。</p>
+<p>这些工作当然不是没有价值。</p>
+<p>只是越来越容易变成横向表格里的又一列。</p>
+<p>所以以后看到一个热门技术，我真正想先问的，不再是：</p>
+<blockquote>
+<p>它还能加到项目哪里？</p>
+</blockquote>
+<p>而是：</p>
+<blockquote>
+<p><strong>它到底让原来的哪个假设失效了？</strong></p>
+</blockquote>
+<p>前一个问题特别容易产生功能。</p>
+<p>后一个问题才更容易产生课题。</p>
+<hr>
+<h2 id="七、别再归零"><a href="#七、别再归零" class="headerlink" title="七、别再归零"></a>七、别再归零</h2><p>写到这里，还有一个比平台更难面对的问题。</p>
+<p>我一直觉得自己挺喜欢“开荒”。</p>
+<p>进入一个陌生领域，找论文、看代码，把 baseline 跑起来，再一点点把模型、后端、前端和系统接通，这个过程对我来说很有吸引力。本科几年里，这种能力也确实让我学得很广，面对一个完全陌生的技术栈，我现在并不太害怕进去。</p>
+<p>这是优势。</p>
+<p>可开荒还有一个非常舒服的地方：</p>
+<p><strong>反馈特别快。</strong></p>
+<p>昨天不会的框架，今天跑起来了；昨天报错的模型，今天出结果了；后端刚接通，前端马上就能看到页面。</p>
+<p>几乎每隔几天，都能看到一截很清楚的进度条。</p>
+<p>真正把一个问题往深处做，体验经常完全相反。两个月过去，最大的结果可能只是第十九种方案依然不工作；得到的不是“我又学会了一个东西”，而是“我终于比较确定问题不在那里”。</p>
+<p>所以我现在得承认一个不太舒服的可能性：</p>
+<blockquote>
+<p><strong>我过去喜欢开荒，有一部分也许并不是因为我天然热爱探索，而是因为开荒更容易提供短周期的进展感。</strong></p>
+</blockquote>
+<p>更麻烦的是，这套方法过去真的成功过。</p>
+<p>快速进入陌生领域、快速查资料、快速学技术、快速搭系统、快速把不同模块连起来，这些能力给过我很多正反馈，也确实帮我做成过事情。</p>
+<p>而一套工作方式一旦不断成功，人最自然的反应并不是问它什么时候会失效。</p>
+<p>而是继续使用。</p>
+<p>下一次项目来了，还是找新框架、学新技术、接新模块。</p>
+<p><strong>过去的成功，会偷偷替未来的问题选择方法。</strong></p>
+<p>这可能比“喜欢新鲜感”更值得警惕。</p>
+<p>新鲜感至少容易被自己发现。</p>
+<p>成功经验却永远带着一整套历史证据：</p>
+<blockquote>
+<p>你看，以前这么做不是挺好吗？</p>
+</blockquote>
+<p>于是一个问题进入缓慢、重复、不断失败的阶段以后，我很容易告诉自己：</p>
+<blockquote>
+<p>也许这不是我的方向。</p>
+</blockquote>
+<p>然后换一个新东西，再从 0 到 1 跑一遍。</p>
+<p>如果长期如此，“我还在探索”最后也可能变成一种相当高级的自我保护。</p>
+<p>所以我愿意同时承认两件事：</p>
+<p><strong>我的广度是一种优势。</strong></p>
+<p><strong>过去没有围绕一个核心问题持续压得足够深，也同样是事实。</strong></p>
+<p>这两句话没有必要互相抵消。</p>
+<hr>
+<p>这也是为什么我现在仍然很喜欢一句话：</p>
+<blockquote>
+<p><strong>开荒不是问题，归零才是。</strong></p>
+</blockquote>
+<p>只是我对“归零”的理解已经变了。</p>
+<p>以前觉得归零是代码没留下、模型没保存、仓库没维护。</p>
+<p>现在反而觉得，代码已经是最容易保存的东西之一。</p>
+<p>真正容易消失的是判断。</p>
+<p>为什么这个数据不能这么切？为什么某个指标没有原来以为的那么重要？为什么这次实验失败不能直接说明方法没用？哪条路线已经试过？哪些东西只是猜测？做到什么时候，才发现一开始的问题其实问偏了？</p>
+<p>如果这些东西没有进入下一次，GitHub 仓库当然还在那里，半年以后重新打开，认知却差不多又随机初始化了一遍。</p>
+<p><strong>真正的归零，不是文件没保存，是问题状态没保存。</strong></p>
+<p>可如果为了避免归零，我又设计一套八字段、十字段的“科研状态管理系统”，很可能第三周自己就懒得填了。</p>
+<p>这件事也很符合我的习惯：</p>
+<p>为了避免一个系统过于复杂，再设计一个更复杂的系统来管理它。</p>
+<p>所以真要做，我反而觉得载体应该笨一点。</p>
+<p>一次稍微重要的实验跑完，不要求写完整实验报告，只在仓库里顺手留下三行：</p>
+<blockquote>
+<p><strong>为什么跑这个？结果改变了我什么判断？下一步最值得验证什么？</strong></p>
+</blockquote>
+<p>甚至三行都嫌多的时候，只留一句也行：</p>
+<blockquote>
+<p><strong>这次实验以后，我不再相信什么？</strong></p>
+</blockquote>
+<p>我很喜欢这个问题。</p>
+<p>因为成功天然容易被记住，真正容易消失的是失败，以及自己改变念头的那个瞬间。</p>
+<p>一个模型没提升，关掉终端，三个月以后只记得“这个好像试过”，已经不知道当时为什么试、失败在哪里，又因此排除了什么。</p>
+<p>然后下一次，满怀希望地再失败一遍。</p>
+<p>所以如果以后继续写周记，我甚至只想固定留一个很小的栏目：</p>
+<blockquote>
+<p><strong>这周我推翻了自己什么？</strong></p>
+</blockquote>
+<p>可能一周只有一句：“这个指标没有我之前想得那么重要。”或者“这个提升来自数据划分，不是模型。”又或者“这个功能虽然能做，但和真正的问题没有关系。”</p>
+<p>几个月以后，这些句子连起来，也许比几十张实验结果表更接近一项工作真正走过的路径。</p>
+<p>Git 已经很擅长记录代码怎么从 A 变成 B。</p>
+<p><strong>我还缺一种足够廉价的方式，顺手留下自己的判断为什么从 A 变成 B。</strong></p>
+<p>关键词是“足够廉价”。</p>
+<p>科研习惯不能建立在“今天状态很好，所以我要认真写一篇实验日志”上，它最好低到一个很累的晚上，也愿意顺手多写两句话。</p>
+<p>平时靠笨办法保存。</p>
+<p>项目真正结束一个阶段时，再结构化整理。</p>
+<p>这可能比一开始设计一套漂亮模板更现实。</p>
+<hr>
+<p>以前我保存一个项目，主要以“仓库”为单位。</p>
+<p>以后还想多保存一种东西：</p>
+<p><strong>问题。</strong></p>
+<p>项目会结束，比赛会结束，代码栈也会过时，但有些问题完全可以跨项目活下来。</p>
+<p>手里长期留三五个现在暂时做不了、却又不想忘掉的问题，去听论坛、读论文、学一个新工具的时候，除了问“这是什么”，还可以顺手问一句：</p>
+<blockquote>
+<p><strong>它能不能打到其中哪一个？</strong></p>
+</blockquote>
+<p>这样，新工具就不会自动拥有生成新项目的权力。</p>
+<p>它首先要经过旧问题。</p>
+<p>能打，就成为新的变量；不能，就暂时只是知识储备；除非它自己暴露出了一个现有问题地图解释不了的新异常。</p>
+<p>这大概才是对那句“我学过什么，项目就长什么”最实际的一种反制。</p>
+<hr>
+<p>兴趣在这里也终于有了一个更合适的位置。</p>
+<p>以前我很容易把兴趣理解成某种方向选择器：</p>
+<blockquote>
+<p>我喜欢什么，就应该做什么。</p>
+</blockquote>
+<p>现在我更愿意承认：</p>
+<p><strong>兴趣未必先于投入存在。</strong></p>
+<p>一个人当然可能很早就知道自己喜欢密码学、操作系统或者人工智能，然后一路往下做。</p>
+<p>但另一种情况也许更加常见：最开始只是因为导师、课程、实习或者比赛，偶然进入一个问题，并没有什么特别强烈的感觉；只是做着做着，知道得越来越多，开始看得见以前看不见的差别，也开始在某些细节上形成自己的判断。</p>
+<p>兴趣这时候才慢慢出现。</p>
+<p>因为“有意思”本身，也和理解深度有关。</p>
+<p>站在一个领域外面时，看见的往往只是几个标签：</p>
+<p>AIGC、Agent、MCP、大模型安全。</p>
+<p>真正进去以后，才开始发现有些问题为什么几年没有解决，有些方法为什么一换环境就失效，有些工程折中看起来并不漂亮，却是现实系统里唯一能工作的选择。</p>
+<p><strong>懂得越多以后长出来的兴趣，和第一次看到一个新名词产生的新鲜感，并不是同一种东西。</strong></p>
+<p>这也是为什么前面说，平台不只提供资源和问题地图。</p>
+<p>它甚至可能培养兴趣。</p>
+<p>老师先把一个问题带到面前，师兄告诉你以前为什么失败，组会上一直有人讨论，自己又反复跑了几轮实验，原来只是“这个实验室正在做的问题”，做着做着，可能真的会出现一个自己越来越在意的分叉。</p>
+<p>所以兴趣有时候是入口。</p>
+<p>有时候也是结果。</p>
+<p>一个方向没必要在第一天就让我产生“这就是未来十年的命运”那种强烈感觉。</p>
+<p>更现实的问题也许是：</p>
+<blockquote>
+<p><strong>它值不值得让我先认真进去一段时间；进去以后，我有没有开始产生越来越具体、越来越属于自己的好奇心？</strong></p>
+</blockquote>
+<p>如果有，这种后来长出来的兴趣，也许比一开始的兴奋更可靠。</p>
+<p>所以我现在仍然会问自己：</p>
+<blockquote>
+<p><strong>如果没有比赛、没有毕业要求，也没有人规定我必须继续，我还愿不愿意把这个问题再往下做一轮？</strong></p>
+</blockquote>
+<p>先做一轮。</p>
+<p>不急着宣布这是未来三年的方向，也不靠一句“我很感兴趣”证明。</p>
+<p>把 Demo、奖项、新框架这些即时奖励暂时拿掉，再看看实验里是不是还有一个东西，让自己做完以后会自然地继续问：</p>
+<blockquote>
+<p>那然后呢？</p>
+</blockquote>
+<p>如果还有，就再走一步。</p>
+<p><strong>方向不是靠承诺证明的，是靠下一轮工作留下来的。</strong></p>
+<hr>
+<h2 id="方向不是想出来的"><a href="#方向不是想出来的" class="headerlink" title="方向不是想出来的"></a>方向不是想出来的</h2><p>最开始我以为，这篇复盘最后大概会得到一个很普通的结论：</p>
+<blockquote>
+<p>下次找一个更聚焦的方向。</p>
+</blockquote>
+<p>写到最后才发现，真正的问题可能根本不是“我找不到方向”。</p>
+<p>因为那个问题从第一天就已经在那里：</p>
+<p><strong>用多模态大模型判断一张图像到底有没有被伪造。</strong></p>
+<p>我看见了它。</p>
+<p>然后拿出一把“有没有自己训练模型、有没有算法创新”的尺子量了一遍，觉得它不够硬、不够漂亮、不够像一个真正的研究问题，于是开始往旁边寻找更多技术含量。</p>
+<p>后来 CLIP 进来了，NPU 进来了，大模型安全护栏进来了，C2PA 和 Agent 安全也进来了。</p>
+<p>我绕了一个很大的圈。</p>
+<p>结果最后反而在“可解释性”“跨数据集测试”和“大模型安全护栏”里面，又重新碰到了最开始就可以问的问题：</p>
+<p>模型为什么做出这个判断？</p>
+<p>它说出来的理由到底是不是它真实使用的证据？</p>
+<p>环境换了以后，它为什么失效？</p>
+<p>安全检测器自己给出的结果又应该被信到什么程度？</p>
+<p>从这个角度看，这一年多有点像走了一个很大的圆。</p>
+<p>不是回到了原点。</p>
+<p>而是终于开始看懂：</p>
+<p><strong>原点上当初到底放着什么。</strong></p>
+<p>所以现在，我不太愿意再把所谓方向理解成一个需要坐在房间里“想出来”的答案，好像一个人的真正方向早就藏在身体里面，只要足够认真地认识自己，有一天就会突然悟到：</p>
+<blockquote>
+<p>原来我的人生使命是 Agent Security。</p>
+</blockquote>
+<p>现实世界大概没有这么戏剧化。</p>
+<p>一个方向可能先来自导师，可能来自实习，可能来自一次比赛，可能来自一个别人已经命名的问题，也可能只是某次实验里，一个现有理论解释不了的异常。</p>
+<p>环境决定最初能看见什么。</p>
+<p>领域语言让成熟问题更容易被搜索到，同时也把一套现成的问题框架带进来。</p>
+<p>平台把前人已经走过的路留给后来的人。</p>
+<p>新的技术不断把旧问题重新弄坏。</p>
+<p>而自己的判断，慢慢决定在哪一个分叉继续。</p>
+<p>所以：</p>
+<p><strong>方向很少从白纸上被想出来。</strong></p>
+<p><strong>它有时先被继承，后来才被选择；有时先以一个没有名字的异常出现；还有些时候，它其实早就来过，只是当时的自己还不知道该用什么尺子认出它。</strong></p>
+<p>这大概也是这次比赛之后，我真正觉得有点扎心的地方。</p>
+<p>以前我更怕的是：</p>
+<p>找不到路。</p>
+<p>现在反而觉得，还要防另外两件事。</p>
+<p>第一件是：</p>
+<p><strong>因为手里已经有了一张地图，就只看得见地图上画过的路。</strong></p>
+<p>第二件更麻烦：</p>
+<p><strong>问题明明已经站在面前，却因为它长得不够像想象中的“好问题”，亲手把它判了死刑。</strong></p>
+<p>所以以后再碰到一个看起来很普通的问题，我想先别急着问：</p>
+<p>它够不够像论文？</p>
+<p>有没有一个漂亮的新模型？</p>
+<p>能不能立刻写成创新点？</p>
+<p>先多问一句：</p>
+<blockquote>
+<p><strong>它真的已经被回答了吗？</strong></p>
+</blockquote>
+<p>如果还没有，也许方向早就在这里了。走过以后，别让路重新消失。继承以后，也别忘了留下自己的分叉。</p>
+<p>更重要的是——</p>
+<p><strong>问题真正出现的时候，别太早给它判死刑。</strong></p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><p>全国大学生信息安全竞赛组委会：《关于举办第十九届全国大学生信息安全竞赛（作品赛）暨第三届“长城杯”网数智安全大赛（作品赛）的通知》，2026；全国大学生信息安全竞赛官方网站。用于本文关于赛事主办方、竞赛定位与作品赛性质的说明。<a target="_blank" rel="noopener" href="https://www.ciscn.cn/announcement/view/412" title="全国大学生信息安全竞赛通知">（赛事通知）</a></p>
+</li>
+<li><p>全国大学生信息安全竞赛组委会：《第十九届全国大学生信息安全竞赛（作品赛）暨第三届“长城杯”网数智安全大赛（作品赛）获奖作品公示》，2026。本文关于本届获奖项目及学校分布的统计以最终获奖名单为基础；具体项目行同时依据获奖名单附件整理。<a target="_blank" rel="noopener" href="https://www.ciscn.cn/announcement?page=1" title="全国大学生信息安全竞赛获奖公示">（获奖公示）</a></p>
+</li>
+<li><p>西北工业大学：《第十七届全国大学生信息安全竞赛作品赛决赛在西北工业大学举办》，2024。文中关于第十七届决赛 84 位评审专家及专家来源构成的说明据此。<a target="_blank" rel="noopener" href="https://www.nwpu.edu.cn/info/1198/90018.htm" title="第十七届全国大学生信息安全竞赛决赛（西北工业大学）">（赛事报道）</a></p>
+</li>
+<li><p>西安交通大学网络空间安全学院：《第十八届全国大学生信息安全竞赛作品赛决赛在西安交通大学举办》，2025。文中关于第十八届决赛 77 位评审专家及高校、企业、创投等专家来源的说明据此。<a target="_blank" rel="noopener" href="https://cybersec.xjtu.edu.cn/info/1016/2081.htm" title="第十八届全国大学生信息安全竞赛决赛（西安交通大学）">（赛事报道）</a></p>
+</li>
+<li><p>哈尔滨工业大学网络空间安全学院：《CNCC2025 举行〈智能体发展与安全（2025）〉〈大模型生成内容安全与评测（2025）〉成果发布》，2025。用于本文关于哈工大在智能体安全、生成式内容安全、大模型安全漏洞库和 AI 安全开源社区等方面已有研究布局的说明。<a target="_blank" rel="noopener" href="https://cys.hit.edu.cn/info/1021/1462.htm" title="哈尔滨工业大学网络空间安全学院成果发布">（成果发布报道）</a></p>
+</li>
+<li><p>山东大学网络空间安全学院：《网络空间安全学院学生团队在第十九届全国大学生信息安全竞赛（作品赛）暨第三届“长城杯”网数智安全大赛（作品赛）总决赛获佳绩》，2026。文中“枢盾 MCP Guardrails”项目的团队来源、指导教师，以及越权调用、提示注入、多步调用链攻击、敏感数据泄漏等问题描述据此。<a target="_blank" rel="noopener" href="https://cst.qd.sdu.edu.cn/info/1037/4164.htm" title="山东大学网络空间安全学院学生团队获奖报道">（获奖报道）</a></p>
+</li>
+<li><p>武汉大学新闻网：《全国第二！第十八届全国大学生信息安全竞赛武大表现亮眼》，2025。文中武汉大学 124 名学生、32 支队伍、最终 8 支晋级决赛及组织备赛情况据此。<a target="_blank" rel="noopener" href="https://news.whu.edu.cn/info/2111/484657.htm" title="武汉大学第十八届全国大学生信息安全竞赛报道">（备赛报道）</a></p>
+</li>
+<li><p>JoySafety：《JoySafety——大模型安全框架》；深信服：《大模型安全护栏解决方案》。用于本文关于“大模型安全护栏”作为领域语言，以及内容安全、数据泄露、提示注入、输入输出实时防护和 Agent 安全等典型问题框架的讨论。<a target="_blank" rel="noopener" href="https://github.com/JoySafety/JoySafety" title="JoySafety 大模型安全框架">（JoySafety 仓库）</a> / <a target="_blank" rel="noopener" href="https://www.sangfor.com.cn/AIfirst/AIguardrails" title="深信服大模型安全护栏解决方案">（深信服方案）</a></p>
+</li>
+<li><p>Richard W. Hamming, <em>You and Your Research</em>, Bell Communications Research Colloquium Seminar, March 7, 1986。本文关于重要问题、研究选择以及“用新方法去碰旧问题”的讨论受此演讲启发。<a target="_blank" rel="noopener" href="https://www.cs.virginia.edu/~robins/YouAndYourResearch" title="Richard Hamming: You and Your Research">（演讲全文）</a></p>
+</li>
+<li><p>Zhongmeng Fu, Yuan Cao, Yong Zhao, “Identifying knowledge evolution in computer science from the perspective of academic genealogy,” <em>Journal of Informetrics</em>, Vol. 18, Issue 2, 2024, Article 101523。该研究基于 16,852 名计算机科学研究者、613,277 篇论文和 11,988 条导师关系，分析知识在学术谱系中的继承与变化。<a target="_blank" rel="noopener" href="https://www.sciencedirect.com/science/article/abs/pii/S1751157724000361" title="Identifying knowledge evolution in computer science - ScienceDirect">（论文主页）</a></p>
+</li>
+<li><p>Coalition for Content Provenance and Authenticity, <em>C2PA Specifications / Content Credentials</em>. C2PA 提供用于记录和验证数字内容来源与历史信息的技术标准，是文中来源取证、内容凭证和 provenance 相关内容的技术背景。<a target="_blank" rel="noopener" href="https://spec.c2pa.org/specifications/" title="C2PA Specifications">（规范主页）</a></p>
+</li>
+<li><p>《面向 AIGC 伪造的跨域泛化检测与可解释性防御平台——作品报告》，2026。本文关于参赛项目最终系统结构，包括 Deepfake、MLLM、内容安全、大模型安全护栏、Agent 执行安全、来源取证和统一编排等内容，均以该作品报告为基础。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2026/08/26/07-undergrad-to-competition/">https://moyuan10086.github.io/2026/08/26/07-undergrad-to-competition/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E7%A7%91%E7%AB%9E%E8%B5%9B/">学科竞赛</a><a class="post-meta__tags" href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/">信息安全</a><a class="post-meta__tags" href="/tags/%E5%B9%B3%E5%8F%B0%E5%A4%8D%E5%88%A9/">平台复利</a><a class="post-meta__tags" href="/tags/%E5%9B%A2%E9%98%9F%E5%BC%80%E8%8D%92/">团队开荒</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/">大模型安全</a></div><div class="post-share"><div class="social-share" data-image="/images/ai-series/covers/07-undergrad-to-competition-cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/27/08-competition-after-award/" title="比赛拿了一等奖，然后呢？"><img class="cover" src="/images/ai-series/covers/08-competition-after-award-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">比赛拿了一等奖，然后呢？</div></div><div class="info-2"><div class="info-item-1">相信不少认真打过比赛的人，都经历过一种很微妙的时刻。 比赛结束。一等奖。合影拍了。奖状拿了。朋友圈发了。 指导老师在群里发： “祝贺项目团队取得优异成绩。” 大家下面整整齐齐： “感谢老师指导！” 然后过了一周。服务器停了。群安静了。代码没人动了。 PPT 躺在一个叫 最终版-真的最终版-答辩修改版2.pptx 的文件夹里。 半年以后，有学弟来问： “学长，这个项目现在还有人在维护吗？” 你打开 GitHub。 Last commit： 六个月前。 这时候一个多少有点冒犯的问题就出现了： 我们花几个月甚至一两年打比赛，到底得到了什么？ 是那个奖吗？ 是综测分吗？ 是简历上那一行字吗？ 还是那个比赛结束以后，几乎没人再打开的项目？ 我后来越来越觉得： 学生比赛最大的价值，可能恰恰不在比赛结果本身。 它真正珍贵的地方，是大学给了你一个非常罕见的机会—— 用极低的代价，体验一次： “把一件事情真正往前推。” 它很像真的高校为什么这么喜欢办创新创业比赛？ 这件事其实没有那么难理解。 一方面，它当然希望从大量学生项目和科研成果里，真的筛出一些有潜力的东西。 一个实验室做了几年的技术。一个学...</div></div></div></a><a class="pagination-related" href="/2026/08/25/06-project-evaluation/" title="为什么你的项目，放到哪儿都差点意思？"><img class="cover" src="/images/ai-series/covers/06-project-evaluation-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">为什么你的项目，放到哪儿都差点意思？</div></div><div class="info-2"><div class="info-item-1">相信不少认真做过项目的同学，都经历过这么一个魔幻时刻。 代码写了。平台搭了。模型跑了。服务器部署了。PPT 磨了八个通宵。比赛甚至还拿了个奖。 然后你信心满满地去找导师： “老师，这个能不能写篇论文？” 导师盯着屏幕看了半分钟，幽幽回了一句： “创新点在哪？” 你不死心。 又跑去问做产品的人： “哥，这玩意儿能不能上线？” 对面直接来了个三连击： 谁用？ 为什么用？ 服务器一个月多少钱？ 行。 学术圈和商业圈都不识货，那我开源总行了吧。 你一咬牙，把代码甩上 GitHub。 README 认真写了，截图精心挑了，仓库设成 Public。 一个月以后。Star 数：7。其中俩还是室友点的。 属于项目还没形成社区，寝室先完成了冷启动。 这时候人很容易开始怀疑人生： 我明明什么都做了，为什么放到哪儿都差点意思？ 先别急着 emo。 问题很可能不是项目太差。 而是从一开始，我们就把“做项目”这件事想成了一张可以到处通兑的成绩单。 技术难。功能多。系统完整。比赛获奖。PPT 漂亮。 好像只要这些东西攒得足够多，它自然就应该同时变成论文、产品、开源项目，顺便再成为一段光鲜的简历经历。 一鱼四...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%97%AE%E9%A2%98%E4%B8%80%E7%9B%B4%E5%9C%A8%E9%82%A3%E9%87%8C"><span class="toc-text">一、问题一直在那里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%9C%E5%93%81%E8%B5%9B%E7%9A%84%E5%B0%BA%E5%BA%A6"><span class="toc-text">二、作品赛的尺度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%8D%E5%AD%97%E5%92%8C%E5%9C%B0%E5%9B%BE"><span class="toc-text">三、名字和地图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%97%AE%E9%A2%98%E5%9C%B0%E5%9B%BE"><span class="toc-text">四、问题地图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%88%86%E5%8F%89"><span class="toc-text">五、分叉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%97%A7%E9%97%AE%E9%A2%98%EF%BC%8C%E6%96%B0%E5%8F%98%E9%87%8F"><span class="toc-text">六、旧问题，新变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%88%AB%E5%86%8D%E5%BD%92%E9%9B%B6"><span class="toc-text">七、别再归零</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E5%90%91%E4%B8%8D%E6%98%AF%E6%83%B3%E5%87%BA%E6%9D%A5%E7%9A%84"><span class="toc-text">方向不是想出来的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

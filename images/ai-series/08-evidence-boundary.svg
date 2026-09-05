@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="一个解释要接受证据约束">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">一个解释要接受证据约束</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">理论需要提前说明什么观察会支持它，什么结果会迫使它修改</text>
+  <g><rect x="90" y="180" width="300" height="300" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="118" y="226" class="card-title" text-anchor="start">提出解释</text><text x="118" y="268" class="small" text-anchor="start">说明对象</text><text x="118" y="300" class="small" text-anchor="start">给出条件</text><text x="118" y="332" class="small" text-anchor="start">作出预测</text></g><g><line x1="410" y1="330" x2="535" y2="330" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="472.5" y="318" class="tiny" text-anchor="middle">观察 / 实验</text></g><g><rect x="555" y="180" width="250" height="300" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="583" y="226" class="card-title" text-anchor="start">证据结果</text><text x="583" y="268" class="small" text-anchor="start">符合预测</text><text x="583" y="300" class="small" text-anchor="start">不符合预测</text></g><g><line x1="825" y1="260" x2="930" y2="230" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="877.5" y="233" class="tiny" text-anchor="middle">暂时保留</text></g><g><line x1="825" y1="400" x2="930" y2="430" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="877.5" y="403" class="tiny" text-anchor="middle">修改或放弃</text></g><g><rect x="950" y="145" width="190" height="180" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="978" y="191" class="card-title" text-anchor="start">可继续检验</text><text x="978" y="233" class="small" text-anchor="start">边界更清楚</text></g><g><rect x="950" y="360" width="190" height="180" rx="8" fill="#fff0ef" stroke="#c43d36" stroke-width="2"/><text x="978" y="406" class="card-title" text-anchor="start">承认失败</text><text x="978" y="448" class="small" text-anchor="start">理论承担风险</text></g>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜依据可证伪性与独立复现的基本含义整理</text>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="工作同时承担了三种功能">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">工作同时承担了三种功能</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">机器提高生产效率以后，收入与社会参与仍需要新的安排</text>
+  <g><rect x="90" y="185" width="280" height="270" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="118" y="231" class="card-title" text-anchor="start">生产</text><text x="118" y="273" class="small" text-anchor="start">把任务完成</text><text x="118" y="305" class="small" text-anchor="start">创造产品与服务</text><text x="118" y="337" class="small" text-anchor="start">效率可以被自动化</text></g><g><rect x="460" y="185" width="280" height="270" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="488" y="231" class="card-title" text-anchor="start">分配</text><text x="488" y="273" class="small" text-anchor="start">工资是主要入口</text><text x="488" y="305" class="small" text-anchor="start">决定消费能力</text><text x="488" y="337" class="small" text-anchor="start">牵涉制度选择</text></g><g><rect x="830" y="185" width="280" height="270" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="858" y="231" class="card-title" text-anchor="start">参与</text><text x="858" y="273" class="small" text-anchor="start">身份与节奏</text><text x="858" y="305" class="small" text-anchor="start">协作与被需要</text><text x="858" y="337" class="small" text-anchor="start">建立社会连接</text></g><text x="600" y="525" class="body" text-anchor="middle">生产机制变化得最快，分配机制与参与方式往往跟得更慢。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜结合 IMF 关于 AI 与就业“暴露度”的概念整理</text>
+</svg>

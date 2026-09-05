@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="经验要经过什么，才能接近规律">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">经验要经过什么，才能接近规律</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">看到成功样本只是起点，还要寻找失败样本和适用边界</text>
+  <g><rect x="65" y="190" width="235" height="250" rx="8" fill="#f3f5f7" stroke="#58616b" stroke-width="2"/><text x="93" y="236" class="card-title" text-anchor="start">个人叙述</text><text x="93" y="278" class="small" text-anchor="start">我做了什么</text><text x="93" y="310" class="small" text-anchor="start">最后成功了</text></g><g><line x1="315" y1="315" x2="395" y2="315" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="410" y="190" width="235" height="250" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="438" y="236" class="card-title" text-anchor="start">补全样本</text><text x="438" y="278" class="small" text-anchor="start">谁也这样做了</text><text x="438" y="310" class="small" text-anchor="start">谁失败了</text></g><g><line x1="660" y1="315" x2="740" y2="315" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="755" y="190" width="235" height="250" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="783" y="236" class="card-title" text-anchor="start">独立复现</text><text x="783" y="278" class="small" text-anchor="start">换人再做</text><text x="783" y="310" class="small" text-anchor="start">换环境再测</text></g><g><line x1="1005" y1="315" x2="1040" y2="315" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="1055" y="190" width="100" height="250" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="1083" y="236" class="card-title" text-anchor="start">边界</text><text x="1083" y="278" class="small" text-anchor="start">何时</text><text x="1083" y="310" class="small" text-anchor="start">有效</text></g><text x="600" y="515" class="body" text-anchor="middle">能公开失败条件的经验，才有机会从故事变成可检验的判断。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜结合幸存者偏差与可重复性研究整理</text>
+</svg>

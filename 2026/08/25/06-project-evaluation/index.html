@@ -1,0 +1,783 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>为什么你的项目，放到哪儿都差点意思？ | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="同一个项目进入论文、比赛和开源社区，为什么会面对三套不同的评价标准？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么你的项目，放到哪儿都差点意思？">
+<meta property="og:url" content="https://moyuan10086.github.io/2026/08/25/06-project-evaluation/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="同一个项目进入论文、比赛和开源社区，为什么会面对三套不同的评价标准？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/ai-series/covers/06-project-evaluation-cover.png">
+<meta property="article:published_time" content="2026-08-25T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-05T16:00:00.000Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="项目评价">
+<meta property="article:tag" content="论文">
+<meta property="article:tag" content="竞赛">
+<meta property="article:tag" content="开源">
+<meta property="article:tag" content="评价体系">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/ai-series/covers/06-project-evaluation-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "为什么你的项目，放到哪儿都差点意思？",
+  "url": "https://moyuan10086.github.io/2026/08/25/06-project-evaluation/",
+  "image": "https://moyuan10086.github.io/images/ai-series/covers/06-project-evaluation-cover.png",
+  "datePublished": "2026-08-25T02:00:00.000Z",
+  "dateModified": "2026-09-05T16:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2026/08/25/06-project-evaluation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '为什么你的项目，放到哪儿都差点意思？',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/ai-series/covers/06-project-evaluation-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">为什么你的项目，放到哪儿都差点意思？</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">为什么你的项目，放到哪儿都差点意思？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-25T02:00:00.000Z" title="发表于 2026-08-25 10:00:00">2026-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T16:00:00.000Z" title="更新于 2026-09-06 00:00:00">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%97%B6%E4%BB%A3%E6%8A%80%E6%9C%AF%E4%BA%BA%E6%88%90%E9%95%BF%E7%B3%BB%E5%88%97/">AI时代技术人成长系列</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>相信不少认真做过项目的同学，都经历过这么一个魔幻时刻。</p>
+<p>代码写了。平台搭了。模型跑了。服务器部署了。PPT 磨了八个通宵。比赛甚至还拿了个奖。</p>
+<p>然后你信心满满地去找导师：</p>
+<p>“老师，这个能不能写篇论文？”</p>
+<p>导师盯着屏幕看了半分钟，幽幽回了一句：</p>
+<p>“创新点在哪？”</p>
+<p>你不死心。</p>
+<p>又跑去问做产品的人：</p>
+<p>“哥，这玩意儿能不能上线？”</p>
+<p>对面直接来了个三连击：</p>
+<p>谁用？</p>
+<p>为什么用？</p>
+<p>服务器一个月多少钱？</p>
+<p>行。</p>
+<p>学术圈和商业圈都不识货，那我开源总行了吧。</p>
+<p>你一咬牙，把代码甩上 GitHub。</p>
+<p>README 认真写了，截图精心挑了，仓库设成 Public。</p>
+<p>一个月以后。Star 数：7。其中俩还是室友点的。</p>
+<p>属于项目还没形成社区，寝室先完成了冷启动。</p>
+<p>这时候人很容易开始怀疑人生：</p>
+<p><strong>我明明什么都做了，为什么放到哪儿都差点意思？</strong></p>
+<p>先别急着 emo。</p>
+<p>问题很可能不是项目太差。</p>
+<p>而是从一开始，我们就把“做项目”这件事想成了一张可以到处通兑的成绩单。</p>
+<p>技术难。功能多。系统完整。比赛获奖。PPT 漂亮。</p>
+<p>好像只要这些东西攒得足够多，它自然就应该同时变成论文、产品、开源项目，顺便再成为一段光鲜的简历经历。</p>
+<p>一鱼四吃。听起来特别划算。但现实不是这么玩的。</p>
+<p><strong>项目根本没有一张可以到处通兑的成绩单。</strong></p>
+<p>更准确一点说，一个项目真正做出来以后，通常有三个完全不同的出口：</p>
+<p><strong>科研。</strong></p>
+<p><strong>商业。</strong></p>
+<p><strong>开源。</strong></p>
+<p>它们甚至都不是在考同一张卷子。</p>
+<p>科研问的是：</p>
+<p><strong>你发现了什么以前没人知道的东西？</strong></p>
+<p>商业问的是：</p>
+<p><strong>你解决了什么值得别人付出成本的问题？</strong></p>
+<p>开源问的是：</p>
+<p><strong>凭什么一个完全不认识你的陌生人，愿意把它接进自己的工作流？</strong></p>
+<p>至于比赛？</p>
+<p>我越来越觉得，它压根不该跟前三个放在同一个层级。</p>
+<p>比赛不是第四个终点。</p>
+<p>它更像一个人为搭起来的训练场。</p>
+<p>甚至更准确一点——</p>
+<p><strong>它是一段被压缩过的“模拟事业”。</strong></p>
+<p>有规则。有资源。有 deadline。有队友。有竞争者。有评委。有外部机构。</p>
+<p>你需要做调研，需要找方向，需要协调团队，需要争资源，需要讲故事，需要交付一个结果。</p>
+<p>你可以练技术。练工程。练协作。练答辩。练 Demo。</p>
+<p>练怎么把一件几个月都讲不完的事情，压缩成五分钟让陌生人听懂。</p>
+<p>这已经不只是“锻炼综合能力”这么简单了。</p>
+<p>如果认真参与过一次，你会开始隐约感受到：</p>
+<p><strong>一件事真要往前推，不同位置上的人，看到的世界完全不一样。</strong></p>
+<p>而这恰恰是大学里非常稀缺的体验。</p>
+<p>只是，比赛还有另外一面。</p>
+<p>训练场最大的风险就是：</p>
+<p><strong>人在里面待久了，容易把训练成绩，当成真实世界成绩。</strong></p>
+<h2 id="不是一个分数"><a href="#不是一个分数" class="headerlink" title="不是一个分数"></a>不是一个分数</h2><p>学生做项目的时候，很容易把一堆东西搅在一起。</p>
+<p>功能多。代码量大。模型新。系统复杂。界面漂亮。部署困难。比赛得奖。甚至真的有人演示过。这些当然都是成绩。</p>
+<p>但有一个特别重要的问题：</p>
+<p><strong>它们不是同一种成绩。</strong></p>
+<p>十万行代码，不代表能发论文。</p>
+<p>论文指标涨两个点，不代表有人愿意掏钱。</p>
+<p>一个实验室内部平台解决了你们团队的问题，也不代表陌生人 clone 下来就能跑。</p>
+<p>比赛拿了一等奖，也只意味着：</p>
+<p><strong>你在比赛这套规则里答得不错。</strong></p>
+<p>这不是说比赛没价值。</p>
+<p>而是价值有方向。</p>
+<p>同一个项目，完全可能比赛里 95 分。</p>
+<p>论文只有 60。商业只有 50。开源反而能有 90。比如一个大模型安全评测平台。</p>
+<p>比赛现场：</p>
+<p>几十个模型。几十个数据集。自动红队。风险分类。任务调度。报告导出。模型排行榜。一键部署。UI 漂亮。Demo 丝滑。</p>
+<p>PPT 上一张系统架构图甚至塞不下。</p>
+<p>95 分。完全合理。拿去做科研。</p>
+<p>评审问：</p>
+<p>你的威胁模型是什么？</p>
+<p>现有测评方法到底哪里有问题？</p>
+<p>为什么提出这个指标？</p>
+<p>这个指标真的测到了你说的风险吗？</p>
+<p>换模型还成立吗？ 换 Prompt 呢？ 换数据集呢？</p>
+<p>有没有消融？</p>
+<p>有没有显著性分析？</p>
+<p>最后发现核心测评方法还是已有方案。60 分。再去找客户。</p>
+<p>客户看了一眼：</p>
+<p>“这个东西谁每天会用？”</p>
+<p>“部署几张卡？”</p>
+<p>“能不能进内网？”</p>
+<p>“谁维护？”</p>
+<p>“你这个评测结果我要拿去干什么？”</p>
+<p>50 分。</p>
+<p>但如果你最后把最核心的评测框架拆出来。</p>
+<p>接口非常干净。文档写得明白。别人十分钟就能把自己的模型接进来。Issue 有人回复。API 不乱改。</p>
+<p>那它在开源世界里可能又是 90 分。</p>
+<p>这并不矛盾。</p>
+<p>因为项目从来不是一个分数。</p>
+<p><strong>它更像一组坐标。</strong></p>
+<p>研究价值。工程价值。商业价值。复用价值。展示价值。人才培养价值。这些东西可能完全不一样。</p>
+<p>所以以后同一个项目，一个人觉得：</p>
+<p>“这东西很强啊。”</p>
+<p>另一个人觉得：</p>
+<p>“一般吧。”</p>
+<p>不一定是谁不懂。</p>
+<p>可能只是：</p>
+<p><strong>两个人手里的评分表压根不一样。</strong></p>
+<h2 id="系统不是论文"><a href="#系统不是论文" class="headerlink" title="系统不是论文"></a>系统不是论文</h2><p>这个坑，第一次做科研的人特别容易踩。</p>
+<p>你吭哧吭哧肝了三个月。后端搭好了。用户系统写了。异步任务有了。</p>
+<p>数据库、日志、权限、可视化一个不少。</p>
+<p>甚至还做了个大屏。打开以后满屏蓝色发光框。科技感拉满。</p>
+<p>你兴冲冲跑去找导师：</p>
+<p>“老师，我们这个平台工程量特别大。”</p>
+<p>导师：</p>
+<p>“然后呢？”</p>
+<p>听着挺伤人。</p>
+<p>但论文还真不按工时结算。</p>
+<p>阅卷老师不会因为你一道数学题想了三个小时，就多给你五分。</p>
+<p><strong>他只看你最后写在卷子上的东西。</strong></p>
+<p>还是拿大模型安全评测平台举例。</p>
+<p>工程上，你可以把系统做得非常豪华。</p>
+<p>但到了论文里，一大堆工程能力会突然退到背景板。</p>
+<p>因为论文真正关心的不是：</p>
+<p>“你搭了多大的系统？”</p>
+<p>而是：</p>
+<p><strong>“你通过这个系统，发现了什么？”</strong></p>
+<p>同一个模型换三套提示模板，安全分数为什么能差一大截？</p>
+<p>两个都号称测“安全性”的指标，为什么最后模型排名完全相反？</p>
+<p>不同模型的拒答行为，真的可以用同一套规则评价吗？</p>
+<p>自动红队会不会系统性偏向某一类模型？</p>
+<p>如果项目做着做着，你突然遇到一个现象，让自己都忍不住冒出一句：</p>
+<p>“这不对吧？”</p>
+<p>那玩意儿，往往比再写五千行后台代码，更接近论文的起点。</p>
+<p>这不代表工程没用。恰恰相反。工程非常有用。</p>
+<p>它可以帮你管理实验、批量跑模型、积累数据、复现实验。</p>
+<p>但在论文里，它更适合扮演的角色叫：</p>
+<p><strong>实验基础设施。</strong></p>
+<p>而不是论文贡献本身。</p>
+<p>所以一个比赛项目想往科研转，通常不是：</p>
+<p>“再加两个模块。”</p>
+<p>而是：</p>
+<p><strong>把“系统”往“问题”里压。</strong></p>
+<p>系统越往后站。问题越往前站。你才算真正换了考场。</p>
+<h2 id="用户不看创新点"><a href="#用户不看创新点" class="headerlink" title="用户不看创新点"></a>用户不看创新点</h2><p>科研圈最喜欢问：</p>
+<p>“你的创新点是什么？”</p>
+<p>真实商业世界里，很多客户压根不在这个频道。</p>
+<p>你打开 PPT：</p>
+<p>“我们的底层采用基于多智能体协同的自适应推理框架……”</p>
+<p>客户：</p>
+<p>“那个 Excel 能自动处理吗？”</p>
+<p>“能。”</p>
+<p>“现在每天两小时的活，能省多少？”</p>
+<p>“大概一个半小时。”</p>
+<p>“多少钱？”</p>
+<p>好了。</p>
+<p>会议从这一刻才真正开始。</p>
+<p>至于你的多智能体到底是五个 Agent，还是八个 Agent。</p>
+<p>人家说不定根本不在乎。</p>
+<p>商业世界有一套特别朴素、甚至土得掉渣的评分体系：</p>
+<p><strong>问题有没有被解决？</strong></p>
+<p>一个方案技术上一点都不新。但能让一个部门少招两个人。值钱。一个产品底层全是成熟开源组件。但能把原来一周的活压到半天。值钱。一个算法没有任何论文意义。</p>
+<p>但客户不用它，明天就得继续人工复制八百个 Excel。</p>
+<p>照样值钱。</p>
+<p>反过来也一样。</p>
+<p>论文里的方法准确率高得跟艺术品一样。</p>
+<p>一部署：</p>
+<p>8 张卡。延迟 40 秒。三个人维护。一周升级一次。半夜还随机炸。</p>
+<p>省下来的人力成本甚至不够付服务器账单。</p>
+<p>那它在商业世界里的评价可能非常简单：</p>
+<p><strong>不好用。</strong></p>
+<p>所以商业真正关心的问题，一点都不高级。</p>
+<p>谁在用？</p>
+<p>多久用一次？</p>
+<p>不用你的东西，他现在怎么解决？</p>
+<p>这个问题到底疼不疼？</p>
+<p>一年烧多少钱？</p>
+<p>部署成本多少？</p>
+<p>维护几个人？</p>
+<p>出了问题谁负责？</p>
+<p>能不能连续跑半年？</p>
+<p>这些问题，在技术比赛 PPT 里经常只能分到最后一页“商业模式”。</p>
+<p>甚至还是因为模板要求必须放。</p>
+<p>但公司真就是靠这些东西续命的。</p>
+<p>所以商业最重要的动作是：</p>
+<p><strong>把“技术”往“用户的疼处”压。</strong></p>
+<p>别因为技术上能做，就默认产品里应该做。</p>
+<p>甚至准备商业化之前，可以先别急着写代码。</p>
+<p>去找几个真的被这个问题折磨的人。别拿 PPT。先别演 Demo。更别急着介绍“核心技术”。</p>
+<p>只问：</p>
+<p>“这件事你现在怎么解决？”</p>
+<p>“一个月为它花多少时间、多少钱？”</p>
+<p>“如果有人真能又快又稳地解决，你愿意付多少？”</p>
+<p>如果对面沉思半天：</p>
+<p>“其实……现在这样也行。”</p>
+<p>恭喜。你省下了三个月开发时间。但如果对方开始主动吐槽。越讲越激动。</p>
+<p>最后反过来问：</p>
+<p>“所以你们这个什么时候能用？”</p>
+<p>那事情才开始有点意思。</p>
+<p>因为商业最怕的从来不是技术不够先进。</p>
+<p>而是：</p>
+<p><strong>你解决了一个根本没人真正痛苦的问题。</strong></p>
+<h2 id="付钱也不一样"><a href="#付钱也不一样" class="headerlink" title="付钱也不一样"></a>付钱也不一样</h2><p>当然，商业世界也没这么干净。</p>
+<p>尤其很多学生项目最后面对的，并不是普通消费者，而是学校、国企、政府部门、事业单位。</p>
+<p>这时候“谁疼、谁付钱”甚至可能不是同一个人。</p>
+<p>真正使用系统的人觉得麻烦。决定采购的人不一定用。出钱的人可能更不关心效率。</p>
+<p>他关心的可能是：</p>
+<p>政策有没有要求。上级有没有考核。年底有没有验收。检查来了有没有东西可以展示。</p>
+<p>甚至有没有一个平台，能够证明“这件事我们已经做了”。</p>
+<p>于是就会出现一种很微妙的需求。它确实能签合同。确实有人采购。甚至确实能产生收入。</p>
+<p>但你如果继续往下问：</p>
+<p><strong>这个东西到底有没有创造真实价值？</strong></p>
+<p>答案未必那么漂亮。有些项目优化的是工作流程。有些项目优化的是汇报流程。有些系统解决实际问题。</p>
+<p>有些系统主要解决：</p>
+<p><strong>“检查的时候我们得有个系统。”</strong></p>
+<p>后者当然也是现实需求。</p>
+<p>甚至从商业上看，它完全可能是成立的。</p>
+<p>但这恰恰提醒我们：</p>
+<p><strong>“有人愿意付钱”，也不等于“这件事值得被无限放大”。</strong></p>
+<p>市场验证能够证明需求存在，却不能自动证明需求合理。</p>
+<p>一个项目如果长期依赖政策补贴、行政指标、一次性验收或者关系型采购，它同样需要问：</p>
+<p>政策一变还剩什么？</p>
+<p>验收结束以后还有人用吗？</p>
+<p>换一个单位还能不能成立？</p>
+<p>用户是真离不开，还是采购流程离不开？</p>
+<p>所以做 B 端、G 端项目，比“有没有客户”更难的一层其实是：</p>
+<p><strong>你得分清楚，到底是用户价值、组织价值、合规价值，还是单纯的指标价值。</strong></p>
+<p>这几种价值都可能产生订单。</p>
+<p>但它们绝不是同一种生意。</p>
+<h2 id="Public-不是开源"><a href="#Public-不是开源" class="headerlink" title="Public 不是开源"></a>Public 不是开源</h2><p>然后来到最容易产生错觉的一条路。</p>
+<p>不少项目所谓的“开源”，流程大概是：</p>
+<p>GitHub 建仓库。上传代码。放两张截图。</p>
+<p>README 认真写：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br>python main.py<br></code></pre></td></tr></table></figure>
+<p>两行。极简。优雅。然后陌生人真开始跑。第一步。缺 <code>.env</code>。第二步。数据库密码写死。第三步。</p>
+<p>模型路径：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">/data/model/latest-final-v3<br></code></pre></td></tr></table></figure>
+<p>第四步。</p>
+<p>配置文件里还有作者实验室内网 IP。</p>
+<p>第五步。</p>
+<p>Issue 区有人问：</p>
+<p>“请问怎么运行？”</p>
+<p>两个月过去。还是那条 Issue。这种严格来说不能算真正的开源。</p>
+<p>最多只能叫：</p>
+<p><strong>代码公开。</strong></p>
+<p>真正的开源至少有一个特别朴素的标准：</p>
+<p><strong>一个完全不认识你的人，能不能脱离你本人，把它用起来。</strong></p>
+<p>这句话一出来，游戏规则就完全变了。</p>
+<p>因为作者开发项目的时候，脑子里自带一整套隐形文档。</p>
+<p>这个配置为什么这么写。你知道。这个目录为什么不能动。你知道。这个服务启动以前得先开另一个服务。你知道。</p>
+<p>这个 Bug 遇到以后重启一下就好。</p>
+<p>你还是知道。</p>
+<p>于是特别容易产生一种危险错觉：</p>
+<p>“这不是常识吗？”</p>
+<p>项目一交给陌生人。一夜之间。常识全变天堑。他不知道支持什么系统。不知道最低 Python 版本。不知道驱动用哪版。不知道配置项是什么意思。不知道报错去哪查。不知道 PR 收不收。不知道半年后还有没有人维护。</p>
+<p>所以开源世界真正稀缺的东西，很多时候不是代码。</p>
+<p>而是：</p>
+<p><strong>可复用性。</strong></p>
+<p>一个好用的开源项目甚至不一定代码特别多。</p>
+<p>但它装一次就成功。文档一看就懂。示例复制就能跑。API 不乱改。遇到问题搜得到答案。出了 Bug 有人管。你敢把它接进自己的东西里。这份“敢用”，本身就是价值。</p>
+<p>如果你真想验证自己的项目是不是从“代码公开”走向了“开源”，有一个特别残忍的方法。</p>
+<p>找一个完全没碰过这个项目的人。让他打开 README。从零安装。你坐旁边。</p>
+<p><strong>不准说话。</strong></p>
+<p>他每皱一次眉。记下来。每卡一次。记下来。</p>
+<p>每问一句：</p>
+<p>“这个东西在哪配？”</p>
+<p>继续记。</p>
+<p>最后你会发现：</p>
+<p>你觉得已经巨详细的 README，可能有一半信息其实只存在你脑子里。</p>
+<p>所以开源真正要做的，不是：</p>
+<p>“把我的项目上传给别人看。”</p>
+<p>而是：</p>
+<p><strong>把“我的项目”，翻译成“别人的工具”。</strong></p>
+<h2 id="比赛算什么"><a href="#比赛算什么" class="headerlink" title="比赛算什么"></a>比赛算什么</h2><p>说完三个真实世界，再回头看比赛，这件事就清楚多了。</p>
+<p>比赛当然有价值。</p>
+<p>而且对学生来说，价值可能相当大。</p>
+<p>但我越来越觉得，它不该跟科研、商业、开源并列成“第四条路”。</p>
+<p>因为前三者面对的，是真实世界的反馈。</p>
+<p>论文最后面对同行。</p>
+<p>商业最后面对用户和现金流。</p>
+<p>开源最后面对陌生开发者的采用和时间。</p>
+<p>而比赛面对的是：</p>
+<p><strong>一套人为规定的评分体系。</strong></p>
+<p>它更像一个被压缩过的训练场。现实里的需求很模糊。比赛给你赛题。现实里的项目可能做三年。比赛给你三个月。现实用户不会告诉你评分规则。</p>
+<p>比赛文件白纸黑字告诉你：</p>
+<p>技术创新多少分。完成度多少分。应用价值多少分。答辩效果多少分。从训练角度看，这当然很好。你会练工程。练协作。练资源协调。练 Demo。</p>
+<p>练怎么把一件几个月都讲不完的事情，压缩成五分钟让陌生人听懂。</p>
+<p>这些全是真能力。</p>
+<p>但它最大的风险也来自这里：</p>
+<p><strong>人在训练场里待久了，很容易把训练成绩，当成真实世界成绩。</strong></p>
+<p>比赛一等奖可以证明：</p>
+<p>你能在一套明确规则下，把一个复杂任务完成、展示、讲清楚。</p>
+<p>但它通常不能自动证明三件事：</p>
+<p><strong>这个问题值得发表吗？</strong></p>
+<p><strong>真的有人愿意付钱吗？</strong></p>
+<p><strong>陌生人愿意长期采用吗？</strong></p>
+<p>因为这三道题，本来就不在比赛的答题卡上。</p>
+<h2 id="大家都会赢"><a href="#大家都会赢" class="headerlink" title="大家都会赢"></a>大家都会赢</h2><p>任何比赛办得足够久，参与者最后都会学会一件事：</p>
+<p><strong>研究评分规则。</strong></p>
+<p>这其实很正常。评委只有几分钟。材料成百上千份。</p>
+<p>你当然要研究第一屏放什么，技术讲到什么程度，哪些证据必须出现，Demo 怎么最稳。</p>
+<p><strong>大家已经太懂“怎么把一个项目讲得像真的”了。</strong></p>
+<p>这本来就是表达训练的一部分。</p>
+<p>真正值得警惕的是另一件事：</p>
+<p><strong>模板开始反过来塑造事实。</strong></p>
+<p>管理学里有条古德哈特定律：</p>
+<p><strong>一个指标一旦变成目标，它就不再是好指标。</strong></p>
+<p>比赛的异化正是这条定律特别典型的样本。</p>
+<p>制度奖励什么，参与者就会学习什么。</p>
+<p>你不能一边让“产业化进程”“市场领先”“技术壁垒”占据大量评分空间，一边惊讶于学生拼命证明自己已经产业化、已经有壁垒；</p>
+<p>更不能在有人靠过度包装拿到真奖之后，回头教育其他学生：</p>
+<p>“你们为什么这么功利。”</p>
+<p>于是出现了那种经典生物：</p>
+<p>行业有三个痛点。于是 PPT 上一定要有三个痛点。三个痛点后面，最好刚好接三个创新。</p>
+<p>三个创新再继续往后，最好形成三大技术壁垒。</p>
+<p>然后市场空间巨大。社会价值显著。未来三年高速增长。五年走向全国。</p>
+<p>条件允许，再补一句：</p>
+<p>“走向国际。”</p>
+<p>一切工整得像数学证明。</p>
+<p>问题是：</p>
+<p><strong>现实世界什么时候这么配合 PPT 排版了？</strong></p>
+<p>尤其“技术壁垒”这几个字，我觉得最容易被用坏。</p>
+<p>学生项目当然完全可能有真技术。新的方法。自己积累的数据。</p>
+<p>特殊场景里别人不知道的 Know-how。</p>
+<p>性能真的非常强的工程实现。</p>
+<p>这些都是真价值。</p>
+<p>但：</p>
+<p><strong>“做出了一个技术点”和“形成了技术壁垒”，真是两码事。</strong></p>
+<p>一个很简单的判断方法是：</p>
+<p><strong>你把自己怎么做的全告诉别人，他短期内还是抄不出来。</strong></p>
+<p>这才开始有点“壁”的感觉。</p>
+<p>如果只是开源模型调 API、成熟框架封一层、现成算法换个场景、几个模块拼成平台，也没什么。</p>
+<p>这照样有价值。</p>
+<p>它叫：</p>
+<p><strong>工程能力。</strong></p>
+<p>工程能力一点都不低级。</p>
+<p>没必要为了 PPT 上缺个框，硬把组装车间包装成护城河。</p>
+<p>有壁垒，说壁垒。</p>
+<p>有工程优势，说工程优势。</p>
+<p>只是先做出来了，那就大大方方说：</p>
+<p><strong>我们先做出来了。</strong></p>
+<p>一点都不丢人。</p>
+<p>所以我支持一句听起来有点“道德洁癖”的话：</p>
+<p><strong>有真东西，就去参加。东西不实在，又接受不了那套包装逻辑，那就别硬去。</strong></p>
+<p>如果拿奖需要你把原型期的东西说成“形成行业壁垒”、把一次试用写成“深度合作”、把可能发生的事讲成板上钉钉——而你自己说着都心虚——那不参加也没什么。</p>
+<p>奖状是实打实的，但人也会被自己反复说的话塑造。</p>
+<p>最危险的不是某一页 PPT 夸张了一点，而是一个人慢慢习惯了：</p>
+<p><strong>面不改色地把“可能”说成“已经”。</strong></p>
+<h2 id="学费其实很便宜"><a href="#学费其实很便宜" class="headerlink" title="学费其实很便宜"></a>学费其实很便宜</h2><p>但同时也要说回来。我不觉得学生打比赛没意义。恰恰相反。</p>
+<p>认真参与进去，它可能是大学里性价比最高的一种“事业体验”。</p>
+<p>这也是为什么，我不太赞成简单把比赛骂成“PPT 大赛”。</p>
+<p>因为比赛确实提供了一个现实里很难获得的环境：</p>
+<p>你有一个明确目标。有 deadline。有一些资源。有几个跟你一起干活的人。还有一个最后必须交东西的节点。</p>
+<p>你第一次真正做一个项目以后，会开始碰到课堂里很少出现的问题：</p>
+<p>时间不够怎么办？</p>
+<p>砍需求。</p>
+<p>人不够怎么办？</p>
+<p>重新分工。</p>
+<p>算力不够怎么办？</p>
+<p>改实验方案。</p>
+<p>队友突然去考研、实习、找工作怎么办？</p>
+<p>重新排关键路径。</p>
+<p>你会第一次意识到：</p>
+<p><strong>不是所有问题，都能靠“我再努力一点”解决。</strong></p>
+<p>做事不是无限加投入。</p>
+<p>而是在有限资源下做取舍。</p>
+<p>这类能力以后做科研、做产品、做工程，都会继续出现。</p>
+<p>所以对学生来说，有时候：</p>
+<p><strong>项目不是目的，人才才是目的。</strong></p>
+<p>你学会 Git。学会部署。第一次带几个人开发。第一次处理线上 Bug。第一次站台答辩。第一次被评委问到哑口无言。然后回去补了一晚上。</p>
+<p>最后哪怕项目没有真正变成公司、论文或者社区，这段经历也不一定白费。</p>
+<p>它可能让你第一次知道：</p>
+<p>我适不适合做技术。</p>
+<p>我喜不喜欢带团队。</p>
+<p>我喜欢跟客户聊，还是喜欢一个人研究。</p>
+<p>我到底享受“把东西做出来”，还是更享受“把问题想明白”。</p>
+<p>这也是学生项目和真正商业项目最大的区别之一。</p>
+<p>企业项目最后必须对结果负责。</p>
+<p>学生项目除了结果，还可以对人成长负责。</p>
+<p>当然，这不代表失败就自动有价值。项目没做出来，就是没做出来。判断错了，就是判断错了。</p>
+<p>真正值钱的是你最后能说清楚：</p>
+<p>哪一步判断错了。什么信号其实早就出现了。如果重新来一次，哪个决定会改。那一次失败才开始变成认知资产。</p>
+<h2 id="人先毕业了"><a href="#人先毕业了" class="headerlink" title="人先毕业了"></a>人先毕业了</h2><p>而且学生项目还有一个特别现实的问题：</p>
+<p><strong>人先毕业了。</strong></p>
+<p>大一不会。大二刚开始会。大三终于能独当一面。</p>
+<p>然后考研、保研、实习、找工作一起砸下来。</p>
+<p>大四毕业。</p>
+<p>项目瞬间进入数字考古阶段。</p>
+<p>所以有研究生梯队、有稳定低年级成员接班的实验室，做长期项目天然占便宜。</p>
+<p>不一定是每个人水平更高。</p>
+<p>而是：</p>
+<p><strong>人力生命周期连续。</strong></p>
+<p>很多真正的壁垒，本来就是时间滚出来的。</p>
+<p>数据越积越多。系统越来越稳。坑越踩越熟。新人接手越来越快。</p>
+<p>如果项目每年都从零重启，那你永远都在做“首个 Demo”。</p>
+<p>于是学生项目里最尴尬的一种画面就出现了：</p>
+<p><strong>PPT 上已经画了三层技术壁垒。</strong></p>
+<p><strong>现实里的项目还离不开三个具体的人。</strong></p>
+<p>甚至可以再扎心一点：</p>
+<p><strong>壁垒还没垒起来，垒墙的人先毕业了。</strong></p>
+<p>所以比赛最合适的位置，也许不是终点。</p>
+<p>而是一个起跑台。一块实验田。一个项目孵化器。</p>
+<p>它可以逼你把一个模糊想法第一次做成东西。</p>
+<p>但比赛结束以后，如果还想继续，就得离开比赛的评分表。</p>
+<p>重新接受真实世界的检验。</p>
+<h2 id="换张评分表"><a href="#换张评分表" class="headerlink" title="换张评分表"></a>换张评分表</h2><p>如果比赛结束了还想继续，那就得换一张评分表。</p>
+<p><strong>想做科研</strong>，别再强调平台有多大。</p>
+<p>问：</p>
+<p><strong>我到底发现了什么？</strong></p>
+<p>把系统往问题里压。</p>
+<p>把功能往实验基础设施里压。</p>
+<p><strong>想做商业</strong>，别再问还有什么技术能塞。</p>
+<p>问：</p>
+<p><strong>究竟谁真的疼？</strong></p>
+<p>他现在怎么解决？</p>
+<p>为它花多少钱？</p>
+<p>愿不愿意付钱换一个？</p>
+<p><strong>想做开源</strong>，别觉得点了 Public 就结束了。</p>
+<p>问：</p>
+<p><strong>一个完全不认识我的人，能不能自己跑起来？</strong></p>
+<p>把路径改成配置。把环境写清。把文档补全。把接口稳定下来。</p>
+<p>把“我的项目”，翻译成“别人的工具”。</p>
+<p>这三条路也不是永远互斥。</p>
+<p>研究里挖出一个好问题，做成开源库。</p>
+<p>开源有了用户，真实需求反过来喂新的选题。</p>
+<p>再往后有人问：</p>
+<p>“能不能帮我们直接部署？”</p>
+<p>生意就来了。这种路径存在。而且很漂亮。但顺序不能反。不是第一天就三线开花。</p>
+<p>而是：</p>
+<p><strong>先在一个地方挖深，再把深度翻译出去。</strong></p>
+<p>论文说的是贡献。商业说的是价值。开源说的是复用。这是三种方言。厉害的人不是第一天就会说三门外语。而是手里先真的有东西。然后知道怎么翻译。</p>
+<p>一句话总结，带点金融味儿：</p>
+<p><strong>深度是本金，翻译是汇率。</strong></p>
+<p>本金没有。天天研究跨界转化。属于拿着空钱包研究外汇。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>所以回到最开始那个问题：</p>
+<p>为什么一个项目明明做了很多东西，论文、商业、开源三边却可能都不讨好？</p>
+<p>因为项目从来没有一张可以到处通兑的成绩单。</p>
+<p>比赛里，工程完整、展示漂亮、功能丰富，可能就是高分。</p>
+<p>但论文会继续追问：</p>
+<p><strong>你到底发现了什么？</strong></p>
+<p>商业会继续追问：</p>
+<p><strong>究竟谁真的疼，愿意为它付出多少？</strong></p>
+<p>开源世界会继续追问：</p>
+<p><strong>一个完全不认识你的人，凭什么愿意把它接进自己的工作流？</strong></p>
+<p>这些问题没有谁比谁更高级。</p>
+<p>它们只是三张不同的卷子。</p>
+<p>所以一个项目真正值得做的，不是从第一天开始幻想：</p>
+<p>论文一篇。比赛一等奖。产品上线。GitHub 一万 Star。一鱼四吃。</p>
+<p>而是先想清楚：</p>
+<p><strong>我现在到底在哪张卷子上答题？</strong></p>
+<p>如果做科研。就把系统往问题里压。如果做商业。就把技术往用户的疼处压。如果做开源。</p>
+<p>就把“我的项目”翻译成“别人的工具”。</p>
+<p>比赛可以帮你练习这些能力。甚至可以成为起点。但它不能替你完成后面的验证。奖状不会自己长成论文。Demo 不会自己长成产品。</p>
+<p>仓库点了 Public，也不会自动长出社区。</p>
+<p>真正厉害的项目当然可以在不同世界之间转化。</p>
+<p>研究里发现一个好问题。做出方法。整理成开源库。开源以后有了真实用户。用户又带回来新的问题。</p>
+<p>再往后，有人问：</p>
+<p>“你们能不能直接帮我部署？”</p>
+<p>商业机会也许又出来了。这种路径很漂亮。但顺序不能搞反。</p>
+<p>不是：</p>
+<p><strong>一开始我就要科研、商业、开源三开花。</strong></p>
+<p>而是：</p>
+<p><strong>先在一个地方挖深，再把深度翻译出去。</strong></p>
+<p>论文世界说的是贡献。商业世界说的是价值。开源世界说的是复用。它们是三种不同的方言。</p>
+<p>真正厉害的人，不是从第一天开始同时说三门外语。</p>
+<p>而是手里先真的有东西。</p>
+<p>然后知道该怎么翻译。</p>
+<p>如果一定要用一句话收尾：</p>
+<p><strong>深度是本金。</strong></p>
+<p><strong>翻译是汇率。</strong></p>
+<p>本金没有。天天研究跨界转化。基本属于拿着空钱包研究外汇。</p>
+<p>所以，下次再看到一个“功能很多、比赛拿奖、PPT 很漂亮”的项目，也许不用急着问：</p>
+<p>“这个项目到底牛不牛？”</p>
+<p>更值得问的是：</p>
+<p><strong>它准备在哪个世界里继续成立？</strong></p>
+<p>因为真正的价值，不是把所有评分表都填满。</p>
+<p>而是在至少一张评分表上，<strong>真的答出点东西。</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2026/08/25/06-project-evaluation/">https://moyuan10086.github.io/2026/08/25/06-project-evaluation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E8%AF%84%E4%BB%B7/">项目评价</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a><a class="post-meta__tags" href="/tags/%E7%AB%9E%E8%B5%9B/">竞赛</a><a class="post-meta__tags" href="/tags/%E5%BC%80%E6%BA%90/">开源</a><a class="post-meta__tags" href="/tags/%E8%AF%84%E4%BB%B7%E4%BD%93%E7%B3%BB/">评价体系</a></div><div class="post-share"><div class="social-share" data-image="/images/ai-series/covers/06-project-evaluation-cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/26/07-undergrad-to-competition/" title="拿了国赛三等奖之后，我才想明白一个更扎心的问题"><img class="cover" src="/images/ai-series/covers/07-undergrad-to-competition-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">拿了国赛三等奖之后，我才想明白一个更扎心的问题</div></div><div class="info-2"><div class="info-item-1">第十九届全国大学生信息安全竞赛（作品赛）暨第三届“长城杯”网数智安全大赛（作品赛），到这里算是彻底结束了。 我们的作品《面向 AIGC 伪造的跨域泛化检测与可解释性防御平台》，最后拿到了全国三等奖。 结果出来的时候，我没有特别强烈的情绪，更多是一种终于可以停下来的感觉。这个项目从本科毕设一路做到比赛，前前后后折腾了很久，最后呈现出来的东西也越来越多：多模态大模型图像真实性分析、CLIP 图像伪造检测、不同数据集上的泛化评测、图片内容审核、大模型安全护栏、Agent 执行审计、来源取证、人工复核，模型重新训练过，平台重新搭过，又因为实习期间正好在研究 NPU，把其中一部分模型迁到了华为昇腾上。 如果只看最后的作品报告，很容易产生一种错觉，好像这些东西从第一天起就在白板上排好了队，我们先画出一张完整架构，再让 Deepfake、MLLM、大模型安全护栏、Agent 和来源取证按照施工计划依次进场。最后的报告也确实被整理成了一套很工整的结构：Deepfake 检测、MLLM 真实性分析、内容安全审核、大模型安全护栏、Agent 执行安全、来源取证，再到统一编排。[12] 真实情况当然没...</div></div></div></a><a class="pagination-related" href="/2026/08/24/05-fullstack/" title="收藏了两百门课，全栈到底要学多少东西才算够？"><img class="cover" src="/images/ai-series/covers/05-fullstack-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">收藏了两百门课，全栈到底要学多少东西才算够？</div></div><div class="info-2"><div class="info-item-1">我的收藏夹里，认真数一数，大概真能凑出两百门课。 前端。后端。Java。Python。Rust。C++。Docker。Kubernetes。CUDA。大模型。Agent。强化学习。计算机网络。操作系统。体系结构。再往下面翻，还有几门嵌入式。每一门收藏的时候，理由都特别充分。 “这个以后肯定有用。” 问题也出在这里。 学计算机有一个特别恐怖的地方：值得学的东西，几乎永远都能为自己找到一个合理的理由。 一开始，你真的只是想做个网页。 就那种标题居中、按钮会动、写进简历都能开心半天的网页。 想让按钮动，得会 JavaScript。 用户数据总得存起来，后端了解一下。 数据不能一直塞内存里，数据库安排上。 项目做完总得给别人访问，Linux、Nginx、Docker 已经排着队冲过来了。 你以为差不多了。 AI 时代又拍了拍你的头。 Python 总得会吧？ 大模型总得懂吧？ RAG 听说过没？ Agent 跑过吗？ MCP 又是啥？ 模型总得部署吧？ vLLM、SGLang 看不看？ 性能再往下抠一点，CUDA、Triton、量化、显存、算子全出来了。 再顺着算子往地底下一挖： GPU...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%88%86%E6%95%B0"><span class="toc-text">不是一个分数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%B8%8D%E6%98%AF%E8%AE%BA%E6%96%87"><span class="toc-text">系统不是论文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%B8%8D%E7%9C%8B%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-text">用户不看创新点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%98%E9%92%B1%E4%B9%9F%E4%B8%8D%E4%B8%80%E6%A0%B7"><span class="toc-text">付钱也不一样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Public-%E4%B8%8D%E6%98%AF%E5%BC%80%E6%BA%90"><span class="toc-text">Public 不是开源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B%E7%AE%97%E4%BB%80%E4%B9%88"><span class="toc-text">比赛算什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E5%AE%B6%E9%83%BD%E4%BC%9A%E8%B5%A2"><span class="toc-text">大家都会赢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E8%B4%B9%E5%85%B6%E5%AE%9E%E5%BE%88%E4%BE%BF%E5%AE%9C"><span class="toc-text">学费其实很便宜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%BA%E5%85%88%E6%AF%95%E4%B8%9A%E4%BA%86"><span class="toc-text">人先毕业了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E5%BC%A0%E8%AF%84%E5%88%86%E8%A1%A8"><span class="toc-text">换张评分表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-text">最后</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

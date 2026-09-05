@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1410" height="600" viewBox="0 0 1410 600">
+  <rect width="1410" height="600" fill="#f2ede4"/>
+  <path d="M0 470H1410" stroke="#d8cfc3" stroke-width="3"/>
+  
+  <!-- Left: Traditional University Diploma & Cap -->
+  <g fill="none" stroke="#1f2429" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Graduation Cap -->
+    <path d="M360 260l140-50 140 50-140 50z"/>
+    <path d="M430 286v60c0 35 70 35 70 0v-60"/>
+    <path d="M570 285v75" stroke-width="5"/>
+    <circle cx="570" cy="365" r="8" fill="#a74635" stroke="none"/>
+    
+    <!-- Rolled Diploma Scroll on ground -->
+    <path d="M300 450c0-16 14-28 30-28h180c16 0 30 12 30 28s-14 28-30 28H330c-16 0-30-12-30-28z"/>
+    <ellipse cx="330" cy="450" rx="12" ry="28"/>
+    <path d="M420 422v56" stroke="#a74635" stroke-width="8"/>
+  </g>
+
+  <!-- Center divider / exchange arrow -->
+  <g stroke="#a74635" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M680 340h50m-15-15l15 15-15 15"/>
+    <path d="M730 380H680m15-15l-15 15 15 15"/>
+  </g>
+
+  <!-- Right: Token Terminal & Compute Meter -->
+  <g fill="none" stroke="#1f2429" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Terminal Screen -->
+    <rect x="800" y="210" width="350" height="260" rx="10" fill="#fbf9f5"/>
+    <line x1="800" y1="265" x2="1150" y2="265" stroke="#1f2429" stroke-width="4"/>
+    <circle cx="830" cy="238" r="6" fill="#1f2429"/>
+    <circle cx="855" cy="238" r="6" fill="#1f2429"/>
+    <circle cx="880" cy="238" r="6" fill="#1f2429"/>
+
+    <!-- Prompt line -->
+    <path d="M835 315l12 12-12 12" stroke="#a74635" stroke-width="6"/>
+    <line x1="865" y1="327" x2="930" y2="327" stroke="#a74635" stroke-width="6"/>
+
+    <!-- Token Coin Stack / Quota bar -->
+    <rect x="835" y="375" width="280" height="30" rx="6" stroke="#1f2429" stroke-width="5"/>
+    <rect x="840" y="380" width="180" height="20" rx="3" fill="#a74635" stroke="none"/>
+    <circle cx="1060" cy="390" r="8" fill="#1f2429" stroke="none"/>
+
+    <!-- Token Balance Metric Cards -->
+    <circle cx="880" cy="435" r="18" stroke="#1f2429" stroke-width="5"/>
+    <text x="880" y="441" font-family="monospace" font-size="16" font-weight="900" fill="#1f2429" text-anchor="middle">T</text>
+    <line x1="915" y1="435" x2="1080" y2="435" stroke="#1f2429" stroke-width="5" stroke-dasharray="10 8"/>
+  </g>
+
+  <!-- Accent accents -->
+  <g stroke="#a74635" stroke-width="4" stroke-linecap="round" opacity=".5">
+    <line x1="220" y1="170" x2="270" y2="210"/>
+    <line x1="1200" y1="180" x2="1250" y2="220"/>
+  </g>
+</svg>

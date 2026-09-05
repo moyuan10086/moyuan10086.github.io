@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="收入差距背后，是不同的价值放大结构">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">收入差距背后，是不同的价值放大结构</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">工时只是投入方式之一，规模与稀缺性决定价值能被放大多少次</text>
+  <g><rect x="90" y="175" width="450" height="310" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="118" y="221" class="card-title" text-anchor="start">内容与注意力</text><text x="118" y="263" class="small" text-anchor="start">同一场演出进入大型场馆</text><text x="118" y="295" class="small" text-anchor="start">传播继续覆盖全球受众</text><text x="118" y="327" class="small" text-anchor="start">稀缺身份带来高溢价</text></g><g><rect x="660" y="175" width="450" height="310" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="688" y="221" class="card-title" text-anchor="start">软件与网络效应</text><text x="688" y="263" class="small" text-anchor="start">同一套代码服务更多用户</text><text x="688" y="295" class="small" text-anchor="start">复制成本接近于零</text><text x="688" y="327" class="small" text-anchor="start">产品价值不按个人工时增长</text></g><text x="600" y="545" class="body" text-anchor="middle">高收入通常来自“稀缺性 × 规模 × 可复制性”，不等于单纯比较谁更辛苦。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜Eras Tour 与 WhatsApp 案例的结构对照</text>
+</svg>

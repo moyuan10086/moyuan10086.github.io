@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="自动排版早于大模型">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">自动排版早于大模型</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">PowerPoint Designer 已经把专业版式变成可批量调用的推荐</text>
+  <g><rect x="70" y="195" width="260" height="230" rx="8" fill="#f3f5f7" stroke="#58616b" stroke-width="2"/><text x="98" y="241" class="card-title" text-anchor="start">原始素材</text><text x="98" y="283" class="small" text-anchor="start">标题</text><text x="98" y="315" class="small" text-anchor="start">图片</text><text x="98" y="347" class="small" text-anchor="start">零散要点</text></g><g><line x1="350" y1="310" x2="455" y2="310" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="402.5" y="298" class="tiny" text-anchor="middle">版式分析</text></g><g><rect x="475" y="165" width="260" height="290" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="503" y="211" class="card-title" text-anchor="start">设计推荐</text><text x="503" y="253" class="small" text-anchor="start">识别内容关系</text><text x="503" y="285" class="small" text-anchor="start">匹配设计蓝图</text><text x="503" y="317" class="small" text-anchor="start">生成多个候选</text></g><g><line x1="755" y1="310" x2="860" y2="310" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/><text x="807.5" y="298" class="tiny" text-anchor="middle">人工选择</text></g><g><rect x="880" y="195" width="250" height="230" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="908" y="241" class="card-title" text-anchor="start">成品页面</text><text x="908" y="283" class="small" text-anchor="start">层级清楚</text><text x="908" y="315" class="small" text-anchor="start">对齐统一</text><text x="908" y="347" class="small" text-anchor="start">视觉更专业</text></g>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜依据 Microsoft PowerPoint Designer 公开说明整理</text>
+</svg>

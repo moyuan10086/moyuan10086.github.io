@@ -1,0 +1,789 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如果机器已经能把活干了，人为什么还得每天上班？ | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="工作不只是生产工具，也是收入入口、社会身份和参与关系。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如果机器已经能把活干了，人为什么还得每天上班？">
+<meta property="og:url" content="https://moyuan10086.github.io/2026/08/28/09-future-work/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="工作不只是生产工具，也是收入入口、社会身份和参与关系。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/ai-series/covers/09-future-work-cover.png">
+<meta property="article:published_time" content="2026-08-28T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-05T16:00:00.000Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="未来工作">
+<meta property="article:tag" content="自动化">
+<meta property="article:tag" content="劳动价值">
+<meta property="article:tag" content="分配凭证">
+<meta property="article:tag" content="社会秩序">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/ai-series/covers/09-future-work-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "如果机器已经能把活干了，人为什么还得每天上班？",
+  "url": "https://moyuan10086.github.io/2026/08/28/09-future-work/",
+  "image": "https://moyuan10086.github.io/images/ai-series/covers/09-future-work-cover.png",
+  "datePublished": "2026-08-28T02:00:00.000Z",
+  "dateModified": "2026-09-05T16:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2026/08/28/09-future-work/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如果机器已经能把活干了，人为什么还得每天上班？',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/ai-series/covers/09-future-work-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">如果机器已经能把活干了，人为什么还得每天上班？</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">如果机器已经能把活干了，人为什么还得每天上班？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-28T02:00:00.000Z" title="发表于 2026-08-28 10:00:00">2026-08-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T16:00:00.000Z" title="更新于 2026-09-06 00:00:00">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%97%B6%E4%BB%A3%E6%8A%80%E6%9C%AF%E4%BA%BA%E6%88%90%E9%95%BF%E7%B3%BB%E5%88%97/">AI时代技术人成长系列</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>我最近看到过一句挺怪，但越想越有意思的话。</p>
+<p>大概意思是：</p>
+<p><strong>很多工作存在的意义，可能不是社会真的缺你这八个小时的产出。</strong></p>
+<p><strong>而是社会需要一个理由——给你发钱。</strong></p>
+<p>这句话第一眼看起来很像段子。</p>
+<p>甚至有点阴谋论味。</p>
+<p>毕竟绝大多数企业不是慈善机构。一个岗位如果完全没有需求，公司没有理由每个月真金白银给你发工资。把现代工作简单理解成“社会故意制造一堆活，让大家忙起来”，显然太粗暴。</p>
+<p>但如果把这句话稍微改一下，它碰到的问题就不一样了：</p>
+<p><strong>如果机器越来越能干，生产效率越来越高，很多东西已经不需要那么多人亲手生产，为什么绝大多数人还是得每天准时上班？</strong></p>
+<p>这里有一个“如果”。</p>
+<p>而且这个“如果”很重要。</p>
+<p>AI到底会不会让社会需要的总劳动量持续下降？</p>
+<p>新职业会不会像过去两百年一样继续出现？</p>
+<p>被机器替代的人，会不会又被新的服务业、新产业、新需求吸收进去？</p>
+<p>没人知道。</p>
+<p>所以这篇文章不是在预言“未来一定会没有工作”。</p>
+<p>它更像一次压力测试。</p>
+<p>先做一个并不确定、但已经值得认真考虑的假设：</p>
+<p><strong>如果自动化降低人的生产必要性的速度，开始快过新任务创造、劳动再配置、教育转型和制度调整，会发生什么？</strong></p>
+<p>如果这个前提不成立，后面很多问题自然不会以最尖锐的形式出现。</p>
+<p>如果它成立了一部分——甚至只对某些行业、某些技能、某些年龄的人成立——我们现在习以为常的一套制度，就会开始承受压力。</p>
+<p>因为我们一直默认一个很简单的逻辑：</p>
+<p>人工作，所以社会生产。社会生产，所以人拿工资。这套逻辑过去非常顺。地没人种，就没粮食。机器没人开，就没产品。矿没人挖，就没原料。你不劳动，东西就不存在。</p>
+<p>真正值得压力测试的，是第一步开始松动之后，第二步还能不能照旧运行。</p>
+<hr>
+<h2 id="生产率转化机制"><a href="#生产率转化机制" class="headerlink" title="生产率转化机制"></a>生产率转化机制</h2><p>1930年，凯恩斯已经想过类似的问题。</p>
+<p>那一年正值大萧条。全世界都在担心经济会不会彻底坏掉，他却写了一篇相当乐观的文章——《我们孙辈的经济可能性》。</p>
+<p>凯恩斯认为，技术进步和资本积累会大幅提高生产率。按照那个速度，再过一百年，发达国家的生活水平可能达到当时的四到八倍。</p>
+<p>到了2030年前后，人为了满足经济需要，也许一周工作十五个小时就够了。</p>
+<p>一天三小时。</p>
+<p>剩下的时间怎么办？</p>
+<p>那反而会成为一个新的问题。现在离2030年已经没几年。十五小时工作周显然没有到来。</p>
+<p>过去解释这件事时，很容易只说一句：</p>
+<p>生产率提高了，但收益没有变成闲暇。这当然是原因之一。却只有一半。</p>
+<p>因为凯恩斯真正做了另一个很重要的假设：</p>
+<p>人的某些需求是可以被满足的。他自己其实区分过两类需求。一种是绝对需求。吃饭、住房、基本生活。另一种是相对需求。</p>
+<p>它取决于别人拥有什么，也取决于一个人希望自己处在什么位置。</p>
+<p>后一种需求，凯恩斯自己就承认可能永远没有尽头。</p>
+<p>九十多年后的现实，比他的乐观设想更接近后一种。</p>
+<p>生产率提高之后，我们没有只购买同样的东西，然后宣布“够了”。</p>
+<p>新的产品出现。新的服务出现。新的生活标准出现。以前没有智能手机。后来有了。以前一家人有一台电视就很好。</p>
+<p>后来一个人可能拥有手机、电脑、平板、耳机、手表和一堆订阅服务。</p>
+<p>很多欲望甚至不是先天然存在，然后等企业来满足。</p>
+<p>生产端本身也在不断发明新的需求、塑造偏好、制造比较。</p>
+<p>经济学家后来重新讨论凯恩斯的十五小时预测时，除了收入分配，也反复提到习惯形成、社会塑造的消费偏好、广告、新产品和“和别人保持同等生活水平”的位置性消费。</p>
+<p>所以：</p>
+<p><strong>社会需要的“总产出”，和社会需要的“总工作时长”，是不是还必须一一对应？</strong></p>
+<p>答案不是简单的“越来越不是”。</p>
+<p>中间还隔着需求。</p>
+<p>一台机器把生产一件商品需要的劳动砍掉90%，我们可以少工作。</p>
+<p>也可以生产十倍。</p>
+<p>还可以创造一种以前不存在的商品，再让所有人继续工作。</p>
+<p>生产率创造的是一个选择空间。</p>
+<p>它不会自动选择闲暇。</p>
+<p>真正决定最后结果的，至少有三股力量：</p>
+<p>技术省掉了多少劳动。社会又创造出了多少新需求。生产率收益最后流向谁。</p>
+<p>如果需求无限扩张，即使分配完全公平，人类也可能继续投入大量时间生产新的东西。</p>
+<p>如果需求增长慢于生产率，而工时还是不降，分配和制度问题才会变得越来越重要。</p>
+<p>这两个机制必须分开。</p>
+<p>因为它们对应的不是同一副药。</p>
+<hr>
+<h2 id="工时压缩机制"><a href="#工时压缩机制" class="headerlink" title="工时压缩机制"></a>工时压缩机制</h2><p>英国四天工作制实验，正好可以拿来做一次小型压力测试。</p>
+<p>2022年，61家机构、约2900名员工参加了为期六个月的实验。</p>
+<p>工时减少20%。</p>
+<p>工资不降。</p>
+<p>员工自报倦怠下降，病假减少，离职率也明显下降。</p>
+<p>能够提供收入数据的23家公司，实验开始到结束期间，平均营收基本持平，小幅增加1.4%。</p>
+<p>这组数字经常被写成：</p>
+<p>少上一天班，收入不仅没掉，还涨了。</p>
+<p>其实不应该这么写。</p>
+<p>第一，61家公司是主动报名参与实验的，并不是随机从英国企业里抽出来的。</p>
+<p>本身愿意报名的企业，很可能就比一般企业更适合尝试弹性制度。</p>
+<p>第二，实验只有六个月。</p>
+<p>短期维持产出，不代表长期在所有行业都能持续。</p>
+<p>第三，61家公司里只有23家提供了实验起点到终点的营收数据。</p>
+<p>1.4%本身也非常小。</p>
+<p>所以这组实验真正能承受的结论，应该收窄一些：</p>
+<p><strong>至少在这一批自愿参加、经过准备的企业里，把工时减少20%，并没有机械地导致产出同步减少20%。</strong></p>
+<p>这已经很有意思了。</p>
+<p>因为下一步的问题不是：</p>
+<p>四天工作制是不是正确答案？</p>
+<p>而是：</p>
+<p><strong>那20%的时间，到底从哪里切下来的？</strong></p>
+<p>参与企业缩短会议。减少冗长的邮件。重新设计工作交接。设置不被打扰的专注时间。</p>
+<p>一些过去又长、参加人数又多的会议被缩短或者取消。</p>
+<p>说明标准八小时工作制里，确实存在一些不直接转化为核心产出的部分。</p>
+<p>会议。等待。确认。反复沟通。流程。缓冲。可它们也不能统统叫“浪费”。员工闲聊可能是在交换信息。</p>
+<p>一个效率很低的会议，也可能建立了一次真正需要的共识。</p>
+<p>看起来多余的审核，可能是在防止概率很低、代价却很大的错误。</p>
+<p>组织不是一台每个齿轮都能单独测算产出的机器。</p>
+<p>很多工作的意义，只能在整个系统里看到。</p>
+<p>这把问题引向了Graeber。</p>
+<hr>
+<h2 id="组织冗余机制"><a href="#组织冗余机制" class="headerlink" title="组织冗余机制"></a>组织冗余机制</h2><p>David Graeber在《狗屁工作》里，把一种很多办公室劳动者都有过、却很难说清楚的感觉起了名字：</p>
+<p>有些工作明明每天都在做，从事它的人自己却很难解释，它究竟为什么必须存在。</p>
+<p>有人写表。有人审表。有人汇总表。有人开会讨论为什么表没按时交。</p>
+<p>最后再做一张PPT，汇报“提效专项”。</p>
+<p>你说这些活动完全没用吗？</p>
+<p>也不一定。</p>
+<p>你说它们都是不可替代的核心生产吗？</p>
+<p>好像也很难。</p>
+<p>这也是Graeber最需要被往前推一步的地方。</p>
+<p>后来真有人拿劳动调查检验过他的判断。</p>
+<p>欧洲数据并没有发现Graeber想象中那么大规模的“自认毫无社会用途的工作”，研究者认为糟糕管理、异化和组织环境可能解释了不少这种体验。</p>
+<p>后续美国数据又重新给了Graeber一部分支持。</p>
+<p>所以真正有意思的，不是争论社会里到底有4%、10%还是30%的工作属于“狗屁工作”。</p>
+<p>而是：</p>
+<p><strong>为什么生产力越来越强以后，人类没有单纯减少工作，反而不断创造协调、管理、审核、沟通和证明自己正在工作的活动？</strong></p>
+<p>这可能就是现代大型组织最奇怪的地方：</p>
+<p><strong>生产力越强，组织本身的复杂度也越高。</strong></p>
+<p>机器省掉一部分体力劳动。</p>
+<p>人类又创造出大量协调、管理、审核、沟通工作。</p>
+<p>有时候技术确实消灭了一种工作。</p>
+<p>然后流程又发明了另外三种。</p>
+<p>这其实构成了对本文主论点的一个反驳。</p>
+<p>如果这个机制一直存在，所谓“生产必要性下降”可能根本没有想象得快。</p>
+<p>机器砍掉生产任务。</p>
+<p>组织复杂度再长出新的工作。</p>
+<p>两百年的工业史里，这种现象并不少见。</p>
+<p>农业需要的人少了。</p>
+<p>制造业吸收劳动力。</p>
+<p>制造业提高效率以后，商业、行政、金融、医疗、教育、咨询、娱乐和各种服务继续扩张。</p>
+<p>美国长期数据里，服务业占非农就业的比重从1939年的62.4%继续上升；OECD数据里，服务业后来已经吸收了七成以上就业。</p>
+<p>所以AI真正值得盯的地方，也许不是：</p>
+<p>它会不会写代码。会不会画图。会不会翻译。</p>
+<p>甚至不只是它能不能取代某一个“核心任务”。</p>
+<p>而是：</p>
+<p><strong>它能不能开始吃掉过去一直替人类吸收就业的协调成本本身。</strong></p>
+<p>总结会议。整理纪要。同步项目。审阅文件。填报材料。回答内部问题。调度任务。生成汇报。做第一轮审核。维护大量组织内部的信息流。</p>
+<p>恰好都是今天的大语言模型特别容易介入的东西。</p>
+<p>如果AI只能提高核心生产效率，却又制造出越来越复杂的监督、审核和协调系统，那么组织冗余仍然可能成为劳动的避难所。</p>
+<p>如果AI连这层冗余也能大量压缩，那就不一样了。</p>
+<p><strong>机器以前主要在替代“做事”。</strong></p>
+<p><strong>AI开始有机会连“组织人做事”本身一起自动化。</strong></p>
+<p>全文真正的技术分水岭，也许在这里。</p>
+<hr>
+<h2 id="劳动再配置机制"><a href="#劳动再配置机制" class="headerlink" title="劳动再配置机制"></a>劳动再配置机制</h2><p>即便如此，还有一个比“组织会继续创造工作”更标准的反驳。</p>
+<p>劳动会再配置。</p>
+<p>一台机器能比人更快织布，不等于所有人从此没有事做。</p>
+<p>织布便宜以后，商品价格下降，真实收入提高，人又会把钱花在别的地方。</p>
+<p>旅游。餐饮。护理。教育。健身。娱乐。心理服务。面对面体验。新的需求创造新的岗位。机器擅长的事情价格会下降。</p>
+<p>人的时间则向机器不划算、暂时不会做，或者消费者本来就更愿意让人来做的事情移动。</p>
+<p>过去几十年服务业就业持续扩大，本身就是这套机制真实存在的证据。自动化也不只是替代劳动，它同时可以提高人的生产率、降低价格、扩大需求，再反过来增加其他地方的劳动需求。David Autor在讨论“为什么还有这么多工作”时，强调的正是自动化和劳动之间这种替代与互补同时存在的关系。</p>
+<p>所以“AI碰的是通用能力”不能当成一句万能回应。</p>
+<p>通用能力被碰到，也不意味着人类的比较优势消失。</p>
+<p>只要机器和人的相对成本仍然不同，总有一些任务在人这里更划算。</p>
+<p>照护就是最典型的例子。</p>
+<p>一个养老机器人也许可以完成大量技术动作。</p>
+<p>老人仍然可能愿意付钱，让一个真人陪他说话。</p>
+<p>AI可以生成一堂课。</p>
+<p>家长可能依然愿意为真人教师的监督、责任和关系付费。</p>
+<p>于是最乐观的版本完全可能成立：</p>
+<p>AI夺走旧任务。相对价格变化。需求转移。人类又进入新的工作。</p>
+<p>这时候，真正值得保留的问题不再是：</p>
+<p>“以后人还有没有事情做？”</p>
+<p>而是另一句。</p>
+<p><strong>比较优势保证人有事做，但不保证工资高于生存线。</strong></p>
+<p>严格说，经济学里的比较优势甚至不能保证现实世界里没有失业摩擦、地区错配和技能错配。</p>
+<p>但这句话抓住了更重要的一层：</p>
+<p>即使市场最终能给几乎每个人重新找到某种任务，也完全不意味着这些任务的市场价格足以支持过去那种生活。</p>
+<p>自动化最可能产生的伤口，本来就未必首先表现为“人彻底没有工作”。</p>
+<p>它可以表现为工资。</p>
+<p>Acemoglu和Restrepo对美国自动化与工资不平等的研究发现，过去数十年里，自动化造成的任务位移与一些劳动群体的相对工资下降有很强关系。</p>
+<p>这就把整篇文章的支点往前推了一步。</p>
+<p>以前我们总觉得：</p>
+<p>技术会淘汰岗位，但不会淘汰人的经济必要性。</p>
+<p>旧工作没了。</p>
+<p>新工作会来。</p>
+<p>真正需要压力测试的其实是：</p>
+<p><strong>新工作来了以后，它还能不能提供旧工作曾经提供的收入、保障、议价能力和社会位置？</strong></p>
+<p>一个程序员失去工作，最后当然可能找到护理、销售、餐饮或者其他服务岗位。</p>
+<p>“还有工作”这个命题并没有被破坏。</p>
+<p>但如果新的市场价格只有旧收入的三分之一，他面对的房贷不会跟着自动变成三分之一。</p>
+<p>孩子的教育成本不会。</p>
+<p>房租不会。</p>
+<p>过去几十年围绕中产工资建立起来的整套生活结构也不会。</p>
+<p>于是问题慢慢从：</p>
+<p>“还有多少事情，是必须由你来做的？”</p>
+<p>变成另一个更准确的问题：</p>
+<p><strong>“剩下那些必须由你来做的事情，市场还愿意付多少钱？”</strong></p>
+<p>到这里：</p>
+<p><strong>市场暂时没有足够强的理由，为他的时间付钱。</strong></p>
+<p>就不再只是一句修辞。它有了一个具体机制。人仍然有比较优势。</p>
+<p>只是比较优势对应的市场价格，可能已经低到无法维持原来的分配身份。</p>
+<hr>
+<h2 id="职业打包机制"><a href="#职业打包机制" class="headerlink" title="职业打包机制"></a>职业打包机制</h2><p>这时候再回头看现代社会里的“工作”，就会发现它从来不只是完成一个生产任务。</p>
+<p>Hannah Arendt在《人的境况》里区分了劳动、工作与行动。</p>
+<p>原来把她简单写成“三种功能后来被现代职业打包在一起”，还是有点太松。</p>
+<p>因为Arendt本身对现代社会的判断没有这么温和。</p>
+<p>在她那里，劳动首先对应维持生命的必然性。</p>
+<p>工作创造一个相对持久的人造世界。</p>
+<p>行动则发生在人与人之间，与语言、公共生活、自由和“一个人是谁”的呈现有关。</p>
+<p>而现代性的问题之一，恰恰是“社会”的扩张让经济、生产和维持生命的逻辑侵入了公共领域，最终出现她所谓animal laborans的胜利。</p>
+<p>人的活动越来越被生产、消费、效率和维持生活本身所定义。</p>
+<p>行动反而被挤压。</p>
+<p>顺着这个意思往下看，现代职业身份反而显得更有意思。</p>
+<p>我们今天问：</p>
+<p>“你是做什么的？”</p>
+<p>几乎天然地期待一个职业答案。程序员。教师。医生。律师。销售。职业不仅告诉别人一个人靠什么挣钱。</p>
+<p>它还在很大程度上回答：</p>
+<p>你每天去哪里。你和谁发生关系。你在什么组织里拥有位置。你的时间如何被安排。社会大概应该怎样评价你。所以现代职业确实承担了很多功能。</p>
+<p>但从Arendt的角度看，这未必是一个幸福的“三合一”。</p>
+<p>它更像是：</p>
+<p><strong>我们已经习惯让谋生这件事，替我们吞掉越来越多关于身份、公共参与和人生结构的问题。</strong></p>
+<p>工作还是身份系统。还是社交系统。还是时间组织系统。但这件事本身也许正是症状。一个标准全职工作规定你几点起床。规定你白天在哪里。规定你跟谁合作。规定你一周大部分时间干什么。甚至一定程度上规定你怎么介绍自己。这套结构稳定得惊人。</p>
+<p>也正因为它太稳定，我们才很容易误以为：</p>
+<p>收入、身份、时间和社会参与，天然就应该由同一个东西提供。</p>
+<p>其实不是。</p>
+<p>它只是长期被职业绑在了一起。</p>
+<hr>
+<h2 id="就业纪律与需求反馈"><a href="#就业纪律与需求反馈" class="headerlink" title="就业纪律与需求反馈"></a>就业纪律与需求反馈</h2><p>1943年，Michał Kalecki在《充分就业的政治方面》里讨论过另一个问题。</p>
+<p>如果充分就业能够提高整个经济的需求，企业为什么仍然可能反对一种长期稳定的充分就业政策？</p>
+<p>其中一个原因是权力。</p>
+<p>如果劳动者知道离开这家公司，很快就能找到下一份工作，“失去工作”的威慑就会下降。</p>
+<p>工人的自信和议价能力会上升。</p>
+<p>管理者用失业维持纪律的能力则会下降。</p>
+<p>所以失业不只是经济状态。</p>
+<p>它还塑造权力。</p>
+<p>但只用Kalecki的这一半，也会把文章再次推向单向度。</p>
+<p>因为资本和劳动之间不只有“企业希望工资越低越好”这一股力量。</p>
+<p>还有需求。</p>
+<p>一家企业当然希望自己的工资成本下降。</p>
+<p>所有企业如果同时把普通人的收入压得越来越低，另一个问题会出现：</p>
+<p><strong>谁来买越来越高效的机器生产出来的东西？</strong></p>
+<p>这里经常会有人讲福特“五美元日薪”的故事：</p>
+<p>福特给工人涨工资，是为了让工人买得起自己生产的汽车。</p>
+<p>这个故事不宜讲得太漂亮。</p>
+<p>关于1914年五美元工作日的研究显示，福特面对的一个直接问题是流水线带来的惊人离职和缺勤，高工资很大程度上是一种效率工资：稳定劳动力、减少流失、提高生产率。</p>
+<p>但那个故事之所以流传这么久，是因为它确实抓到了一个宏观逻辑：</p>
+<p><strong>工资既是企业的成本，也是经济里的购买力。</strong></p>
+<p>对单个企业来说，少发一份工资可能总是好事。</p>
+<p>对整个经济来说，如果劳动收入下降得足够多，商品需求也会受到影响。</p>
+<p>这就是为什么自动化不存在一条可以无限向下滑的简单路径：</p>
+<p>机器越来越强。工资越来越低。利润越来越高。直到所有人都没有收入。系统本身会产生反馈。需求不足会反过来打击利润。选举会产生压力。社会政策会发生调整。工人会组织。</p>
+<p>新的企业可能从扩大大众购买力中获益。</p>
+<p>分配不是一个纯粹的外部道德问题。</p>
+<p>它在一定程度上也内生于资本主义自己的需求循环。</p>
+<p>阿拉斯加永久基金甚至提供了一个很有意思的小型例子。</p>
+<p>当地居民长期获得年度现金分红。一项发表于《American Economic Journal: Economic Policy》的研究发现，这种普遍现金转移没有显著降低总体就业，研究者认为一个重要原因，就是拿到现金的人会消费，消费本身又增加本地服务业的劳动需求。</p>
+<p>钱发出去。劳动供给可能下降一点。总需求却会上升。两股力量同时存在。</p>
+<p>这比“大家领钱以后都不工作了”或者“发钱什么问题都能解决”都更接近真实经济。</p>
+<hr>
+<h2 id="生产必要性递减机制"><a href="#生产必要性递减机制" class="headerlink" title="生产必要性递减机制"></a>生产必要性递减机制</h2><p>这也是为什么AI时代更值得观察的，不是某一天突然发生的“全员失业”。</p>
+<p>现实大概没有这么整齐。</p>
+<p>更可能发生的是：</p>
+<p>一个部门以前十个人，现在七个人配AI就够。</p>
+<p>后来五个人。</p>
+<p>一个任务以前需要两天，现在两个小时结束。</p>
+<p>岗位还在。真正需要人干的部分少了一点。工资议价变弱一点。初级岗位少一点。招聘标准再高一点。</p>
+<p>2026年，《南方周末》报道过杭州一起和AI有关的劳动争议。</p>
+<p>一名AI问句质检主管，原来的工作就是检查AI生成答案的质量。</p>
+<p>模型能力提高以后，公司认为人工质检需求下降。</p>
+<p>后来，他被辞退。</p>
+<p>代理律师用了一个很有黑色幽默感的说法：</p>
+<p>“自己把自己干掉了。”</p>
+<p>案件本身最后并没有证明“AI已经完全替代这个岗位”。</p>
+<p>恰恰相反，公司甚至无法证明相关岗位已经真正消失。</p>
+<p>这反而让它更有代表性。岗位还在。工作还在。</p>
+<p><strong>只是不再需要那么多人了。</strong></p>
+<p>很多人谈AI失业，会把问题想成一个开关。</p>
+<p>今天有工作。明天AGI来了。啪。全员失业。更值得担心的也许不是这个。而是一种没有明确爆炸点的变化。十个人变九个人。九个人变七个人。新人暂时不招。离职的人不再补。工资增长慢一点。自由职业报价被压一点。系统看起来一直正常。被释放出来的人也不断进入新的行业。</p>
+<p>宏观就业率甚至可以没有灾难性的变化。</p>
+<p>可某些群体的议价能力和收入已经开始移动。</p>
+<p>所以所谓“无用之人”最危险的地方，不是说某些人真的“没有价值”。</p>
+<p>而是：</p>
+<p><strong>在现有经济体系里，一个人可能越来越难证明自己具有“被高价雇佣的必要性”。</strong></p>
+<p>这里最好加上“高价”两个字。</p>
+<p>因为劳动再配置告诉我们：</p>
+<p>市场可能仍然知道把你放在哪里。</p>
+<p>只是那个位置未必给得起你原来的生活。</p>
+<p>一个人会照顾家人。会写东西。会做社区服务。会陪伴别人。会研究自己真正感兴趣的问题。</p>
+<p>会创造很多很难直接写进财务报表里的价值。</p>
+<p>市场并不因此必须给这些事情一个足够高的价格。</p>
+<p><strong>市场价格从来不等于人的价值。</strong></p>
+<p>真正容易出问题的是，我们又恰好把大量生活资格绑在市场价格上。</p>
+<hr>
+<h2 id="分配验证机制"><a href="#分配验证机制" class="headerlink" title="分配验证机制"></a>分配验证机制</h2><p>这就回到最开始那句话：</p>
+<p>社会为什么需要一个理由给你发钱？</p>
+<p>一个更硬的答案不是“因为大家观念保守”。</p>
+<p>也不只是Kalecki意义上的纪律。</p>
+<p>工作制度还有一个非常朴素的优势：</p>
+<p><strong>它是一套已经成熟到几乎不需要重新证明的分配验证机制。</strong></p>
+<p>一家企业愿意每个月给你一万元。</p>
+<p>这个信息本身已经完成了很多事情。</p>
+<p>企业在告诉社会：</p>
+<p>你的劳动至少在这里值这个价格。工资通过银行进入你的账户。雇主留下工资和税务记录。政府可以据此征税。社保可以据此缴纳。银行可以拿它判断还款能力。</p>
+<p>你甚至不需要向全社会证明自己“为什么配拿这一万元”。</p>
+<p>企业替你完成了这个证明。</p>
+<p>这种验证高度分散。</p>
+<p>不是国家每天派人检查每个成年人到底贡献了多少社会价值。</p>
+<p>市场里无数组织自己判断：</p>
+<p>这个人值不值得雇。值多少钱。然后用真钱投票。从制度角度看，它非常省事。</p>
+<p>“你工作，所以你拿钱。”</p>
+<p>每个人都听得懂。有投入。有交换。有第三方记录。还符合长期形成的公平直觉。</p>
+<p>这大概是工作作为分配入口如此顽固的一个原因。</p>
+<p>如果不用工作来分，另一套合法性就得出现。</p>
+<p>这里需要注意：</p>
+<p>UBI本身反而不需要复杂地核查“谁够穷、谁够资格”。</p>
+<p>它最大的制度优势之一，正是少掉了收入审查、资产核验和反复证明贫困的行政成本。</p>
+<p>真正困难的是另一边：</p>
+<p>钱从哪里来？</p>
+<p>为什么这个税率是合理的？</p>
+<p>为什么不工作的人和工作的人都拿？</p>
+<p>基础收入应该占社会产出的多少？</p>
+<p>自动化形成的利润为什么应该被社会分享？</p>
+<p>也就是说，UBI降低的是<strong>个人资格核验成本</strong>。</p>
+<p>它增加的政治难题，是<strong>财政来源和分配合法性</strong>。</p>
+<p>职业这套旧系统最强的地方，恰恰在于这两个问题长期被合并了。</p>
+<p>你不需要讨论一个人的“生存资格”。</p>
+<p>工资已经替社会回答了。</p>
+<hr>
+<h2 id="就业资产机制"><a href="#就业资产机制" class="headerlink" title="就业资产机制"></a>就业资产机制</h2><p>Philippe Van Parijs关于基本收入的论证，到了这里才真正有用。</p>
+<p>他并不只说 穷人没钱，所以给他们发钱。 在《所有人的真实自由》中，他甚至把好工作本身视为一种稀缺资产。</p>
+<p>一份稳定岗位带来的不只是工资。还有履历。保障。社会网络。未来机会。信用。身份。</p>
+<p>如果这样的岗位数量有限，拥有它的人事实上也占据了一种稀缺资源。</p>
+<p>Van Parijs因此主张的不是随便一个数字，而是所谓“最高可持续的基本收入”——在不破坏整个制度可持续性的前提下，尽量扩大所有人的真实选择能力。</p>
+<p>这里的关键词不是躺平。</p>
+<p>是退出能力。</p>
+<p>一个账户里有两百万的人，和一个账户里只剩两百块的人，在法律上都有辞职自由。</p>
+<p>现实里显然不是同一种自由。</p>
+<p>如果一个人拒绝一份极差的工作以后，马上就付不起房租，那这份“自由”大部分只是纸面上的。</p>
+<p>所以基本收入真正改变的，不只是贫困。</p>
+<p>它会改变谈判关系。</p>
+<p>人有一点退出能力以后，企业要把他重新叫回来，就得提供一个更好的理由。</p>
+<p>更高的工资。更好的环境。更好的自主权。或者至少让那件工作没那么糟。</p>
+<p>这也是为什么“钱从哪里来、公平不公平”不能列完问题就结束。</p>
+<p>现实世界已经有一些不完整的样本。</p>
+<hr>
+<h2 id="资本所有权机制"><a href="#资本所有权机制" class="headerlink" title="资本所有权机制"></a>资本所有权机制</h2><p>阿拉斯加永久基金就是其中一个。</p>
+<p>石油资源形成一笔公共资产，基金投资产生收益，再向符合条件的居民发年度分红。</p>
+<p>这不是完整的UBI。</p>
+<p>金额远没有高到足以让人退出劳动市场。</p>
+<p>但它至少证明了一件事：</p>
+<p><strong>资本收益并不天然只能作为私人资产持有者的收入。</strong></p>
+<p>一部分生产资料或资源收益，可以通过制度安排变成全民都拥有一小份索取权。阿拉斯加官方对永久基金分红的表述，本身就是让居民分享州矿产资源收益。</p>
+<p>挪威走的是另一条路。</p>
+<p>它没有把主权财富基金每年平均切成现金直接发给每个公民。</p>
+<p>石油收入和基金投资收益进入Government Pension Fund Global，再按照财政规则逐步进入公共预算。</p>
+<p>两种模式都不能直接复制到AI上。</p>
+<p>石油有明确的地下资源产权。</p>
+<p>“AI创造的价值”要复杂得多。</p>
+<p>模型属于公司。</p>
+<p>算力属于投资者。</p>
+<p>数据来源横跨企业、个人和公共互联网。</p>
+<p>但它们至少给出了一个比“以后再讨论怎么分钱”更具体的问题：</p>
+<p><strong>如果自动化不断提高资本在生产中的作用，普通人能不能不只以劳动者身份分享生产率增长，还以某种资产所有者身份参与？</strong></p>
+<p>这条路可以长出很多完全不同的政策：</p>
+<p>主权财富基金。</p>
+<p>公共持股。</p>
+<p>养老金和全民基金持有更多生产性资产。</p>
+<p>职工持股。利润分享。自动化税或超额利润税。</p>
+<p>再把一部分收益变成公共服务、社会保障或现金分红。</p>
+<p>它们未必都对。</p>
+<p>“机器人税”甚至可能抑制真正有价值的投资。</p>
+<p>但至少问题开始落到抓手上了。</p>
+<p>因为如果AI时代最核心的变化真的是：</p>
+<p>劳动在生产里的边际重要性下降，资本、模型和平台的重要性上升，那么只讨论“怎么给失业者发补贴”很可能永远是在下游补洞。</p>
+<p>更上游的问题是：</p>
+<p><strong>谁拥有机器？</strong></p>
+<p>这才决定机器赚钱以后，第一笔钱流向哪里。</p>
+<hr>
+<h2 id="闲暇分层机制"><a href="#闲暇分层机制" class="headerlink" title="闲暇分层机制"></a>闲暇分层机制</h2><p>同样，“让人少工作”也不能只看时间。</p>
+<p>2026年，《南方周末》写过北京马驹桥的零工市场。</p>
+<p>每天有人在那里等日结工作。</p>
+<p>有人喊：</p>
+<p>“8小时200块，有去的吗？”</p>
+<p>马上就有人围过去。</p>
+<p>报道里有一句话特别扎眼：</p>
+<p><strong>“没找到工作就是放假。”</strong></p>
+<p>这句话和英国四天工作制放在一起，几乎是两个世界。</p>
+<p>英国实验里的员工少上一天班。叫三天周末。日结工少上一天班。也叫放假。都是二十四小时。性质完全不同。一个人的工资没有下降。另一个人当天就是少了收入。一个人获得了闲暇。另一个人获得的是不确定性。</p>
+<p>所以：</p>
+<p><strong>只有当减少劳动不会同步摧毁生活保障时，空出来的时间才真正叫闲暇。</strong></p>
+<p>这也是Russell的“闲散”最容易被浪漫化的地方。</p>
+<p>闲暇从来不是“没有工作”四个字。它需要资源。安全感。教育。公共空间。社会关系。</p>
+<p>甚至需要一个社会允许一个人不靠忙碌来证明自己值得尊重。</p>
+<p>否则所谓“被机器解放”，完全可能只是从办公室释放到失业市场。</p>
+<hr>
+<h2 id="职业拆包机制"><a href="#职业拆包机制" class="headerlink" title="职业拆包机制"></a>职业拆包机制</h2><p>到这里，再看最开始那句话：</p>
+<p><strong>很多工作存在的意义，可能不是社会真的缺你这八小时的产出，而是社会需要一个理由——给你发钱。</strong></p>
+<p>它不能当结论。</p>
+<p>但它确实是一个好问题。</p>
+<p>因为它逼着我们区分几件以前经常混在一起的东西：</p>
+<p><strong>生产。</strong></p>
+<p><strong>收入分配。</strong></p>
+<p><strong>人的社会位置。</strong></p>
+<p>过去，这几件事都被“职业”一把打包了。</p>
+<p>你上班。你生产。你拿工资。你缴社保。你拥有履历。你加入一个组织。你知道周一到周五该干什么。别人也知道大概应该怎么评价你。</p>
+<p>很多时候，我们已经习惯到察觉不到这种绑定。</p>
+<p>一个人失业。</p>
+<p>我们的第一反应往往不仅是：</p>
+<p>“他暂时没有工资了。”</p>
+<p>还会下意识觉得：</p>
+<p>“他现在在干吗？”</p>
+<p>“为什么还没找到工作？”</p>
+<p>“是不是能力不行？”</p>
+<p>这恰恰说明，工作早就不只是收入来源。</p>
+<p>它已经变成一种社会合法性。你每天很忙。说明你在参与社会。你有职位。说明你在某个系统里有位置。你工资高。</p>
+<p>往往还会进一步被推导成：</p>
+<p>你能力强。你重要。你成功。这些推导当然并不总成立。</p>
+<p>但它们已经深深嵌进了我们的评价体系。</p>
+<p>所以AI和自动化真正麻烦的地方，也许就在于：</p>
+<p><strong>它们开始有能力把这个包拆开。</strong></p>
+<p>注意，是“有能力”。不是“必然”。生产可能不再需要那么多人。也可能长出新需求重新把人吸进去。协调岗位可能继续增加。也可能被LLM一起吞掉。人类可能总有比较优势。但比较优势对应的工资可能下降。需求不足可能迫使系统重新分配。</p>
+<p>也可能因为政治力量薄弱，修正发生得很慢。</p>
+<p>这才是一篇压力测试真正应该保留的不确定性。</p>
+<hr>
+<h2 id="制度触发机制"><a href="#制度触发机制" class="headerlink" title="制度触发机制"></a>制度触发机制</h2><p>机器替代一个任务，可以很快。模型升级一次。API价格降一点。部署成本再低一点。原来不划算的自动化突然就划算了。制度当然慢得多。</p>
+<p>但“制度按十年变”还不是最值得担心的地方。</p>
+<p>历史上的很多制度变化，并不是时间到了自然更新。</p>
+<p>八小时工作制。工会权利。社会保险。失业保障。大规模福利国家。</p>
+<p>它们往往都不是某群专家在办公室里发现制度落后，然后主动安装了新版本。</p>
+<p>更常见的是：</p>
+<p>旧制度积累到一定压力。危机集中爆发。有组织的利益集团提出要求。政治系统终于不得不回应。这让AI时代出现一个很麻烦的可能。</p>
+<p>如果变化真像前面说的那样：</p>
+<p>不是某一天三千万人同时失业。而是岗位少一点。工资慢一点。入口岗位缩一点。自由职业价格再降一点。</p>
+<p>一个团队十五个人变十二个，再变九个。</p>
+<p>每一次变化都不够大。每一个受损者也不完全属于同一行业。损失被分散在几年甚至十几年里。</p>
+<p>那么它反而可能比一次猛烈危机更难形成政治触发。</p>
+<p>没有一个明确的爆炸点。也没有一个天然组织起来的共同身份。程序员觉得自己是程序员。设计师觉得自己是设计师。客服觉得自己是客服。外卖员觉得自己和白领不是同一种人。</p>
+<p>可他们可能正在承受同一个机制：</p>
+<p><strong>劳动仍然有用，只是它能够索取的价格和稳定性在下降。</strong></p>
+<p>如果这种变化是温火慢炖的，制度时差可能不会因为技术变化更快而自动缩短。</p>
+<p>反而可能更长。</p>
+<p>这才是“制度时差”真正危险的地方。</p>
+<hr>
+<h2 id="生产资格压力测试"><a href="#生产资格压力测试" class="headerlink" title="生产资格压力测试"></a>生产资格压力测试</h2><p>走到这里，文章一开始那个“如果”应该重新拿出来。</p>
+<p>我们并不知道AI最后会不会显著降低全社会需要的劳动总量。</p>
+<p>需求可能继续扩张。新职业可能继续出现。服务业可能继续吸纳劳动力。比较优势不会凭空消失。组织复杂度也可能不停创造新任务。</p>
+<p>总需求下降以后，经济和政治系统还会产生反作用。</p>
+<p>所以把未来直接写成：</p>
+<p>机器负责生产，人失去工作，旧制度彻底崩塌，太简单了。</p>
+<p>真正值得提前讨论的是另一种没那么戏剧化的可能：</p>
+<p>总就业并没有消失。人也一直有事做。社会的商品越来越丰富。自动化生产率越来越高。</p>
+<p><strong>但一部分人能够出售的劳动，价格和稳定性越来越不足以支撑旧的生活结构。</strong></p>
+<p>如果这个压力测试最终没有发生，大概最好。</p>
+<p>如果它只在少数职业上发生，那就是一个产业转型问题。</p>
+<p>如果它开始扩散到越来越多行业，我们就会逐渐碰到一个今天看起来还很哲学的问题：</p>
+<p><strong>一个人的收入资格，到底应不应该完全取决于他的市场生产力？</strong></p>
+<p>过去，这个问题很容易被回避。因为社会总能找到很多活。马车夫少了。工厂来了。工厂用人少了。办公室和服务业来了。</p>
+<p>办公室自动化以后，还可以告诉人：</p>
+<p>去学新技能。</p>
+<p>只要新的高质量工作持续创造，这套回答就一直有效。</p>
+<p>真正需要警惕的不是“新工作完全不出现”。</p>
+<p>而是：</p>
+<p>新工作仍然出现，却越来越难提供旧岗位原本提供的收入、保障、身份和谈判能力。</p>
+<p>到那一步，真正稀缺的甚至不是事情。</p>
+<p>而是：</p>
+<p><strong>一份足够值钱、足够稳定，能够让人合理参与分配的身份。</strong></p>
+<p>这时候“无用之人”这个词最危险的地方，也就出来了。</p>
+<p>不是某些人突然没有价值。</p>
+<p>不是一个会照顾孩子、陪伴家人、研究问题、创造作品、帮助社区的人，因为AI会写PPT就变成了“没用的人”。</p>
+<p>真正发生变化的是：</p>
+<p><strong>市场暂时没有足够强的理由，为他的时间支付足够高的价格。</strong></p>
+<p>而我们又恰好把工资、保障、信用、身份和体面，大量绑定在这个价格上。</p>
+<p>所以AI最终逼出来的，也许从来不是：</p>
+<p>“机器能不能把人彻底替掉？”</p>
+<p>而是一连串更现实的问题：</p>
+<p>机器替代任务以后，新的任务在哪里？</p>
+<p>新的任务值多少钱？</p>
+<p>机器带来的利润属于谁？</p>
+<p>需求不足会怎样反过来修正分配？</p>
+<p>人有没有资产收益可以分享？</p>
+<p>公共制度能不能提供退出能力？</p>
+<p>没有职业以后，社会参与和身份又去哪里建立？</p>
+<p>这些问题任何一个都有可能改变结局。所以这不是预报。它只是一次压力测试。</p>
+<p>但压力测试的意义，本来就不是证明大楼一定会塌。</p>
+<p>而是在真正的地震到来之前，找到哪几根梁最可能先裂。</p>
+<p>也许未来技术最终仍然创造出足够多的新职业。</p>
+<p>也许AI只是下一台蒸汽机。</p>
+<p>也许人永远能找到新的比较优势。</p>
+<p>可即使这些最乐观的判断全部成立，有一个问题依然不会自动消失：</p>
+<p><strong>比较优势保证人有事做，但不保证工资高于生存线。</strong></p>
+<p>技术最值得带来的，本来不应该只是一群更高效地上班的人。</p>
+<p>如果机器真的能替人承担越来越多不得不做的劳动，那至少应该让我们有资格重新问一次：</p>
+<p><strong>一个人究竟要在生产体系里证明多少“有用”，才配拥有稳定的生活和体面的社会位置？</strong></p>
+<p>这个问题最后怎么回答，我不知道。</p>
+<p>但它可能比“AI会不会让所有人失业”更接近真正会发生的那场争论。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2026/08/28/09-future-work/">https://moyuan10086.github.io/2026/08/28/09-future-work/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C/">未来工作</a><a class="post-meta__tags" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a><a class="post-meta__tags" href="/tags/%E5%8A%B3%E5%8A%A8%E4%BB%B7%E5%80%BC/">劳动价值</a><a class="post-meta__tags" href="/tags/%E5%88%86%E9%85%8D%E5%87%AD%E8%AF%81/">分配凭证</a><a class="post-meta__tags" href="/tags/%E7%A4%BE%E4%BC%9A%E7%A7%A9%E5%BA%8F/">社会秩序</a></div><div class="post-share"><div class="social-share" data-image="/images/ai-series/covers/09-future-work-cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img class="cover" src="/images/ai-series/covers/10-market-value-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">网红赚得比工程师多，真的是社会分配出了 Bug？</div></div><div class="info-2"><div class="info-item-1">有时候看收入这件事，会产生一种很朴素的困惑。 一个工程师，可能做了几年系统。 白天改 Bug，晚上查日志，服务器半夜炸了，还得爬起来看。最后做出来的产品，也许有几百万、几千万用户，每天稳定运行，几年以后还在给公司赚钱。 另一边，一个主播坐在镜头前聊几个小时，一个 KOL 发一条商单，一个头部博主拍一期视频，一场直播卖掉几千万的货。 有些账号一条广告的报价，可能顶普通人几年工资。 于是很自然会冒出来一句： 凭什么？ 尤其站在技术人的视角看，这件事多少有点别扭。 工程师特别习惯一种价值直觉：东西最好能复用，能规模化，能积累。 今天写一个库，明天还能用；今天搭一套系统，几年以后还能继续跑；一个算法被发明出来，可能执行几亿次；一套基础设施搭好，后面几百个人都能踩在上面继续干活。 那一场直播呢？ 关播以后不就结束了吗？ 一条热搜呢？ 三天以后还有多少人记得？ 一场演唱会、一场比赛、一个爆款视频，好像也差不多。 它们当然让人开心，也能制造话题。可如果把时间拉到几十年、几百年，甚至更夸张一点，拉到整个人类文明的尺度： 它们到底创造了什么？ 这个问题多少有点“工程师味过重”。 但它真正暴露出来的...</div></div></div></a><a class="pagination-related" href="/2026/08/27/08-competition-after-award/" title="比赛拿了一等奖，然后呢？"><img class="cover" src="/images/ai-series/covers/08-competition-after-award-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">比赛拿了一等奖，然后呢？</div></div><div class="info-2"><div class="info-item-1">相信不少认真打过比赛的人，都经历过一种很微妙的时刻。 比赛结束。一等奖。合影拍了。奖状拿了。朋友圈发了。 指导老师在群里发： “祝贺项目团队取得优异成绩。” 大家下面整整齐齐： “感谢老师指导！” 然后过了一周。服务器停了。群安静了。代码没人动了。 PPT 躺在一个叫 最终版-真的最终版-答辩修改版2.pptx 的文件夹里。 半年以后，有学弟来问： “学长，这个项目现在还有人在维护吗？” 你打开 GitHub。 Last commit： 六个月前。 这时候一个多少有点冒犯的问题就出现了： 我们花几个月甚至一两年打比赛，到底得到了什么？ 是那个奖吗？ 是综测分吗？ 是简历上那一行字吗？ 还是那个比赛结束以后，几乎没人再打开的项目？ 我后来越来越觉得： 学生比赛最大的价值，可能恰恰不在比赛结果本身。 它真正珍贵的地方，是大学给了你一个非常罕见的机会—— 用极低的代价，体验一次： “把一件事情真正往前推。” 它很像真的高校为什么这么喜欢办创新创业比赛？ 这件事其实没有那么难理解。 一方面，它当然希望从大量学生项目和科研成果里，真的筛出一些有潜力的东西。 一个实验室做了几年的技术。一个学...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img class="cover" src="/images/ai-series/covers/14-social-order-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-02</div><div class="info-item-2">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</div></div><div class="info-2"><div class="info-item-1">人类特别喜欢说“我们”。我们班。我们学校。我们公司。我们家乡。我们这个行业。我们这一代人。我们国家。这个词听起来特别自然。但仔细想一下，其实有点神奇。 两个完全不认识的人，只因为出生在同一个地方，就会突然觉得： “自己人。” 两个平时互相看不顺眼的同学，出了学校以后碰到别校的人，可能立刻站到同一边。 甚至两个平时在班里都懒得说话的人，一到运动会： “八班加油！” 突然喊得比谁都大声。 一个标签，几秒钟就能把陌生人组织起来。 为什么？ 因为建立“我们”，可能是人类社会最低成本的组织技术之一。 你不需要先调查每个人的三观。不需要逐个签订合作协议。甚至不需要大家真的互相喜欢。只需要先给所有人一个共同名字。然后，一个群体就出现了。但这里还有一个问题。 便宜的东西，通常不是真的免费。 很多时候。 只是别人替你买了单。 “我们”很便宜最稳定的“我们”，往往来自那些不太容易改变的东西。 出生地。语言。学校。家庭。国家。 这些标签有一个共同特点： 非常容易识别。 而且很多不是你今天想换，明天就能换。 这对组织特别重要。 因为假如一个群体每天第一件事，都是重新确认： “你今天还认不认同我们？” 那...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E7%8E%87%E8%BD%AC%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-text">生产率转化机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E6%97%B6%E5%8E%8B%E7%BC%A9%E6%9C%BA%E5%88%B6"><span class="toc-text">工时压缩机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E7%BB%87%E5%86%97%E4%BD%99%E6%9C%BA%E5%88%B6"><span class="toc-text">组织冗余机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%B3%E5%8A%A8%E5%86%8D%E9%85%8D%E7%BD%AE%E6%9C%BA%E5%88%B6"><span class="toc-text">劳动再配置机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%8C%E4%B8%9A%E6%89%93%E5%8C%85%E6%9C%BA%E5%88%B6"><span class="toc-text">职业打包机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%B1%E4%B8%9A%E7%BA%AA%E5%BE%8B%E4%B8%8E%E9%9C%80%E6%B1%82%E5%8F%8D%E9%A6%88"><span class="toc-text">就业纪律与需求反馈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E5%BF%85%E8%A6%81%E6%80%A7%E9%80%92%E5%87%8F%E6%9C%BA%E5%88%B6"><span class="toc-text">生产必要性递减机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%85%8D%E9%AA%8C%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-text">分配验证机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%B1%E4%B8%9A%E8%B5%84%E4%BA%A7%E6%9C%BA%E5%88%B6"><span class="toc-text">就业资产机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%9C%AC%E6%89%80%E6%9C%89%E6%9D%83%E6%9C%BA%E5%88%B6"><span class="toc-text">资本所有权机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%B2%E6%9A%87%E5%88%86%E5%B1%82%E6%9C%BA%E5%88%B6"><span class="toc-text">闲暇分层机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%8C%E4%B8%9A%E6%8B%86%E5%8C%85%E6%9C%BA%E5%88%B6"><span class="toc-text">职业拆包机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E5%BA%A6%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="toc-text">制度触发机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%B5%84%E6%A0%BC%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95"><span class="toc-text">生产资格压力测试</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

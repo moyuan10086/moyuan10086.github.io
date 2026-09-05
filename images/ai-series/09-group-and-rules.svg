@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="“我们”如何形成，又为什么需要规则约束">
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#343b43"/></marker></defs>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #20262d; letter-spacing: 0; }
+    .title { font-size: 38px; font-weight: 700; }
+    .subtitle { font-size: 20px; fill: #66707a; }
+    .card-title { font-size: 23px; font-weight: 700; }
+    .body { font-size: 23px; }
+    .small { font-size: 19px; }
+    .tiny { font-size: 16px; fill: #66707a; }
+    .footer { font-size: 17px; fill: #66707a; }
+  </style>
+  <rect width="1200" height="675" fill="#ffffff"/>
+  <rect x="0" y="0" width="14" height="675" fill="#16845b"/>
+  <text x="62" y="72" class="title" text-anchor="start">“我们”如何形成，又为什么需要规则约束</text>
+  <text x="62" y="108" class="subtitle" text-anchor="start">共同身份能降低协作成本，也会迅速制造偏向</text>
+  <g><rect x="65" y="180" width="235" height="270" rx="8" fill="#f3f5f7" stroke="#58616b" stroke-width="2"/><text x="93" y="226" class="card-title" text-anchor="start">随机标签</text><text x="93" y="268" class="small" text-anchor="start">偏好 A 或 B</text><text x="93" y="300" class="small" text-anchor="start">几乎没有历史</text></g><g><line x1="315" y1="315" x2="385" y2="315" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="400" y="180" width="235" height="270" rx="8" fill="#eaf7f1" stroke="#16845b" stroke-width="2"/><text x="428" y="226" class="card-title" text-anchor="start">形成“我们”</text><text x="428" y="268" class="small" text-anchor="start">信任更快</text><text x="428" y="300" class="small" text-anchor="start">协作更容易</text></g><g><line x1="650" y1="315" x2="720" y2="315" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="735" y="180" width="235" height="270" rx="8" fill="#fff1e8" stroke="#d65c20" stroke-width="2"/><text x="763" y="226" class="card-title" text-anchor="start">组内偏向</text><text x="763" y="268" class="small" text-anchor="start">资源倾斜</text><text x="763" y="300" class="small" text-anchor="start">排斥外部</text></g><g><line x1="985" y1="315" x2="1040" y2="315" stroke="#343b43" stroke-width="3" marker-end="url(#arrow)"/></g><g><rect x="1055" y="180" width="100" height="270" rx="8" fill="#eaf2ff" stroke="#2367d1" stroke-width="2"/><text x="1083" y="226" class="card-title" text-anchor="start">规则</text><text x="1083" y="268" class="small" text-anchor="start">公开</text><text x="1083" y="300" class="small" text-anchor="start">稳定</text><text x="1083" y="332" class="small" text-anchor="start">平等</text></g><text x="600" y="525" class="body" text-anchor="middle">秩序的价值不在消灭差异，而在让冲突有可预期的处理方式。</text>
+  <line x1="62" y1="620" x2="1138" y2="620" stroke="#d7dde3"/>
+  <text x="62" y="650" class="footer" text-anchor="start">原创图解｜依据最小群体实验与 WJP 法治原则整理</text>
+</svg>

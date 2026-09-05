@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1410" height="600" viewBox="0 0 1410 600">
+  <rect width="1410" height="600" fill="#f2ede4"/>
+  <path d="M0 470H1410" stroke="#d8cfc3" stroke-width="3"/>
+  <!-- Textbooks on the left -->
+  <g fill="none" stroke="#1f2429" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Bottom thick textbook -->
+    <path d="M280 470v-70c0-12 10-20 22-20h230v90H280z"/>
+    <path d="M280 450h252M280 420h252"/>
+    <!-- Top opened textbook leaning or stacked -->
+    <path d="M320 380v-80c0-10 8-18 18-18h180v98H320z"/>
+    <path d="M320 360h198M320 330h198"/>
+  </g>
+  <!-- Math symbols in accent color on textbook -->
+  <g fill="none" stroke="#a74635" stroke-width="6" stroke-linecap="round">
+    <path d="M420 310c-15-20 15-25 5-45M415 288h20"/>
+    <circle cx="460" cy="425" r="14" fill="#a74635"/>
+  </g>
+
+  <!-- Dynamic blog / terminal / browser card on the right -->
+  <g fill="none" stroke="#1f2429" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Browser / Terminal Window -->
+    <rect x="820" y="220" width="340" height="250" rx="8" fill="#fbf9f5"/>
+    <line x1="820" y1="270" x2="1160" y2="270" stroke="#1f2429" stroke-width="4"/>
+    <!-- Window controls -->
+    <circle cx="850" cy="245" r="6" fill="#1f2429"/>
+    <circle cx="875" cy="245" r="6" fill="#1f2429"/>
+    <circle cx="900" cy="245" r="6" fill="#1f2429"/>
+    <!-- Code / Blog Lines -->
+    <path d="M855 310l15 15-15 15" stroke="#a74635" stroke-width="6"/>
+    <line x1="885" y1="325" x2="940" y2="325" stroke="#a74635" stroke-width="6"/>
+    <line x1="855" y1="365" x2="1080" y2="365" stroke="#1f2429" stroke-width="5" stroke-dasharray="16 10"/>
+    <line x1="855" y1="395" x2="1120" y2="395" stroke="#1f2429" stroke-width="5" stroke-dasharray="24 10"/>
+    <line x1="855" y1="425" x2="1010" y2="425" stroke="#1f2429" stroke-width="5"/>
+  </g>
+
+  <!-- Accent sparks / rays -->
+  <g stroke="#a74635" stroke-width="4" stroke-linecap="round" opacity=".6">
+    <line x1="220" y1="180" x2="280" y2="230"/>
+    <line x1="700" y1="340" x2="750" y2="340"/>
+    <line x1="725" y1="315" x2="725" y2="365"/>
+    <line x1="1200" y1="180" x2="1150" y2="220"/>
+  </g>
+</svg>
