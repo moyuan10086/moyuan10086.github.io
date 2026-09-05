@@ -121,13 +121,20 @@ a,
 #article-container h5:before,
 #article-container h6:before,
 #post .tag_share .post-meta__tags,
-#aside-content #card-toc .toc-content .toc-link.active,
-#aside-content #card-toc .toc-content .toc-link:hover {
+#card-toc .toc-content .toc-link:not(.active):hover,
+#aside-content #card-toc .toc-content .toc-link:not(.active):hover {
   color: #6f95f4;
 }
 
-#aside-content #card-toc .toc-content .toc-link.active {
-  border-left-color: #6f95f4;
+#card-toc .toc-content .toc-link.active,
+#card-toc .toc-content .toc-link.active:hover,
+#card-toc .toc-content .toc-link.active .toc-text,
+#aside-content #card-toc .toc-content .toc-link.active,
+#aside-content #card-toc .toc-content .toc-link.active:hover,
+#aside-content #card-toc .toc-content .toc-link.active .toc-text {
+  background: #6f95f4 !important;
+  color: #ffffff !important;
+  font-weight: 600;
 }
 
 #post .tag_share .post-meta__tags {
