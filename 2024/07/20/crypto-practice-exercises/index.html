@@ -1,0 +1,729 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>密码学 - 经典练习题精选解析 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="收录古典密码、现代对称密码、公钥密码体制与认证签名的经典习题与详细解答。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学 - 经典练习题精选解析">
+<meta property="og:url" content="https://moyuan10086.github.io/2024/07/20/crypto-practice-exercises/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="收录古典密码、现代对称密码、公钥密码体制与认证签名的经典习题与详细解答。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-14.jpg">
+<meta property="article:published_time" content="2024-07-19T16:38:47.000Z">
+<meta property="article:modified_time" content="2026-09-05T22:36:57.434Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="密码学">
+<meta property="article:tag" content="练习题">
+<meta property="article:tag" content="题解">
+<meta property="article:tag" content="计算题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-14.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "密码学 - 经典练习题精选解析",
+  "url": "https://moyuan10086.github.io/2024/07/20/crypto-practice-exercises/",
+  "image": "https://moyuan10086.github.io/images/post-covers/post-cover-14.jpg",
+  "datePublished": "2024-07-19T16:38:47.000Z",
+  "dateModified": "2026-09-05T22:36:57.434Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2024/07/20/crypto-practice-exercises/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '密码学 - 经典练习题精选解析',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css?v=20260906-toc-fix"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/post-covers/post-cover-14.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">密码学 - 经典练习题精选解析</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">密码学 - 经典练习题精选解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-19T16:38:47.000Z" title="发表于 2024-07-20 00:38:47">2024-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T22:36:57.434Z" title="更新于 2026-09-06 06:36:57">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h4 id="说明AES和DES设计的不同之处。"><a href="#说明AES和DES设计的不同之处。" class="headerlink" title="说明AES和DES设计的不同之处。"></a><strong>说明AES和DES设计的不同之处。</strong></h4><p>AES和DES设计的不同之处</p>
+<ol>
+<li><p><strong>密钥长度</strong>：</p>
+<ul>
+<li><strong>AES</strong>：支持128位、192位和256位的密钥长度。</li>
+<li><strong>DES</strong>：固定56位的密钥长度（尽管通常表示为64位，但其中8位用于奇偶校验）。</li>
+</ul>
+</li>
+<li><p><strong>分组长度</strong>：</p>
+<ul>
+<li><strong>AES</strong>：固定128位的分组长度。</li>
+<li><strong>DES</strong>：固定64位的分组长度。</li>
+</ul>
+</li>
+<li><p><strong>算法结构</strong>：</p>
+<ul>
+<li><strong>AES</strong>：基于替代-置换网络（Substitution-Permutation Network, SPN）。使用S盒和P盒来实现复杂的替代和置换操作。</li>
+<li><strong>DES</strong>：基于费斯妥尔网络（Feistel Network）。每一轮将数据分成两半，交替进行加密和交换。</li>
+</ul>
+</li>
+<li><p><strong>轮数</strong>：</p>
+<ul>
+<li><strong>AES</strong>：轮数取决于密钥长度：128位密钥为10轮，192位密钥为12轮，256位密钥为14轮。</li>
+<li><strong>DES</strong>：固定为16轮。</li>
+</ul>
+</li>
+<li><p><strong>安全性</strong>：</p>
+<ul>
+<li><strong>AES</strong>：设计更为现代，考虑了更多的密码分析攻击，现阶段没有已知的有效攻击方式。</li>
+<li><strong>DES</strong>：由于密钥长度较短，容易受到暴力破解攻击，已经被认为是不安全的。</li>
+</ul>
+</li>
+<li><p><strong>硬件和软件实现</strong>：</p>
+<ul>
+<li><strong>AES</strong>：设计时考虑了高效的硬件和软件实现，特别是对现代处理器进行了优化。</li>
+<li><strong>DES</strong>：设计较早，硬件实现相对简单，但在现代处理器上的效率较低。</li>
+</ul>
+</li>
+</ol>
+<p>总结</p>
+<p>AES设计更加现代化，具有更高的安全性和灵活性，已经取代DES成为主流的对称加密标准。</p>
+<p>LFSR的初始值被称为伪随机序列的种子，影响下一个状态的比特位叫做抽头。LFSR的触发器编号一般从1开始，抽头取值范围是1到2n-1。抽头序列可以用来描述该LFSR的反馈多项式。由n个触发器构成的LFSR电路可以产生一个周期为2n-1的序列。理论表明，要使<strong>LFSR</strong>得到最长的周期，这个抽头序列构成的多项式加<strong>1</strong>就是其反馈多项式<strong>，</strong>必须是一个<strong>本原多项式</strong>，也就是说这个多项式不可约，比方下图的抽头序列为$(4,1)$，其对应的反馈多项式为$f\left( x \right)=x{}^\text{4}+x+1$，其对应的线性反馈移位寄存器电路如下所示。</p>
+<p><img src="/images/post-assets/8479e0d8/1421957-20191128105251729-1844301536.png" alt="img"></p>
+<p>假设$a_3$,$a_2$,$a_1$,$a_0$的初始值各自是<strong>1 0 0 0</strong>，反馈函数选取$f\left( x \right)=x{}^\text{4}+x+1$，那么得到例如以下序列</p>
+<p><img src="/images/post-assets/8479e0d8/1421957-20191128105551836-779974532.png" alt="img"></p>
+<p> 能够看出周期为<strong>15</strong>。在这一个周期里面涵盖了开区间$(0,2^4)$内的全部整数，而且都是没有固定顺序出现的，有非常好的随机性。</p>
+<h4 id="4级-LFSR-的特征多项式为-f-left-x-right-x-x-text-2-1-初始态为-0-0-1-1-。求输出序列及其周期。"><a href="#4级-LFSR-的特征多项式为-f-left-x-right-x-x-text-2-1-初始态为-0-0-1-1-。求输出序列及其周期。" class="headerlink" title="4级$LFSR$的特征多项式为 $f\left( x \right)=x+x{}^\text{2}+1$初始态为$(0,0,1,1)$。求输出序列及其周期。"></a>4级$LFSR$的特征多项式为 $f\left( x \right)=x+x{}^\text{2}+1$初始态为$(0,0,1,1)$。求输出序列及其周期。</h4><p>为了求解4级LFSR的输出序列及其周期，我们需要了解$LFSR$的工作机制。特征多项式为$f(x) = x + x^2 + 1$，这意味着$LFSR$的反馈函数是基于特定位置的位进行异或操作。</p>
+<p>初始态 $(0, 0, 1, 1)$</p>
+<p>我们从这个初始态开始，依次计算$LFSR$的输出序列。</p>
+<p>计算过程</p>
+<ol>
+<li><strong>当前状态：</strong> (0, 0, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0, 0, 0, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 0, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1, 0, 0, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 0, 0)<ul>
+<li>新的比特：$0 \oplus 0 = 0$</li>
+<li>更新状态：$(0, 1, 0, 0)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 0, 0)<ul>
+<li>新的比特：$0 \oplus 0 = 0$</li>
+<li>更新状态：$(0, 0, 1, 0)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 0, 1, 0)<ul>
+<li>新的比特：$1 \oplus 0 = 1$</li>
+<li>更新状态：$(1, 0, 0, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1, 1, 0, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 0, 0)<ul>
+<li>新的比特：$0 \oplus 0 = 0$</li>
+<li>更新状态：$(0, 1, 1, 0)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 1, 0)<ul>
+<li>新的比特：$1 \oplus 0 = 1$</li>
+<li>更新状态：$(1 ,0, 1, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,1, 0, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,0, 1, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 0, 1, 0)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,1, 0, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 0, 1)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,1, 1, 0)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 1, 0)<ul>
+<li>新的比特：$0 \oplus 1 = 1$</li>
+<li>更新状态：$(1 ,1, 1, 1)$</li>
+<li>输出比特：$0$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (1, 1, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,1, 1, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 1, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,0, 1, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+<li><strong>当前状态：</strong> (0, 0, 1, 1)<ul>
+<li>新的比特：$1 \oplus 1 = 0$</li>
+<li>更新状态：$(0 ,0, 0, 1)$</li>
+<li>输出比特：$1$</li>
+</ul>
+</li>
+</ol>
+<p>输出序列及周期</p>
+<ul>
+<li><strong>输出序列：</strong> 11000 10011 01011 1…</li>
+<li><strong>周期：</strong> 15（此处说明：在计算过程中发现某些状态（如$(1, 0, 0, 1)$）会重复，而生成的比特序列也重复）</li>
+</ul>
+<p>总结</p>
+<p>通过以上计算，我们得到了4级LFSR的输出序列和其周期。根据给定的特征多项式$f(x) = x + x^2 + 1$，初始态(0, 0, 1, 1)产生了周期为15的输出序列11000 10011 01011。</p>
+<h4 id="公钥密码算法一般是建立在对一个特定的数学难题求解上，该难题无法求解则密码算法安全，-RSA-算法基于大整数的素因子分解难题，如果该难题可以求解，简述一下，你是如何利用发送者的公钥和截取的密文破译求解出明文的。"><a href="#公钥密码算法一般是建立在对一个特定的数学难题求解上，该难题无法求解则密码算法安全，-RSA-算法基于大整数的素因子分解难题，如果该难题可以求解，简述一下，你是如何利用发送者的公钥和截取的密文破译求解出明文的。" class="headerlink" title="公钥密码算法一般是建立在对一个特定的数学难题求解上，该难题无法求解则密码算法安全，$RSA$算法基于大整数的素因子分解难题，如果该难题可以求解，简述一下，你是如何利用发送者的公钥和截取的密文破译求解出明文的。"></a>公钥密码算法一般是建立在对一个特定的数学难题求解上，该难题无法求解则密码算法安全，$RSA$算法基于大整数的素因子分解难题，如果该难题可以求解，简述一下，你是如何利用发送者的公钥和截取的密文破译求解出明文的。</h4><p>RSA算法简介</p>
+<p>RSA（Rivest-Shamir-Adleman）是一种基于大整数分解难题的公钥密码算法。RSA算法的核心在于两个大素数的乘积，以及在大素数分解上计算的困难性。其主要包括三个步骤：密钥生成、加密和解密。</p>
+<p>密钥生成：</p>
+<ol>
+<li>选择两个大素数 $p $ 和 $q $。</li>
+<li>计算 $n = pq $，这是模数。</li>
+<li>计算 $\phi(n) = (p-1)(q-1) $，这是欧拉函数。</li>
+<li>选择一个整数 $e $，满足 $1 &lt; e &lt; \phi(n) $ 且 $e $ 与 $\phi(n) $ 互质。</li>
+<li>计算 $d $，满足 $ed \equiv 1 \ (\text{mod} \ \phi(n)) $。</li>
+</ol>
+<p>公钥为 $(e, n) $，私钥为 $(d, n) $。</p>
+<p>加密：</p>
+<p>使用公钥 $(e, n) $，将明文 $M $ 转换为密文 $C $：<br>$ C = M^e \ (\text{mod} \ n) $</p>
+<p>解密：</p>
+<p>使用私钥 $(d, n) $，将密文 $C $ 还原为明文 $M $：<br>$ M = C^d \ (\text{mod} \ n) $</p>
+<h5 id="破译RSA的过程"><a href="#破译RSA的过程" class="headerlink" title="破译RSA的过程"></a>破译RSA的过程</h5><p>假设敌手（攻击者）可以解决大整数的素因子分解问题，他们可以破译RSA的过程如下：</p>
+<ol>
+<li><p><strong>截取密文</strong>：<br>攻击者截取发送者发送的密文 $C $。</p>
+</li>
+<li><p><strong>已知公钥</strong>：<br>攻击者已知发送者的公钥 $(e, n) $。</p>
+</li>
+<li><p><strong>分解模数 $n $</strong>：<br>攻击者利用素因子分解技术将 $n $ 分解为两个大素数 $p $ 和 $q $。</p>
+</li>
+<li><p><strong>计算欧拉函数</strong>：<br>攻击者计算欧拉函数 $\phi(n) $：<br>$ \phi(n) = (p-1)(q-1) $</p>
+</li>
+<li><p><strong>求解私钥 $d $</strong>：<br>攻击者利用已知的 $e $ 和 $\phi(n) $ 计算私钥 $d $：<br>$ d \equiv e^{-1} \ (\text{mod} \ \phi(n)) $<br>即找到一个 $d $ 使得 $ed \equiv 1 \ (\text{mod} \ \phi(n)) $。</p>
+</li>
+<li><p><strong>解密密文</strong>：<br>使用计算得到的私钥 $d $，攻击者将密文 $C $ 解密为明文 $M $：<br>$ M = C^d \ (\text{mod} \ n) $</p>
+</li>
+</ol>
+<h5 id="示例解密过程"><a href="#示例解密过程" class="headerlink" title="示例解密过程"></a>示例解密过程</h5><p>假设截取的密文为 $C $ ，公钥为 $(e, n) $，且攻击者能够分解 $n $ 。</p>
+<ol>
+<li><p><strong>已知公钥 $(e, n) $</strong>：<br>$ e = 7, \ n = 33 $</p>
+</li>
+<li><p><strong>分解模数 $n $</strong>：<br>$ n = 33 = 3 \times 11 $<br>这样 $p = 3 $ 和 $q = 11 $。</p>
+</li>
+<li><p><strong>计算欧拉函数 $\phi(n) $</strong>：<br>$ \phi(n) = (3-1)(11-1) = 2 \times 10 = 20 $</p>
+</li>
+<li><p><strong>求解私钥 $d $</strong>：<br>$ d \equiv 7^{-1} \ (\text{mod} \ 20) $<br>求解得到 $d = 3 $，因为 $7 \times 3 = 21 \equiv 1 \ (\text{mod} \ 20) $。</p>
+</li>
+<li><p><strong>解密密文 $C $</strong>：<br>假设截获的密文 $C = 10 $，使用私钥 $d = 3 $ 进行解密：<br>$ M = 10^3 \ (\text{mod} \ 33) = 1000 \ (\text{mod} \ 33) = 10 $</p>
+<p>所以解密得到的明文 $M = 10 $。</p>
+</li>
+</ol>
+<p>通过上述过程，攻击者能够成功解密密文，破译出原文。这也说明了RSA算法的安全性依赖于大整数分解问题的计算复杂度。如果这个问题可以被有效解决，RSA算法就会被攻破。</p>
+<h4 id="在RSA加密算法中-设-p-3-q-7-e-5-计算d并求出明文-m-2-所对应的密文c。"><a href="#在RSA加密算法中-设-p-3-q-7-e-5-计算d并求出明文-m-2-所对应的密文c。" class="headerlink" title="在RSA加密算法中, 设 $p=3,q=7,e=5,$计算d并求出明文 $m=2$所对应的密文c。"></a>在RSA加密算法中, 设 $p=3,q=7,e=5,$计算d并求出明文 $m=2$所对应的密文c。</h4><p>在RSA加密算法中，给定素数 $ p = 3 $ 和 $ q = 7 $，以及公钥指数 $ e = 5 $，我们需要计算私钥 $ d $ 并求出明文 $ m = 2 $ 所对应的密文 $ c $。</p>
+<p>计算步骤</p>
+<ol>
+<li>计算模数 $ n $</li>
+</ol>
+<p>$ n = p \times q = 3 \times 7 = 21 $</p>
+<ol>
+<li>计算欧拉函数 $ \phi(n) $</li>
+</ol>
+<p>$ \phi(n) = (p - 1)(q - 1) = (3 - 1)(7 - 1) = 2 \times 6 = 12 $</p>
+<ol>
+<li>计算私钥 $ d $</li>
+</ol>
+<p>私钥 $ d $ 满足下列同余式：<br>$ d \equiv e^{-1} \pmod{\phi(n)} $</p>
+<p>我们需要找到一个 $ d $ 使得：<br>$ 5d \equiv 1 \pmod{12} $</p>
+<p>使用扩展欧几里得算法或者通过试验可以找到 $ d $：<br>$ 5d \equiv 1 \pmod{12} $</p>
+<p>逐次尝试 $ d $ 的值：</p>
+<ul>
+<li>当 $ d = 1 $ 时，$ 5 \times 1 = 5 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 2 $ 时，$ 5 \times 2 = 10 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 3 $ 时，$ 5 \times 3 = 15 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 4 $ 时，$ 5 \times 4 = 20 \not\equiv 1 \pmod{12} $</li>
+<li>当 $ d = 5 $ 时，$ 5 \times 5 = 25 \equiv 1 \pmod{12} $</li>
+</ul>
+<p>所以 $ d = 5 $。</p>
+<ol>
+<li>加密明文 $ m = 2 $</li>
+</ol>
+<p>加密公式为：<br>$ c = m^e \pmod{n} $</p>
+<p>将值代入公式：</p>
+<p>$c = 2^5 \pmod{21}$</p>
+<p>$c = 32 \pmod{21} = 11$</p>
+<p>结果</p>
+<ul>
+<li>私钥 $ d = 5 $</li>
+<li>明文 $ m = 2 $ 所对应的密文 $ c = 11 $</li>
+</ul>
+<p>因此，使用给定的参数 $ p = 3 $、$ q = 7 $、$ e = 5 $，计算得出私钥 $ d = 5 $ 和密文 $ c = 11 $。</p>
+<h4 id="在-ElGamal-公钥密码体制中-Bob-选取-p-17-生成元-g-3-私钥-x-6-Alice选取-Bob-的公钥对消息明文-m-5-进行加密，随机数为-3-。求-m-的密文。"><a href="#在-ElGamal-公钥密码体制中-Bob-选取-p-17-生成元-g-3-私钥-x-6-Alice选取-Bob-的公钥对消息明文-m-5-进行加密，随机数为-3-。求-m-的密文。" class="headerlink" title="在$ElGamal$公钥密码体制中, $Bob$选取$p=17$,生成元$g=3$,私钥$x=6$,Alice选取$Bob$的公钥对消息明文$m=5$进行加密，随机数为$3$。求$m$的密文。"></a>在$ElGamal$公钥密码体制中, $Bob$选取$p=17$,生成元$g=3$,私钥$x=6$,Alice选取$Bob$的公钥对消息明文$m=5$进行加密，随机数为$3$。求$m$的密文。</h4><p>在$ElGamal$公钥密码体制中，我们有以下参数：</p>
+<ul>
+<li>$ p = 17 $</li>
+<li>生成元 $ g = 3 $</li>
+<li>Bob 的私钥 $ x = 6 $</li>
+<li>Alice 选择的随机数 $ k = 3 $</li>
+<li>明文 $ m = 5 $</li>
+</ul>
+<p>我们需要计算消息 $ m $ 的密文。</p>
+<p><strong>计算步骤</strong></p>
+<p>计算$ Bob$ 的公钥 $ y $</p>
+<p>$ y = g^x \mod p $<br>$ y = 3^6 \mod 17 $<br>$ y = 729 \mod 17 $<br>$ y = 15 $</p>
+<p>计算密文的两个部分 $ C_1 $ 和 $ C_2 $</p>
+<p>计算 $ C_1 $</p>
+<p>$ C_1 = g^k \mod p $<br>$ C_1 = 3^3 \mod 17 $<br>$ C_1 = 27 \mod 17 $<br>$ C_1 = 10 $</p>
+<p>计算 $ C_2 $</p>
+<p>$ C_2 = m \times y^k \mod p $<br>$ C_2 = 5 \times 15^3 \mod 17 $</p>
+<p>计算 $ 15^3 \mod 17 $:<br>$ 15^3 = 3375 $<br>$ 3375 \mod 17 = 3375 - 17 \times 198 = 3375 - 3366 = 9 $</p>
+<p>计算 $ 5 \times 9 \mod 17 $:<br>$ C_2 = 5 \times 9 \mod 17 = 11 $</p>
+<p>因此，明文 $ m = 5 $ 所对应的密文为 $ (C_1, C_2) = (10, 11) $</p>
+<p>所以，加密后的密文是：<br>$ (C_1, C_2) = (10, 11) $</p>
+<h4 id="若某LFSR的级数为-n-3-，已知-2n-长密文段-c-left-011001-right-对应明文段-m-left-101101-right-请给出其反馈函数表达式。"><a href="#若某LFSR的级数为-n-3-，已知-2n-长密文段-c-left-011001-right-对应明文段-m-left-101101-right-请给出其反馈函数表达式。" class="headerlink" title="若某LFSR的级数为 $n=3$，已知$2n$长密文段 $c=\left( 011001 \right),$对应明文段 $m=\left( 101101 \right),$请给出其反馈函数表达式。"></a>若某LFSR的级数为 $n=3$，已知$2n$长密文段 $c=\left( 011001 \right),$对应明文段 $m=\left( 101101 \right),$请给出其反馈函数表达式。</h4><p>为了找到这个$LFSR$的反馈函数，我们需要用给出的明文段和密文段推导出反馈多项式。</p>
+<p>给定：<br>$ n = 3 $<br>$ c = (011001) $<br>$ m = (101101) $</p>
+<p>我们知道密文 $ c $ 和明文 $ m $ 的关系是通过$LFSR$生成序列 $ k $ 进行异或得到的，即：<br>$ c_i = m_i \oplus k_i $</p>
+<p>通过这个关系我们可以求出$LFSR$生成序列 $ k $：</p>
+<ol>
+<li>$ c_1 = m_1 \oplus k_1 \rightarrow 0 = 1 \oplus k_1 \rightarrow k_1 = 1 $</li>
+<li>$ c_2 = m_2 \oplus k_2 \rightarrow 1 = 0 \oplus k_2 \rightarrow k_2 = 1 $</li>
+<li>$ c_3 = m_3 \oplus k_3 \rightarrow 1 = 1 \oplus k_3 \rightarrow k_3 = 0 $</li>
+<li>$ c_4 = m_4 \oplus k_4 \rightarrow 0 = 1 \oplus k_4 \rightarrow k_4 = 1 $</li>
+<li>$ c_5 = m_5 \oplus k_5 \rightarrow 0 = 0 \oplus k_5 \rightarrow k_5 = 0 $</li>
+<li>$ c_6 = m_6 \oplus k_6 \rightarrow 1 = 1 \oplus k_6 \rightarrow k_6 = 0 $</li>
+</ol>
+<p>所以$LFSR$生成序列 $ k $ 为 $ (110100) $。</p>
+<p>假设反馈多项式为 $ f(x) = 1 + c_1 x + c_2 x^2 + c_3 x^3 $，我们需要找到 $ c_1 $, $ c_2 $, 和 $ c_3 $。</p>
+<p>观察$LFSR$生成序列 $ k = (110100) $：</p>
+<ol>
+<li>$ k_4 = c_1 k_3 \oplus c_2 k_2 \oplus c_3 k_1 \rightarrow 1 = c_1 \cdot 0 \oplus c_2 \cdot 1 \oplus c_3 \cdot 1 \rightarrow 1 = c_2 \oplus c_3 $</li>
+<li>$ k_5 = c_1 k_4 \oplus c_2 k_3 \oplus c_3 k_2 \rightarrow 0 = c_1 \cdot 1 \oplus c_2 \cdot 0 \oplus c_3 \cdot 1 \rightarrow 0 = c_1 \oplus c_3 $</li>
+<li>$ k_6 = c_1 k_5 \oplus c_2 k_4 \oplus c_3 k_3 \rightarrow 0 = c_1 \cdot 0 \oplus c_2 \cdot 1 \oplus c_3 \cdot 0 \rightarrow 0 = c_2 $</li>
+</ol>
+<p>从方程3可以得到 $ c_2 = 0 $。</p>
+<p>代入方程1，得到 $ 1 = 0 \oplus c_3 \rightarrow c_3 = 1 $。</p>
+<p>代入方程2，得到 $ 0 = c_1 \oplus 1 \rightarrow c_1 = 1 $。</p>
+<p>所以反馈函数的表达式为：<br>$ f(x) = 1 + x + x^3 $</p>
+<p>总结<br>$S <em> {n+3} = S </em> {n+2} \oplus S_n$</p>
+<p>反馈函数为$f(a_1,a_2,a_3) \equiv (a_1+a_3) \mod{2}$</p>
+<h4 id="在-GF-23-上的一条椭圆曲线-y-text-2-x-text-3-x-1-设-g-left-6-text-4-right-取私钥-a-3-。公钥为-b-a-cdot-g-3-left-6-text-4-right-left-7-text-12-right-。若想加密明文-m-left-5-text-4-right-随机选取-k-2-，则密文-c-是什么？请给出加解密过程。"><a href="#在-GF-23-上的一条椭圆曲线-y-text-2-x-text-3-x-1-设-g-left-6-text-4-right-取私钥-a-3-。公钥为-b-a-cdot-g-3-left-6-text-4-right-left-7-text-12-right-。若想加密明文-m-left-5-text-4-right-随机选取-k-2-，则密文-c-是什么？请给出加解密过程。" class="headerlink" title="在 $GF_{23}$ 上的一条椭圆曲线 $y{}^\text{2}=x{}^\text{3}+x+1$ , 设 $g=\left( 6\text{,}4 \right)$ , 取私钥 $a=3$ 。公钥为 $b=a \cdot g=3\left( 6\text{,}4 \right)=\left( 7\text{,}12 \right)$ 。若想加密明文 $m=\left( 5\text{,}4 \right)$, 随机选取 $k=2$，则密文 $c$ 是什么？请给出加解密过程。"></a>在 $GF_{23}$ 上的一条椭圆曲线 $y{}^\text{2}=x{}^\text{3}+x+1$ , 设 $g=\left( 6\text{,}4 \right)$ , 取私钥 $a=3$ 。公钥为 $b=a \cdot g=3\left( 6\text{,}4 \right)=\left( 7\text{,}12 \right)$ 。若想加密明文 $m=\left( 5\text{,}4 \right)$, 随机选取 $k=2$，则密文 $c$ 是什么？请给出加解密过程。</h4><p>要加密明文 $ m = (5, 4) $ ，需要用到椭圆曲线上的点运算和公钥。已知椭圆曲线为 $ y^2 = x^3 + x + 1 $ ，基点 $ g = (6, 4) $ ，私钥 $ a = 3 $ ，公钥 $ b = a \cdot g = 3 \cdot (6, 4) = (7, 12) $ ，随机选取的 $ k = 2 $ 。下面是加密和解密的详细过程：</p>
+<h5 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h5><ol>
+<li><p><strong>计算 $ k \cdot g $ ：</strong><br>$ k \cdot g = 2 \cdot (6, 4) $</p>
+</li>
+<li><p><strong>计算点倍乘 $ 2 \cdot (6, 4) $：</strong></p>
+<p>使用椭圆曲线上的点倍乘公式计算：</p>
+<ul>
+<li><p>先计算 $ 2 \cdot (6, 4) $：<br>设 $ P = (6, 4) $，首先计算斜率 $ \lambda $：<br>$ \lambda = \frac{3x_1^2 + a}{2y_1} \mod 23 $<br>其中 $ a = 1 $， $ P = (x_1, y_1) = (6, 4) $，<br>$ \lambda = \frac{3(6)^2 + 1}{2(4)} \mod 23 = \frac{3 \cdot 36 + 1}{8} \mod 23 = \frac{109}{8} \mod 23 $<br>首先计算 $ 109 \mod 23 $：<br>$ 109 \mod 23 = 17 $<br>接下来计算 $ \frac{17}{8} \mod 23 $ ，可以通过计算 $ 8 $ 在模 $ 23 $ 下的逆元：<br>$ 8^{-1} \mod 23 = 3 $<br>因为 $ 8 \cdot 3 = 24 \equiv 1 \mod 23 $，所以 $ 8^{-1} = 3 $。<br>$ \frac{17}{8} \equiv 17 \cdot 8^{-1} \mod 23 = 17 \cdot 3 \mod 23 = 51 \mod 23 = 5 $<br>所以 $ \lambda = 5 $。</p>
+</li>
+<li><p>计算 $ (2x_1, 2y_1) $：<br>$ x_2 = \lambda^2 - 2x_1 \mod 23 = 5^2 - 2 \cdot 6 \mod 23 = 25 - 12 \mod 23 = 13 $<br>$ y_2 = \lambda (x_1 - x_2) - y_1 \mod 23 = 5(6 - 13) - 4 \mod 23 = 5(-7) - 4 \mod 23 = -35 - 4 \mod 23 = -39 \mod 23 = 7 $<br>所以 $ 2 \cdot (6, 4) = (13, 7) $。</p>
+</li>
+</ul>
+<p>因此 $ k \cdot g = 2 \cdot (6, 4) = (13, 7) $。</p>
+</li>
+<li><p><strong>计算 $ k \cdot b $ ：</strong><br>$ k \cdot b = 2 \cdot (7, 12) $</p>
+<p>计算 $ 2 \cdot (7, 12) $ ，类似上面的计算：</p>
+<ul>
+<li><p>先计算 $ 2 \cdot (7, 12) $：<br>设 $ Q = (7, 12) $，首先计算斜率 $ \lambda $：<br>$ \lambda = \frac{3x_1^2 + a}{2y_1} \mod 23 $<br>其中 $ a = 1 $， $ Q = (x_1, y_1) = (7, 12) $，<br>$ \lambda = \frac{3(7)^2 + 1}{2(12)} \mod 23 = \frac{3 \cdot 49 + 1}{24} \mod 23 = \frac{148}{24} \mod 23 $<br>首先计算 $ 148 \mod 23 $：<br>$ 148 \mod 23 = 10 $<br>接下来计算 $ \frac{10}{24} \mod 23 $ ，可以通过计算 $ 24 $ 在模 $ 23 $ 下的逆元：<br>$ 24^{-1} \mod 23 = 1 $<br>因为 $ 24 \cdot 1 = 24 \equiv 1 \mod 23 $，所以 $ 24^{-1} = 1 $。<br>$ \frac{10}{24} \equiv 10 \cdot 24^{-1} \mod 23 = 10 \cdot 1 \mod 23 = 10 \mod 23 = 10 $<br>所以 $ \lambda = 10 $。</p>
+</li>
+<li><p>计算 $ (2x_1, 2y_1) $：<br>$ x_2 = \lambda^2 - 2x_1 \mod 23 = 10^2 - 2 \cdot 7 \mod 23 = 100 - 14 \mod 23 = 86 \mod 23 = 17 $<br>$ y_2 = \lambda (x_1 - x_2) - y_1 \mod 23 = 10(7 - 17) - 12 \mod 23 = 10(-10) - 12 \mod 23 = -100 - 12 \mod 23 = -112 \mod 23 = 3 $<br>所以 $ 2 \cdot (7, 12) = (17, 3) $。</p>
+</li>
+</ul>
+<p>因此 $ k \cdot b = 2 \cdot (7, 12) = (17, 3) $。</p>
+</li>
+<li><p><strong>计算密文 $ c = (k \cdot g, m + k \cdot b) $ ：</strong><br>$ c_1 = k \cdot g = (13, 7) $<br>$ c_2 = m + k \cdot b = (5, 4) + (17, 3) $</p>
+<p>点加法公式：<br>设 $ P = (x_1, y_1) $ 和 $ Q = (x_2, y_2) $，<br>斜率 $ \lambda = \frac{y_2 - y_1}{x_2 - x_1} \mod 23 $<br>$ x_3 = \lambda^2 - x_1 - x_2 \mod 23 $<br>$ y_3 = \lambda (x_1 - x_3) - y_1 \mod 23 $</p>
+<p>计算：<br>$ \lambda = \frac{3 - 4}{17 - 5} \mod 23 = \frac{-1}{12} \mod 23 = 22 \cdot 2 \mod 23 =21$<br>所以 $ \lambda = 21 $。</p>
+<p>$ x_3 = 21^2 - 5 - 17 \mod 23 = 441 - 22 \mod 23 = 419 \mod 23 = 5 $<br>$ y_3 = 21(5 - 5) - 4 \mod 23 = 0 - 4 \mod 23 = -4 \mod 23 = 19 $</p>
+<p>所以 $ m + k \cdot b = (5, 19) $。</p>
+<p>因此，密文 $ c = (k \cdot g, m + k \cdot b) = ((13, 7), (5, 19)) $。</p>
+</li>
+</ol>
+<h5 id="解密过程"><a href="#解密过程" class="headerlink" title="解密过程"></a>解密过程</h5><p>接收者使用私钥 $ a = 3 $ 解密密文 $ c = ((13, 7), (5, 19)) $。</p>
+<ol>
+<li><p><strong>计算 $ a \cdot c_1 $：</strong><br>$ a \cdot c_1 = 3 \cdot (13, 7) $</p>
+</li>
+<li><p><strong>计算点倍乘 $ 3 \cdot (13, 7) $：</strong></p>
+<p>使用椭圆曲线上的点倍乘公式：</p>
+<ul>
+<li><p>先计算 $ 2 \cdot (13, 7) $：<br>$ \lambda = \frac{3(13)^2 + 1}{2(7)} \mod 23 = \frac{3 \cdot 169 + 1}{14} \mod 23 = \frac{508}{14} \mod 23 $<br>首先计算 $ 508 \mod 23 $：<br>$ 508 \mod 23 = 2 $<br>接下来计算 $ \frac{2}{14} \mod 23 $ ，可以通过计算 $ 14 $ 在模 $ 23 $ 下的逆元：<br>$ 14^{-1} \mod 23 = 5 $<br>因为 $ 14 \cdot 5 = 70 \equiv 1 \mod 23 $，所以 $ 14^{-1} = 5 $。<br>$ \frac{2}{14} \equiv 2 \cdot 14^{-1} \mod 23 = 2 \cdot 5 \mod 23 = 10 $<br>所以 $ \lambda = 10 $。</p>
+</li>
+<li><p>计算 $ (2x_1, 2y_1) $：<br>$ x_2 = \lambda^2 - 2x_1 \mod 23 = 10^2 - 2 \cdot 13 \mod 23 = 100 - 26 \mod 23 = 74 \mod 23 = 5 $<br>$ y_2 = \lambda (x_1 - x_2) - y_1 \mod 23 = 10(13 - 5) - 7 \mod 23 = 10 \cdot 8 - 7 \mod 23 = 80 - 7 \mod 23 = 73 \mod 23 = 4 $<br>所以 $ 2 \cdot (13, 7) = (5, 4) $。</p>
+</li>
+<li><p>计算 $ 3 \cdot (13, 7) $:<br>使用上一步计算得到的 $ 2 \cdot (13, 7) = (5, 4) $，再计算 $ (5, 4) + (13, 7) $：<br>$ \lambda = \frac{7 - 4}{13 - 5} \mod 23 = \frac{3}{8} \mod 23 = 3 \cdot 8^{-1} \mod 23 $<br>计算 $ 8^{-1} \mod 23 $:<br>使用扩展欧几里得算法，得到 $ 8^{-1} \mod 23 = 3 $。<br>因为 $ 8 \cdot 3 = 24 \equiv 1 \mod 23 $，所以 $ 8^{-1} = 3 $。<br>$ \lambda = 3 \cdot 3 \mod 23 = 9 \mod 23 = 9 $<br>所以 $ \lambda = 9 $。</p>
+</li>
+<li><p>计算 $ (x_3, y_3) $：<br>$ x_3 = 9^2 - 5 - 13 \mod 23 = 81 - 18 \mod 23 = 17 $<br>$ y_3 = 9(5 - 17) - 4 \mod 23 = 9\cdot(-12) - 4 \mod 23 = 3 $</p>
+<p>所以 $ 3 \cdot (13, 7) = (17, 3) $。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>计算 $ m = c_2 - a \cdot c_1 $ ：</strong><br>$ m = (5, 19) - (17, 3) $</p>
+<p>使用点减法公式：</p>
+<ul>
+<li>点减法可以表示为点加法 $ (5, 19) + (17, -3)=(5, 19) + (17, 20) $。</li>
+</ul>
+<p>计算斜率 $ \lambda $：<br>$ \lambda = \frac{20 - 19}{17 - 5} \mod 23 = \frac{1}{12} \mod 23 = \frac{1}{12} \mod 23 $</p>
+<p>计算 $ 12^{-1} \mod 23 $:<br>使用扩展欧几里得算法，得到 $ 12^{-1} \mod 23 = 2 $。<br>因为 $ 12 \cdot 2 = 24 \equiv 1 \mod 23 $，所以 $ 12^{-1} = 2 $。<br>$ \lambda = 1 \cdot 2 \mod 23 = 2 \mod 23 = 2 $</p>
+<p>计算 $ x_3 $ 和 $ y_3 $：<br>$ x_3 = 2^2 - 5 - 17 \mod 23 = 4 - 22 \mod 23 = -18 \mod 23 = 5 $<br>$ y_3 = 2(5 - 19) - 22 \mod 23 = 2 \cdot (-14) - 22 \mod 23 = -50 \mod 23  = 4 $</p>
+<p>所以 $ (5, 19) - (17, 3) = (5, 4) $。</p>
+</li>
+</ol>
+<p>解密得到的明文 $ m = (5, 4) $。</p>
+<h4 id="考虑有限域-F-23-上的椭圆曲线E：-y-text-2-x-text-3-4x-1-令-P-left-4-text-7-right-Q-left-10-text-31-right-求-1-P-Q-2-2P。"><a href="#考虑有限域-F-23-上的椭圆曲线E：-y-text-2-x-text-3-4x-1-令-P-left-4-text-7-right-Q-left-10-text-31-right-求-1-P-Q-2-2P。" class="headerlink" title="考虑有限域 $F_{23}$上的椭圆曲线E： $y{}^\text{2}=x{}^\text{3}-4x+1,$令$P=\left( 4\text{,}7 \right),Q=\left( 10\text{,}31 \right)$ 求: (1) P+Q;  (2) 2P。"></a>考虑有限域 $F_{23}$上的椭圆曲线E： $y{}^\text{2}=x{}^\text{3}-4x+1,$令$P=\left( 4\text{,}7 \right),Q=\left( 10\text{,}31 \right)$ 求: (1) P+Q;  (2) 2P。</h4><p>我们需要在给定的椭圆曲线上进行点的加法和倍乘运算。椭圆曲线为 $ E: y^2 = x^3 - 4x + 1 $ ，有限域 $ F $ 上的点 $ P = (4, 7) $ 和 $ Q = (10, 31) $。</p>
+<h5 id="1-计算-P-Q"><a href="#1-计算-P-Q" class="headerlink" title="(1) 计算 $ P + Q $"></a>(1) 计算 $ P + Q $</h5><p>首先，计算 $ \lambda $ ，即过 $ P $ 和 $ Q $ 的直线的斜率：</p>
+<p>$ \lambda = \frac{y_2 - y_1}{x_2 - x_1} = \frac{31 - 7}{10 - 4} \mod 23= \frac{24}{6} \mod 23= 1\cdot 4 \mod23 =4$</p>
+<p>计算 $ x_3 $ 和 $ y_3 $：</p>
+<p>$ x_3 = \lambda^2 - x_1 - x_2 = 4^2 - 4 - 10 \mod23 = 16 - 4 - 10 \mod23 = 2 \mod23$</p>
+<p>$ y_3 = \lambda(x_1 - x_3) - y_1 = 4(4 - 2) - 7 \mod23= 4 \cdot 2 - 7 \mod23= 8 - 7 \mod23= 1 \mod23$</p>
+<p>因此，$ P + Q = (2, 1) $。</p>
+<h5 id="2-计算-2P"><a href="#2-计算-2P" class="headerlink" title="(2) 计算 $ 2P $"></a>(2) 计算 $ 2P $</h5><p>首先，计算 $ \lambda $ ，即过 $ P $ 点的切线的斜率：</p>
+<p>$ \lambda = \frac{3x_1^2 + a}{2y_1} $<br>其中 $ a = -4 $， $ P = (4, 7) $，</p>
+<p>$ \lambda = \frac{3 \cdot 4^2 - 4}{2 \cdot 7} \mod23= \frac{3 \cdot 16 - 4}{14} \mod23= \frac{48 - 4}{14} \mod23= \frac{44}{14}\mod23 =21 \cdot 5 \mod23 = 13$</p>
+<p>因此：</p>
+<p>$ \lambda = 13 $</p>
+<p>计算 $ x_3 $ 和 $ y_3 $：</p>
+<p>$ x_3 = \lambda^2 - 2x_1 = 13^2 - 2 \cdot 4 \mod23= 169 - 8 \mod23= 0 $</p>
+<p>$ y_3 = \lambda(x_1 - x_3) - y_1 = 13(4 + 0) - 7 \mod23= 52 - 7 \mod23= 45 \mod23= 22 $</p>
+<p>因此，$ 2P = (0, 22) $。</p>
+<p>所以：</p>
+<ol>
+<li>$ P + Q = (2, 1) $</li>
+<li>$ 2P = (0, 22) $</li>
+</ol>
+<h5 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h5><p>椭圆曲线密码学（ECC）是一种基于椭圆曲线数学结构的公钥密码系统。以下是椭圆曲线加密和解密的公式和步骤：</p>
+<p>基本概念和符号</p>
+<ol>
+<li><strong>椭圆曲线方程</strong>：常见形式为 $ E: y^2 = x^3 + ax + b $。</li>
+<li><strong>有限域 $ F_p $</strong>：在有限域上的椭圆曲线，所有的计算都在模 $ p $ 的情况下进行。</li>
+<li><strong>基点 $ G $</strong>：一个预先选定的曲线上非零点。</li>
+<li><strong>私钥 $ d $</strong>：一个随机选定的整数，范围是 $ [1, n-1] $，其中 $ n $ 是 $ G $ 的阶。</li>
+<li><strong>公钥 $ Q $</strong>：通过 $ Q = dG $ 计算得到。</li>
+</ol>
+<h6 id="椭圆曲线加密"><a href="#椭圆曲线加密" class="headerlink" title="椭圆曲线加密"></a>椭圆曲线加密</h6><p>加密过程涉及到明文点 $ M $，需要将其映射到椭圆曲线上，并使用接收者的公钥进行加密。加密的步骤如下：</p>
+<ol>
+<li><strong>随机选择一个整数 $ k $</strong>，范围是 $ [1, n-1] $。</li>
+<li><strong>计算点 $ C_1 = kG $</strong>。</li>
+<li><strong>计算点 $ C_2 = M + kQ $</strong>，其中 $ Q $ 是接收者的公钥。</li>
+<li><strong>密文为 $ (C_1, C_2) $</strong>。</li>
+</ol>
+<p>具体公式为：<br>$ C_1 = kG $<br>$ C_2 = M + kQ $</p>
+<h6 id="椭圆曲线解密"><a href="#椭圆曲线解密" class="headerlink" title="椭圆曲线解密"></a>椭圆曲线解密</h6><p>解密过程使用接收者的私钥 $ d $ 来恢复明文点 $ M $。解密的步骤如下：</p>
+<ol>
+<li><strong>接收密文 $ (C_1, C_2) $</strong>。</li>
+<li><strong>计算点 $ dC_1 $</strong>，其中 $ d $ 是接收者的私钥。</li>
+<li><strong>计算点 $ M = C_2 - dC_1 $</strong>。</li>
+</ol>
+<p>具体公式为：<br>$ dC_1 = d(kG) = k(dG) = kQ $<br>$ M = C_2 - kQ $</p>
+<h6 id="详细的计算示例"><a href="#详细的计算示例" class="headerlink" title="详细的计算示例"></a>详细的计算示例</h6><p>假设有一个椭圆曲线 $ E: y^2 = x^3 + ax + b $ ，有限域 $ F_p $ 上的基点 $ G $，私钥 $ d $ 和公钥 $ Q = dG $，以及明文点 $ M $。</p>
+<p>加密过程</p>
+<ol>
+<li><p><strong>选择随机数 $ k $</strong>：<br>$ k = 2 $</p>
+</li>
+<li><p><strong>计算 $ C_1 $</strong>：<br>$ C_1 = kG = 2G $</p>
+</li>
+<li><p><strong>计算 $ C_2 $</strong>：<br>$ C_2 = M + kQ $<br>其中 $ Q = dG $，假设 $ d = 3 $，那么 $ Q = 3G $，则 $ kQ = 2 \cdot 3G = 6G $。</p>
+</li>
+<li><p><strong>密文为 $ (C_1, C_2) $</strong>：<br>$ (C_1, C_2) = (2G, M + 6G) $</p>
+</li>
+</ol>
+<p>解密过程</p>
+<ol>
+<li><p><strong>接收密文 $ (C_1, C_2) $</strong>：<br>$ (C_1, C_2) = (2G, M + 6G) $</p>
+</li>
+<li><p><strong>计算 $ dC_1 $</strong>：<br>$ dC_1 = 3 \cdot 2G = 6G $</p>
+</li>
+<li><p><strong>恢复明文 $ M $</strong>：<br>$ M = C_2 - dC_1 = (M + 6G) - 6G = M $</p>
+</li>
+</ol>
+<h6 id="具体公式说明"><a href="#具体公式说明" class="headerlink" title="具体公式说明"></a>具体公式说明</h6><ul>
+<li><p><strong>点加法</strong>：<br>若 $ P = (x_1, y_1) $ 和 $ Q = (x_2, y_2) $ 是椭圆曲线上的两个点，且 $ P \neq Q $，则 $ P + Q = (x_3, y_3) $ 的计算公式为：<br>$\lambda = \frac{y_2 - y_1}{x_2 - x_1} \mod p$<br>$x_3 = \lambda^2 - x_1 - x_2 \mod p$<br>$y_3 = \lambda(x_1 - x_3) - y_1 \mod p$</p>
+<p><strong>点倍乘</strong>：<br>若 $ P = (x_1, y_1) $ 是椭圆曲线上的一个点，则 $ 2P = (x_3, y_3) $ 的计算公式为：<br>$ \lambda = \frac{3x_1^2 + a}{2y_1} \mod p $<br>$ x_3 = \lambda^2 - 2x_1 \mod p $<br>$ y_3 = \lambda(x_1 - x_3) - y_1 \mod p $</p>
+</li>
+</ul>
+<p>这些公式和步骤适用于任何给定的椭圆曲线和有限域，并通过实际计算实现加密和解密过程。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2024/07/20/crypto-practice-exercises/">https://moyuan10086.github.io/2024/07/20/crypto-practice-exercises/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a><a class="post-meta__tags" href="/tags/%E7%BB%83%E4%B9%A0%E9%A2%98/">练习题</a><a class="post-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E9%A2%98/">计算题</a></div><div class="post-share"><div class="social-share" data-image="/images/post-covers/post-cover-14.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/07/20/crypto-problem-rsa-signature/" title="密码学题解 - RSA 数字签名方案与计算"><img class="cover" src="/images/post-covers/post-cover-15.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">密码学题解 - RSA 数字签名方案与计算</div></div><div class="info-2"><div class="info-item-1">在RSA签名方案中，设p=7，q=17，公钥e=5，消息m的Hash值为19，试计算私钥d并给出对消息的签名和验证过程。求私钥 d 的计算过程已知参数：  p = 7 q = 17 n = p \times q = 7 \times 17 = 119 \phi(n) = (p - 1) \times (q - 1) = 6 \times 16 = 96 公钥 e = 5  我们需要找到私钥 d，满足： d \equiv e^{-1} \mod 96即： 5 \times d \equiv 1 \pmod{96}5×d 与 1 在模 96 下是同余的 使用扩展欧几里得算法求解逆元扩展欧几里得算法步骤： 使用欧几里得算法找到 e 和 \phi(n) 的最大公约数：  96 = 5 \times 19 + 1这里我们得到了 1 = 96 - 5 \times 19。  改写成扩展欧几里得算法形式：  1 = 96 - 5 \times 19即：  1 = 96 \times 1 - 5 \times 19从而：  1 \equiv -5 \times 19 \pmod{96}因此： d...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-ch09-pki/" title="密码学 - 第 9 章 PKI 技术"><img class="cover" src="/images/post-covers/post-cover-35.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">密码学 - 第 9 章 PKI 技术</div></div><div class="info-2"><div class="info-item-1">第9章：PKI技术PKI概念PKI技术概述  公钥基础设施（Public Key Infrastructure, PKI）是用于实施和提供安全服务的基础设施。它能提供认证、数据完整性、数据保密性、不可否认性、公证等服务。 PKI主要用于抵抗”公钥替换”攻击，通过将用户的公钥与其身份信息以可验证和可信的方式关联起来，确保公钥的真实性。  PKI服务  认证服务：确认实体的真实身份，通过验证证书和数字签名，确保通信双方的身份。 数据完整性服务：保证数据在传输和处理过程中未被修改。通过数字签名和哈希算法提供数据完整性保证。 数据保密性服务：采用”数字信封”机制，使用对称密钥加密敏感数据，并用接收方的公钥加密对称密钥。 不可否认性服务：保证实体对其行为的认可，包括数据来源、接收、传输、创建和同意的不可否认性。 公证服务：确认数据的有效性和正确性，通过数字签名和公钥验证。  PKI组成结构PKI组成  注册中心（Registration Authority, RA）：负责用户的身份注册和验证。 证书中心（Certificate Authority, CA）：负责生成和颁发数字证书。 目录库...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/07/20/crypto-problem-lfsr-cryptanalysis/" title="密码学题解 - LFSR 线性反馈移位寄存器流密码破译"><img class="cover" src="/images/post-covers/post-cover-22.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题解 - LFSR 线性反馈移位寄存器流密码破译</div></div><div class="info-2"><div class="info-item-1">设一个流密码算法使用了一个GF(2)上的8级线性反馈移位寄存器作为密钥流生成器，已知明文0110000101101100的密文为1011010000010011，试破译该密码算法。解密过程：使用线性反馈移位寄存器（LFSR）破译流密码已知条件 明文：\text{01100001 01101100} 密文：\text{10110100 00010011}  根据流密码的工作原理，密文是通过明文和密钥流进行按位异或生成的。因此，密钥流可以通过明文和密文进行异或恢复： \text{密钥流} = \text{明文} \oplus \text{密文}计算密钥流第一部分： 01100001 \oplus 10110100 = 11010101第二部分： 01101100 \oplus 00010011 = 01111111因此，密钥流为： \text{11010101 01111111}构造LFSR的状态LFSR状态可以表示为一个矩阵形式，通过线性方程组来恢复状态。 已知初始状态s_0 到s_7： s_0 = 1, s_1 = 1, s_2 = 0, s_3 = 1, s_4 = 0, s_...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-problem-ecc-elgamal/" title="密码学题解 - 椭圆曲线 ElGamal 密码体制"><img class="cover" src="/images/post-covers/post-cover-28.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题解 - 椭圆曲线 ElGamal 密码体制</div></div><div class="info-2"><div class="info-item-1">在椭圆曲线上的ElGamal密码体制中，设椭圆曲线为E_{11}(1, 6)，生成元p=(2, 7)，接收者的私钥x=4。（1）求接收者的公钥Q。（2）发送者欲发送消息Pm=(7, 9)，选择随机数k=2，求密文c。（3）给出接收者从密文c恢复消息Pm的过程。在椭圆曲线上的ElGamal密码体制中，求解和解密的过程如下： 已知条件 椭圆曲线 E_{11}(1, 6) 生成元 p = (2, 7) 接收者的私钥 x = 4  （1）求接收者的公钥 Q接收者的公钥 Q 通过计算 Q = x \cdot p 获得，即将生成元 p 乘以私钥 x。 首先，回顾一下椭圆曲线上的点加法运算。对于两个点 P = (x_1, y_1) 和 Q = (x_2, y_2) 在模 n 的椭圆曲线上，点加法的公式为：  当 P \neq Q 时： \lambda = \frac{y_2 - y_1}{x_2 - x_1} \mod n x_3 = \lambda^2 - x_1 - x_2 \mod n y_3 = \lambda(x_1 - x_3) - y_1 \mod n 当 P = Q 时（点倍加...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-exam-keypoints/" title="密码学 - 期末核心重点知识图谱"><img class="cover" src="/images/post-covers/post-cover-36.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 期末核心重点知识图谱</div></div><div class="info-2"><div class="info-item-1">期末重点 </div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-ch04-public-key/" title="密码学 - 第 4 章 公钥密码"><img class="cover" src="/images/post-covers/post-cover-02.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 第 4 章 公钥密码</div></div><div class="info-2"><div class="info-item-1">第4章：公钥密码公钥密码的基本原理公钥密码的基本概念  历史背景 1976年，Diffie和Hellman在”密码学的新方向”一文中首次提出了公钥密码体制的思想。    公钥密码的基本概念  公钥密码体制与对称密码体制完全不同，使用数学函数而不是代替和置换。 公钥密码算法是非对称的，使用两个独立的密钥：公钥和私钥。 公钥密码体制在消息的机密性、密钥分配和认证方面具有重要意义。  优势  密钥分配：公钥可以通过公开信道传输，而对称密码体制需要通过安全的秘密通道共享密钥，代价较大。 密钥管理：在N个用户的系统中，每个用户只需安全保管自己的私钥和N-1个其他用户的公钥，整个系统仅需维护N个公钥；而对称密码体制中，每个用户需使用n-1个密钥，总密钥数量为n(n-1)/2。 数字签名：提供类似书面手写签名的方法，确保数字签名出自某特定人，并且各方对此无异议。对称密码体制中难以解决陌生人之间的身份认证问题。  原理  公钥密码体制在加密和解密时使用不同的密钥：公钥用于加密，私钥用于解密。公钥是公开信息，不需要保密，私钥需保密。 给定公钥，要计算出私钥在计算上是不可行的。 这样的通信无需双方预...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-ch08-key-management/" title="密码学 - 第 8 章 密钥管理"><img class="cover" src="/images/post-covers/post-cover-25.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 第 8 章 密钥管理</div></div><div class="info-2"><div class="info-item-1">第8章：密钥管理密钥管理概述密钥管理  密钥管理是对密钥生命周期（产生、存储、分配、备份/恢复、更新、撤销、归档、销毁）全过程实施的安全保密管理。 主要内容包括密钥的产生、分配和维护。维护涉及密钥的存储、更新、备份、恢复、销毁等方面。  密钥分类  静态密钥（长期密钥）：使用周期较长，具体周期视应用而定，可能是几小时到几年。 会话密钥（短期密钥）：生命周期较短，可能是几分钟到几天。会话密钥通常用于在某一时间段内加密数据。  密钥种类  基本密钥（base key）：又称初始密钥或用户密钥，用于参与或控制密码变换，在一定范围配置、一定时间更换。 会话密钥（session key）：在一次通话或交换数据时使用的密钥。通常与基本密钥结合对消息进行加密，且一报一换。 密钥加密密钥（key encrypting key）：用于对会话密钥进行加密保护。又称辅助（二级）密钥或密钥传送密钥。 主密钥（Primary Master Key）：用于对密钥加密密钥进行加密保护。 公钥体制下的密钥：包括公开密钥、秘密密钥、签名密钥、认证密钥等。  密钥产生  基本要求：具有良好的随机性，包括长周期性、非...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-ch07-auth-access-control/" title="密码学 - 第 7 章 身份认证与访问控制"><img class="cover" src="/images/post-covers/post-cover-07.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 第 7 章 身份认证与访问控制</div></div><div class="info-2"><div class="info-item-1">第7章：身份认证与访问控制基于生物特征识别的身份认证基于生物特征的身份认证  通过人体固有的生理或行为特征进行身份验证，分为身体特征和行为特征。  常用的生物特征识别技术  指纹识别  优点： 指纹是人体独一无二的特征。 识别速度快，使用方便。 手指与指纹采集头相互接触，更成熟。 采集头体积小，价格低廉。   缺点： 成像质量与识别技术的限制。 指纹库规模的限制。 指纹采集在采集头上留下印痕，使得复制成为可能。     掌纹识别  优点： 特征丰富、旋转不变性和唯一性。 终身不变，不易仿造。 采集设备成本较低，图像质量稳定。 不涉及隐私，易于推广。 容易与其他特征结合，实现一体化识别。     人脸识别  应用系统：嵌入式系统、服务器、个人电脑。 研究内容：脸检测、脸表征、脸鉴别、表情/姿态分析、生理分类。   声音识别  优点： 语音获取方便，接受度高。 获取语音的成本低廉。 适合远程身份确认。 算法复杂度低。 不涉及隐私问题。   声纹识别：说话人辨认、说话人确认、说话人探测/跟踪。   虹膜识别  特点与依据： 虹膜的纤维组织细节复杂而丰富，具有极大的随机性。 具有因人而异...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B4%E6%98%8EAES%E5%92%8CDES%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%8D%E5%90%8C%E4%B9%8B%E5%A4%84%E3%80%82"><span class="toc-text">说明AES和DES设计的不同之处。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E7%BA%A7-LFSR-%E7%9A%84%E7%89%B9%E5%BE%81%E5%A4%9A%E9%A1%B9%E5%BC%8F%E4%B8%BA-f-left-x-right-x-x-text-2-1-%E5%88%9D%E5%A7%8B%E6%80%81%E4%B8%BA-0-0-1-1-%E3%80%82%E6%B1%82%E8%BE%93%E5%87%BA%E5%BA%8F%E5%88%97%E5%8F%8A%E5%85%B6%E5%91%A8%E6%9C%9F%E3%80%82"><span class="toc-text">4级$LFSR$的特征多项式为 $f\left( x \right)&#x3D;x+x{}^\text{2}+1$初始态为$(0,0,1,1)$。求输出序列及其周期。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E4%B8%80%E8%88%AC%E6%98%AF%E5%BB%BA%E7%AB%8B%E5%9C%A8%E5%AF%B9%E4%B8%80%E4%B8%AA%E7%89%B9%E5%AE%9A%E7%9A%84%E6%95%B0%E5%AD%A6%E9%9A%BE%E9%A2%98%E6%B1%82%E8%A7%A3%E4%B8%8A%EF%BC%8C%E8%AF%A5%E9%9A%BE%E9%A2%98%E6%97%A0%E6%B3%95%E6%B1%82%E8%A7%A3%E5%88%99%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E5%AE%89%E5%85%A8%EF%BC%8C-RSA-%E7%AE%97%E6%B3%95%E5%9F%BA%E4%BA%8E%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E7%B4%A0%E5%9B%A0%E5%AD%90%E5%88%86%E8%A7%A3%E9%9A%BE%E9%A2%98%EF%BC%8C%E5%A6%82%E6%9E%9C%E8%AF%A5%E9%9A%BE%E9%A2%98%E5%8F%AF%E4%BB%A5%E6%B1%82%E8%A7%A3%EF%BC%8C%E7%AE%80%E8%BF%B0%E4%B8%80%E4%B8%8B%EF%BC%8C%E4%BD%A0%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E5%8F%91%E9%80%81%E8%80%85%E7%9A%84%E5%85%AC%E9%92%A5%E5%92%8C%E6%88%AA%E5%8F%96%E7%9A%84%E5%AF%86%E6%96%87%E7%A0%B4%E8%AF%91%E6%B1%82%E8%A7%A3%E5%87%BA%E6%98%8E%E6%96%87%E7%9A%84%E3%80%82"><span class="toc-text">公钥密码算法一般是建立在对一个特定的数学难题求解上，该难题无法求解则密码算法安全，$RSA$算法基于大整数的素因子分解难题，如果该难题可以求解，简述一下，你是如何利用发送者的公钥和截取的密文破译求解出明文的。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A0%B4%E8%AF%91RSA%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">破译RSA的过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">示例解密过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8RSA%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E4%B8%AD-%E8%AE%BE-p-3-q-7-e-5-%E8%AE%A1%E7%AE%97d%E5%B9%B6%E6%B1%82%E5%87%BA%E6%98%8E%E6%96%87-m-2-%E6%89%80%E5%AF%B9%E5%BA%94%E7%9A%84%E5%AF%86%E6%96%87c%E3%80%82"><span class="toc-text">在RSA加密算法中, 设 $p&#x3D;3,q&#x3D;7,e&#x3D;5,$计算d并求出明文 $m&#x3D;2$所对应的密文c。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-ElGamal-%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6%E4%B8%AD-Bob-%E9%80%89%E5%8F%96-p-17-%E7%94%9F%E6%88%90%E5%85%83-g-3-%E7%A7%81%E9%92%A5-x-6-Alice%E9%80%89%E5%8F%96-Bob-%E7%9A%84%E5%85%AC%E9%92%A5%E5%AF%B9%E6%B6%88%E6%81%AF%E6%98%8E%E6%96%87-m-5-%E8%BF%9B%E8%A1%8C%E5%8A%A0%E5%AF%86%EF%BC%8C%E9%9A%8F%E6%9C%BA%E6%95%B0%E4%B8%BA-3-%E3%80%82%E6%B1%82-m-%E7%9A%84%E5%AF%86%E6%96%87%E3%80%82"><span class="toc-text">在$ElGamal$公钥密码体制中, $Bob$选取$p&#x3D;17$,生成元$g&#x3D;3$,私钥$x&#x3D;6$,Alice选取$Bob$的公钥对消息明文$m&#x3D;5$进行加密，随机数为$3$。求$m$的密文。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8B%A5%E6%9F%90LFSR%E7%9A%84%E7%BA%A7%E6%95%B0%E4%B8%BA-n-3-%EF%BC%8C%E5%B7%B2%E7%9F%A5-2n-%E9%95%BF%E5%AF%86%E6%96%87%E6%AE%B5-c-left-011001-right-%E5%AF%B9%E5%BA%94%E6%98%8E%E6%96%87%E6%AE%B5-m-left-101101-right-%E8%AF%B7%E7%BB%99%E5%87%BA%E5%85%B6%E5%8F%8D%E9%A6%88%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%82"><span class="toc-text">若某LFSR的级数为 $n&#x3D;3$，已知$2n$长密文段 $c&#x3D;\left( 011001 \right),$对应明文段 $m&#x3D;\left( 101101 \right),$请给出其反馈函数表达式。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-GF-23-%E4%B8%8A%E7%9A%84%E4%B8%80%E6%9D%A1%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF-y-text-2-x-text-3-x-1-%E8%AE%BE-g-left-6-text-4-right-%E5%8F%96%E7%A7%81%E9%92%A5-a-3-%E3%80%82%E5%85%AC%E9%92%A5%E4%B8%BA-b-a-cdot-g-3-left-6-text-4-right-left-7-text-12-right-%E3%80%82%E8%8B%A5%E6%83%B3%E5%8A%A0%E5%AF%86%E6%98%8E%E6%96%87-m-left-5-text-4-right-%E9%9A%8F%E6%9C%BA%E9%80%89%E5%8F%96-k-2-%EF%BC%8C%E5%88%99%E5%AF%86%E6%96%87-c-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E8%AF%B7%E7%BB%99%E5%87%BA%E5%8A%A0%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B%E3%80%82"><span class="toc-text">在 $GF_{23}$ 上的一条椭圆曲线 $y{}^\text{2}&#x3D;x{}^\text{3}+x+1$ , 设 $g&#x3D;\left( 6\text{,}4 \right)$ , 取私钥 $a&#x3D;3$ 。公钥为 $b&#x3D;a \cdot g&#x3D;3\left( 6\text{,}4 \right)&#x3D;\left( 7\text{,}12 \right)$ 。若想加密明文 $m&#x3D;\left( 5\text{,}4 \right)$, 随机选取 $k&#x3D;2$，则密文 $c$ 是什么？请给出加解密过程。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">加密过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">解密过程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%80%83%E8%99%91%E6%9C%89%E9%99%90%E5%9F%9F-F-23-%E4%B8%8A%E7%9A%84%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BFE%EF%BC%9A-y-text-2-x-text-3-4x-1-%E4%BB%A4-P-left-4-text-7-right-Q-left-10-text-31-right-%E6%B1%82-1-P-Q-2-2P%E3%80%82"><span class="toc-text">考虑有限域 $F_{23}$上的椭圆曲线E： $y{}^\text{2}&#x3D;x{}^\text{3}-4x+1,$令$P&#x3D;\left( 4\text{,}7 \right),Q&#x3D;\left( 10\text{,}31 \right)$ 求: (1) P+Q;  (2) 2P。</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E8%AE%A1%E7%AE%97-P-Q"><span class="toc-text">(1) 计算 $ P + Q $</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97-2P"><span class="toc-text">(2) 计算 $ 2P $</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86"><span class="toc-text">椭圆曲线加密</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E8%A7%A3%E5%AF%86"><span class="toc-text">椭圆曲线解密</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E7%9A%84%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B"><span class="toc-text">详细的计算示例</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%85%AC%E5%BC%8F%E8%AF%B4%E6%98%8E"><span class="toc-text">具体公式说明</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Floyd-Warshall 算法核心思想与考研重点 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="深入分析多源最短路径 Floyd-Warshall 算法的三重循环本质、动态规划状态转移方程及考研典型题型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Floyd-Warshall 算法核心思想与考研重点">
+<meta property="og:url" content="https://moyuan10086.github.io/2025/08/21/floyd-warshall-algorithm/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="深入分析多源最短路径 Floyd-Warshall 算法的三重循环本质、动态规划状态转移方程及考研典型题型。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-31.jpg">
+<meta property="article:published_time" content="2025-08-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-05T22:36:57.351Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="考研">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="最短路径">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="图论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-31.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Floyd-Warshall 算法核心思想与考研重点",
+  "url": "https://moyuan10086.github.io/2025/08/21/floyd-warshall-algorithm/",
+  "image": "https://moyuan10086.github.io/images/post-covers/post-cover-31.jpg",
+  "datePublished": "2025-08-20T16:00:00.000Z",
+  "dateModified": "2026-09-05T22:36:57.351Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2025/08/21/floyd-warshall-algorithm/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Floyd-Warshall 算法核心思想与考研重点',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css?v=20260906-toc-fix"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/post-covers/post-cover-31.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">Floyd-Warshall 算法核心思想与考研重点</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Floyd-Warshall 算法核心思想与考研重点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-20T16:00:00.000Z" title="发表于 2025-08-21 00:00:00">2025-08-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T22:36:57.351Z" title="更新于 2026-09-06 06:36:57">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%80%83%E7%A0%94/">考研</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%80%83%E7%A0%94/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Floyd-Warshall（弗洛伊德）算法-考研笔记"><a href="#Floyd-Warshall（弗洛伊德）算法-考研笔记" class="headerlink" title="Floyd-Warshall（弗洛伊德）算法 考研笔记"></a>Floyd-Warshall（弗洛伊德）算法 考研笔记</h2><h3 id="一、算法概述"><a href="#一、算法概述" class="headerlink" title="一、算法概述"></a>一、算法概述</h3><h4 id="1-1-核心思想"><a href="#1-1-核心思想" class="headerlink" title="1.1 核心思想"></a>1.1 核心思想</h4><p>Floyd算法是一种<strong>多源最短路径</strong>算法，基于<strong>动态规划</strong>思想，用于求解图中<strong>任意两个顶点之间的最短路径</strong>。</p>
+<p><strong>核心原理：</strong> 通过逐次引入每个顶点 k 作为”中间节点”，不断更新所有顶点对 (i, j) 之间的最短路径长度。</p>
+<p><strong>状态转移：</strong></p>
+<ul>
+<li><strong>初始状态 D⁰：</strong> 只允许直接路径（邻接矩阵）</li>
+<li><strong>第k次迭代 Dᵏ：</strong> D$i$$j$ 表示从 i 到 j 只允许经过集合 {1, 2, …, k} 中的顶点作为中间节点的最短路径长度</li>
+<li><strong>最终状态 Dⁿ：</strong> 任意两点间的最短路径值</li>
+</ul>
+<h4 id="1-2-算法特点"><a href="#1-2-算法特点" class="headerlink" title="1.2 算法特点"></a>1.2 算法特点</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>算法类型</strong></td>
+<td>多源最短路径，动态规划</td>
+</tr>
+<tr>
+<td><strong>时间复杂度</strong></td>
+<td><strong>O(V³)</strong>，三层循环</td>
+</tr>
+<tr>
+<td><strong>空间复杂度</strong></td>
+<td>O(V²)，需存储距离矩阵和路径矩阵</td>
+</tr>
+<tr>
+<td><strong>适用图</strong></td>
+<td>有向图、无向图均可</td>
+</tr>
+<tr>
+<td><strong>权值限制</strong></td>
+<td>可处理负权边，但<strong>不能处理负权环</strong></td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>代码简洁，一次运行得到所有顶点对最短路径</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>时间复杂度高，不适合顶点数很多的图</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="二、算法步骤详解"><a href="#二、算法步骤详解" class="headerlink" title="二、算法步骤详解"></a>二、算法步骤详解</h3><h4 id="2-1-第一步：初始化邻接矩阵"><a href="#2-1-第一步：初始化邻接矩阵" class="headerlink" title="2.1 第一步：初始化邻接矩阵"></a>2.1 第一步：初始化邻接矩阵</h4><p><strong>建议：</strong> 在每个元素下方添加角标（便于路径追溯）</p>
+<p><strong>初始角标格式：</strong> i-j（表示从 i 到 j 的直接路径）</p>
+<p><strong>示例邻接矩阵 D⁰：</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a(1)</th>
+<th>b(2)</th>
+<th>c(3)</th>
+<th>d(4)</th>
+<th>e(5)</th>
+<th>f(6)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a(1)</td>
+<td>0</td>
+<td>6</td>
+<td>∞</td>
+<td>8</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>b(2)</td>
+<td>18</td>
+<td>0</td>
+<td>7</td>
+<td>∞</td>
+<td>∞</td>
+<td>10</td>
+</tr>
+<tr>
+<td>c(3)</td>
+<td>9</td>
+<td>∞</td>
+<td>0</td>
+<td>15</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>d(4)</td>
+<td>∞</td>
+<td>∞</td>
+<td>12</td>
+<td>0</td>
+<td>∞</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>e(5)</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>∞</td>
+<td>0</td>
+<td>∞</td>
+</tr>
+<tr>
+<td>f(6)</td>
+<td>24</td>
+<td>5</td>
+<td>∞</td>
+<td>25</td>
+<td>∞</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="2-2-第二步：迭代更新"><a href="#2-2-第二步：迭代更新" class="headerlink" title="2.2 第二步：迭代更新"></a>2.2 第二步：迭代更新</h4><p><strong>核心公式：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">D[i][j] = min(D[i][j], D[i][k] + D[k][j])<br></code></pre></td></tr></table></figure>
+<h5 id="迭代规则（第k次迭代）"><a href="#迭代规则（第k次迭代）" class="headerlink" title="迭代规则（第k次迭代）"></a>迭代规则（第k次迭代）</h5><p><strong>考察对象：</strong> 主对角线第k个元素（第k个顶点），观察对应的行和列</p>
+<h6 id="（1）照抄部分"><a href="#（1）照抄部分" class="headerlink" title="（1）照抄部分"></a>（1）照抄部分</h6><ul>
+<li>主对角线第k行<strong>整行照抄</strong></li>
+<li>主对角线第k列<strong>整列照抄</strong></li>
+<li>该行列中为∞的元素，其对应的<strong>行和列也照抄</strong></li>
+<li>主对角线元素（0）始终不变</li>
+</ul>
+<h6 id="（2）更新部分"><a href="#（2）更新部分" class="headerlink" title="（2）更新部分"></a>（2）更新部分</h6><p>对于其他位置的元素 (i, j)：</p>
+<ul>
+<li><strong>比较：</strong> 原值 vs (i到k的距离 + k到j的距离)</li>
+<li><strong>更新规则：</strong> 取较小值</li>
+<li><strong>角标更新：</strong> 若更新，则合并路径角标</li>
+</ul>
+<p><strong>核心思想：</strong> 判断”i→k→j”是否比”i→j”更短</p>
+<h3 id="三、手动模拟示例"><a href="#三、手动模拟示例" class="headerlink" title="三、手动模拟示例"></a>三、手动模拟示例</h3><h4 id="3-1-第一次迭代（k-1，以顶点a为中间点）"><a href="#3-1-第一次迭代（k-1，以顶点a为中间点）" class="headerlink" title="3.1 第一次迭代（k=1，以顶点a为中间点）"></a>3.1 第一次迭代（k=1，以顶点a为中间点）</h4><p><strong>目标：</strong> 判断所有路径 (i, j) 是否可以通过 a 变得更短</p>
+<p><strong>关键更新：</strong></p>
+<ol>
+<li><p><strong>位置(3,2)（c → b）</strong></p>
+<ul>
+<li>原值：∞</li>
+<li>计算：D$3<script type="math/tex">1$ + D$1</script>2$ = 9 + 6 = 15 &lt; ∞</li>
+<li><strong>更新为：15</strong>，角标：3-1-2</li>
+</ul>
+</li>
+<li><p><strong>位置(2,4)（b → d）</strong></p>
+<ul>
+<li>原值：∞</li>
+<li>计算：D$2<script type="math/tex">1$ + D$1</script>4$ = 18 + 8 = 26 &lt; ∞</li>
+<li><strong>更新为：26</strong>，角标：2-1-4</li>
+</ul>
+</li>
+<li><p><strong>位置(6,4)（f → d）</strong></p>
+<ul>
+<li>原值：25</li>
+<li>计算：D$6<script type="math/tex">1$ + D$1</script>4$ = 24 + 8 = 32 &gt; 25</li>
+<li><strong>不更新</strong>（原值更小）</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-2-第二次迭代（k-2，以顶点b为中间点）"><a href="#3-2-第二次迭代（k-2，以顶点b为中间点）" class="headerlink" title="3.2 第二次迭代（k=2，以顶点b为中间点）"></a>3.2 第二次迭代（k=2，以顶点b为中间点）</h4><p><strong>目标：</strong> 在D¹基础上，判断所有路径是否可以通过 b 变得更短</p>
+<p><strong>关键更新：</strong></p>
+<ol>
+<li><p><strong>位置(6,1)（f → a）</strong></p>
+<ul>
+<li>原值：24</li>
+<li>计算：D¹$6<script type="math/tex">2$ + D¹$2</script>1$ = 5 + 18 = 23 &lt; 24</li>
+<li><strong>更新为：23</strong>，角标：6-2-1</li>
+</ul>
+</li>
+<li><p><strong>位置(6,3)（f → c）</strong></p>
+<ul>
+<li>原值：∞</li>
+<li>计算：D¹$6<script type="math/tex">2$ + D¹$2</script>3$ = 5 + 7 = 12 &lt; ∞</li>
+<li><strong>更新为：12</strong>，角标：6-2-3</li>
+</ul>
+</li>
+<li><p><strong>位置(1,3)（a → c）</strong></p>
+<ul>
+<li>原值：∞</li>
+<li>计算：D¹$1<script type="math/tex">2$ + D¹$2</script>3$ = 6 + 7 = 13 &lt; ∞</li>
+<li><strong>更新为：13</strong>，角标：1-2-3</li>
+</ul>
+</li>
+<li><p><strong>位置(1,6)（a → f）</strong></p>
+<ul>
+<li>原值：∞</li>
+<li>计算：D¹$1<script type="math/tex">2$ + D¹$2</script>6$ = 6 + 10 = 16 &lt; ∞</li>
+<li><strong>更新为：16</strong>，角标：1-2-6</li>
+</ul>
+</li>
+<li><p><strong>位置(3,6)（c → f）</strong></p>
+<ul>
+<li>原值：∞</li>
+<li>计算：D¹$3<script type="math/tex">2$ + D¹$2</script>6$ = 15 + 10 = 25 &lt; ∞</li>
+<li><strong>更新为：25</strong>，角标：3-1-2-6（体现路径递归：c→a→b→f）</li>
+</ul>
+</li>
+<li><p><strong>位置(3,4)（c → d）</strong></p>
+<ul>
+<li>原值：15</li>
+<li>计算：D¹$3<script type="math/tex">2$ + D¹$2</script>4$ = 15 + 26 = 41 &gt; 15</li>
+<li><strong>不更新</strong>（原值更小）</li>
+</ul>
+</li>
+</ol>
+<p><strong>依此类推，完成k=3到k=6的迭代，得到最终最短路径矩阵。</strong></p>
+<h3 id="四、算法原理深入理解"><a href="#四、算法原理深入理解" class="headerlink" title="四、算法原理深入理解"></a>四、算法原理深入理解</h3><h4 id="4-1-为什么∞对应的行列不更新？"><a href="#4-1-为什么∞对应的行列不更新？" class="headerlink" title="4.1 为什么∞对应的行列不更新？"></a>4.1 为什么∞对应的行列不更新？</h4><p><strong>原因：</strong> 若 i 到 k 的距离为∞，则”i→k→j”的路径必然 ≥ ∞，不可能优于原路径，因此无需计算更新。</p>
+<h4 id="4-2-角标的含义"><a href="#4-2-角标的含义" class="headerlink" title="4.2 角标的含义"></a>4.2 角标的含义</h4><ul>
+<li><strong>角标 i-k-j：</strong> 表示从顶点 i 经过顶点 k 到达顶点 j</li>
+<li><strong>复合角标：</strong> 记录完整的最短路径经过的顶点序列（如 3-1-2-6 表示 c→a→b→f）</li>
+<li><strong>矩阵数值：</strong> 对应最短路径的实际长度</li>
+</ul>
+<h4 id="4-3-路径回溯方法"><a href="#4-3-路径回溯方法" class="headerlink" title="4.3 路径回溯方法"></a>4.3 路径回溯方法</h4><p>通过维护<strong>路径矩阵P</strong>，记录每对顶点之间最短路径上的下一个顶点，最终可回溯完整路径。</p>
+<h3 id="五、考研重点总结"><a href="#五、考研重点总结" class="headerlink" title="五、考研重点总结"></a>五、考研重点总结</h3><h4 id="5-1-必背核心"><a href="#5-1-必背核心" class="headerlink" title="5.1 必背核心"></a>5.1 必背核心</h4><ol>
+<li><strong>核心公式：</strong> D$i<script type="math/tex">j$ = min(D$i</script>j$, D$i<script type="math/tex">k$ + D$k</script>j$)</li>
+<li><strong>时间复杂度：</strong> O(V³)</li>
+<li><strong>迭代顺序：</strong> k 循环在最外层（逐步引入中间点）</li>
+<li><strong>负权处理：</strong> 可处理负权边，不能处理负权环</li>
+</ol>
+<h4 id="5-2-手算技巧"><a href="#5-2-手算技巧" class="headerlink" title="5.2 手算技巧"></a>5.2 手算技巧</h4><ol>
+<li>严格按照迭代规则：先照抄，后更新</li>
+<li>遇到∞跳过计算</li>
+<li>角标记录完整路径（便于验证）</li>
+<li>对角线始终为0</li>
+</ol>
+<h4 id="5-3-常见考点"><a href="#5-3-常见考点" class="headerlink" title="5.3 常见考点"></a>5.3 常见考点</h4><ul>
+<li><strong>手动模拟：</strong> 给定小规模邻接矩阵，写出前1-2次迭代结果</li>
+<li><strong>复杂度分析：</strong> 解释为什么是O(V³)</li>
+<li><strong>算法比较：</strong> Floyd vs Dijkstra（多源vs单源，负权处理等）</li>
+<li><strong>路径回溯：</strong> 根据路径矩阵还原具体路径</li>
+</ul>
+<h4 id="5-4-算法流程口诀"><a href="#5-4-算法流程口诀" class="headerlink" title="5.4 算法流程口诀"></a>5.4 算法流程口诀</h4><ol>
+<li>初始化邻接矩阵（带角标）</li>
+<li>依次以每个顶点为中转点进行n次迭代</li>
+<li>每次迭代按”照抄-更新”规则处理</li>
+<li>最终矩阵即为任意两点间最短距离</li>
+<li>通过角标可回溯具体路径</li>
+</ol>
+<h3 id="六、与其他算法对比"><a href="#六、与其他算法对比" class="headerlink" title="六、与其他算法对比"></a>六、与其他算法对比</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Floyd</th>
+<th>Dijkstra</th>
+<th>Bellman-Ford</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>路径类型</td>
+<td>多源</td>
+<td>单源</td>
+<td>单源</td>
+</tr>
+<tr>
+<td>时间复杂度</td>
+<td>O(V³)</td>
+<td>O(V²) 或 O(ElogV)</td>
+<td>O(VE)</td>
+</tr>
+<tr>
+<td>负权边</td>
+<td>✓</td>
+<td>✗</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>负权环</td>
+<td>✗</td>
+<td>✗</td>
+<td>可检测</td>
+</tr>
+<tr>
+<td>实现难度</td>
+<td>简单</td>
+<td>中等</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>稠密图小规模</td>
+<td>无负权单源</td>
+<td>有负权单源</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2025/08/21/floyd-warshall-algorithm/">https://moyuan10086.github.io/2025/08/21/floyd-warshall-algorithm/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%80%83%E7%A0%94/">考研</a><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">最短路径</a><a class="post-meta__tags" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a><a class="post-meta__tags" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a></div><div class="post-share"><div class="social-share" data-image="/images/post-covers/post-cover-31.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/21/kaoyan-953-past-exams/" title="2025 年 953 考研专业课真题与精析"><img class="cover" src="/images/post-covers/post-cover-37.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">2025 年 953 考研专业课真题与精析</div></div><div class="info-2"><div class="info-item-1">一、 概念与简答题（数据结构与计算机网络）1. 简述二叉排序树（Binary Sort Tree）的相关概念与操作，以及稀疏矩阵的常用压缩存储方式 。  2. 简述局域网的相关特性与工作原理。  3. 简述密码体制中“密钥”的概念 。  4. 在网络寻址中，请比较数据报服务与虚电路服务的异同 相同点：  交换方式： 两者都属于分组交换（Packet Switching）技术，即将长报文拆分成若干个较短的分组进行转发。 资源共享： 都采用动态分配带宽的方式，通过统计时分复用提高线路利用率。  不同点（如下表所示）：     比较维度 数据报服务 (Datagram) 虚电路服务 (Virtual Circuit)     连接性 无连接。发送前无需建立连接。 面向连接。发送前必须建立连接。   目标地址 每个分组携带完整的目标地址。 分组仅携带短小的虚电路号 (VCI)。   路由选择 每个分组独立选择路由。 仅在建立连接时确定路径，后续不变。   分组顺序 不保证按序到达，可能乱序或丢失。 保证分组按发送顺序到达。   节点状态 路由器不维护连接状态（无状态）。 路由器需维护虚电...</div></div></div></a><a class="pagination-related" href="/2025/08/21/catalan-numbers/" title="卡特兰数（Catalan Number）：核心原理与应用模型"><img class="cover" src="/images/post-covers/post-cover-05.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">卡特兰数（Catalan Number）：核心原理与应用模型</div></div><div class="info-2"><div class="info-item-1">卡特兰数卡塔兰数（Catalan number）是一个在组合数学中非常重要的数列，广泛应用于多种结构的计数问题。卡塔兰数的第 n 项通常用 $C_n$ 表示，表示可以由 n 个节点构成的不同二叉树的个数，也可以表示其它多种组合结构的数量。 卡塔兰数的定义卡塔兰数的第 n 项可以通过以下递推公式或闭式公式来计算：  递推公式：  C_0 = 1 C_n = \sum_{i=0}^{n-1} C_i C_{n-i-1} \quad \text{(其中，} n \geq 1\text{)}这个递推公式表达了卡塔兰数的结构：假设我们想构造一个有 n 个节点的二叉树，可以先选定一个根节点，剩下的 n-1 个节点可以分为左右子树，左子树有 i 个节点，右子树有 n-i-1 个节点，于是根节点两边的子树的不同构造方法分别是 $Ci$ 和 $C{n-i-1}$。  闭式公式：  C_n = \frac{1}{n+1} \binom{2n}{n} = \frac{(2n)!}{(n+1)!n!}这个公式表达了卡塔兰数的一种常见计算方式。   卡塔兰数的应用卡塔兰数在组合数学中有着丰富的应用，例如：...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/21/catalan-numbers/" title="卡特兰数（Catalan Number）：核心原理与应用模型"><img class="cover" src="/images/post-covers/post-cover-05.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-21</div><div class="info-item-2">卡特兰数（Catalan Number）：核心原理与应用模型</div></div><div class="info-2"><div class="info-item-1">卡特兰数卡塔兰数（Catalan number）是一个在组合数学中非常重要的数列，广泛应用于多种结构的计数问题。卡塔兰数的第 n 项通常用 $C_n$ 表示，表示可以由 n 个节点构成的不同二叉树的个数，也可以表示其它多种组合结构的数量。 卡塔兰数的定义卡塔兰数的第 n 项可以通过以下递推公式或闭式公式来计算：  递推公式：  C_0 = 1 C_n = \sum_{i=0}^{n-1} C_i C_{n-i-1} \quad \text{(其中，} n \geq 1\text{)}这个递推公式表达了卡塔兰数的结构：假设我们想构造一个有 n 个节点的二叉树，可以先选定一个根节点，剩下的 n-1 个节点可以分为左右子树，左子树有 i 个节点，右子树有 n-i-1 个节点，于是根节点两边的子树的不同构造方法分别是 $Ci$ 和 $C{n-i-1}$。  闭式公式：  C_n = \frac{1}{n+1} \binom{2n}{n} = \frac{(2n)!}{(n+1)!n!}这个公式表达了卡塔兰数的一种常见计算方式。   卡塔兰数的应用卡塔兰数在组合数学中有着丰富的应用，例如：...</div></div></div></a><a class="pagination-related" href="/2025/08/21/kaoyan-953-past-exams/" title="2025 年 953 考研专业课真题与精析"><img class="cover" src="/images/post-covers/post-cover-37.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-21</div><div class="info-item-2">2025 年 953 考研专业课真题与精析</div></div><div class="info-2"><div class="info-item-1">一、 概念与简答题（数据结构与计算机网络）1. 简述二叉排序树（Binary Sort Tree）的相关概念与操作，以及稀疏矩阵的常用压缩存储方式 。  2. 简述局域网的相关特性与工作原理。  3. 简述密码体制中“密钥”的概念 。  4. 在网络寻址中，请比较数据报服务与虚电路服务的异同 相同点：  交换方式： 两者都属于分组交换（Packet Switching）技术，即将长报文拆分成若干个较短的分组进行转发。 资源共享： 都采用动态分配带宽的方式，通过统计时分复用提高线路利用率。  不同点（如下表所示）：     比较维度 数据报服务 (Datagram) 虚电路服务 (Virtual Circuit)     连接性 无连接。发送前无需建立连接。 面向连接。发送前必须建立连接。   目标地址 每个分组携带完整的目标地址。 分组仅携带短小的虚电路号 (VCI)。   路由选择 每个分组独立选择路由。 仅在建立连接时确定路径，后续不变。   分组顺序 不保证按序到达，可能乱序或丢失。 保证分组按发送顺序到达。   节点状态 路由器不维护连接状态（无状态）。 路由器需维护虚电...</div></div></div></a><a class="pagination-related" href="/2026/05/04/kaoyan-probability-intuition/" title="考研概率论：常见概率分布的物理意义与直觉模型"><img class="cover" src="/images/post-covers/post-cover-10.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-05-04</div><div class="info-item-2">考研概率论：常见概率分布的物理意义与直觉模型</div></div><div class="info-2"><div class="info-item-1">一、核心概念的”通俗翻译”在进入具体分布之前，必须先在脑海中建立这两个指标的直觉：  概率密度 $f(x)$ 或分布律 $P(X=k)$：某一瞬间/某一特定结果发生的“瞬时几率”或“绝对高度”。 分布函数 $F(x)$：事情发生的“进度条”。它代表从开始一直累积到 $x$ 时刻，事情已经发生的总体概率。它永远是一条从 0 爬升到 1 的曲线。  二、”时空双煞”：泊松分布与指数分布这是考研中最常考、也最容易混淆的一对，它们其实是同一枚硬币的正反面。 1. 泊松分布 $P(\lambda)$ —— 数的是“个数” 物理意义：在一个固定的时间段或空间区域内，某种罕见事件发生的次数。 生活场景：一家奶茶店 1 小时内进来的客人数；一本书 100 页里出现的错别字数；一段公路上 1 个月内发生的车祸数。 参数 $\lambda$ 的直觉：平均强度（预期发生次数）。 数学奇迹：$E(X) = D(X) = \lambda$。这说明，事情发生的平均频率越高（$\lambda$ 越大），其波动的剧烈程度（方差）也同比例放大。一天平均卖 2 杯奶茶的店，某天卖了 5 杯叫“爆单”；一天平均卖 1...</div></div></div></a><a class="pagination-related" href="/2025/08/21/kaoyan-network-ds-formulas/" title="计算机网络与数据结构考研核心公式笔记"><img class="cover" src="/images/post-covers/post-cover-17.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-21</div><div class="info-item-2">计算机网络与数据结构考研核心公式笔记</div></div><div class="info-2"><div class="info-item-1">计算机网络考研核心公式笔记 (完整汇总版)第一章：概述与基础 速率 (Rate)  单位换算：  1 \text{ kbps} = 10^3 \text{ bps} \quad (k = 10^3) 1 \text{ Mbps} = 10^6 \text{ bps} \quad (M = 10^6) 1 \text{ Gbps} = 10^9 \text{ bps} \quad (G = 10^9)   时延 (Delay)  总时延 (Total Delay):  D_{总} = D_{发送} + D_{传播} + D_{处理} + D_{排队} 发送时延 (Transmission Delay)：也称传输时延，是将数据从主机/路由器推向链路所需的时间。  D_{发送} = \frac{\text{数据块长度 (bit)}}{\text{信道带宽 (bit/s)}} 传播时延 (Propagation Delay)：电磁波在信道中传播一定距离所需的时间。  D_{传播} = \frac{\text{信道长度 (m)}}{\text{电磁波在信道上的传播速率 (m/s)}}注：在...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Floyd-Warshall%EF%BC%88%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7%EF%BC%89%E7%AE%97%E6%B3%95-%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0"><span class="toc-text">Floyd-Warshall（弗洛伊德）算法 考研笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-text">一、算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="toc-text">1.1 核心思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E7%AE%97%E6%B3%95%E7%89%B9%E7%82%B9"><span class="toc-text">1.2 算法特点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E8%AF%A6%E8%A7%A3"><span class="toc-text">二、算法步骤详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%88%9D%E5%A7%8B%E5%8C%96%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5"><span class="toc-text">2.1 第一步：初始化邻接矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%BF%AD%E4%BB%A3%E6%9B%B4%E6%96%B0"><span class="toc-text">2.2 第二步：迭代更新</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E8%A7%84%E5%88%99%EF%BC%88%E7%AC%ACk%E6%AC%A1%E8%BF%AD%E4%BB%A3%EF%BC%89"><span class="toc-text">迭代规则（第k次迭代）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%85%A7%E6%8A%84%E9%83%A8%E5%88%86"><span class="toc-text">（1）照抄部分</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%9B%B4%E6%96%B0%E9%83%A8%E5%88%86"><span class="toc-text">（2）更新部分</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%89%8B%E5%8A%A8%E6%A8%A1%E6%8B%9F%E7%A4%BA%E4%BE%8B"><span class="toc-text">三、手动模拟示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%BF%AD%E4%BB%A3%EF%BC%88k-1%EF%BC%8C%E4%BB%A5%E9%A1%B6%E7%82%B9a%E4%B8%BA%E4%B8%AD%E9%97%B4%E7%82%B9%EF%BC%89"><span class="toc-text">3.1 第一次迭代（k&#x3D;1，以顶点a为中间点）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E7%AC%AC%E4%BA%8C%E6%AC%A1%E8%BF%AD%E4%BB%A3%EF%BC%88k-2%EF%BC%8C%E4%BB%A5%E9%A1%B6%E7%82%B9b%E4%B8%BA%E4%B8%AD%E9%97%B4%E7%82%B9%EF%BC%89"><span class="toc-text">3.2 第二次迭代（k&#x3D;2，以顶点b为中间点）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3"><span class="toc-text">四、算法原理深入理解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E2%88%9E%E5%AF%B9%E5%BA%94%E7%9A%84%E8%A1%8C%E5%88%97%E4%B8%8D%E6%9B%B4%E6%96%B0%EF%BC%9F"><span class="toc-text">4.1 为什么∞对应的行列不更新？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E8%A7%92%E6%A0%87%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-text">4.2 角标的含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-%E8%B7%AF%E5%BE%84%E5%9B%9E%E6%BA%AF%E6%96%B9%E6%B3%95"><span class="toc-text">4.3 路径回溯方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%80%83%E7%A0%94%E9%87%8D%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-text">五、考研重点总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E5%BF%85%E8%83%8C%E6%A0%B8%E5%BF%83"><span class="toc-text">5.1 必背核心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-%E6%89%8B%E7%AE%97%E6%8A%80%E5%B7%A7"><span class="toc-text">5.2 手算技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-%E5%B8%B8%E8%A7%81%E8%80%83%E7%82%B9"><span class="toc-text">5.3 常见考点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%8F%A3%E8%AF%80"><span class="toc-text">5.4 算法流程口诀</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E4%B8%8E%E5%85%B6%E4%BB%96%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94"><span class="toc-text">六、与其他算法对比</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

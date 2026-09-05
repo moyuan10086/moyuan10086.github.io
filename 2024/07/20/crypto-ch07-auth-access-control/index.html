@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>密码学 - 第 7 章 身份认证与访问控制 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="身份认证机制（口令、双因子、基于对称&#x2F;非对称密钥的挑战应答协议）与 Kerberos 协议。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="密码学 - 第 7 章 身份认证与访问控制">
+<meta property="og:url" content="https://moyuan10086.github.io/2024/07/20/crypto-ch07-auth-access-control/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="身份认证机制（口令、双因子、基于对称&#x2F;非对称密钥的挑战应答协议）与 Kerberos 协议。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-07.jpg">
+<meta property="article:published_time" content="2024-07-19T16:38:47.000Z">
+<meta property="article:modified_time" content="2026-09-05T22:36:57.420Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="密码学">
+<meta property="article:tag" content="身份认证">
+<meta property="article:tag" content="访问控制">
+<meta property="article:tag" content="挑战应答">
+<meta property="article:tag" content="Kerberos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/post-covers/post-cover-07.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "密码学 - 第 7 章 身份认证与访问控制",
+  "url": "https://moyuan10086.github.io/2024/07/20/crypto-ch07-auth-access-control/",
+  "image": "https://moyuan10086.github.io/images/post-covers/post-cover-07.jpg",
+  "datePublished": "2024-07-19T16:38:47.000Z",
+  "dateModified": "2026-09-05T22:36:57.420Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2024/07/20/crypto-ch07-auth-access-control/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '密码学 - 第 7 章 身份认证与访问控制',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css?v=20260906-toc-fix"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/post-covers/post-cover-07.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">密码学 - 第 7 章 身份认证与访问控制</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">密码学 - 第 7 章 身份认证与访问控制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-19T16:38:47.000Z" title="发表于 2024-07-20 00:38:47">2024-07-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T22:36:57.420Z" title="更新于 2026-09-06 06:36:57">2026-09-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h4 id="第7章：身份认证与访问控制"><a href="#第7章：身份认证与访问控制" class="headerlink" title="第7章：身份认证与访问控制"></a>第7章：身份认证与访问控制</h4><h5 id="基于生物特征识别的身份认证"><a href="#基于生物特征识别的身份认证" class="headerlink" title="基于生物特征识别的身份认证"></a>基于生物特征识别的身份认证</h5><p><strong>基于生物特征的身份认证</strong></p>
+<ul>
+<li>通过人体固有的生理或行为特征进行身份验证，分为身体特征和行为特征。</li>
+</ul>
+<p><strong>常用的生物特征识别技术</strong></p>
+<ol>
+<li><p><strong>指纹识别</strong></p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>指纹是人体独一无二的特征。</li>
+<li>识别速度快，使用方便。</li>
+<li>手指与指纹采集头相互接触，更成熟。</li>
+<li>采集头体积小，价格低廉。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>成像质量与识别技术的限制。</li>
+<li>指纹库规模的限制。</li>
+<li>指纹采集在采集头上留下印痕，使得复制成为可能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>掌纹识别</strong></p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>特征丰富、旋转不变性和唯一性。</li>
+<li>终身不变，不易仿造。</li>
+<li>采集设备成本较低，图像质量稳定。</li>
+<li>不涉及隐私，易于推广。</li>
+<li>容易与其他特征结合，实现一体化识别。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>人脸识别</strong></p>
+<ul>
+<li><strong>应用系统</strong>：嵌入式系统、服务器、个人电脑。</li>
+<li><strong>研究内容</strong>：脸检测、脸表征、脸鉴别、表情/姿态分析、生理分类。</li>
+</ul>
+</li>
+<li><p><strong>声音识别</strong></p>
+<ul>
+<li><strong>优点</strong>：<ul>
+<li>语音获取方便，接受度高。</li>
+<li>获取语音的成本低廉。</li>
+<li>适合远程身份确认。</li>
+<li>算法复杂度低。</li>
+<li>不涉及隐私问题。</li>
+</ul>
+</li>
+<li><strong>声纹识别</strong>：说话人辨认、说话人确认、说话人探测/跟踪。</li>
+</ul>
+</li>
+<li><p><strong>虹膜识别</strong></p>
+<ul>
+<li><strong>特点与依据</strong>：<ul>
+<li>虹膜的纤维组织细节复杂而丰富，具有极大的随机性。</li>
+<li>具有因人而异的固有特性。</li>
+<li>虹膜组织特征在出生半年至一年半内发育完全，终生不变。</li>
+<li>几乎不可能通过手术改变特性，更不可能改变成与特定对象相同。</li>
+<li>一般疾病不会对虹膜组织造成损伤。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>视网膜识别</strong></p>
+<ul>
+<li><strong>优点</strong>：极其固定的生物特征，不需要与设备接触，不会被伪造。</li>
+<li><strong>缺点</strong>：健康方面的损害，对消费者没有吸引力，很难降低其成本。</li>
+</ul>
+</li>
+<li><p><strong>DNA识别</strong></p>
+<ul>
+<li><strong>优点</strong>：遗传信息储存在DNA分子中，两人DNA图谱完全相同的概率极低。</li>
+</ul>
+</li>
+</ol>
+<p><strong>生物特征识别的特点</strong></p>
+<ul>
+<li><strong>广泛性</strong>：每个人都应该具有这种特征。</li>
+<li><strong>唯一性</strong>：每个人的具体特征各不相同。</li>
+<li><strong>稳定性</strong>：该特征应当不随时间地点发生变化。</li>
+<li><strong>可采集性</strong>：该特征应该便于测量。</li>
+</ul>
+<h5 id="身份认证协议"><a href="#身份认证协议" class="headerlink" title="身份认证协议"></a>身份认证协议</h5><p><strong>身份认证协议概念</strong></p>
+<ul>
+<li>通过身份认证协议，验证者相信通信的另一方确实是所声称的那个实体，防止假冒。身份认证协议包含证明者（$P$）和验证者（$V$）。</li>
+</ul>
+<p><strong>身份认证协议满足的条件</strong></p>
+<ul>
+<li>$P$能向$V$证明他的确是$P$。</li>
+<li>$P$向$V$证明其身份后，$V$没有获得任何有用的信息，即$V$不能冒充成$P$向第三方证明他是$P$。</li>
+<li>除了$P$以外的第三者$C$以$P$的身份执行该协议，能让$V$相信他是$P$的概率可以忽略不计。</li>
+</ul>
+<p><strong>身份认证协议实例</strong></p>
+<ul>
+<li><strong>Guillou-Quisquater身份认证协议</strong>：<ol>
+<li><strong>系统初始化</strong>：信任权威（$TA$）选择两个大素数p和q，计算$n=pq$，确定签名算法SigTA和Hash函数$h$。选取长度为40比特的素数$b$作为公钥，计算私钥$a=b^{-1} \mod φ(n)$。公开参数为$n, b, h$。</li>
+<li><strong>$TA$向$P$颁发身份证书</strong>：P秘密选取整数u，计算$v≡(u^{-1})^b \mod n$，发送$v$给$TA$。$TA$计算签名$s=SigTA(IDP, v)$，发送证书$C(P)=(IDP, v, s)$给$P$。</li>
+<li><strong>P向V证明其身份</strong>：P随机选取整数k，计算$γ≡k^b \mod n$，发送证书$C(P)$和$γ$给$V$。$V$验证$s$是否是$TA$对$(IDP, v)$的签名，如果是，V随机选取整数$r$并发送给$P$。$P$计算$y≡ku^r \mod n$，发送$y$给$V$。$V$验证是否有$γ≡v^ry^b \mod n$成立。</li>
+</ol>
+</li>
+</ul>
+<h5 id="与消息认证区分（完整性）"><a href="#与消息认证区分（完整性）" class="headerlink" title="与消息认证区分（完整性）"></a>与消息认证区分（完整性）</h5><p><strong>消息认证</strong></p>
+<ul>
+<li><strong>需求</strong>：防止伪造消息、篡改消息内容、消息重放或者延迟。</li>
+<li><strong>定义描述</strong>：对收到的消息进行验证，证明确实是来自声称的发送方，并且没有被修改过。通过在消息中加入时间及顺序信息，完成对时间和顺序的认证。</li>
+</ul>
+<p><strong>常见方法</strong></p>
+<ol>
+<li><strong>消息加密</strong>：用整个消息的密文作为认证标识。</li>
+<li><strong>消息认证码（MAC）</strong>：一个公开函数，加上一个密钥产生一个固定长度的值作为认证标识。</li>
+<li><strong>哈希函数</strong>：一个公开函数将任意长度的消息映射到一个固定长度的散列值，作为认证标识。</li>
+</ol>
+<p><strong>消息认证与身份认证的差别</strong></p>
+<ul>
+<li>身份认证（实体鉴别）一般都是实时的，消息鉴别一般不提供实时性。</li>
+<li>实体鉴别只证实实体的身份，消息鉴别除了要证实消息的合法性和完整性外，还需要知道消息的含义。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2024/07/20/crypto-ch07-auth-access-control/">https://moyuan10086.github.io/2024/07/20/crypto-ch07-auth-access-control/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学</a><a class="post-meta__tags" href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/">身份认证</a><a class="post-meta__tags" href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/">访问控制</a><a class="post-meta__tags" href="/tags/%E6%8C%91%E6%88%98%E5%BA%94%E7%AD%94/">挑战应答</a><a class="post-meta__tags" href="/tags/Kerberos/">Kerberos</a></div><div class="post-share"><div class="social-share" data-image="/images/post-covers/post-cover-07.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/07/20/crypto-ch08-key-management/" title="密码学 - 第 8 章 密钥管理"><img class="cover" src="/images/post-covers/post-cover-25.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">密码学 - 第 8 章 密钥管理</div></div><div class="info-2"><div class="info-item-1">第8章：密钥管理密钥管理概述密钥管理  密钥管理是对密钥生命周期（产生、存储、分配、备份/恢复、更新、撤销、归档、销毁）全过程实施的安全保密管理。 主要内容包括密钥的产生、分配和维护。维护涉及密钥的存储、更新、备份、恢复、销毁等方面。  密钥分类  静态密钥（长期密钥）：使用周期较长，具体周期视应用而定，可能是几小时到几年。 会话密钥（短期密钥）：生命周期较短，可能是几分钟到几天。会话密钥通常用于在某一时间段内加密数据。  密钥种类  基本密钥（base key）：又称初始密钥或用户密钥，用于参与或控制密码变换，在一定范围配置、一定时间更换。 会话密钥（session key）：在一次通话或交换数据时使用的密钥。通常与基本密钥结合对消息进行加密，且一报一换。 密钥加密密钥（key encrypting key）：用于对会话密钥进行加密保护。又称辅助（二级）密钥或密钥传送密钥。 主密钥（Primary Master Key）：用于对密钥加密密钥进行加密保护。 公钥体制下的密钥：包括公开密钥、秘密密钥、签名密钥、认证密钥等。  密钥产生  基本要求：具有良好的随机性，包括长周期性、非...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-ch06-digital-signature/" title="密码学 - 第 6 章 数字签名"><img class="cover" src="/images/post-covers/post-cover-11.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">密码学 - 第 6 章 数字签名</div></div><div class="info-2"><div class="info-item-1">第6章：数字签名数字签名的基本概念背景  在政治、军事、外交、商业以及日常事务中，签名用于认证、核准、生效。在电子世界里，需要数字签名来替代手写签名，实现对数字信息的签名。  特性  不可伪造性：只有签名者能生成合法签名。 认证性：接收者可以确认签名来自签名者。 不可重复使用性：一个消息的签名不能用于其他消息。 不可修改性：签名后的消息不能被修改。 不可否认性：签名者不能否认自己的签名。  数字签名方案组成  包含签名算法和验证算法。 签名算法输入签名者的私钥和消息，输出消息的数字签名。 验证算法输入签名者的公钥、消息和签名，输出真或伪。  数字签名方案分类  按用途：普通数字签名、盲签名、不可否认签名、群签名、代理签名等。 按消息恢复功能：具有消息恢复功能和不具有消息恢复功能。 按随机数使用：确定性数字签名和随机化数字签名。  RSA数字签名RSA算法描述  密钥生成  选择两个大素数 $ p $ 和 $ q $。 计算 $ n = pq $ 和欧拉函数 $ \phi(n) = (p-1)(q-1) $。 选择整数 $ e $，满足 $ 1 &lt; e &lt; \phi(n...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/07/20/crypto-des-modes/" title="密码学 - DES 五种工作模式详解"><img class="cover" src="/images/post-covers/post-cover-33.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - DES 五种工作模式详解</div></div><div class="info-2"><div class="info-item-1">DES 的五种主要工作模式DES（数据加密标准）是一种对称加密算法，它可以在多种工作模式下使用。不同的工作模式提供了不同的安全特性和操作方式。以下是 DES 的五种主要工作模式： 1.电子密码本模式（ECB，Electronic Codebook）工作原理：  明文被分割成固定大小的块（通常是64位），每个块独立地加密或解密。 相同的明文块总是被加密成相同的密文块。  优点：  实现简单，适合加密小数据量或无关数据。  缺点：  不提供数据的混淆和扩散效果。 相同的明文块总是被加密成相同的密文块，容易被攻击者利用模式分析攻击。  示例：  适用于随机数据或少量数据的加密。  2. 密文分组链接模式（CBC，Cipher Block Chaining）工作原理：  第一个明文块与初始向量（IV）进行异或，然后加密。 每个后续明文块在加密前与前一个密文块进行异或。  优点：  提供了混淆和扩散效果。 相同的明文块不会加密成相同的密文块。  缺点：  需要初始向量（IV）。 加密和解密不能并行处理。  示例：  广泛用于各种安全通信协议中，如 SSL/TLS。  3. 密文反馈模式（C...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-problem-elgamal-encryption/" title="密码学题解 - ElGamal 公钥加密算法计算"><img class="cover" src="/images/post-covers/post-cover-06.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题解 - ElGamal 公钥加密算法计算</div></div><div class="info-2"><div class="info-item-1">在ElGamal密码体制中，设素数p=71，生成元g=7。（1）如果接收者B的公钥为yB=3，发送者A随机选择整数k=2，求明文m=30所对应的密文。（2）如果发送者A选择另一个随机整数k，使得明文m=30加密后的密文为c=(59, c2)，求c2。ElGamal密码体制已知条件：  素数 p = 71 生成元 g = 7 接收者B的公钥 y_B = 3 明文 m = 30  （1）随机整数 k = 2计算密文 c = (C_1, C_2)： 计算 C_1：  C_1 = g^k \mod p = 7^2 \mod 71计算 7^2：  7^2 = 49所以：  C_1 = 49 \mod 71 = 49 计算 C_2：  C_2 = m \cdot (y_B)^k \mod p = 30 \cdot 3^2 \mod 71计算 3^2：  3^2 = 9所以：  C_2 = 30 \cdot 9 \mod 71 = 270 \mod 71计算 270 \mod 71：  270 = 3 \cdot 71 + 57 \implies 270 \mod 71 = 57  因此，密文...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-algorithms-summary/" title="密码学 - 加密与签名算法综合整理"><img class="cover" src="/images/post-covers/post-cover-12.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 加密与签名算法综合整理</div></div><div class="info-2"><div class="info-item-1">加密和签名算法整理对比RSA加密目的：保护数据的机密性，确保只有拥有相应私钥的人能够解密数据。 过程：  加密：  使用接收方的公钥 $ e $ 对消息 $ m $ 进行加密。 加密公式：$ c \equiv m^e \pmod{n} $ 这里，$ c $ 是密文，$ m $ 是明文，$ n $ 是两个大素数的乘积（$ n = p \times q $），$ e $ 是公钥。   解密：  使用接收方的私钥 $ d $ 对密文 $ c $ 进行解密。 解密公式：$ m \equiv c^d \pmod{n} $ 这里，$ m $ 是解密后的明文，$ c $ 是密文，$ d $ 是私钥。    应用：  安全的消息传输，例如电子邮件加密、文件加密等。  RSA签名目的：验证消息的真实性和完整性，确保消息来自合法发送者且未被篡改。 过程：  签名：  使用发送方的私钥 $ d $ 对消息的哈希值 $ h(m) $ 进行签名。 签名公式：$ s \equiv h(m)^d \pmod{n} $ 这里，$ s $ 是签名，$ h(m) $ 是消息 $ m $ 的哈希值，$ d $ 是私钥...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-ch05-hash-and-mac/" title="密码学 - 第 5 章 散列函数与消息认证"><img class="cover" src="/images/post-covers/post-cover-27.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学 - 第 5 章 散列函数与消息认证</div></div><div class="info-2"><div class="info-item-1">第5章：单向散列函数和消息认证单向散列函数基础Hash函数的定义  Hash函数h是一个公开函数，用于将任意长的消息m映射为较短的、固定长度的一个值h(m)，称为消息摘要或哈希值。  Hash函数的性质  输入任意长：函数的输入可以是任意长的消息。 输出固定长：函数的输出是固定长度的摘要。 计算简便：对任意给定的x，计算$h(x)$比较容易。 单向性：对任意给定的Hash值z，找到满足$h(x)=z$的$x$在计算上是不可行的。 抗弱碰撞性：已知x，找到另一个$y(y≠x)$使得$h(y)=h(x)$在计算上是不可行的。 抗强碰撞性：找到任意两个不同的输入$x, y$，使$h(y)=h(x)$在计算上是不可行的。  碰撞性  碰撞是指对于两个不同的消息x和y，如果它们的Hash值相同，则发生了碰撞。Hash函数必须具有碰撞抵抗性，确保找到碰撞在计算上是不可行的。  Hash与加密的对比  加密是双向的，需要使用密钥进行加密和解密。Hash是单向的，没有解Hash的过程。  迭代型Hash函数的一般结构  Merkle基于压缩函数f提出了一个Hash函数的一般结构。输入m被分为L个...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-problem-elgamal-signature/" title="密码学题解 - ElGamal 数字签名方案与验签"><img class="cover" src="/images/post-covers/post-cover-24.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题解 - ElGamal 数字签名方案与验签</div></div><div class="info-2"><div class="info-item-1">在ElGamal签名方案中，设P=19，g=2，私钥x=9，则公钥y=2^9 mod 19=18。若消息m的Hash值为152，试给出选取随机数k=5时的签名和验证过程。ElGamal签名方案重新生成给定参数 P = 19 g = 2 私钥 x = 9 公钥 y = g^x \mod P = 2^9 \mod 19 = 18 消息的 Hash 值 h(m) = 152 随机数 k = 5  签名过程 计算 r  r = g^k \mod P代入已知值：  r = 2^5 \mod 19计算 2^5 = 32，然后取模：  r = 32 \mod 19 = 13 计算 s  s = k^{-1} (h(m) - xr) \mod (P-1)这里，k^{-1} 是 k 的模逆元，满足 k \times k^{-1} \equiv 1 \mod (P-1)。 计算 k^{-1} \mod 18（因为 P-1 = 18）：  k = 5 \Rightarrow 5 \times k^{-1} \equiv 1 \pmod{18}用扩展欧几里得算法求解，得到 k^{-1} = 11，因为 ...</div></div></div></a><a class="pagination-related" href="/2024/07/20/crypto-problem-rsa-signature/" title="密码学题解 - RSA 数字签名方案与计算"><img class="cover" src="/images/post-covers/post-cover-15.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-20</div><div class="info-item-2">密码学题解 - RSA 数字签名方案与计算</div></div><div class="info-2"><div class="info-item-1">在RSA签名方案中，设p=7，q=17，公钥e=5，消息m的Hash值为19，试计算私钥d并给出对消息的签名和验证过程。求私钥 d 的计算过程已知参数：  p = 7 q = 17 n = p \times q = 7 \times 17 = 119 \phi(n) = (p - 1) \times (q - 1) = 6 \times 16 = 96 公钥 e = 5  我们需要找到私钥 d，满足： d \equiv e^{-1} \mod 96即： 5 \times d \equiv 1 \pmod{96}5×d 与 1 在模 96 下是同余的 使用扩展欧几里得算法求解逆元扩展欧几里得算法步骤： 使用欧几里得算法找到 e 和 \phi(n) 的最大公约数：  96 = 5 \times 19 + 1这里我们得到了 1 = 96 - 5 \times 19。  改写成扩展欧几里得算法形式：  1 = 96 - 5 \times 19即：  1 = 96 \times 1 - 5 \times 19从而：  1 \equiv -5 \times 19 \pmod{96}因此： d...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC7%E7%AB%A0%EF%BC%9A%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E4%B8%8E%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-text">第7章：身份认证与访问控制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%94%9F%E7%89%A9%E7%89%B9%E5%BE%81%E8%AF%86%E5%88%AB%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-text">基于生物特征识别的身份认证</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%E5%8D%8F%E8%AE%AE"><span class="toc-text">身份认证协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8E%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E5%8C%BA%E5%88%86%EF%BC%88%E5%AE%8C%E6%95%B4%E6%80%A7%EF%BC%89"><span class="toc-text">与消息认证区分（完整性）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
