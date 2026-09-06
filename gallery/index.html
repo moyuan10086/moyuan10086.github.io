@@ -1,0 +1,1357 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>图库 | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content=":root {   --gal-bg: #f6f8fc;   --gal-card-bg: rgba(255, 255, 255, 0.9);   --gal-ink: #2c3345;   --gal-muted: #79839e;   --gal-border: rgba(120, 140, 200, 0.16);   --gal-primary: #587cf0;   --gal-pink">
+<meta property="og:type" content="website">
+<meta property="og:title" content="图库">
+<meta property="og:url" content="https://moyuan10086.github.io/gallery/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content=":root {   --gal-bg: #f6f8fc;   --gal-card-bg: rgba(255, 255, 255, 0.9);   --gal-ink: #2c3345;   --gal-muted: #79839e;   --gal-border: rgba(120, 140, 200, 0.16);   --gal-primary: #587cf0;   --gal-pink">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/newnewlogo.png">
+<meta property="article:published_time" content="2026-09-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-06T20:29:48.103Z">
+<meta property="article:author" content="moyuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/newnewlogo.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/gallery/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '图库',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/custom.css?v=20260907-toc-anchor-fix"><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script><script src="/js/custom.js?v=20260506-hitokoto-fallback"></script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header" style="background-image: url(/images/wallpaper.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 图库</span></a></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">图库</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><style>
+:root {
+  --gal-bg: #f6f8fc;
+  --gal-card-bg: rgba(255, 255, 255, 0.9);
+  --gal-ink: #2c3345;
+  --gal-muted: #79839e;
+  --gal-border: rgba(120, 140, 200, 0.16);
+  --gal-primary: #587cf0;
+  --gal-pink: #f472b6;
+  --gal-purple: #8b5cf6;
+  --gal-shadow: 0 10px 30px rgba(70, 95, 160, 0.08);
+  --gal-hover-shadow: 0 20px 40px rgba(60, 85, 170, 0.18);
+}
+
+/* Reset Hexo theme container constraints for full-width immersive view */
+#content-inner.layout {
+  max-width: 1480px !important;
+  width: 95% !important;
+  padding: 20px 10px !important;
+}
+#aside-content {
+  display: none !important;
+}
+#page {
+  width: 100% !important;
+  padding: 0 !important;
+  border-radius: 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#article-container {
+  padding: 0 !important;
+}
+
+/* Gallery Shell */
+.gallery-shell {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  color: var(--gal-ink);
+  margin-bottom: 50px;
+}
+
+/* Hero Section */
+.gallery-hero {
+  position: relative;
+  text-align: center;
+  padding: 55px 24px 40px;
+  margin-bottom: 32px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(238, 244, 255, 0.85) 0%, rgba(254, 240, 250, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--gal-shadow);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+.gallery-hero::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.35), transparent 70%);
+  pointer-events: none;
+}
+.gallery-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--gal-primary), var(--gal-purple));
+  box-shadow: 0 4px 14px rgba(88, 124, 240, 0.35);
+  margin-bottom: 14px;
+}
+.gallery-hero h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin: 0 0 12px;
+  color: #1f2742;
+  border: none;
+}
+.gallery-hero p {
+  font-size: 15px;
+  color: var(--gal-muted);
+  max-width: 680px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+
+/* Stat counters */
+.gallery-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.gallery-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--gal-border);
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #4b5563;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.gallery-stat-pill strong {
+  color: var(--gal-primary);
+  font-weight: 700;
+}
+
+/* Controls Bar */
+.gallery-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  padding: 16px 22px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--gal-border);
+  border-radius: 16px;
+  box-shadow: var(--gal-shadow);
+  backdrop-filter: blur(10px);
+}
+.gallery-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.gallery-tab {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gal-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.gallery-tab:hover {
+  color: var(--gal-primary);
+  background: rgba(88, 124, 240, 0.08);
+}
+.gallery-tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--gal-primary), var(--gal-purple));
+  box-shadow: 0 4px 12px rgba(88, 124, 240, 0.28);
+}
+.gallery-search {
+  position: relative;
+  min-width: 240px;
+}
+.gallery-search input {
+  width: 100%;
+  padding: 8px 16px 8px 36px;
+  border-radius: 999px;
+  border: 1px solid var(--gal-border);
+  background: rgba(245, 248, 255, 0.7);
+  color: var(--gal-ink);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.gallery-search input:focus {
+  border-color: var(--gal-primary);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(88, 124, 240, 0.15);
+}
+.gallery-search i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gal-muted);
+  font-size: 13px;
+}
+
+/* Image Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+}
+.gallery-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--gal-border);
+  box-shadow: var(--gal-shadow);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--gal-hover-shadow);
+}
+
+/* Image Preview Container */
+.gallery-img-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 60%; /* 16:9.6 aspect ratio */
+  overflow: hidden;
+  background: #edf2f7;
+  cursor: pointer;
+}
+.gallery-img-wrap img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.gallery-card:hover .gallery-img-wrap img {
+  transform: scale(1.06);
+}
+.gallery-tag-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  color: #fff;
+  background: rgba(30, 41, 59, 0.72);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+/* Hover Action Bar (Image-bed utilities) */
+.gallery-overlay-actions {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 3;
+}
+.gallery-card:hover .gallery-overlay-actions {
+  opacity: 1;
+}
+.gal-action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e293b;
+  font-size: 15px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+}
+.gal-action-btn:hover {
+  transform: scale(1.12);
+  background: var(--gal-primary);
+  color: #fff;
+}
+
+/* Card Footer */
+.gallery-card-info {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gallery-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gallery-card-desc {
+  font-size: 12px;
+  color: var(--gal-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gallery-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+.gallery-btn-copy-md {
+  border: none;
+  background: rgba(88, 124, 240, 0.08);
+  color: var(--gal-primary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+.gallery-btn-copy-md:hover {
+  background: var(--gal-primary);
+  color: #fff;
+}
+.gallery-btn-link {
+  border: none;
+  background: transparent;
+  color: var(--gal-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.gallery-btn-link:hover {
+  color: var(--gal-primary);
+}
+
+/* Lightbox Modal */
+.gal-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 26, 0.9);
+  backdrop-filter: blur(16px);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gal-lightbox.show {
+  display: flex;
+  opacity: 1;
+}
+.gal-lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gal-lightbox-img {
+  max-width: 90vw;
+  max-height: 78vh;
+  border-radius: 12px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  object-fit: contain;
+}
+.gal-lightbox-caption {
+  margin-top: 14px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.gal-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.gal-lightbox-close:hover {
+  background: rgba(239, 68, 68, 0.8);
+  transform: scale(1.08);
+}
+.gal-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.gal-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-50%) scale(1.1);
+}
+.gal-lightbox-prev { left: 24px; }
+.gal-lightbox-next { right: 24px; }
+
+/* Toast Notification */
+.gal-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(50px);
+  background: #1e293b;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.2, 0, 0.2, 1), opacity 0.28s ease;
+}
+.gal-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+</style>
+
+<div class="gallery-shell">
+  <!-- Hero Section -->
+  <section class="gallery-hero">
+    <div class="gallery-hero-badge"><i class="fas fa-sparkles"></i> 视觉艺术展馆 · 自建直链图床</div>
+    <h1>二次元画廊与图床展示</h1>
+    <p>收录博客精选动漫插画、角色主题、4K 高清壁纸与历史封面 · 支持全屏大图预览、一键复制外链及 Markdown 格式引用</p>
+    <div class="gallery-stats">
+      <div class="gallery-stat-pill"><i class="fas fa-images"></i> 精选收录: <strong>45 张</strong></div>
+      <div class="gallery-stat-pill"><i class="fas fa-layer-group"></i> 核心主题: <strong>3 大分类</strong></div>
+      <div class="gallery-stat-pill"><i class="fas fa-bolt"></i> 托管形式: <strong>极速直链</strong></div>
+      <div class="gallery-stat-pill"><i class="fas fa-code"></i> 图床格式: <strong>Markdown 一键调用</strong></div>
+    </div>
+  </section>
+
+  <!-- Controls Bar -->
+  <div class="gallery-controls">
+    <div class="gallery-tabs" id="gallery-tabs">
+      <button class="gallery-tab active" data-cat="all">全部 (45)</button>
+      <button class="gallery-tab" data-cat="历史封面">历史封面 (39)</button>
+      <button class="gallery-tab" data-cat="角色专题">角色专题 (2)</button>
+      <button class="gallery-tab" data-cat="特别企划">特别企划 (4)</button>
+    </div>
+    <div class="gallery-search">
+      <i class="fas fa-search"></i>
+      <input type="text" id="gallery-search-input" placeholder="搜索壁纸或封面..." />
+    </div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="gallery-grid" id="gallery-grid"></div>
+</div>
+
+<!-- Lightbox Modal -->
+<div class="gal-lightbox" id="gal-lightbox">
+  <button class="gal-lightbox-close" id="gal-lightbox-close" aria-label="关闭"><i class="fas fa-times"></i></button>
+  <button class="gal-lightbox-nav gal-lightbox-prev" id="gal-lightbox-prev" aria-label="上一张"><i class="fas fa-chevron-left"></i></button>
+  <button class="gal-lightbox-nav gal-lightbox-next" id="gal-lightbox-next" aria-label="下一张"><i class="fas fa-chevron-right"></i></button>
+  <div class="gal-lightbox-content">
+    <img class="gal-lightbox-img" id="gal-lightbox-img" src="" alt="" />
+    <div class="gal-lightbox-caption">
+      <span id="gal-lightbox-title"></span>
+      <button class="gallery-btn-copy-md" id="gal-lightbox-copy-md"><i class="fas fa-copy"></i> 复制 Markdown</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="gal-toast" id="gal-toast"><i class="fas fa-check-circle" style="color: #4ade80;"></i> <span id="gal-toast-text">已复制！</span></div>
+
+<script>
+(function() {
+  var images = [
+  {
+    "url": "/images/gallery-assets/dongxuelian-wallpaper.png",
+    "title": "东雪莲 专属立绘壁纸",
+    "category": "角色专题",
+    "desc": "4K 超清立绘壁纸 · 角色立绘"
+  },
+  {
+    "url": "/images/gallery-assets/rikka-takanashi-theme.png",
+    "title": "小鸟游六花 邪王真眼限定主题",
+    "category": "角色专题",
+    "desc": "中二病也要谈恋爱 · 经典主题插画"
+  },
+  {
+    "url": "/images/gallery-assets/zhefeng-anime-wallpaper.png",
+    "title": "【哲风壁纸】二次元精选动漫",
+    "category": "特别企划",
+    "desc": "精选二次元幻想风全景壁纸"
+  },
+  {
+    "url": "/images/wallpaper.png",
+    "title": "星空幻想·全站星轨壁纸",
+    "category": "特别企划",
+    "desc": "博客全站主背景超宽壁纸"
+  },
+  {
+    "url": "/music/assets/music-anime-player.png",
+    "title": "二次元音乐歌姬·律动插画",
+    "category": "特别企划",
+    "desc": "音乐播放器主视觉看板插画"
+  },
+  {
+    "url": "/music/assets/music-anime-notice.png",
+    "title": "软萌看板娘·音乐公告板",
+    "category": "特别企划",
+    "desc": "音乐馆侧栏公告看板插画"
+  },
+  {
+    "url": "/images/post-covers/post-cover-01.jpg",
+    "title": "二次元插画封面 #01",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #01"
+  },
+  {
+    "url": "/images/post-covers/post-cover-02.jpg",
+    "title": "二次元插画封面 #02",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #02"
+  },
+  {
+    "url": "/images/post-covers/post-cover-03.jpg",
+    "title": "二次元插画封面 #03",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #03"
+  },
+  {
+    "url": "/images/post-covers/post-cover-04.jpg",
+    "title": "二次元插画封面 #04",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #04"
+  },
+  {
+    "url": "/images/post-covers/post-cover-05.jpg",
+    "title": "二次元插画封面 #05",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #05"
+  },
+  {
+    "url": "/images/post-covers/post-cover-06.jpg",
+    "title": "二次元插画封面 #06",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #06"
+  },
+  {
+    "url": "/images/post-covers/post-cover-07.jpg",
+    "title": "二次元插画封面 #07",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #07"
+  },
+  {
+    "url": "/images/post-covers/post-cover-08.jpg",
+    "title": "二次元插画封面 #08",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #08"
+  },
+  {
+    "url": "/images/post-covers/post-cover-09.jpg",
+    "title": "二次元插画封面 #09",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #09"
+  },
+  {
+    "url": "/images/post-covers/post-cover-10.jpg",
+    "title": "二次元插画封面 #10",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #10"
+  },
+  {
+    "url": "/images/post-covers/post-cover-11.jpg",
+    "title": "二次元插画封面 #11",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #11"
+  },
+  {
+    "url": "/images/post-covers/post-cover-12.jpg",
+    "title": "二次元插画封面 #12",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #12"
+  },
+  {
+    "url": "/images/post-covers/post-cover-13.jpg",
+    "title": "二次元插画封面 #13",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #13"
+  },
+  {
+    "url": "/images/post-covers/post-cover-14.jpg",
+    "title": "二次元插画封面 #14",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #14"
+  },
+  {
+    "url": "/images/post-covers/post-cover-15.jpg",
+    "title": "二次元插画封面 #15",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #15"
+  },
+  {
+    "url": "/images/post-covers/post-cover-16.jpg",
+    "title": "二次元插画封面 #16",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #16"
+  },
+  {
+    "url": "/images/post-covers/post-cover-17.jpg",
+    "title": "二次元插画封面 #17",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #17"
+  },
+  {
+    "url": "/images/post-covers/post-cover-18.jpg",
+    "title": "二次元插画封面 #18",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #18"
+  },
+  {
+    "url": "/images/post-covers/post-cover-19.jpg",
+    "title": "二次元插画封面 #19",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #19"
+  },
+  {
+    "url": "/images/post-covers/post-cover-20.jpg",
+    "title": "二次元插画封面 #20",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #20"
+  },
+  {
+    "url": "/images/post-covers/post-cover-21.jpg",
+    "title": "二次元插画封面 #21",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #21"
+  },
+  {
+    "url": "/images/post-covers/post-cover-22.jpg",
+    "title": "二次元插画封面 #22",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #22"
+  },
+  {
+    "url": "/images/post-covers/post-cover-23.jpg",
+    "title": "二次元插画封面 #23",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #23"
+  },
+  {
+    "url": "/images/post-covers/post-cover-24.jpg",
+    "title": "二次元插画封面 #24",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #24"
+  },
+  {
+    "url": "/images/post-covers/post-cover-25.jpg",
+    "title": "二次元插画封面 #25",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #25"
+  },
+  {
+    "url": "/images/post-covers/post-cover-26.jpg",
+    "title": "二次元插画封面 #26",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #26"
+  },
+  {
+    "url": "/images/post-covers/post-cover-27.jpg",
+    "title": "二次元插画封面 #27",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #27"
+  },
+  {
+    "url": "/images/post-covers/post-cover-28.jpg",
+    "title": "二次元插画封面 #28",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #28"
+  },
+  {
+    "url": "/images/post-covers/post-cover-29.jpg",
+    "title": "二次元插画封面 #29",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #29"
+  },
+  {
+    "url": "/images/post-covers/post-cover-30.jpg",
+    "title": "二次元插画封面 #30",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #30"
+  },
+  {
+    "url": "/images/post-covers/post-cover-31.jpg",
+    "title": "二次元插画封面 #31",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #31"
+  },
+  {
+    "url": "/images/post-covers/post-cover-32.jpg",
+    "title": "二次元插画封面 #32",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #32"
+  },
+  {
+    "url": "/images/post-covers/post-cover-33.jpg",
+    "title": "二次元插画封面 #33",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #33"
+  },
+  {
+    "url": "/images/post-covers/post-cover-34.jpg",
+    "title": "二次元插画封面 #34",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #34"
+  },
+  {
+    "url": "/images/post-covers/post-cover-35.jpg",
+    "title": "二次元插画封面 #35",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #35"
+  },
+  {
+    "url": "/images/post-covers/post-cover-36.jpg",
+    "title": "二次元插画封面 #36",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #36"
+  },
+  {
+    "url": "/images/post-covers/post-cover-37.jpg",
+    "title": "二次元插画封面 #37",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #37"
+  },
+  {
+    "url": "/images/post-covers/post-cover-38.jpg",
+    "title": "二次元插画封面 #38",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #38"
+  },
+  {
+    "url": "/images/post-covers/post-cover-39.jpg",
+    "title": "二次元插画封面 #39",
+    "category": "历史封面",
+    "desc": "精选动漫插画原画 · 封面档案 #39"
+  }
+];
+  var currentFiltered = images.slice();
+  var currentCat = 'all';
+  var lightboxIndex = 0;
+
+  var grid = document.getElementById('gallery-grid');
+  var tabs = document.getElementById('gallery-tabs');
+  var searchInput = document.getElementById('gallery-search-input');
+  var toast = document.getElementById('gal-toast');
+  var toastText = document.getElementById('gal-toast-text');
+
+  var lightbox = document.getElementById('gal-lightbox');
+  var lightboxImg = document.getElementById('gal-lightbox-img');
+  var lightboxTitle = document.getElementById('gal-lightbox-title');
+  var lightboxClose = document.getElementById('gal-lightbox-close');
+  var lightboxPrev = document.getElementById('gal-lightbox-prev');
+  var lightboxNext = document.getElementById('gal-lightbox-next');
+  var lightboxCopyMd = document.getElementById('gal-lightbox-copy-md');
+
+  function showToast(msg) {
+    toastText.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function() {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  function copyText(text, successMsg) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function() {
+        showToast(successMsg);
+      }).catch(function() {
+        fallbackCopy(text, successMsg);
+      });
+    } else {
+      fallbackCopy(text, successMsg);
+    }
+  }
+
+  function fallbackCopy(text, successMsg) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast(successMsg);
+    } catch(e) {
+      showToast('复制失败，请手动复制');
+    }
+    document.body.removeChild(ta);
+  }
+
+  function renderGrid(data) {
+    grid.innerHTML = '';
+    if (data.length === 0) {
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--gal-muted); font-size: 16px;"><i class="fas fa-folder-open" style="font-size: 40px; margin-bottom: 12px; display: block;"></i>未找到匹配的插画或壁纸</div>';
+      return;
+    }
+
+    data.forEach(function(item, idx) {
+      var card = document.createElement('div');
+      card.className = 'gallery-card';
+
+      var fullUrl = window.location.origin + item.url;
+      var mdText = '![' + item.title + '](' + fullUrl + ')';
+
+      card.innerHTML = 
+        '<div class="gallery-img-wrap" data-index="' + idx + '">' +
+          '<span class="gallery-tag-badge">' + item.category + '</span>' +
+          '<img src="' + item.url + '" alt="' + item.title + '" loading="lazy" />' +
+          '<div class="gallery-overlay-actions">' +
+            '<button class="gal-action-btn gal-btn-view" title="查看大图" data-index="' + idx + '"><i class="fas fa-search-plus"></i></button>' +
+            '<button class="gal-action-btn gal-btn-copy-url" title="复制外链" data-url="' + fullUrl + '"><i class="fas fa-link"></i></button>' +
+            '<button class="gal-action-btn gal-btn-copy-md" title="复制 Markdown" data-md="' + mdText.replace(/"/g, '&quot;') + '"><i class="fas fa-code"></i></button>' +
+            '<a class="gal-action-btn" title="下载原图" href="' + item.url + '" download><i class="fas fa-download"></i></a>' +
+          '</div>' +
+        '</div>' +
+        '<div class="gallery-card-info">' +
+          '<h3 class="gallery-card-title" title="' + item.title + '">' + item.title + '</h3>' +
+          '<p class="gallery-card-desc" title="' + item.desc + '">' + item.desc + '</p>' +
+          '<div class="gallery-card-footer">' +
+            '<button class="gallery-btn-copy-md" data-md="' + mdText.replace(/"/g, '&quot;') + '"><i class="fas fa-copy"></i> Markdown</button>' +
+            '<button class="gallery-btn-link" data-url="' + fullUrl + '"><i class="fas fa-link"></i> 复制直链</button>' +
+          '</div>' +
+        '</div>';
+
+      grid.appendChild(card);
+    });
+  }
+
+  // Filter and Search logic
+  function filterImages() {
+    var kw = searchInput.value.trim().toLowerCase();
+    currentFiltered = images.filter(function(item) {
+      var catMatch = (currentCat === 'all') || (item.category === currentCat);
+      var kwMatch = !kw || (item.title.toLowerCase().indexOf(kw) > -1) || (item.desc.toLowerCase().indexOf(kw) > -1);
+      return catMatch && kwMatch;
+    });
+    renderGrid(currentFiltered);
+  }
+
+  tabs.addEventListener('click', function(e) {
+    var btn = e.target.closest('.gallery-tab');
+    if (!btn) return;
+    tabs.querySelectorAll('.gallery-tab').forEach(function(t) { t.classList.remove('active'); });
+    btn.classList.add('active');
+    currentCat = btn.getAttribute('data-cat');
+    filterImages();
+  });
+
+  searchInput.addEventListener('input', filterImages);
+
+  // Card Event Delegation (View & Copy)
+  grid.addEventListener('click', function(e) {
+    var btnView = e.target.closest('.gal-btn-view') || e.target.closest('.gallery-img-wrap');
+    if (btnView && !e.target.closest('.gal-action-btn')) {
+      var idx = parseInt(btnView.getAttribute('data-index'), 10);
+      openLightbox(idx);
+      return;
+    }
+    var btnViewExplicit = e.target.closest('.gal-btn-view');
+    if (btnViewExplicit) {
+      var idx2 = parseInt(btnViewExplicit.getAttribute('data-index'), 10);
+      openLightbox(idx2);
+      return;
+    }
+    var btnCopyUrl = e.target.closest('.gal-btn-copy-url') || e.target.closest('.gallery-btn-link');
+    if (btnCopyUrl) {
+      var u = btnCopyUrl.getAttribute('data-url');
+      copyText(u, '已复制图片直链！');
+      return;
+    }
+    var btnCopyMd = e.target.closest('.gal-btn-copy-md') || e.target.closest('.gallery-btn-copy-md');
+    if (btnCopyMd) {
+      var md = btnCopyMd.getAttribute('data-md');
+      copyText(md, '已复制 Markdown 语法！');
+      return;
+    }
+  });
+
+  // Lightbox functions
+  function openLightbox(idx) {
+    if (idx < 0 || idx >= currentFiltered.length) return;
+    lightboxIndex = idx;
+    var item = currentFiltered[idx];
+    lightboxImg.src = item.url;
+    lightboxTitle.textContent = item.title + ' (' + (idx + 1) + '/' + currentFiltered.length + ')';
+    var fullUrl = window.location.origin + item.url;
+    var mdText = '![' + item.title + '](' + fullUrl + ')';
+    lightboxCopyMd.setAttribute('data-md', mdText);
+    lightbox.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  function nextLightbox() {
+    if (currentFiltered.length === 0) return;
+    lightboxIndex = (lightboxIndex + 1) % currentFiltered.length;
+    openLightbox(lightboxIndex);
+  }
+
+  function prevLightbox() {
+    if (currentFiltered.length === 0) return;
+    lightboxIndex = (lightboxIndex - 1 + currentFiltered.length) % currentFiltered.length;
+    openLightbox(lightboxIndex);
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxNext.addEventListener('click', function(e) { e.stopPropagation(); nextLightbox(); });
+  lightboxPrev.addEventListener('click', function(e) { e.stopPropagation(); prevLightbox(); });
+  lightboxCopyMd.addEventListener('click', function(e) {
+    e.stopPropagation();
+    copyText(lightboxCopyMd.getAttribute('data-md'), '已复制 Markdown 语法！');
+  });
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('show')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextLightbox();
+    if (e.key === 'ArrowLeft') prevLightbox();
+  });
+
+  // Initial render
+  renderGrid(currentFiltered);
+})();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">prograing or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">53</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"><img src="/images/ai-series/covers/14-social-order-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式"/></a><div class="content"><a class="title" href="/2026/09/02/14-social-order/" title="社会为什么总在劝你合群？因为“我们”是最便宜的组织方式">社会为什么总在劝你合群？因为“我们”是最便宜的组织方式</a><time datetime="2026-09-02T02:00:00.000Z" title="发表于 2026-09-02 10:00:00">2026-09-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"><img src="/images/ai-series/covers/13-science-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？"/></a><div class="content"><a class="title" href="/2026/09/01/13-science/" title="什么都能解释的理论，跟“啥都能圆”的算命有啥区别？">什么都能解释的理论，跟“啥都能圆”的算命有啥区别？</a><time datetime="2026-09-01T02:00:00.000Z" title="发表于 2026-09-01 10:00:00">2026-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？"><img src="/images/ai-series/covers/12-success-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网上那么多“上岸经验”，到底有多少是在事后编故事？"/></a><div class="content"><a class="title" href="/2026/08/31/12-success/" title="网上那么多“上岸经验”，到底有多少是在事后编故事？">网上那么多“上岸经验”，到底有多少是在事后编故事？</a><time datetime="2026-08-31T02:00:00.000Z" title="发表于 2026-08-31 10:00:00">2026-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"><img src="/images/ai-series/covers/11-system-redundancy-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？"/></a><div class="content"><a class="title" href="/2026/08/30/11-system-redundancy/" title="依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？">依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？</a><time datetime="2026-08-30T02:00:00.000Z" title="发表于 2026-08-30 10:00:00">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？"><img src="/images/ai-series/covers/10-market-value-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网红赚得比工程师多，真的是社会分配出了 Bug？"/></a><div class="content"><a class="title" href="/2026/08/29/10-market-value/" title="网红赚得比工程师多，真的是社会分配出了 Bug？">网红赚得比工程师多，真的是社会分配出了 Bug？</a><time datetime="2026-08-29T02:00:00.000Z" title="发表于 2026-08-29 10:00:00">2026-08-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E6%97%B6%E4%BB%A3%E6%8A%80%E6%9C%AF%E4%BA%BA%E6%88%90%E9%95%BF%E7%B3%BB%E5%88%97/"><span class="card-category-list-name">AI时代技术人成长系列</span><span class="card-category-list-count">14</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">二进制安全</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/"><span class="card-category-list-name">Web安全</span><span class="card-category-list-count">3</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Web%E5%AE%89%E5%85%A8/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><span class="card-category-list-name">期末复习</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Windows%E6%9C%8D%E5%8A%A1%E5%99%A8/"><span class="card-category-list-name">Windows服务器</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"><span class="card-category-list-name">密码学</span><span class="card-category-list-count">22</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/%E5%85%AC%E5%BC%8F%E6%A2%B3%E7%90%86/"><span class="card-category-list-name">公式梳理</span><span class="card-category-list-count">2</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/MSCS/" style="font-size: 1.1em; color: #999">MSCS</a> <a href="/tags/Berlekamp-Massey/" style="font-size: 1.1em; color: #999">Berlekamp-Massey</a> <a href="/tags/%E4%BE%9D%E8%B5%96%E5%AE%9A%E4%BB%B7/" style="font-size: 1.1em; color: #999">依赖定价</a> <a href="/tags/%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92/" style="font-size: 1.1em; color: #999">勒索病毒</a> <a href="/tags/%E4%BE%9B%E5%BA%94%E9%93%BE/" style="font-size: 1.1em; color: #999">供应链</a> <a href="/tags/%E7%BE%A4%E9%9B%86%E9%85%8D%E7%BD%AE/" style="font-size: 1.1em; color: #999">群集配置</a> <a href="/tags/%E9%98%B2%E5%BE%A1%E7%AD%96%E7%95%A5/" style="font-size: 1.1em; color: #999">防御策略</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 1.1em; color: #999">竞赛</a> <a href="/tags/%E5%B9%B3%E5%8F%B0%E5%A4%8D%E5%88%A9/" style="font-size: 1.1em; color: #999">平台复利</a> <a href="/tags/%E7%AB%9E%E8%B5%9B%E8%8E%B7%E5%A5%96/" style="font-size: 1.1em; color: #999">竞赛获奖</a> <a href="/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/" style="font-size: 1.3em; color: #99a1ac">栈溢出</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A0%91/" style="font-size: 1.1em; color: #999">技能树</a> <a href="/tags/%E7%A7%91%E5%AD%A6%E5%93%B2%E5%AD%A6/" style="font-size: 1.1em; color: #999">科学哲学</a> <a href="/tags/%E9%A2%98%E8%A7%A3/" style="font-size: 1.1em; color: #999">题解</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/" style="font-size: 1.1em; color: #999">学习方法</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" style="font-size: 1.1em; color: #999">基本概念</a> <a href="/tags/SP%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">SP网络</a> <a href="/tags/%E8%AF%84%E4%BB%B7%E4%BD%93%E7%B3%BB/" style="font-size: 1.1em; color: #999">评价体系</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E6%9D%A0%E6%9D%86/" style="font-size: 1.1em; color: #999">学习杠杆</a> <a href="/tags/%E5%AE%A1%E7%BE%8E%E6%A0%87%E5%87%86%E5%8C%96/" style="font-size: 1.1em; color: #999">审美标准化</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">密码学</a> <a href="/tags/%E7%9B%B4%E8%A7%89%E6%A8%A1%E5%9E%8B/" style="font-size: 1.1em; color: #999">直觉模型</a> <a href="/tags/%E5%AF%86%E6%96%87%E8%AE%A1%E7%AE%97/" style="font-size: 1.1em; color: #999">密文计算</a> <a href="/tags/CSRF/" style="font-size: 1.3em; color: #99a1ac">CSRF</a> <a href="/tags/%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80/" style="font-size: 1.1em; color: #999">数论基础</a> <a href="/tags/%E9%9B%86%E4%BD%93%E8%AE%A4%E5%90%8C/" style="font-size: 1.1em; color: #999">集体认同</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/%E5%8A%B3%E5%8A%A8%E4%BB%B7%E5%80%BC/" style="font-size: 1.1em; color: #999">劳动价值</a> <a href="/tags/SHA-256/" style="font-size: 1.1em; color: #999">SHA-256</a> <a href="/tags/%E8%87%AA%E4%B8%BB%E5%8F%AF%E6%8E%A7/" style="font-size: 1.1em; color: #999">自主可控</a> <a href="/tags/Kerberos/" style="font-size: 1.1em; color: #999">Kerberos</a> <a href="/tags/%E5%9B%A2%E9%98%9F%E5%BC%80%E8%8D%92/" style="font-size: 1.1em; color: #999">团队开荒</a> <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BB%B7%E5%80%BC/" style="font-size: 1.1em; color: #999">工程师价值</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 1.1em; color: #999">动态规划</a> <a href="/tags/Rcon/" style="font-size: 1.1em; color: #999">Rcon</a> <a href="/tags/RSA%E7%AD%BE%E5%90%8D/" style="font-size: 1.3em; color: #99a1ac">RSA签名</a> <a href="/tags/%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/" style="font-size: 1.1em; color: #999">认证与授权</a> <a href="/tags/%E6%A0%B8%E5%BF%83%E8%80%83%E7%82%B9/" style="font-size: 1.1em; color: #999">核心考点</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.3em; color: #99a1ac">算法</a> <a href="/tags/%E7%A7%91%E5%AD%A6%E6%96%B9%E6%B3%95/" style="font-size: 1.1em; color: #999">科学方法</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/09/">
+            <span class="card-archive-list-date">
+              九月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/08/">
+            <span class="card-archive-list-date">
+              八月 2026
+            </span>
+            <span class="card-archive-list-count">12</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/07/">
+            <span class="card-archive-list-date">
+              七月 2024
+            </span>
+            <span class="card-archive-list-count">22</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">53</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-09-06T20:40:35.475Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/music/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,24 +1,6 @@
-/* ===== 顶部状态栏 ===== */
-#blog-statusbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 10000;
-  background: rgba(26,26,46,0.96);
-  color: #e2e8f0;
-  font-size: 12px;
-  padding: 4px 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 28px;
-}
-#blog-statusbar .sb-sep { color: #4a5568; user-select: none; }
-#sb-time { font-family: "JetBrains Mono", monospace; color: #a0aec0; }
-#sb-weather { color: #68d391; }
-#sb-github { color: #76e4f7; }
-
-/* Push navbar down */
-#nav { top: 28px !important; }
+/* ===== 顶部导航栏完全置顶对齐 ===== */
+#nav { top: 0 !important; }
+#blog-statusbar { display: none !important; }
 
 /* ===== 每日名言浮窗 ===== */
 #daily-quote-widget {
