@@ -16,9 +16,6 @@
   padding: 20px;
   box-shadow: 0 8px 32px rgba(52,81,178,0.15);
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
 }
 .dq-text { flex: 1; }
 .dq-quote { color: #1a1a2e; font-size: 13px; line-height: 1.6; margin: 0 0 6px; cursor: pointer; }

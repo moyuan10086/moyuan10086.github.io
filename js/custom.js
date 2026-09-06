@@ -211,10 +211,6 @@
   }
 
   function initBlogWidgets() {
-    if (!document.body) {
-      document.addEventListener('DOMContentLoaded', initBlogWidgets);
-      return;
-    }
     ensureStatusbar();
     ensureQuoteWidget();
 
