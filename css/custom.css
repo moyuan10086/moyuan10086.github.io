@@ -438,3 +438,16 @@ a,
 @keyframes hero-caret {
   50% { opacity: 0; }
 }
+
+/* ===== 目录与锚点跳转居中定位优化 ===== */
+html {
+  scroll-padding-top: 32vh;
+}
+#article-container h1,
+#article-container h2,
+#article-container h3,
+#article-container h4,
+#article-container h5,
+#article-container h6 {
+  scroll-margin-top: 32vh;
+}

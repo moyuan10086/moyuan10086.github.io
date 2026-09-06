@@ -522,15 +522,50 @@ document.addEventListener('DOMContentLoaded', () => {
       isExpand = $cardToc.classList.contains('is-expand')
 
       // toc元素點擊
+      let isClickScrolling = false
+      let clickScrollTimer = null
+
       const tocItemClickFn = e => {
         const target = e.target.closest('.toc-link')
         if (!target) return
 
         e.preventDefault()
-        btf.scrollToDest(btf.getEleTop(document.getElementById(decodeURI(target.getAttribute('href')).replace('#', ''))), 300)
+        const targetId = decodeURI(target.getAttribute('href')).replace('#', '')
+        const targetEle = document.getElementById(targetId)
+        if (!targetEle) return
+
+        isClickScrolling = true
+
+        $cardToc.querySelectorAll('.active').forEach(i => i.classList.remove('active'))
+        target.classList.add('active')
+        let parent = target.parentNode
+        while (parent && !parent.matches('.toc')) {
+          if (parent.matches('li')) parent.classList.add('active')
+          parent = parent.parentNode
+        }
+        autoScrollToc(target)
+        if (isAnchor) btf.updateAnchor('#' + encodeURI(targetId))
+
+        updateHeaderPositions()
+        const eleTop = btf.getEleTop(targetEle)
+        const middleOffset = Math.round(window.innerHeight * 0.32)
+        const targetScroll = Math.max(0, eleTop - middleOffset)
+
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        })
+
         if (window.innerWidth < 900) {
           $cardTocLayout.classList.remove('open')
         }
+
+        clearTimeout(clickScrollTimer)
+        clickScrollTimer = setTimeout(() => {
+          isClickScrolling = false
+          updateHeaderPositions()
+          findHeadPosition(window.scrollY || document.documentElement.scrollTop)
+        }, 550)
       }
 
       btf.addEventListenerPjax($cardToc, 'click', tocItemClickFn)
@@ -556,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const $articleList = $article.querySelectorAll('h1,h2,h3,h4,h5,h6')
     let detectItem = ''
 
-    // Optimization: Cache header positions
+    // Optimization: Cache header positions and update on image / resource loads
     let headerList = []
     const updateHeaderPositions = () => {
       headerList = Array.from($articleList).map(ele => ({
@@ -567,17 +602,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     updateHeaderPositions()
+    window.addEventListener('load', updateHeaderPositions)
+    $article.querySelectorAll('img').forEach(img => {
+      if (!img.complete) {
+        img.addEventListener('load', updateHeaderPositions)
+        img.addEventListener('error', updateHeaderPositions)
+      }
+    })
     btf.addEventListenerPjax(window, 'resize', btf.throttle(updateHeaderPositions, 200))
 
     const findHeadPosition = top => {
+      if (isClickScrolling) return false
       if (top === 0) return false
 
+      const triggerTop = top + Math.round(window.innerHeight * 0.35)
       let currentId = ''
       let currentIndex = ''
 
       for (let i = 0; i < headerList.length; i++) {
         const item = headerList[i]
-        if (top > item.top - 80) {
+        if (triggerTop >= item.top) {
           currentId = item.id ? '#' + encodeURI(item.id) : ''
           currentIndex = i
         } else {
@@ -594,17 +638,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isToc) {
         $cardToc.querySelectorAll('.active').forEach(i => i.classList.remove('active'))
 
-        if (currentId) {
-          const currentActive = $tocLink[currentIndex]
-          currentActive.classList.add('active')
+        if (currentId && headerList[currentIndex]) {
+          const targetHref = '#' + encodeURI(headerList[currentIndex].id)
+          let currentActive = $cardToc.querySelector(`.toc-link[href="${targetHref}"]`)
+          if (!currentActive) {
+            currentActive = $tocLink[currentIndex]
+          }
 
-          setTimeout(() => autoScrollToc(currentActive), 0)
+          if (currentActive) {
+            currentActive.classList.add('active')
+            setTimeout(() => autoScrollToc(currentActive), 0)
 
-          if (!isExpand) {
-            let parent = currentActive.parentNode
-            while (!parent.matches('.toc')) {
-              if (parent.matches('li')) parent.classList.add('active')
-              parent = parent.parentNode
+            if (!isExpand) {
+              let parent = currentActive.parentNode
+              while (parent && !parent.matches('.toc')) {
+                if (parent.matches('li')) parent.classList.add('active')
+                parent = parent.parentNode
+              }
             }
           }
         }
