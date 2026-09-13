@@ -5,6 +5,7 @@
   const key='moyuan-music-state-v3';
   let saved=null;try{saved=JSON.parse(sessionStorage.getItem(key)||'null');}catch{}
   let tracks=[],current=null,token=0,loading=false,request=null,seek=0,lastSave=0,dragging=false,leaving=false;
+  let failedProviders=new Set(),activeProvider=null,stallTimer;
   const audio=new Audio();audio.preload='none';audio.volume=.45;
   const box=document.createElement('aside');box.id='mini-music';box.setAttribute('aria-label','迷你音乐播放器');
   box.innerHTML='<button class="mm-launch" type="button" aria-label="展开音乐播放器" aria-expanded="false">♫</button><section class="mm-panel" hidden><header><span>MELODY / 随身听</span><button class="mm-collapse" type="button" aria-label="收起播放器">−</button></header><div class="mm-track"><img alt="歌曲封面" width="44" height="44"><div><strong class="mm-title">随时听一首</strong><span class="mm-artist">边阅读，边听歌</span></div></div><div class="mm-controls"><button class="mm-prev" type="button" aria-label="上一首">‹</button><button class="mm-play" type="button" aria-label="播放">▶</button><button class="mm-next" type="button" aria-label="下一首">›</button></div><div class="mm-volume-row"><label>音量<input class="mm-volume" type="range" min="0" max="1" step="0.05" value="0.45"></label></div><input class="mm-seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="播放进度"><div class="mm-times"><span class="mm-elapsed">0:00</span><span class="mm-duration">0:00</span></div><details class="mm-library"><summary>播放列表 <span class="mm-count"></span></summary><input class="mm-search" type="search" placeholder="搜索歌曲或歌手" aria-label="搜索歌单"><div class="mm-list"></div></details><p class="mm-status" role="status">点击播放，默认选择可用的本地歌曲。</p><a href="/music/">打开音乐馆 ↗</a></section>';
@@ -34,7 +35,8 @@
     try{await audio.play();status('正在播放 · '+(box.dataset.sourceLabel||''));}
     catch{status('点击播放继续收听。');setUI();}
   }
-  async function choose(id,autoplay=true,time=0){
+  async function choose(id,autoplay=true,time=0,retry=false){
+    if(!retry){failedProviders.clear();activeProvider=null;}
     const mine=++token;loading=true;dragging=false;q('.mm-seek').disabled=true;request?.abort();audio.pause();audio.removeAttribute('src');audio.load();
     try{
       await getTracks();if(mine!==token)return;
@@ -45,10 +47,11 @@
       q('.mm-title').textContent=current.name;q('.mm-artist').textContent=current.artist;renderList();
       q('img').src=(current.cover||'/images/newnewlogo.png').replace(/^http:/,'https:');
       status(current.source==='local'?'正在读取本机音频…':'正在解析云端音源…');
-      request=new AbortController();const active=request;const timer=setTimeout(()=>active.abort(),15000);
-      let resolved;try{resolved=await window.MoyuanMusicSource.resolve(current,{signal:active.signal});}finally{clearTimeout(timer);}
+      request=new AbortController();const active=request;const timer=setTimeout(()=>active.abort(),30000);
+      let resolved;try{resolved=await window.MoyuanMusicSource.resolve(current,{signal:active.signal,excludeProviders:Array.from(failedProviders)});}finally{clearTimeout(timer);}
       const source=resolved.url;box.dataset.sourceLabel=resolved.label;
       if(mine!==token)return;
+      activeProvider=resolved.providerKey;
       seek=time;audio.src=source.replace(/^http:/,'https:');audio.load();loading=false;
       if(autoplay)await play();else status('已恢复上次歌曲，点击播放继续。');
     }catch(e){if(mine===token){loading=false;status(e.name==='AbortError'?'歌曲加载超时，请重试。':window.MoyuanMusicSource.userMessage(e));setUI();}}
@@ -80,7 +83,7 @@
     const ready=Number.isFinite(audio.duration)&&audio.duration>0&&audio.seekable.length>0;
     slider.disabled=!ready;
     q('.mm-duration').textContent=clock(audio.duration);
-    if(current&&Number.isFinite(audio.duration)&&audio.duration>0&&!window.MoyuanMusicSource.durationMatches(current,audio.duration)){audio.pause();window.MoyuanMusicSource.invalidate(current);audio.removeAttribute('src');audio.load();slider.disabled=true;status('这首歌暂时无法播放，请换一首或稍后重试。');return;}
+    if(current&&Number.isFinite(audio.duration)&&audio.duration>0&&!window.MoyuanMusicSource.durationMatches(current,audio.duration)){handleSourceFailure();return;}
     if(ready&&seek>0){const target=Math.min(seek,audio.duration);if(audio.seekable.end(audio.seekable.length-1)>=target){audio.currentTime=target;seek=0;}}
   };
   const commitSeek=()=>{if(!slider.disabled){audio.currentTime=audio.duration*Number(slider.value)/100;q('.mm-elapsed').textContent=clock(audio.currentTime);}dragging=false;};
@@ -100,7 +103,17 @@
   audio.addEventListener('pause',()=>{setUI();save(false);if(!loading)status('已暂停');});
   audio.addEventListener('timeupdate',()=>{if(!dragging){q('.mm-elapsed').textContent=clock(audio.currentTime);q('.mm-seek').value=Number.isFinite(audio.duration)?audio.currentTime/audio.duration*100:0;}q('.mm-duration').textContent=clock(audio.duration);if(Date.now()-lastSave>2000){lastSave=Date.now();save();}});
   audio.addEventListener('ended',()=>step(1));
-  audio.addEventListener('error',()=>{if(current)window.MoyuanMusicSource.invalidate(current);status('音频加载失败，点击播放重试或切换歌曲。');setUI();});
+  function handleSourceFailure(){
+    if(!audio.getAttribute('src'))return;
+    if(current&&activeProvider&&!failedProviders.has(activeProvider)){
+      failedProviders.add(activeProvider);window.MoyuanMusicSource.invalidate(current);
+      choose(current.uid,true,audio.currentTime||0,true);return;
+    }
+    status('这首歌暂时无法播放，请换一首或稍后重试。');setUI();
+  }
+  audio.addEventListener('error',handleSourceFailure);
+  audio.addEventListener('waiting',()=>{clearTimeout(stallTimer);stallTimer=setTimeout(()=>{if(!audio.paused)handleSourceFailure();},15000);});
+  ['playing','pause','ended','emptied'].forEach(event=>audio.addEventListener(event,()=>clearTimeout(stallTimer)));
   // Normal article navigation uses PJAX, so this body-level audio stays alive.
   // Full-page navigation can only restore position; autoplay remains browser-controlled.
   function bindPage(){

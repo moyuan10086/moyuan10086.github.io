@@ -30,7 +30,7 @@ body:has(.music-shell) #page { width:100%!important; margin:0!important; padding
   .track-title-row::before { content:'NOW PLAYING'; color:var(--site-blue); font:10px/1.6 Consolas,monospace; letter-spacing:.15em; margin-bottom:4px; }
   #article-container .track-title-row h2 { font-size:clamp(24px,2.5vw,34px); line-height:1.35; color:var(--site-ink); font-weight:500; letter-spacing:-.03em; overflow-wrap:anywhere; }
   #track-artist { font-size:12px; color:var(--site-muted); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .lyric-line { font-size:14px; line-height:1.7; color:var(--site-blue); min-height:24px; margin-top:12px; }
+  .lyric-line { font-size:14px; line-height:1.7; color:var(--site-blue); min-height:48px; margin-top:12px; white-space:pre-line; }
   #article-container .track-subtitle { font-size:11px; color:var(--site-muted); margin-top:6px; }
   .progress-row { display:flex; flex-direction:column; align-items:stretch; gap:4px; margin-top:20px; }
   .progress { position:relative; height:20px; cursor:pointer; touch-action:none; }
