@@ -371,6 +371,23 @@
         e.preventDefault();
         this.openModal();
       });
+
+      // Auto-open via hash or URL param
+      if (window.location.hash === '#security-terminal' || window.location.search.includes('terminal=open')) {
+        setTimeout(() => {
+          this.openModal();
+          const params = new URLSearchParams(window.location.search);
+          const cmd = params.get('cmd');
+          if (cmd) {
+            const input = document.getElementById('shell-input');
+            const form = document.getElementById('shell-form');
+            if (input && form) {
+              input.value = cmd;
+              form.requestSubmit();
+            }
+          }
+        }, 120);
+      }
     }
 
     openModal() {
