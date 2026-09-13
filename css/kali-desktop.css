@@ -199,6 +199,10 @@
   text-align: left !important;
 }
 
+.title-mobile {
+  display: none;
+}
+
 .header-right {
   display: flex;
   align-items: center;
@@ -314,6 +318,11 @@
 .kali-menu-item:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
+}
+
+.menu-accel {
+  opacity: 0.75;
+  font-size: 0.9em;
 }
 
 /* ==========================================================================
@@ -1053,28 +1062,323 @@
 }
 
 /* ==========================================================================
-   Responsive Mobile Adjustments
+   Responsive Mobile Adjustments (Edge-to-Edge Adaptive Mobile Terminal)
    ========================================================================== */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .kali-modal-window {
-    width: calc(100vw - 16px);
-    height: calc(100vh - 24px);
-    max-width: calc(100vw - 16px);
-    max-height: calc(100vh - 24px);
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    inset: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Window Header */
+  .kali-window-header {
+    flex: 0 0 38px !important;
+    height: 38px !important;
+    padding: 0 8px !important;
+  }
+
+  .header-left {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: calc(100% - 165px) !important;
+    overflow: hidden !important;
+    gap: 6px !important;
+  }
+
+  .kali-dragon-icon-badge {
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 4px !important;
+  }
+
+  .kali-dragon-svg {
+    width: 15px !important;
+    height: 15px !important;
   }
 
   .header-title-text,
   .kali-modal-window #terminal-title.header-title-text {
     font-size: 11px !important;
-    max-width: 140px !important;
+    max-width: 120px !important;
+    letter-spacing: 0 !important;
+  }
+
+  .title-desktop {
+    display: none !important;
+  }
+
+  .title-mobile {
+    display: inline !important;
+  }
+
+  .header-right {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    gap: 3px !important;
+  }
+
+  .kali-toolbar-btn {
+    padding: 3px 5px !important;
+    font-size: 10px !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  #modal-reboot-btn .btn-text-full {
+    display: none !important;
+  }
+
+  #modal-reboot-btn {
+    padding: 3px 6px !important;
+    font-size: 11px !important;
+  }
+
+  #modal-max-btn {
+    display: none !important;
+  }
+
+  .win-action-btn,
+  .kali-modal-window #shell-close.win-close-btn {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 11px !important;
+  }
+
+  /* Menubar: Horizontally scrollable on touch */
+  .kali-menubar {
+    flex: 0 0 30px !important;
+    height: 30px !important;
+    padding: 0 8px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .kali-menubar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .kali-menu-item {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+  }
+
+  .menu-accel {
+    display: none !important;
+  }
+
+  /* Tabs Bar: Horizontally scrollable on touch */
+  .kali-tabs-bar {
+    flex: 0 0 34px !important;
+    height: 34px !important;
+    padding: 0 8px !important;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .kali-tabs-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .kali-tab-btn {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 6px 9px !important;
+    font-size: 11px !important;
+  }
+
+  .tab-label-full {
+    display: none !important;
+  }
+
+  /* Terminal Screen */
+  .kali-terminal-screen {
+    padding: 10px 10px !important;
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+  }
+
+  .kali-terminal-screen::before {
+    background-size: 240px auto !important;
+    background-position: 85% 75% !important;
+    opacity: 0.05 !important;
+  }
+
+  .term-motd {
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    gap: 2px !important;
+  }
+
+  .term-output-stream pre {
+    font-size: 11.5px !important;
+  }
+
+  /* Neofetch Responsive Stacking (Vertical layout for narrow viewports) */
+  .neofetch-wrapper {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    margin: 4px 0 8px !important;
+  }
+
+  .neofetch-art {
+    font-size: 8px !important;
+    line-height: 1.14 !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .neofetch-info {
+    width: 100% !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+  }
+
+  .nf-user-title {
+    font-size: 12px !important;
+  }
+
+  .nf-row {
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+    font-size: 11px !important;
+  }
+
+  .nf-palette-blocks {
+    margin-top: 6px !important;
+  }
+
+  .nf-block-row span {
+    width: 16px !important;
+    height: 10px !important;
+  }
+
+  /* Prompt */
+  .kali-prompt-top {
+    font-size: 11.5px !important;
+    word-break: break-all !important;
+  }
+
+  .kali-prompt-arrow {
+    font-size: 12px !important;
+  }
+
+  .kali-prompt-input {
+    font-size: 16px !important; /* 16px font prevents iOS Safari auto-zoom on input focus */
+  }
+
+  /* Arsenal Responsive */
+  .kali-arsenal-screen {
+    padding: 10px 10px !important;
+    gap: 12px !important;
+  }
+
+  .arsenal-box {
+    padding: 10px !important;
+  }
+
+  .arsenal-box h4 {
+    font-size: 12px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .arsenal-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+
+  .arsenal-row .arsenal-input,
+  #arsenal-scan-target {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .arsenal-btn {
+    width: 100% !important;
+    padding: 7px 12px !important;
   }
 
   .cipher-split {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
   }
 
-  .kali-terminal-screen {
-    padding: 12px 14px;
-    font-size: 12px;
+  .cipher-textarea {
+    height: 70px !important;
+  }
+
+  .cipher-btns {
+    gap: 5px !important;
+  }
+
+  .cipher-btns .arsenal-btn {
+    flex: 1 1 45% !important;
+  }
+
+  /* Notes */
+  .kali-notes-textarea {
+    padding: 10px 12px !important;
+    font-size: 11.5px !important;
+  }
+
+  /* BIOS POST */
+  .kali-modal-reboot {
+    padding: 14px 12px !important;
+    font-size: 11px !important;
+  }
+
+  /* Footer Bar */
+  .kali-window-footer {
+    height: 26px !important;
+    flex: 0 0 26px !important;
+    padding: 0 8px !important;
+    font-size: 10px !important;
+  }
+
+  .footer-left-hint {
+    font-size: 10px !important;
+    max-width: 170px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 }
+
+@media (max-width: 400px) {
+  .header-title-text,
+  .kali-modal-window #terminal-title.header-title-text {
+    max-width: 60px !important;
+    font-size: 10px !important;
+  }
+
+  .header-right {
+    gap: 2px !important;
+  }
+
+  .kali-toolbar-btn {
+    padding: 2px 4px !important;
+    font-size: 9.5px !important;
+  }
+
+  .neofetch-art {
+    font-size: 7.2px !important;
+    line-height: 1.12 !important;
+  }
+}
+

@@ -5,7 +5,7 @@ html[data-ui-lang='en'] [data-language='en'] { display:block; }
 html[data-ui-lang='en'] #home-title { font-size:clamp(34px,5vw,72px)!important; white-space:normal!important; letter-spacing:0!important; word-spacing:.08em; }
 html[data-ui-lang='en'] .star-controls button { min-width:138px!important; }
 html[data-ui-lang='en'] .music-hero-copy strong { letter-spacing:.15em; }
-@media(max-width:767px){ #nav #ui-language-toggle { margin-left:8px; min-width:38px; } html[data-ui-lang='en'] #home-title { font-size:38px!important; } html[data-ui-lang='en'] .star-controls { gap:6px!important; } html[data-ui-lang='en'] .star-controls button { min-width:120px!important; font-size:11px!important; } }
+@media(max-width:767px){ #nav #ui-language-toggle { margin-left:8px; min-width:38px; } html[data-ui-lang='en'] #home-title { font-size:38px!important; } html[data-ui-lang='en'] .star-controls { gap:6px!important; } html[data-ui-lang='en'] .star-controls button { min-width:auto!important; font-size:11px!important; padding:6px 9px!important; } }
 
 /* English copy uses natural word wrapping and space for multi-line headings. */
 html[data-ui-lang='en'] .home-shell .section-heading { align-items:flex-start; flex-wrap:wrap; gap:20px 32px; }

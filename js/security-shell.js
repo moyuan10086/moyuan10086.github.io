@@ -402,43 +402,38 @@ Payload options (linux/x64/meterpreter/reverse_tcp):
       switch (command.toLowerCase()) {
         case 'help':
         case '?':
-          return text(`════════════════════════════════════════════════════════════
-  KALI LINUX / MOYUAN CYBER WORKSPACE COMMANDS
-════════════════════════════════════════════════════════════
+          return text(`────────────────────────────────────
+  KALI LINUX / MOYUAN CYBER WORKSPACE
+────────────────────────────────────
 [系统与侦察]
-  neofetch / fastfetch  — 显示 Kali 龙标与系统配置
-  msfconsole / msf      — 启动 Metasploit 渗透框架模拟
-  su / sudo su / login  — 提权至 root 超级特权控制台
-  nmap [目标]           — 启动网络端口扫描模拟
-  cmatrix               — 进入黑客帝国数字雨全屏动画 (按 q 退出)
-  reboot                — 重启系统并执行 BIOS POST 自检
-  whoami / id / uname   — 查询当前凭据与内核状态
-  ps / uptime / date    — 查看进程与系统时间
+  neofetch / fastfetch  — 显示系统配置与龙标
+  msfconsole / msf      — 启动 Metasploit 模拟
+  su / sudo su          — 提权至 root 控制台
+  nmap [目标]           — 启动网络端口扫描探测
+  cmatrix               — 黑客帝国数字雨 (q 退出)
+  reboot                — 重启系统与 BIOS 自检
+  whoami / uname / ps   — 查询凭据与进程状态
   ifconfig / ip a       — 查看网络适配器状态
-  apt [update|install]  — Kali APT 软件包管理器
-  hexo [g|d|clean]      — Hexo 博客编译与 GitHub 部署指令
+  apt / hexo            — 软件包与博客部署指令
 
 [文件与导航]
   ls [-a] [路径]        — 列出目录文件
-  cd [路径]             — 切换当前目录 (支持 ~ 和 ..)
-  pwd                   — 打印当前工作目录路径
-  cat <文件>            — 读取文件内容 (试试 cat flag)
-  blog / posts          — 跳转至博客文章专区 (#selected-writing)
-  projects              — 查看研发项目矩阵 (/#research-projects)
+  cd [路径] / pwd       — 切换或查看工作目录
+  cat <文件>            — 读取文件 (如 cat flag)
+  blog / projects       — 跳转博客文章与项目
 
 [工具与环境]
-  tools                 — 打开 Kali 安全与密码学工具箱
-  about                 — 查看关于墨鸢信息卡片 (about.txt)
-  theme <color>         — 切换调色板 (cyan | green | amber | purple)
-  fx <on|off>           — 开启/关闭 CRT 扫描线与暗角滤镜
-  sound <on|off>        — 开启/关闭按键与系统音效
+  tools                 — 打开安全与密码学工具箱
+  about                 — 墨鸢简介卡片 (about.txt)
+  theme <color>         — 切换荧光配色 (4 色可选)
+  fx <on|off>           — 切换 CRT 扫描线暗角
+  sound <on|off>        — 开启/关闭按键音效
 
 [互联与 AI]
-  ai [模型名]           — 唤起 AI 官方探索入口 (deepseek, claude 等)
-  open <writing|projects|music|games|about> — 快速导航
-  clear                 — 清屏 (快捷键 Ctrl+L)
-  exit                  — 退出终端或返回博客
-════════════════════════════════════════════════════════════`);
+  ai [模型名]           — 唤起 AI 官方探索入口
+  open <section>        — 快速页面锚点导航
+  clear / exit          — 清屏 (Ctrl+L) 或退出
+────────────────────────────────────`);
 
         case 'neofetch':
         case 'fastfetch':
