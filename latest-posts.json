@@ -1,38 +1,105 @@
-[
-  {
-    "title": "社会为什么总在劝你合群？因为“我们”是最便宜的组织方式",
-    "path": "/2026/09/02/14-social-order/",
-    "date": "2026-09-02",
-    "cover": "/images/ai-series/covers/14-social-order-cover.png"
+{
+  "stats": {
+    "posts": 53,
+    "tags": 215,
+    "categories": 22
   },
-  {
-    "title": "什么都能解释的理论，跟“啥都能圆”的算命有啥区别？",
-    "path": "/2026/09/01/13-science/",
-    "date": "2026-09-01",
-    "cover": "/images/ai-series/covers/13-science-cover.png"
-  },
-  {
-    "title": "网上那么多“上岸经验”，到底有多少是在事后编故事？",
-    "path": "/2026/08/31/12-success/",
-    "date": "2026-08-31",
-    "cover": "/images/ai-series/covers/12-success-cover.png"
-  },
-  {
-    "title": "依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？",
-    "path": "/2026/08/30/11-system-redundancy/",
-    "date": "2026-08-30",
-    "cover": "/images/ai-series/covers/11-system-redundancy-cover.png"
-  },
-  {
-    "title": "网红赚得比工程师多，真的是社会分配出了 Bug？",
-    "path": "/2026/08/29/10-market-value/",
-    "date": "2026-08-29",
-    "cover": "/images/ai-series/covers/10-market-value-cover.png"
-  },
-  {
-    "title": "如果机器已经能把活干了，人为什么还得每天上班？",
-    "path": "/2026/08/28/09-future-work/",
-    "date": "2026-08-28",
-    "cover": "/images/ai-series/covers/09-future-work-cover.png"
-  }
-]
+  "posts": [
+    {
+      "title": "社会为什么总在劝你合群？因为“我们”是最便宜的组织方式",
+      "path": "/2026/09/02/14-social-order/",
+      "date": "2026-09-02",
+      "cover": "/images/ai-series/covers/14-social-order-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从班级荣誉、校友网络、饭圈到推荐算法，我们为什么如此依赖“我们”？"
+    },
+    {
+      "title": "什么都能解释的理论，跟“啥都能圆”的算命有啥区别？",
+      "path": "/2026/09/01/13-science/",
+      "date": "2026-09-01",
+      "cover": "/images/ai-series/covers/13-science-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "所有从有限证据走向未知世界的方法，都必须付出某种结构性假设作为代价；真正成熟的知识体系，不是假装这些假设不存在，而是把它们暴露出来，并继续允许现实对它们说“不”。"
+    },
+    {
+      "title": "网上那么多“上岸经验”，到底有多少是在事后编故事？",
+      "path": "/2026/08/31/12-success/",
+      "date": "2026-08-31",
+      "cover": "/images/ai-series/covers/12-success-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从叙事谬误、幸存者偏差，到条件概率、极大似然估计、公开经验、信号发送和随机性：别把别人的一条时间线，当成自己的人生说明书。"
+    },
+    {
+      "title": "依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？",
+      "path": "/2026/08/30/11-system-redundancy/",
+      "date": "2026-08-30",
+      "cover": "/images/ai-series/covers/11-system-redundancy-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "为什么效率至上的世界宁可付出巨大冗余也要建备用系统？从生态位分流、保险费资产化到双向按钮，拆解全球技术供应链底层的依赖定价权。"
+    },
+    {
+      "title": "网红赚得比工程师多，真的是社会分配出了 Bug？",
+      "path": "/2026/08/29/10-market-value/",
+      "date": "2026-08-29",
+      "cover": "/images/ai-series/covers/10-market-value-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从主播、工程师、演唱会、版权和平台，到韦东奕、张雪峰、Apple、OpenAI、Masimo 与 AI：为什么头部收入可以如此极端，规模收益最终归谁，今天的钱如何变成明天的胜率，以及当规则本身也会被赢家利用时，我们还能靠什么纠错。"
+    },
+    {
+      "title": "如果机器已经能把活干了，人为什么还得每天上班？",
+      "path": "/2026/08/28/09-future-work/",
+      "date": "2026-08-28",
+      "cover": "/images/ai-series/covers/09-future-work-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "工作不只是生产工具，也是收入入口、社会身份和参与关系。"
+    },
+    {
+      "title": "比赛拿了一等奖，然后呢？",
+      "path": "/2026/08/27/08-competition-after-award/",
+      "date": "2026-08-27",
+      "cover": "/images/ai-series/covers/08-competition-after-award-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "比赛当然有价值，但它最大的价值可能从来不是证明项目已经成功，而是让学生低成本体验一次真实世界的复杂性。"
+    },
+    {
+      "title": "拿了国赛三等奖之后，我才想明白一个更扎心的问题",
+      "path": "/2026/08/26/07-undergrad-to-competition/",
+      "date": "2026-08-26",
+      "cover": "/images/ai-series/covers/07-undergrad-to-competition-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "我原以为项目的问题是做得太散，后来才发现，真正出错的是曾经把算法增量当成判断问题价值的尺子。"
+    },
+    {
+      "title": "为什么你的项目，放到哪儿都差点意思？",
+      "path": "/2026/08/25/06-project-evaluation/",
+      "date": "2026-08-25",
+      "cover": "/images/ai-series/covers/06-project-evaluation-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "同一个项目进入论文、比赛和开源社区，为什么会面对三套不同的评价标准？"
+    },
+    {
+      "title": "收藏了两百门课，全栈到底要学多少东西才算够？",
+      "path": "/2026/08/24/05-fullstack/",
+      "date": "2026-08-24",
+      "cover": "/images/ai-series/covers/05-fullstack-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从前端、后端到AI、服务器与NPU：为什么工具越来越强，开发者反而越来越难停下来？"
+    },
+    {
+      "title": "如果你的大学不提供 Token，应该立即退学",
+      "path": "/2026/08/23/04-token-and-university/",
+      "date": "2026-08-23",
+      "cover": "/images/ai-series/covers/04-token-and-university-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "AI 时代，大学第一次失去了对知识和答案的垄断。真正值钱的不再是能被秒级生成的解题动作，而是提问、品味、判断力以及属于你自己的有限 Learning Tokens。"
+    },
+    {
+      "title": "为什么学计算机的人天天翻博客，学数学的人却还在啃教材？",
+      "path": "/2026/08/22/03-social-knowledge/",
+      "date": "2026-08-22",
+      "cover": "/images/ai-series/covers/03-social-knowledge-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "教材、论文、博客、培训班、大学课程和大模型为什么各有市场？答案藏在知识的更新速度、验证方式、认知规律与学习制度里。"
+    }
+  ]
+}

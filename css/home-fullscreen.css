@@ -1,0 +1,47 @@
+@font-face { font-family:'Moyuan Allura'; src:url('/fonts/Allura-Regular.ttf') format('truetype'); font-style:normal; font-weight:400; font-display:swap; }
+/* Full-bleed personal artwork, with restrained product-page typography. */
+body:has(.home-hero-fullscreen) #page-header { height:0!important; min-height:0!important; }
+body:has(.home-hero-fullscreen) #nav { background:color-mix(in srgb,var(--site-paper) 88%,transparent)!important; backdrop-filter:blur(18px) saturate(140%)!important; border-bottom:1px solid color-mix(in srgb,var(--site-line) 65%,transparent); }
+@scope (body:has(.home-hero-fullscreen)) {
+  .home-shell { --site-bg:#f5f5f7; --site-paper:#fff; --site-ink:#202126; --site-muted:#6e727a; --site-line:#dedfe3; --site-blue:#446f9e; }
+  :scope:is([data-theme='dark'] *) .home-shell { --site-bg:#15171c; --site-paper:#1d2027; --site-ink:#f1f2f6; --site-muted:#a8adba; --site-line:#343843; --site-blue:#9dbde8; }
+  .home-hero.home-hero-fullscreen { width:100%; max-width:none; min-height:760px; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; padding:calc(var(--site-nav-height) + 60px) 28px 110px; overflow:hidden; isolation:isolate; }
+  #article-container .home-shell .home-hero-fullscreen .hero-art { position:absolute; inset:0; width:100%; height:100%; min-height:0; margin:0; z-index:-2; }
+  #article-container .home-shell .home-hero-fullscreen .hero-art img { inset:0; width:100%; height:100%; object-fit:cover; object-position:center; border-radius:0; filter:none; }
+  .home-hero-fullscreen .hero-art::after { display:none; }
+  .home-hero-fullscreen::before { content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at 50% 48%,rgba(9,18,34,.66) 0%,rgba(9,18,34,.48) 38%,transparent 78%),linear-gradient(180deg,rgba(12,23,42,.12),rgba(12,23,42,.16) 65%,rgba(12,23,42,.66)); }
+  .home-hero-fullscreen .hero-copy { align-self:center; width:min(900px,100%); padding:0; text-align:center; color:#fff; text-shadow:0 2px 4px #09122280,0 4px 20px #09122250; }
+  #article-container .home-shell .home-hero-fullscreen .eyebrow { color:#f0f4fc; font-size:11px; letter-spacing:.2em; }
+  .home-hero-fullscreen .blue-dot { background:#fff; }
+  #article-container .home-shell .home-hero-fullscreen .hero-intro { margin-top:24px; font-size:17px; }
+  .home-hero-fullscreen .hero-intro span { color:#edf1f8; }
+  #article-container .home-shell .home-hero-fullscreen #home-title { color:#fff; font-size:clamp(40px,5.8vw,80px); font-weight:600; letter-spacing:-.045em; line-height:1.2; white-space:normal; margin:24px 0; }
+  #article-container .home-shell .home-hero-fullscreen .hero-description { font-size:21px; font-weight:400; line-height:1.65; color:#f5f7fb; }
+  .home-hero-fullscreen .hero-description br { display:none; }
+  #article-container .home-shell .home-hero-fullscreen .hero-fields { margin-top:20px; color:#f0f4fc; font-size:14px; min-height:26px; }
+  .home-hero-fullscreen .hero-actions { justify-content:center; gap:16px; margin-top:34px; }
+  #article-container .home-shell .home-hero-fullscreen .text-link { color:#fff; border:1px solid #ffffff7a; border-radius:30px; padding:10px 22px; font-size:14px; background:#ffffff10; text-shadow:none; }
+  #article-container .home-shell .home-hero-fullscreen .text-link:first-child { color:#243550; background:#fff; border-color:#fff; }
+  #article-container .home-shell .home-hero-fullscreen .text-link:hover { background:#eaf1fc; color:#243550; }
+  .home-hero-fullscreen .hero-footnote { position:absolute; left:clamp(24px,5vw,80px); right:clamp(24px,5vw,80px); bottom:20px; border:0; color:#eff3fa; padding:12px 0; text-shadow:0 1px 8px #15203555; }
+  #article-container .home-shell .hero-signature { position:absolute; right:clamp(28px,6vw,92px); bottom:104px; display:flex; flex-direction:column; align-items:center; color:#fff; text-decoration:none; transform:rotate(-6deg); text-shadow:0 2px 12px #13233b50; }
+  .signature-script { font-family:'Moyuan Allura',cursive; font-size:clamp(50px,5vw,76px); font-weight:400; font-style:normal; line-height:1.15; letter-spacing:0; }
+  .signature-script::after { content:''; display:block; height:1px; background:linear-gradient(90deg,transparent,#ffffffb0 25%,#ffffff80,transparent); transform:rotate(-5deg); margin-top:-7px; width:115%; }
+  .signature-caption { font-size:12px; font-weight:500; letter-spacing:.12em; margin-top:12px; opacity:1; text-shadow:0 1px 3px #091222; }
+  .home-section { max-width:1240px; padding-top:100px; }
+  #article-container .home-shell .section-heading h2 { font-weight:600; letter-spacing:-.04em; }
+  .writing-image { border-radius:16px; }
+  .home-footer { max-width:1240px; }
+  @media(max-width:767px) {
+    .home-hero.home-hero-fullscreen { min-height:100svh; padding:calc(var(--site-nav-height) + 70px) 24px 115px; }
+    #article-container .home-shell .home-hero-fullscreen #home-title { font-size:clamp(32px,8vw,52px); margin:22px 0; }
+    #article-container .home-shell .home-hero-fullscreen .hero-intro { font-size:15px; }
+    #article-container .home-shell .home-hero-fullscreen .hero-description { font-size:17px; }
+    .home-hero-fullscreen .hero-description br { display:block; }
+    #article-container .home-shell .home-hero-fullscreen .hero-fields { font-size:13px; }
+    #article-container .home-shell .home-hero-fullscreen .text-link { padding:9px 18px; font-size:13px; gap:12px; }
+    .home-hero-fullscreen .hero-footnote { bottom:12px; }
+    #article-container .home-shell .hero-signature { right:28px; bottom:76px; }
+    .home-section { padding-top:60px; }
+  }
+}

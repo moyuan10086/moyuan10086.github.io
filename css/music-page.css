@@ -1,0 +1,98 @@
+/* Melody Lab: a framed anime sleeve, calm controls, and a readable library. */
+body:has(.music-shell) #page-header { position:relative!important; top:0!important; margin:0!important; height:var(--site-nav-height)!important; min-height:var(--site-nav-height)!important; background:none!important; box-shadow:none!important; }
+body:has(.music-shell) :is(#aside-content,.page-title,#page-site-info) { display:none!important; }
+body:has(.music-shell) #content-inner.layout { display:block!important; width:100%!important; max-width:none!important; padding:0!important; margin:0!important; }
+body:has(.music-shell) #page { width:100%!important; margin:0!important; padding:0!important; border:0!important; border-radius:0!important; background:none!important; box-shadow:none!important; }
+@scope (body:has(.music-shell)) {
+  .music-shell { --music-ink:var(--site-ink); --music-muted:var(--site-muted); --music-accent:#587bad; width:100%; min-height:calc(100vh - var(--site-nav-height)); background:var(--site-bg); color:var(--site-ink); padding:48px 36px 64px; font-family:"PingFang SC","Microsoft YaHei",sans-serif; }
+  .music-shell * { box-sizing:border-box; }
+  #article-container :is(h1,h2,h3,p) { margin:0; }
+  #article-container :is(h1,h2,h3)::before { display:none; }
+  .music-hero { max-width:1160px; margin:0 auto 32px; }
+  .music-hero-copy { display:grid; grid-template-columns:1fr auto; align-items:end; gap:8px 24px; }
+  #article-container .music-hero h1 { grid-column:1; grid-row:2; font-size:42px; line-height:1.25; font-weight:500; letter-spacing:.02em; color:var(--site-ink); }
+  .music-hero-copy strong { grid-column:1; grid-row:1; font:11px/1.8 Consolas,monospace; letter-spacing:.18em; color:var(--site-blue); font-weight:400; }
+  .music-hero-ribbon { grid-column:2; grid-row:1/3; color:var(--site-muted); font-size:13px; padding-bottom:4px; }
+  .music-stage { width:100%; max-width:1160px; margin:auto; }
+  .music-player { border:1px solid var(--site-line); border-radius:16px; overflow:hidden; background:var(--site-paper); box-shadow:0 12px 40px #24314906; }
+  .music-player-inner { background:var(--site-paper); }
+  .music-now { display:grid; grid-template-columns:340px minmax(0,1fr); min-height:354px; }
+  .disc-wrap { position:relative; align-self:stretch; min-height:354px; overflow:hidden; background:#bbc8df url('/music/assets/music-anime-player.png') 82% center/cover; }
+  .disc-wrap::after { content:'SOUNDTRACK OF MY DAYS'; position:absolute; left:26px; top:24px; font:10px/1.6 Consolas,monospace; letter-spacing:.16em; color:#fff; text-shadow:0 1px 6px #273753; }
+  .disc-wrap::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,#182c4820,transparent 60%,#182c4855); }
+  .floating-note { display:none; }
+  .disc { position:absolute; left:24px; bottom:24px; width:64px; height:64px; border-radius:50%; overflow:hidden; border:3px solid #ffffffb3; background:#b6d0e4; box-shadow:0 4px 16px #19233c30; }
+  #article-container .disc img { width:100%; height:100%; object-fit:cover; margin:0; border-radius:50%; }
+  .disc.is-playing img { animation:sleeve-spin 16s linear infinite; }
+  .disc-button { position:absolute; bottom:40px; left:40px; display:grid; place-items:center; width:32px; height:32px; background:#1c314d94; color:#fff; border:1px solid #ffffff8a; border-radius:50%; cursor:pointer; z-index:2; font-size:10px; }
+  .now-info { padding:36px 40px 24px; min-width:0; display:flex; flex-direction:column; justify-content:center; }
+  .track-title-row { display:flex; flex-direction:column; align-items:start; gap:9px; }
+  .track-title-row::before { content:'NOW PLAYING'; color:var(--site-blue); font:10px/1.6 Consolas,monospace; letter-spacing:.15em; margin-bottom:4px; }
+  #article-container .track-title-row h2 { font-size:clamp(24px,2.5vw,34px); line-height:1.35; color:var(--site-ink); font-weight:500; letter-spacing:-.03em; overflow-wrap:anywhere; }
+  #track-artist { font-size:12px; color:var(--site-muted); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lyric-line { font-size:14px; line-height:1.7; color:var(--site-blue); min-height:24px; margin-top:12px; }
+  #article-container .track-subtitle { font-size:11px; color:var(--site-muted); margin-top:6px; }
+  .progress-row { display:flex; flex-direction:column; align-items:stretch; gap:4px; margin-top:20px; }
+  .progress { position:relative; height:20px; cursor:pointer; touch-action:none; }
+  .progress::before { content:''; position:absolute; height:3px; inset:9px 0 auto; border-radius:5px; background:var(--site-line); }
+  .progress-loaded,.progress-played { position:absolute; left:0; top:9px; height:3px; border-radius:5px; pointer-events:none; }
+  .progress-loaded { background:#93acc73d; }
+  .progress-played { background:var(--site-blue); }
+  .progress-thumb { position:absolute; top:5px; left:0; width:11px; height:11px; border:2px solid var(--site-paper); border-radius:50%; background:var(--site-blue); transform:translateX(-50%); box-shadow:0 0 0 1px var(--site-blue); pointer-events:none; }
+  .time { font:10px/1.5 Consolas,monospace; color:var(--site-muted); text-align:right; }
+  .controls { display:flex; align-items:center; gap:14px; margin-top:4px; }
+  .control-btn { display:grid; place-items:center; flex:0 0 auto; width:38px; height:38px; border:0; border-radius:50%; background:transparent; color:var(--site-muted); font-size:14px; cursor:pointer; transition:background .15s,color .15s; }
+  .control-btn:hover,.control-btn.is-active { background:var(--site-bg); color:var(--site-blue); }
+  .control-btn.primary { background:#456692; color:#fff; width:48px; height:48px; font-size:17px; }
+  .control-btn.primary:hover { background:#34557e; }
+  .control-spacer { flex:1; }
+  .playlist-wrap { background:var(--site-paper); border-top:1px solid var(--site-line); }
+  .playlist-header { padding:24px 30px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+  .library-heading { display:flex; align-items:baseline; gap:12px; flex-shrink:0; }
+  .library-heading strong { font-size:16px; font-weight:500; color:var(--site-ink); }
+  .playlist-count { font:11px Consolas,monospace; color:var(--site-muted); }
+  .playlist-search-input { width:280px; max-width:50%; min-width:0; border:1px solid var(--site-line); border-radius:6px; background:var(--site-bg); padding:9px 13px; font-size:12px; color:var(--site-ink); outline-offset:2px; }
+  .playlist-search-input::placeholder { color:var(--site-muted); }
+  .playlist-items { max-height:490px; overflow:auto; padding:0 18px 16px; scrollbar-width:thin; scrollbar-color:var(--site-line) transparent; overscroll-behavior:contain; }
+  .playlist-items button { width:100%; display:grid; grid-template-columns:40px minmax(0,1fr) 46px 44px; gap:16px; align-items:center; border:0; border-bottom:1px solid var(--site-line); border-radius:0; min-height:66px; padding:12px 14px; text-align:left; cursor:pointer; color:var(--site-ink); background:transparent; font-family:inherit; }
+  .playlist-items button:last-child { border-bottom:0; }
+  .playlist-items button:hover { background:var(--site-bg); }
+  .playlist-items button.is-active { background:var(--site-bg); box-shadow:inset 3px 0 var(--site-blue); }
+  .track-num { font:10px Consolas,monospace; color:var(--site-muted); text-align:center; }
+  .is-active .track-num { color:var(--site-blue); }
+  .track-meta { min-width:0; display:flex; flex-direction:column; gap:5px; }
+  .track-name { color:var(--site-ink); font-size:14px; line-height:1.45; font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .is-active .track-name { color:var(--site-blue); font-weight:500; }
+  .track-artist { font-size:11px; line-height:1.5; color:var(--site-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .track-badge { font-size:10px; color:var(--site-muted); text-align:right; background:none; }
+  .track-badge i { display:none; }
+  .track-duration { font:11px Consolas,monospace; color:var(--site-muted); text-align:right; }
+  .quick-rail { display:none; }
+  .music-empty { padding:36px; text-align:center; color:var(--site-muted); font-size:14px; }
+  @keyframes sleeve-spin { to { transform:rotate(360deg); } }
+  @media(max-width:1000px) { .music-now { grid-template-columns:280px minmax(0,1fr); } .now-info { padding:28px; } .controls { gap:8px; } .control-btn { width:32px; height:36px; } }
+  @media(max-width:767px) { .music-shell { padding:28px 18px 40px; } .music-hero { margin-bottom:24px; } .music-hero-copy { display:flex; flex-direction:column; align-items:start; gap:6px; } .music-hero-copy strong { order:-1; } #article-container .music-hero h1 { font-size:32px; } .music-hero-ribbon { font-size:12px; margin-top:6px; } .music-now { grid-template-columns:1fr; } .disc-wrap { min-height:230px; background-position:80% 38%; } .now-info { padding:26px 24px 22px; } #article-container .track-title-row h2 { font-size:26px; } .controls { gap:8px; } .control-btn { width:30px; height:36px; font-size:13px; } .control-btn.primary { width:44px; height:44px; } .control-spacer { min-width:0; } .playlist-header { padding:22px 18px 16px; align-items:stretch; flex-direction:column; gap:14px; } .playlist-search-input { max-width:none; width:100%; } .playlist-items { padding:0 8px 12px; max-height:460px; } .playlist-items button { grid-template-columns:24px minmax(0,1fr) 36px; gap:10px; padding:12px 10px; } .track-badge { display:none; } .track-name { font-size:13px; } .track-artist { font-size:10px; } }
+}
+body:has(.music-shell) .badge-local { color:var(--site-blue); }
+/* Panoramic artwork spans the whole page; the player remains readable above it. */
+body:has(.music-shell) .music-shell { position:relative; isolation:isolate; background:transparent; }
+body:has(.music-shell) .music-shell::before { content:''; position:fixed; inset:0; z-index:-2; background:url('/music/assets/user-music-art.png') center/cover no-repeat; pointer-events:none; }
+body:has(.music-shell) .music-shell::after { content:''; position:fixed; inset:0; z-index:-1; background:rgba(237,243,251,.24); pointer-events:none; }
+body:has(.music-shell) .music-player { background:rgba(255,255,255,.95); backdrop-filter:blur(16px); border-color:rgba(255,255,255,.7); }
+body:has(.music-shell) .music-player-inner,body:has(.music-shell) .playlist-wrap { background:transparent; }
+body:has(.music-shell) .disc-wrap { background:transparent; display:grid; place-items:center; }
+body:has(.music-shell) .disc-wrap::before,body:has(.music-shell) .disc-wrap::after { display:none; }
+body:has(.music-shell) .disc { position:relative; left:auto; bottom:auto; width:210px; height:210px; border:8px solid rgba(255,255,255,.65); }
+body:has(.music-shell) .disc-button { left:calc(50% - 23px); bottom:calc(50% - 23px); width:46px; height:46px; font-size:14px; }
+body:has(.music-shell) .music-hero { position:relative; min-height:220px; display:flex; align-items:end; padding:30px 0; border-radius:0; overflow:visible; background:none; }
+body:has(.music-shell) .music-hero-copy { width:100%; padding:22px 26px; border-radius:12px; background:linear-gradient(90deg,rgba(12,24,43,.76),rgba(12,24,43,.62)); }
+body:has(.music-shell) #article-container .music-hero h1,body:has(.music-shell) .music-hero-copy strong,body:has(.music-shell) .music-hero-ribbon { color:#fff; text-shadow:0 1px 3px #10203580; }
+body:has(.music-shell) .music-hero-ribbon { font-size:14px; font-weight:500; }
+body:has(.music-shell) :is(.track-artist,#track-artist,.track-subtitle) { font-size:13px; }
+body:has(.music-shell) .track-name { font-size:15px; }
+html[data-theme='dark'] body:has(.music-shell) .music-shell::after { background:rgba(10,18,34,.45); }
+html[data-theme='dark'] body:has(.music-shell) .music-player { background:rgba(23,33,50,.96); border-color:rgba(190,211,244,.2); }
+@media(max-width:767px) { body:has(.music-shell) .music-hero { min-height:200px; padding:24px 0; } body:has(.music-shell) .disc-wrap { min-height:240px; } body:has(.music-shell) .disc { width:174px; height:174px; } }
+@media(max-width:767px) {
+  body:has(.music-shell) .playlist-items button:has(.badge-local) .track-name::before { content:'本地 · '; color:var(--site-blue); font-size:10px; }
+}
