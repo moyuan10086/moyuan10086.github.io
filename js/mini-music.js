@@ -131,5 +131,5 @@
   bindPage();document.addEventListener('pjax:complete',bindPage);
   window.addEventListener('pagehide',()=>{if(!box.hidden){save();leaving=true;}request?.abort();},{capture:true});
   window.addEventListener('pageshow',event=>{leaving=false;if(event.persisted&&!box.hidden){try{const state=JSON.parse(sessionStorage.getItem(key)||'null');if(state){audio.volume=state.volume??.45;q('.mm-volume').value=audio.volume;choose(state.uid??state.id,state.playing,state.time);}}catch{}}});
-  if(saved&&!box.hidden){audio.volume=Math.max(0,Math.min(1,saved.volume??.45));q('.mm-volume').value=audio.volume;expand();choose(saved.uid??saved.id,!!saved.playing,saved.time||0);}
+  if(saved&&!box.hidden){audio.volume=Math.max(0,Math.min(1,saved.volume??.45));q('.mm-volume').value=audio.volume;choose(saved.uid??saved.id,!!saved.playing,saved.time||0);}
 })();

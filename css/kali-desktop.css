@@ -1,0 +1,1080 @@
+/* ==========================================================================
+   Kali Linux Web Terminal Window (Kali UI & CRT Cyber Workspace)
+   Inspired by Kali Linux QTerminal & glucas.dev Terminal Retro FX
+   Modal Window floating on the blog homepage with Kali Dragon branding
+   ========================================================================== */
+
+/* Color Palettes: Default CYAN (Classic Kali Blue) */
+:root {
+  --kali-accent: #38bdf8;
+  --kali-accent-glow: rgba(56, 189, 248, 0.35);
+  --kali-accent-hover: #7dd3fc;
+  --kali-bg: #090e17;
+  --kali-window-bg: #0c121e;
+  --kali-window-header: #101726;
+  --kali-border: rgba(56, 189, 248, 0.28);
+  --kali-text: #e2e8f0;
+  --kali-text-muted: #94a3b8;
+  --kali-term-bg: #080c14;
+  --kali-font-mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace;
+  --kali-font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* GREEN: Matrix Phosphor */
+.kali-modal-window[data-phosphor="green"] {
+  --kali-accent: #22c55e;
+  --kali-accent-glow: rgba(34, 197, 94, 0.35);
+  --kali-accent-hover: #4ade80;
+  --kali-window-bg: #091710;
+  --kali-window-header: #0e2419;
+  --kali-border: rgba(34, 197, 94, 0.3);
+  --kali-text: #dcfce7;
+  --kali-text-muted: #86efac;
+  --kali-term-bg: #05120a;
+}
+
+/* AMBER: Warm Retro Phosphor (High Contrast Golden Amber) */
+.kali-modal-window[data-phosphor="amber"] {
+  --kali-accent: #f59e0b;
+  --kali-accent-glow: rgba(245, 158, 11, 0.35);
+  --kali-accent-hover: #fbbf24;
+  --kali-window-bg: #171108;
+  --kali-window-header: #261b0a;
+  --kali-border: rgba(245, 158, 11, 0.35);
+  --kali-text: #fef3c7;
+  --kali-text-muted: #fde68a;
+  --kali-term-bg: #0f0a04;
+}
+
+/* PURPLE: Cyberpunk Neon */
+.kali-modal-window[data-phosphor="purple"] {
+  --kali-accent: #a855f7;
+  --kali-accent-glow: rgba(168, 85, 247, 0.35);
+  --kali-accent-hover: #c084fc;
+  --kali-window-bg: #140d1f;
+  --kali-window-header: #1f1230;
+  --kali-border: rgba(168, 85, 247, 0.3);
+  --kali-text: #f3e8ff;
+  --kali-text-muted: #d8b4fe;
+  --kali-term-bg: #0d0715;
+}
+
+/* ==========================================================================
+   Kali Modal Dialog (Popup Window over Homepage)
+   ========================================================================== */
+.kali-modal-window,
+.kali-modal-window * {
+  box-sizing: border-box;
+}
+
+.kali-modal-window {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(900px, calc(100vw - 32px));
+  height: min(680px, calc(100vh - 48px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 48px);
+  background: var(--kali-window-bg);
+  border: 1px solid var(--kali-border);
+  border-radius: 10px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9), 0 0 32px var(--kali-accent-glow);
+  padding: 0;
+  color: var(--kali-text);
+  font-family: var(--kali-font-ui);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 99999;
+  text-align: left !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  animation: kali-modal-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kali-modal-window[open] {
+  display: flex;
+}
+
+.kali-modal-window::backdrop {
+  background: rgba(3, 8, 18, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@keyframes kali-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.kali-modal-window.is-maximized {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  inset: 0 !important;
+}
+
+/* ==========================================================================
+   Kali Window Header & Glucas.dev Toolbar
+   ========================================================================== */
+.kali-window-header {
+  flex: 0 0 42px;
+  height: 42px;
+  background: var(--kali-window-header);
+  border-bottom: 1px solid var(--kali-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  user-select: none;
+  text-align: left !important;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Kali Dragon Logo */
+.kali-dragon-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.14);
+  border: 1px solid var(--kali-border);
+  color: var(--kali-accent-hover);
+  box-shadow: 0 0 10px var(--kali-accent-glow);
+  flex-shrink: 0;
+}
+
+.kali-dragon-svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+
+.btn-kali-dragon-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  margin-right: 4px;
+}
+
+.btn-kali-dragon-icon svg {
+  display: block;
+}
+
+.header-title-text,
+.kali-modal-window #terminal-title.header-title-text {
+  position: static !important;
+  transform: none !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #f1f5f9 !important;
+  letter-spacing: 0.02em !important;
+  font-family: var(--kali-font-mono) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: none !important;
+  text-align: left !important;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+/* glucas.dev Style Quick Controls */
+.kali-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--kali-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--kali-font-mono);
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.kali-toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: var(--kali-accent);
+}
+
+.kali-toolbar-btn[data-active="true"] {
+  color: var(--kali-accent-hover);
+  border-color: var(--kali-accent);
+  background: rgba(56, 189, 248, 0.16);
+}
+
+/* Window Action Buttons */
+.win-action-btn {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--kali-text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+  user-select: none;
+}
+
+.win-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.win-close-btn,
+.kali-modal-window #shell-close.win-close-btn {
+  margin-left: 0 !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: var(--kali-text-muted) !important;
+  font-size: 12px !important;
+  width: 26px !important;
+  height: 26px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+}
+
+.win-close-btn:hover,
+.kali-modal-window #shell-close.win-close-btn:hover {
+  background: #ef4444 !important;
+  border-color: #dc2626 !important;
+  color: #fff !important;
+}
+
+/* Authentic Kali Terminal Menubar (File Actions Edit View Help) */
+.kali-menubar {
+  flex: 0 0 28px;
+  height: 28px;
+  background: #0d121c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px;
+  font-family: var(--kali-font-mono);
+  font-size: 11.5px;
+  user-select: none;
+}
+
+.kali-menu-item {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  padding: 3px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 1;
+  transition: all 0.12s ease;
+}
+
+.kali-menu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Kali Navigation Tabs Bar
+   ========================================================================== */
+.kali-tabs-bar {
+  flex: 0 0 38px;
+  height: 38px;
+  background: #0d121c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 12px;
+  gap: 4px;
+  user-select: none;
+}
+
+.kali-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kali-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #f1f5f9;
+}
+
+.kali-tab-btn.is-active {
+  background: var(--kali-term-bg);
+  border-color: var(--kali-border);
+  border-bottom: 1px solid var(--kali-term-bg);
+  color: var(--kali-accent-hover);
+  font-weight: 600;
+  box-shadow: 0 -2px 8px var(--kali-accent-glow);
+  margin-bottom: -1px;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Window Body & Tab Panes
+   ========================================================================== */
+.kali-window-body {
+  flex: 1 1 auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kali-tab-pane {
+  flex: 1 1 auto;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.kali-tab-pane.is-active {
+  display: flex;
+}
+
+/* ==========================================================================
+   Tab 1: QTerminal Screen
+   ========================================================================== */
+.kali-terminal-screen {
+  flex: 1 1 auto;
+  background: var(--kali-term-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 20px;
+  font-family: var(--kali-font-mono);
+  font-size: 13.5px;
+  line-height: 1.55;
+  text-align: left !important;
+  color: var(--kali-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Authentic Kali Dragon Watermark in Terminal Background */
+.kali-terminal-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/kali-dragon.svg');
+  background-repeat: no-repeat;
+  background-position: 74% 54%;
+  background-size: 460px auto;
+  opacity: 0.085;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.kali-terminal-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Digital Rain Simulation Canvas */
+#modal-cmatrix-canvas.term-cmatrix-canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 9999 !important;
+  background: #050811 !important;
+  cursor: pointer;
+  display: none;
+}
+
+/* Visual Bell Flash for Terminal Errors & Alarms */
+@keyframes term-bell-glow {
+  0% { box-shadow: inset 0 0 30px rgba(239, 68, 68, 0.45); }
+  100% { box-shadow: none; }
+}
+
+.kali-terminal-screen.term-bell-flash {
+  animation: term-bell-glow 0.3s ease-out;
+}
+
+
+/* Subtle CRT Scanline Overlay (glucas.dev style, razor sharp text) */
+.kali-modal-window .crt-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.kali-modal-window[data-fx="on"] .crt-overlay {
+  opacity: 1;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.12) 50%
+  );
+  background-size: 100% 3px;
+}
+
+/* Terminal Kali Dragon Banner */
+.kali-term-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: rgba(23, 147, 209, 0.08);
+  border: 1px solid var(--kali-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  flex: 0 0 auto;
+  text-align: left !important;
+}
+
+.kali-term-banner-icon {
+  width: 38px;
+  height: 38px;
+  fill: var(--kali-accent);
+  filter: drop-shadow(0 0 8px var(--kali-accent-glow));
+  flex-shrink: 0;
+}
+
+.kali-term-banner-text {
+  text-align: left !important;
+}
+
+.kali-term-banner-text h4 {
+  margin: 0 0 3px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--kali-accent-hover);
+  letter-spacing: 0.04em;
+  text-align: left !important;
+}
+
+.kali-term-banner-text p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--kali-text-muted);
+  line-height: 1.5;
+  text-align: left !important;
+}
+
+/* Terminal Output Log Stream */
+.term-output-stream {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+  text-align: left !important;
+}
+
+.term-cmd-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left !important;
+}
+
+.cmd-prompt-path {
+  color: var(--kali-accent);
+  font-weight: 600;
+  font-size: 12.5px;
+  white-space: pre-wrap;
+  text-align: left !important;
+}
+
+.cmd-prompt-arrow {
+  color: var(--kali-accent);
+  font-weight: 700;
+}
+
+.cmd-echo-text {
+  color: #fff;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.term-motd {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 12px;
+  background: rgba(56, 189, 248, 0.06);
+  border-left: 3px solid var(--kali-accent);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  text-align: left !important;
+}
+
+.term-output-stream pre {
+  margin: 2px 0 6px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--kali-text);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left !important;
+}
+
+.term-output-stream pre.term-flag {
+  color: #4ade80 !important;
+  background: rgba(74, 222, 128, 0.1) !important;
+  border-left: 3px solid #22c55e !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+}
+
+/* Unknown Command Error & Security Alarm */
+.term-output-stream pre.term-cmd-error {
+  color: #fca5a5 !important;
+  background: rgba(239, 68, 68, 0.12) !important;
+  border-left: 3px solid #ef4444 !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+}
+
+/* Metasploit Framework Output & Prompt */
+.term-output-stream pre.term-msf-output {
+  color: #fca5a5 !important;
+  font-weight: 600 !important;
+}
+
+.term-prompt-msf {
+  color: #f87171 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 6px rgba(248, 113, 113, 0.4);
+}
+
+.term-prompt-root {
+  color: #f87171 !important;
+  font-weight: 700 !important;
+}
+
+/* Neofetch 2-Column Flex Layout (Pixel-perfect alignment matching authentic Kali) */
+.neofetch-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  margin: 6px 0 12px;
+  text-align: left !important;
+}
+
+.neofetch-art {
+  flex: 0 0 auto;
+  font-family: var(--kali-font-mono) !important;
+  font-size: 13px !important;
+  line-height: 1.28 !important;
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  margin: 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  white-space: pre !important;
+  letter-spacing: 0;
+}
+
+.neofetch-info {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--kali-font-mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--kali-text);
+  min-width: 0;
+}
+
+.nf-user-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nf-user {
+  color: #60a5fa;
+}
+
+.nf-at {
+  color: #94a3b8;
+}
+
+.nf-host {
+  color: #38bdf8;
+}
+
+.nf-dash {
+  color: #64748b;
+  margin-bottom: 2px;
+  letter-spacing: 0.05em;
+}
+
+.nf-row {
+  display: flex;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.nf-key {
+  color: #38bdf8;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.nf-val {
+  color: #e2e8f0;
+}
+
+/* Authentic Solid Neofetch Color Blocks (connected wide rectangles) */
+.nf-palette-blocks {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nf-block-row {
+  display: flex;
+  line-height: 0;
+}
+
+.nf-block-row span {
+  display: inline-block;
+  width: 24px;
+  height: 14px;
+}
+
+/* Row 1 (Standard Colors) */
+.pblk-0 { background: #1e293b; }
+.pblk-1 { background: #ef4444; }
+.pblk-2 { background: #10b981; }
+.pblk-3 { background: #f59e0b; }
+.pblk-4 { background: #3b82f6; }
+.pblk-5 { background: #d946ef; }
+.pblk-6 { background: #06b6d4; }
+.pblk-7 { background: #e2e8f0; }
+
+/* Row 2 (Bright Colors) */
+.pblk-8  { background: #475569; }
+.pblk-9  { background: #f87171; }
+.pblk-10 { background: #34d399; }
+.pblk-11 { background: #fbbf24; }
+.pblk-12 { background: #60a5fa; }
+.pblk-13 { background: #f0abfc; }
+.pblk-14 { background: #67e8f9; }
+.pblk-15 { background: #ffffff; }
+
+
+.term-output-stream .shell-ai-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 10px;
+  text-align: left !important;
+}
+
+.term-output-stream .shell-ai-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  color: #9edbff !important;
+  background: rgba(23, 147, 209, 0.16);
+  border: 1px solid var(--kali-border);
+  border-radius: 4px;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.term-output-stream .shell-ai-links a:hover {
+  background: var(--kali-accent);
+  color: #fff !important;
+}
+
+/* Kali Multi-line Prompt (Left aligned, flows immediately under output) */
+.kali-prompt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 0 0 auto;
+  margin-top: 4px;
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+.kali-prompt-top {
+  color: var(--kali-accent);
+  font-weight: 600;
+  font-size: 12.5px;
+  text-align: left !important;
+}
+
+.kali-prompt-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+
+.kali-prompt-arrow {
+  color: var(--kali-accent);
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.kali-prompt-input {
+  flex: 1 1 auto;
+  width: 100%;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #f8fafc !important;
+  font-family: inherit !important;
+  font-size: 13.5px !important;
+  caret-color: var(--kali-accent-hover) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+/* CMatrix Canvas on Terminal */
+.term-cmatrix-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: #000;
+  display: none;
+}
+
+/* ==========================================================================
+   Tab 2: Security Toolkit (Arsenal)
+   ========================================================================== */
+.kali-arsenal-screen {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #0a0e18;
+  text-align: left !important;
+}
+
+.arsenal-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--kali-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: left !important;
+}
+
+.arsenal-box h4 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--kali-accent-hover);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: left !important;
+}
+
+.arsenal-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.arsenal-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-family: var(--kali-font-mono);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.arsenal-input:focus {
+  border-color: var(--kali-accent);
+  box-shadow: 0 0 6px var(--kali-accent-glow);
+}
+
+.arsenal-btn {
+  background: var(--kali-accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.arsenal-btn:hover {
+  background: var(--kali-accent-hover);
+}
+
+.arsenal-output-box {
+  background: #060910;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 10px;
+  font-family: var(--kali-font-mono);
+  font-size: 12px;
+  color: #38bdf8;
+  min-height: 80px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  text-align: left !important;
+}
+
+.cipher-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cipher-textarea {
+  width: 100%;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  color: #fff;
+  font-family: var(--kali-font-mono);
+  font-size: 12px;
+  padding: 8px;
+  resize: vertical;
+  outline: none;
+}
+
+.cipher-textarea:focus {
+  border-color: var(--kali-accent);
+}
+
+.cipher-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   Tab 3: Notes & About
+   ========================================================================== */
+.kali-notes-screen {
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  background: #080c14;
+  text-align: left !important;
+}
+
+.kali-notes-textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #cbd5e1;
+  padding: 16px 20px;
+  resize: none;
+  line-height: 1.6;
+  font-family: var(--kali-font-mono);
+  font-size: 12.5px;
+  text-align: left !important;
+}
+
+/* ==========================================================================
+   BIOS Reboot POST Sequence (glucas.dev style, inside modal window)
+   ========================================================================== */
+.kali-modal-reboot {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  font-family: var(--kali-font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 24px;
+  z-index: 200;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: left !important;
+}
+
+.kali-modal-reboot.is-active {
+  display: flex;
+}
+
+.bios-post-header {
+  color: #64748b;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 6px;
+  text-align: left !important;
+}
+
+.bios-post-line {
+  margin: 0;
+  white-space: pre-wrap;
+  text-align: left !important;
+}
+
+.bios-post-ok {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.bios-post-skip {
+  margin-top: auto;
+  color: #475569;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-align: left !important;
+}
+
+/* ==========================================================================
+   Window Footer Bar
+   ========================================================================== */
+.kali-window-footer {
+  flex: 0 0 30px;
+  height: 30px;
+  background: var(--kali-window-header);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 11px;
+  color: var(--kali-text-muted);
+  user-select: none;
+  text-align: left !important;
+}
+
+.footer-left-hint {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.footer-right-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--kali-font-mono);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.footer-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--kali-accent);
+  box-shadow: 0 0 6px var(--kali-accent);
+}
+
+/* ==========================================================================
+   Responsive Mobile Adjustments
+   ========================================================================== */
+@media (max-width: 640px) {
+  .kali-modal-window {
+    width: calc(100vw - 16px);
+    height: calc(100vh - 24px);
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 24px);
+  }
+
+  .header-title-text,
+  .kali-modal-window #terminal-title.header-title-text {
+    font-size: 11px !important;
+    max-width: 140px !important;
+  }
+
+  .cipher-split {
+    grid-template-columns: 1fr;
+  }
+
+  .kali-terminal-screen {
+    padding: 12px 14px;
+    font-size: 12px;
+  }
+}
