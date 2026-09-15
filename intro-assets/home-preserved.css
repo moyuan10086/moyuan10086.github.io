@@ -1,0 +1,17 @@
+/* Original anime day/night art stays separate from the warm-white Intro. */
+#article-container .home-shell .hero-art .my-art-day{opacity:1}
+#article-container .home-shell .hero-art .my-art-night{opacity:0}
+html[data-theme='dark'] #article-container .home-shell .hero-art .my-art-day{opacity:0}
+html[data-theme='dark'] #article-container .home-shell .hero-art .my-art-night{opacity:1}
+#article-container .home-shell .hero-art img{transition:opacity .6s ease}
+.home-hero-fullscreen .hero-art,.home-hero-fullscreen .hero-copy,.home-hero-fullscreen .hero-signature{transition:opacity .55s ease}
+.home-hero-fullscreen.star-interacting .hero-art{opacity:.14}
+.home-hero-fullscreen.star-interacting .hero-copy,.home-hero-fullscreen.star-interacting .hero-signature{opacity:.08;pointer-events:none}
+.home-hero-fullscreen.star-interacting{background:#101b2b}
+/* Explicit paired colors prevent inheritance from the ink navigation palette. */
+#nav #ui-language-toggle{color:#243149!important;background:#ffffff!important;border-color:#b6c4d5!important}
+html[data-theme='dark'] #nav #ui-language-toggle{color:#f4f7fb!important;background:#243149!important;border-color:#8296b1!important}
+#nav #ui-language-toggle:hover{color:#111827!important;background:#e7edf5!important}
+html[data-theme='dark'] #nav #ui-language-toggle:hover{color:#ffffff!important;background:#344760!important}
+#nav #ui-language-toggle:focus-visible{outline:2px solid #779dd2;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){#article-container .home-shell .hero-art img,.home-hero-fullscreen .hero-art,.home-hero-fullscreen .hero-copy,.home-hero-fullscreen .hero-signature{transition:none}}

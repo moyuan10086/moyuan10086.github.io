@@ -1,0 +1,59 @@
+/* One paper stage, three chapters. All typography stays in the live language. */
+#intro .my-narrative{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;visibility:hidden;background:#f4f3ef;color:#34332f;contain:layout paint}
+#intro .my-narrative-canvas{position:absolute;inset:0;width:100%;height:100%}
+#intro .my-tree-mist{position:absolute;inset:0;opacity:0;pointer-events:none;transform:translateY(var(--mist-rise,0))}
+#intro .my-tree-mist i{position:absolute;inset:37% -10% 13%;background:#f4f3ef;mask:url('/intro-assets/cloud-mask-v1.png') center/100% 100% no-repeat;mask-mode:luminance}
+#intro .my-tree-mist i+i{inset:49% 35% 10% -30%;opacity:.65;transform:scaleX(-1)}
+#intro .my-tree-labels>span,#intro .my-gate-labels>span{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;font:15px/1.4 Georgia,'Songti SC','SimSun',serif;white-space:nowrap;color:#68665f;padding:5px 9px;background:none;border-radius:0;text-shadow:none}
+#intro .my-tree-labels>span{padding:0;display:flex;font-size:12px;gap:7px;transform:translate(-50%,-50%);color:#726b5f}
+#intro .my-willow-stem{display:block;width:100px;height:var(--leaf-length);color:#77776a}
+#intro .my-leaf-sign{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;color:#716b5b}
+#intro .my-tree-labels img{mix-blend-mode:multiply}
+@keyframes my-leaf-sway{from{rotate:-1.6deg}to{rotate:1.8deg}}
+#intro .my-tree-labels img{width:19px;height:19px;object-fit:contain;opacity:.65;filter:grayscale(1)}
+#intro .my-gate-labels svg,#intro .my-structure-phases svg{width:22px;height:22px;flex-shrink:0;color:#ab916b}
+#intro .my-gate-labels>span{font-size:14px;letter-spacing:.08em}
+#intro .my-gate-labels .my-verdict-emblem{width:44px;height:44px;flex-shrink:0;color:inherit}
+#intro .my-gate-labels [data-label-copy]{font-size:14px;letter-spacing:0}
+#intro .my-gate-labels>span::before{content:'';width:18px;height:1px;background:currentColor;opacity:.45;margin-right:3px}
+#intro .my-gate-labels>span:first-child{color:#927545}
+#intro .my-gate-labels>span:last-child{color:#805c50}
+#intro .my-tree-note{position:absolute;right:5%;bottom:13%;width:27%;margin:0;font:15px/1.8 Georgia,'Songti SC','SimSun',serif;color:#6e6b62;text-align:right;text-wrap:balance}
+#intro .my-tree-note{padding:9px 20px 9px 0;border-right:1px solid #b59c74;letter-spacing:.1em}
+#intro .my-tree-note::after{content:'';position:absolute;right:-2px;top:0;width:5px;height:1px;background:#b59c74}
+#intro .my-structure-phases{position:absolute;left:39%;right:8%;top:66%;display:flex;justify-content:space-between;font:11px/1.5 Georgia,'Songti SC','SimSun',serif;letter-spacing:.12em;color:#949087}
+#intro .my-structure-phases>span{display:flex;align-items:center;gap:8px;transition:color .25s}
+#intro .my-structure-phases .is-current{color:#826c4b}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption{bottom:12%;grid-template-columns:minmax(0,1fr) 280px;column-gap:40px}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption h1{font-size:clamp(34px,3.65vw,64px);line-height:1.2;max-width:100%;margin-top:16px;text-wrap:balance;text-shadow:none}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption small{font-size:11px;letter-spacing:.16em;color:#777167}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption p{font:17px/1.7 Georgia,'Songti SC','SimSun',serif;color:#666158;padding:0;margin:0;max-width:100%;text-shadow:none}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption::before,#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption p::before{display:none}
+#intro:is([data-stage='4'],[data-stage='5']) .my-caption h1{grid-column:1/-1}
+#intro:is([data-stage='4'],[data-stage='5']) .my-caption p{grid-column:1;margin-top:13px}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5'])[data-language='en'] .my-caption h1{font-size:clamp(32px,3.35vw,58px);max-width:920px;line-height:1.16}
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-evidence-world,#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-node-labels{display:none}
+@media(max-width:700px){
+  #intro .my-tree-mist i{inset:32% -18% 40%}
+  #intro .my-tree-mist i+i{inset:36% 15% 39% -20%}
+  #intro .my-tree-labels>span,#intro .my-gate-labels>span{font-size:11px;padding:4px 3px;gap:4px}
+  #intro .my-tree-labels img{width:17px;height:17px}
+  #intro .my-tree-labels>span{padding:0;font-size:10px}
+  #intro .my-willow-stem{width:68px;height:calc(var(--leaf-length) * .46)}
+  #intro .my-leaf-sign{font-size:10px;gap:3px}
+  #intro .my-gate-labels .my-verdict-emblem{width:29px;height:29px}
+  #intro .my-gate-labels [data-label-copy]{font-size:10px;letter-spacing:.04em}
+  #intro .my-gate-labels svg,#intro .my-structure-phases svg{width:17px;height:17px}
+  #intro .my-structure-phases{left:7%;right:7%;top:59%;font-size:10px;letter-spacing:0}
+  #intro .my-structure-phases>span{gap:5px}
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption{bottom:15%;display:block;left:22px;right:22px}
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption h1,#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5'])[data-language='en'] .my-caption h1{font-size:32px;line-height:1.24;max-width:100%;margin-top:12px}
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption p{font-size:14px;line-height:1.7;margin-top:12px}
+  #intro .my-tree-note{left:auto;right:22px;bottom:8%;width:76%;font-size:11px;text-align:right;padding-right:14px;letter-spacing:.04em}
+}
+@media(prefers-reduced-motion:reduce){#intro .my-tree-labels>span{animation:none}}
+@media(max-height:650px) and (min-width:701px){
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption{bottom:10%}
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption h1{font-size:34px}
+  #intro .my-tree-note{bottom:11%;font-size:12px}
+}

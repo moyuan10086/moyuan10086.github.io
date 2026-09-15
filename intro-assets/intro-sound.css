@@ -1,0 +1,50 @@
+#intro .my-sound-player{position:absolute;right:5%;bottom:3%;z-index:30;isolation:isolate;display:flex;align-items:center;gap:12px;color:#4e493e;padding:0 0 0 16px}
+#intro .my-sound-player::before{content:'';position:absolute;z-index:-1;inset:-12px -18px;background:radial-gradient(ellipse,#f4f3eff5 35%,#f4f3efbb 60%,transparent 76%);filter:blur(5px);pointer-events:none}
+#intro #my-sound-toggle{display:flex;gap:13px;align-items:center;padding:0;border:0;background:none;color:inherit;cursor:pointer;text-align:left;min-height:52px}
+#intro .my-sound-disc{position:relative;display:grid;place-items:center;width:46px;height:46px;border:1px solid #a7987977;border-radius:50%;background:radial-gradient(circle,#f4f3ef 33%,transparent 35%,transparent 48%,#8273521a 49%,transparent 51%),#e9e6dc66;transition:background .25s,border-color .25s}
+#intro .my-sound-disc::after{content:'';position:absolute;inset:-4px;border:1px solid transparent;border-top-color:#9b865b88;border-radius:50%;animation:my-disc-turn 12s linear infinite;animation-play-state:paused}
+#intro .is-playing .my-sound-disc::after{animation-play-state:running}
+@keyframes my-disc-turn{to{transform:rotate(360deg)}}
+#intro .my-sound-disc svg{width:19px;height:19px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#intro .my-pause-icon{display:none}#intro .my-play-icon{display:block;stroke-width:1.1}
+#intro .is-playing .my-pause-icon{display:block}#intro .is-playing .my-play-icon{display:none}
+#intro #my-sound-toggle:hover .my-sound-disc{background-color:#e3ddce;border-color:#978461}
+#intro .my-sound-copy{display:flex;flex-direction:column;gap:5px;min-width:76px}
+#intro .my-sound-copy small{font:8px/1.2 Consolas,monospace;letter-spacing:.13em;color:#9b8c70}
+#intro .my-sound-action{font:13px/1.4 Georgia,'Songti SC','SimSun',serif;letter-spacing:.035em}
+#intro #my-sound-details{border:0;background:none;color:#8e8169;font:20px/1 Georgia;min-width:32px;min-height:44px;cursor:pointer}
+#intro #my-sound-panel{position:absolute;right:0;bottom:calc(100% + 18px);width:266px;padding:23px;background:#f7f5ef;border:1px solid #b5aa9455;box-shadow:0 10px 36px #29231912;text-align:left}
+#intro #my-sound-panel[hidden]{display:none}
+#intro .my-sound-eyebrow{display:block;margin:0 0 14px;font:9px/1.5 'Microsoft YaHei',sans-serif;letter-spacing:.12em;color:#99896c}
+#intro #my-sound-panel .my-effects-control{align-items:center;margin:15px 0 0;padding-top:14px;border-top:1px solid #b5aa9433;cursor:pointer;min-height:34px}
+#intro .my-effects-control input{appearance:none;position:relative;width:30px;height:17px;flex-shrink:0;border:1px solid #9e927d;border-radius:12px;background:#ded8cb;cursor:pointer;transition:background .2s;margin:0}
+#intro .my-effects-control input::before{content:'';position:absolute;left:3px;top:3px;width:9px;height:9px;border-radius:50%;background:#fffdf6;transition:transform .2s}
+#intro .my-effects-control input:checked{background:#8a7650;border-color:#8a7650}
+#intro .my-effects-control input:checked::before{transform:translateX(13px)}
+#intro #my-sound-panel .my-ambient-credit{display:block;font-size:9px;margin-top:15px;border:0}
+#intro .my-sound-player :is(button,input,a):focus-visible{outline:2px solid #88704b;outline-offset:4px}
+#intro .is-muted .my-sound-disc::after{animation-play-state:paused}
+#intro #my-sound-panel strong{display:block;font:20px/1.4 Georgia,'Songti SC','SimSun',serif;font-weight:400;margin-bottom:8px}
+#intro #my-sound-panel>a{font:10px/1.6 Consolas,monospace;color:#80715a;border-bottom:1px solid #b7a78655}
+#intro #my-sound-panel label{display:flex;justify-content:space-between;font:11px/1.5 'Microsoft YaHei',sans-serif;color:#766951;margin:23px 0 9px}
+#intro #my-sound-volume{width:100%;height:20px;cursor:pointer;accent-color:#8a7650;margin:0}
+#intro #my-sound-panel p{margin:14px 0 0;color:#9a907d;font:9px/1.6 'Microsoft YaHei',sans-serif;display:flex;justify-content:space-between;gap:8px}
+#intro #my-sound-panel p a{text-decoration:underline}
+#intro .my-replay{right:calc(5% + 245px);bottom:3%;min-height:52px}
+#intro .my-ink-touch{position:absolute;width:86px;height:30px;border:1px solid #8f8061;border-radius:50%;pointer-events:none;z-index:8}
+#intro .my-window{max-height:calc(100svh - 180px);top:49%}
+#intro .my-nav{z-index:25}
+body.my-landing-only #mini-music{display:none!important}
+@media(max-width:700px){
+  #intro .my-sound-player{right:20px;bottom:2%;gap:4px;padding-left:10px}
+  #intro #my-sound-toggle{gap:9px;min-height:46px}
+  #intro .my-sound-disc{width:37px;height:37px}
+  #intro .my-sound-copy{min-width:65px;gap:4px}
+  #intro .my-sound-copy small{font-size:7px;letter-spacing:.05em}
+  #intro .my-sound-action{font-size:11px}
+  #intro #my-sound-details{min-width:24px;font-size:18px}
+  #intro .my-replay{right:193px;bottom:2%;font-size:10px;min-height:46px}
+  #intro .my-scroll{bottom:calc(2% + 17px);font-size:8px;letter-spacing:.08em}
+  #intro .my-window{top:49%;max-height:calc(100svh - 190px)}
+}
+@media(prefers-reduced-motion:reduce){#intro .my-sound-disc::after{animation:none}}

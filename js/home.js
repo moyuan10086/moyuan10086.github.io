@@ -10,17 +10,6 @@
     if (!root) return;
     const controller = new AbortController();
     const {signal} = controller;
-    const heroImage = root.querySelector('.home-hero-fullscreen .hero-art img');
-    const syncHeroImage = () => {
-      if (!heroImage) return;
-      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      heroImage.src = dark ? '/images/home-fullscreen-dark.png' : '/images/home-fullscreen.png';
-    };
-    const themeObserver = new MutationObserver(syncHeroImage);
-    if (heroImage) {
-      syncHeroImage();
-      themeObserver.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
-    }
     const subtitle = root.querySelector('.hero-subtitle');
     let typingTimer;
     if (subtitle && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -129,7 +118,7 @@
     });
     on(video,'error',() => { root.querySelector('.video-status').textContent = '短片暂时无法播放，请稍后重试。'; });
     on(document,'visibilitychange',() => { if (document.hidden) video.pause(); });
-    dispose = () => { controller.abort(); themeObserver.disconnect(); clearTimeout(typingTimer); request?.abort(); observer.disconnect(); video.pause(); };
+    dispose = () => { controller.abort(); clearTimeout(typingTimer); request?.abort(); observer.disconnect(); video.pause(); };
   }
   document.addEventListener('pjax:send', () => dispose());
   document.addEventListener('pjax:complete', init);

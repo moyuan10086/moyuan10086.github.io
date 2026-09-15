@@ -1,0 +1,136 @@
+#intro.my-intro{height:1100svh;z-index:3;background:transparent;pointer-events:none}
+#intro *{letter-spacing:0}
+#intro .my-stage{pointer-events:auto;background:#f4f3ef}
+#intro .my-scene{inset:0;z-index:0;pointer-events:none}
+#intro .my-nav,#intro .my-caption,#intro .my-scroll,#intro .my-replay{z-index:5}
+#intro .my-nav{gap:22px;align-items:center}
+#intro .my-nav>a:first-child{margin-right:auto;font-size:18px;font-weight:600}
+#intro .my-nav span{font-size:12px;color:#59584f}
+#intro #my-language{width:48px;height:40px;background:#f4f3ef;color:#111;border:1px solid #86867f;border-radius:4px;cursor:pointer;font-size:14px}
+#intro #my-skip{font-size:15px;color:#25251f}
+#intro .my-caption{bottom:13%;display:grid;grid-template-columns:minmax(0,1fr) 270px;column-gap:32px;align-items:end}
+#intro .my-caption small{grid-column:1/-1;font-size:15px;color:#5f5747}
+#intro .my-caption h1{font-size:88px;max-width:1100px;line-height:1.1;margin-top:20px;text-wrap:balance;overflow-wrap:break-word;text-shadow:0 2px 22px #f4f3ef88}
+#intro .my-caption p{position:static;max-width:270px;font-size:19px;color:#42423d;line-height:1.7}
+#intro .my-scroll,#intro .my-replay{font-size:13px;color:#575447}
+#intro .my-node-labels{inset:0;display:block;z-index:3}
+#intro .my-node-labels button{position:absolute;transform:translate(-50%,-50%);border:0;background:#f4f3efe6;color:#302c24;padding:10px 14px;cursor:pointer;white-space:nowrap;border-radius:3px;min-height:48px}
+#intro .my-node-labels button span{font:20px/1.3 Consolas,'Microsoft YaHei',sans-serif;background:transparent;padding:0;color:inherit}
+#intro .my-node-labels button small{display:block;position:absolute;left:50%;top:100%;transform:translateX(-50%);font:13px/1.5 Consolas,monospace;opacity:0;background:#111;color:#f4f3ef;padding:7px 12px;pointer-events:none}
+#intro .my-node-labels button:hover small,#intro .my-node-labels button:focus-visible small{opacity:1}
+#intro .my-node-labels button:hover span{transform:none;color:#111}
+#intro .my-window{z-index:6;width:480px;max-width:calc(100% - 48px);padding:38px;background:#f4f3ef70;backdrop-filter:blur(5px);gap:20px;border-color:#8c8270;top:48%}
+#intro .my-window small{font-size:14px;color:#6c6049}
+#intro .my-window strong{font:46px/1.2 Georgia,'SimSun',serif;overflow-wrap:anywhere}
+#intro .my-window span{font-size:18px;color:#3d3b33;line-height:1.6}
+#intro .my-window em{font-size:17px;margin-top:42px}
+#intro #my-risk{position:absolute;left:57%;top:36%;z-index:3;color:#963f3f;font:16px Consolas,'Microsoft YaHei',sans-serif;opacity:0}
+#intro .my-finale{position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none}
+#intro .my-finale img{height:100%;width:100%;object-fit:cover;object-position:center}
+#intro .my-dock-logo{position:absolute;z-index:4;transform:translate(-50%,-50%);width:120px;opacity:0;mix-blend-mode:multiply;pointer-events:none}
+#intro .my-exits{position:absolute;z-index:6;bottom:6%;left:50%;transform:translateX(-50%);display:flex;gap:28px;opacity:0;white-space:nowrap}
+#intro .my-exits a,#intro .my-exits button{background:#f4f3efdc;color:#26251f;border:0;border-bottom:1px solid #898375;padding:10px 4px;font:15px 'Microsoft YaHei',sans-serif;cursor:pointer}
+#intro .my-fallback{z-index:1;inset:0}
+#moyuan-home{margin-top:-100svh;height:0;position:relative}
+body:has(#intro) #body-wrap{z-index:2}
+@media(min-width:1800px){#intro .my-caption h1{font-size:112px}#intro .my-node-labels button span{font-size:24px}}
+@media(max-width:1100px){#intro .my-caption h1{font-size:64px}#intro .my-caption{grid-template-columns:minmax(0,1fr) 220px}#intro .my-caption p{font-size:17px}}
+@media(max-width:700px){#intro.my-intro{height:640svh}#intro .my-scene{inset:0}#intro .my-nav{left:20px;right:20px;gap:12px}#intro .my-nav>a:first-child{font-size:16px}#intro .my-nav span{font-size:10px}#intro #my-skip{font-size:12px}#intro #my-language{width:42px;height:36px}#intro .my-caption{left:22px;right:22px;bottom:15%;display:block}#intro .my-caption h1{font-size:44px;line-height:1.14;max-width:100%}#intro .my-caption small{font-size:12px}#intro .my-caption p{font-size:16px;margin-top:16px;max-width:320px}#intro .my-node-labels button span{font-size:16px}#intro .my-node-labels button{padding:7px}#intro .my-window{padding:26px;max-height:62svh;overflow:auto}#intro .my-window strong{font-size:34px}#intro .my-window span{font-size:16px}#intro .my-window em{margin-top:22px}#intro .my-exits{gap:15px;bottom:7%}#intro .my-exits a,#intro .my-exits button{font-size:13px}#intro .my-finale img{object-fit:contain}#intro .my-scroll{left:22px;bottom:3%}#intro .my-replay{bottom:3%}}
+@media(prefers-reduced-motion:reduce){#intro.my-intro{height:100svh}#intro .my-stage{clip-path:none!important}#intro .my-caption{opacity:1!important}#intro .my-exits{opacity:1!important;pointer-events:auto!important}#intro .my-dock-logo{display:none}#moyuan-home{margin-top:0}}
+/* The ending is a destination, not a reveal of the document underneath. */
+body.my-landing-only #body-wrap,body.my-landing-only #moyuan-home,body.my-landing-only #rightside,body.my-landing-only .aplayer{display:none!important}
+body.my-landing-only{background:#f4f3ef!important}
+#intro .my-caption{grid-template-columns:minmax(0,720px) 260px;justify-content:space-between}
+#intro .my-caption{isolation:isolate}
+#intro .my-caption::before{content:"";position:absolute;z-index:-1;left:-5vw;right:22%;bottom:-4.5rem;height:15rem;pointer-events:none;background:radial-gradient(ellipse at 24% 55%,#fafaf7e6 0%,#fafaf7b8 36%,#fafaf766 58%,transparent 78%);filter:blur(18px)}
+#intro .my-caption h1,#intro .my-caption small{position:relative;text-shadow:0 1px 0 #fafaf7,0 2px 18px #fafaf7b8}
+#intro .my-caption p{position:relative;isolation:isolate;padding:.45rem .7rem;margin-right:-.7rem;background:none;text-shadow:0 1px 10px #fafaf7}
+#intro .my-caption p::before{content:"";position:absolute;z-index:-1;inset:-18px -22px;pointer-events:none;background:#fafaf7e8;mask-image:radial-gradient(ellipse,black 35%,transparent 73%);filter:blur(9px)}
+#intro[data-stage='5'] .my-caption::before,#intro[data-stage='6'] .my-caption::before{background:radial-gradient(ellipse at 72% 50%,#fafaf7ed 0%,#fafaf7b8 42%,transparent 76%)}
+#intro[data-stage='5'] .my-caption p,#intro[data-stage='6'] .my-caption p{background:none}
+#intro .my-caption h1{font-size:64px;max-width:720px;line-height:1.16}
+#intro[data-language=en] .my-caption h1{font-size:58px;max-width:750px}
+#intro .my-node-labels button span{font-size:28px}
+#intro .my-window{width:1000px;max-width:84%;top:48%;height:600px;max-height:75svh;padding:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto 1fr auto auto;gap:16px 36px;border-radius:5px!important;background:#f4f3efed;box-shadow:12px 18px 50px #211b1212;backdrop-filter:blur(10px);overflow:hidden}
+#intro .my-window>small,#intro .my-window>strong,#intro .my-window>.my-project-thesis,#intro .my-window>.my-project-description,#intro .my-window>em{grid-column:1}
+#intro .my-window>strong{font-size:42px;line-height:1.15}
+#intro .my-window .my-project-thesis{font:25px/1.45 Georgia,'SimSun',serif;color:#171713}
+#intro .my-window .my-project-description{font-size:16px;line-height:1.8;margin:0;color:#66645b}
+#intro .my-window em{font-size:16px;margin:0;align-self:end}
+#intro .my-project-process{grid-column:1/-1;grid-row:5;display:flex;list-style:none;margin:0;padding:22px 0 0;border-top:1px solid #d8d8d3;gap:14px;justify-content:space-between;min-height:62px}
+#intro .my-project-process li{color:#77796f;font:14px/1.5 Consolas,'Microsoft YaHei',sans-serif;transition:color .2s;display:flex;align-items:center;gap:14px}
+#intro .my-project-process li:not(:last-child):after{content:'→';color:#aaa69a}
+#intro .my-project-process li.is-current{color:#83643c;font-weight:700}
+#intro .my-project-visual{grid-column:2;grid-row:1/5;position:relative;min-height:200px;perspective:800px;overflow:hidden}
+#intro .my-document{position:absolute;inset:8% 15%;background:#fffefb;border:1px solid #d8d8d3;box-shadow:12px 15px 0 #e9e8e2;transform:rotateY(-14deg) rotateZ(-4deg);padding:24px;display:flex;flex-direction:column;gap:15px;transition:transform .5s}
+#intro .my-document i{height:3px;width:100%;background:#a6a69e;display:block}
+#intro .my-document i:nth-child(3n){width:70%}
+#intro .my-document i:nth-child(4){height:20px;background:#b89a5e65;border-left:3px solid #9b7841}
+#intro .my-evidence-trail{position:absolute;right:2%;top:36%;height:100px;width:25%;border-top:1px solid #a58b5d;border-right:1px solid #a58b5d;display:flex;justify-content:space-between}
+#intro .my-evidence-trail b{display:block;width:6px;height:6px;background:#9c8155;border-radius:50%;margin-top:-3px}
+#intro .my-image-evidence{display:none;position:absolute;inset:8% 0;border:1px solid #c9c6bd;overflow:hidden}
+#intro .my-image-evidence img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+#intro .my-region{position:absolute;inset:28% 25% 20% 45%;border:1px solid #997548;background:#9e784726;transform:translateY(calc(var(--step,0)*-5px));transition:transform .25s}
+#intro .my-scan{position:absolute;inset:0;border-top:1px solid #8e9f9d;transform:translateY(calc(12% + var(--step,0)*22%));transition:transform .3s}
+#intro .my-window[data-project='1'] .my-document,#intro .my-window[data-project='2'] .my-document{display:none}
+#intro .my-window[data-project='1'] .my-image-evidence,#intro .my-window[data-project='2'] .my-image-evidence{display:block}
+#intro .my-window[data-project='1'] .my-region{border-color:#587c7e;background:#829f9f28;inset:35% 10% 28% 12%}
+#intro .my-window[data-project='2'] .my-image-evidence{transform:rotateY(-9deg)}
+#intro .my-window[data-project='2'] .my-region{box-shadow:0 0 25px #aa795230;border-color:#935c45;background:#a7704238}
+#intro .my-finale{inset:8% 0 20% 33%;mix-blend-mode:multiply}
+#intro .my-finale img{object-fit:contain}
+#intro .my-dock-logo{left:24%!important;top:37%!important;width:116px!important}
+#intro .my-exits{left:24%;top:48%;bottom:auto;width:320px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px 10px;white-space:normal;text-align:center}
+#intro .my-exits a{font-size:16px;padding:12px 6px;background:transparent}
+#intro #my-enter{grid-column:2;grid-row:1}
+#intro #my-stars{grid-column:1;grid-row:2}
+#intro #my-build{grid-column:3;grid-row:2}
+#intro #my-terminal{grid-column:1/-1;grid-row:3;font-size:13px;border:0;color:#676457}
+#intro[data-stage='7'] .my-caption{bottom:9%;display:block}
+#intro[data-stage='7'] .my-caption h1{font-size:46px;max-width:850px}
+#intro[data-stage='7'] .my-caption p{font-size:15px;margin-top:15px}
+@media(max-width:1100px){#intro .my-caption h1,#intro[data-language=en] .my-caption h1{font-size:48px}#intro .my-caption{grid-template-columns:minmax(0,1fr) 220px}#intro .my-window{height:570px;padding:28px;gap:15px 22px}#intro .my-window>strong{font-size:34px}}
+@media(max-width:700px){#intro.my-intro{height:1000svh}#intro .my-caption{display:block;bottom:12%}#intro .my-caption h1,#intro[data-language=en] .my-caption h1{font-size:36px;max-width:100%}#intro .my-caption p{font-size:15px;max-width:100%}#intro .my-node-labels button span{font-size:22px}#intro .my-window{top:49%;width:calc(100% - 36px);max-width:none;height:640px;max-height:76svh;padding:22px;display:flex;gap:12px;overflow:auto}#intro .my-window>strong{font-size:30px}#intro .my-window .my-project-thesis{font-size:20px}#intro .my-window .my-project-description{font-size:14px;line-height:1.6}#intro .my-project-visual{min-height:150px;flex:1}#intro .my-project-process{flex-wrap:wrap;justify-content:start;padding-top:10px;gap:8px 12px}#intro .my-project-process li{font-size:12px;gap:8px}#intro .my-dock-logo{left:28%!important;top:29%!important;width:82px!important}#intro .my-finale{inset:13% -20% 38% 32%}#intro .my-exits{left:50%;top:50%;width:290px;gap:12px}#intro[data-stage='7'] .my-caption{bottom:9%}#intro[data-stage='7'] .my-caption h1{font-size:28px}#intro[data-stage='7'] .my-caption p{font-size:14px}}
+@media(prefers-reduced-motion:reduce){#intro.my-intro{height:100svh}#intro .my-dock-logo{display:block}#intro .my-caption{opacity:1!important}}
+/* Unframed image surfaces and a centered identity at the final destination. */
+#intro .my-stage{background:#fafaf7}
+#intro .my-scene{z-index:1}
+#intro .my-node-labels button{background:transparent;border-radius:0;text-shadow:0 1px 14px #fff,0 1px 5px #fff}
+#intro .my-finale{inset:0;z-index:0;mix-blend-mode:normal}
+#intro .my-finale img{object-fit:cover}
+#intro .my-finale .my-reduced-bird{display:none}
+#intro .my-final-brand{position:absolute;left:50%;top:17%;width:240px;transform:translateX(-50%);z-index:4;text-align:center;opacity:0;pointer-events:none}
+#intro .my-final-brand .my-dock-logo{position:static;display:block;transform:none;width:180px!important;height:150px;object-fit:contain;margin:0 auto;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse at center,#000 28%,transparent 70%)}
+#intro .my-final-name{font:36px/1.4 Georgia,'SimSun',serif;color:#141614}
+#intro .my-final-name b{font-weight:400}
+#intro .my-final-name span{display:block;font:15px/2.5 Consolas,monospace}
+#intro .my-exits{left:50%;top:52%;width:460px;max-width:calc(100% - 44px);grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px;align-items:center}
+#intro .my-exits a{font-size:17px;background:#fafaf799;border-bottom:1px solid #9c8968;padding:12px 4px;transition:background .2s}
+#intro .my-exits a:hover,#intro .my-exits a:focus-visible{background:#fff;color:#111;outline:1px solid #8a795c;outline-offset:4px}
+#intro #my-enter{grid-column:1;grid-row:1}
+#intro #my-stars{grid-column:2;grid-row:1}
+#intro #my-build{grid-column:3;grid-row:1}
+#intro #my-terminal{grid-column:1/-1;grid-row:2;background:transparent}
+#intro[data-stage='0'] .my-caption h1{max-width:580px;text-wrap:balance}
+#intro[data-stage='7'] .my-caption{bottom:10%;pointer-events:none}
+#intro[data-stage='7'] .my-caption h1{font-size:48px;max-width:640px;text-wrap:balance;text-shadow:0 1px 24px #fff,0 2px 10px #fff}
+#intro[data-stage='7'] .my-caption p{color:#292c29;text-shadow:0 1px 8px #fff}
+@media(max-width:700px){
+  #intro .my-final-brand{top:16%;width:200px}
+  #intro .my-final-brand .my-dock-logo{width:140px!important;height:120px}
+  #intro .my-final-name{font-size:30px}
+  #intro .my-exits{top:48%;width:330px;gap:14px}
+  #intro .my-exits a{font-size:15px}
+  #intro[data-stage='7'] .my-caption h1{font-size:30px;max-width:340px}
+  #intro[data-stage='7'] .my-caption{bottom:10%}
+  #intro .my-caption::before{left:-2rem;right:-2rem;bottom:-3rem;height:13rem;filter:blur(15px)}
+  #intro .my-caption p{margin-right:0}
+}
+@media(max-height:650px) and (min-width:701px){
+  #intro .my-final-brand{top:12%}
+  #intro .my-final-brand .my-dock-logo{width:120px!important;height:95px}
+  #intro .my-final-name{font-size:28px}
+  #intro .my-exits{top:48%}
+  #intro[data-stage='7'] .my-caption h1{font-size:34px;max-width:550px}
+}
+@media(prefers-reduced-motion:reduce){#intro .my-finale .my-reduced-bird{display:block;position:absolute;right:0;top:38%;width:48%;height:40%;object-fit:contain;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse,#000 30%,transparent 72%)}}
