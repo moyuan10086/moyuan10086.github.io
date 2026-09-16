@@ -1,0 +1,50 @@
+.cv-document {
+  max-width: 920px;
+  margin-inline: auto;
+  color: var(--font-color, #262626);
+  font-size: 16px;
+  line-height: 1.85;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+.cv-document .cv-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-block: 0 22px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--hr-border, #d9dddd);
+  font-size: 14px;
+}
+.cv-document h2 { margin-top: 42px; font-size: 25px; line-height: 1.4; }
+.cv-document h3 { margin-top: 28px; font-size: 19px; line-height: 1.5; }
+.cv-document p, .cv-document li { max-width: 100%; }
+.cv-document li { margin-block: 7px; }
+.cv-document code { overflow-wrap: anywhere; white-space: normal; }
+.cv-document blockquote { font-size: 14px; }
+.cv-document table { width: 100%; table-layout: fixed; font-size: 14px; }
+.cv-document th:first-child, .cv-document td:first-child { width: 25%; }
+.cv-document td, .cv-document th { overflow-wrap: anywhere; vertical-align: top; }
+.cv-document .cv-table-wrap { width: 100%; overflow-x: auto; }
+.cv-document .cv-anchor, .cv-document h2[id] { scroll-margin-top: 90px; }
+.cv-document .cv-anchor { display: block; }
+.cv-document .cv-copyrights { font-size: 14px; }
+html:not([data-ui-lang="en"]) .cv-document [data-language="en"],
+html[data-ui-lang="en"] .cv-document [data-language="zh"] { display: none !important; }
+@media (max-width: 640px) {
+  .cv-document { font-size: 15px; line-height: 1.8; }
+  .cv-document h2 { font-size: 22px; }
+  .cv-document h3 { font-size: 18px; }
+  .cv-document table { font-size: 13px; }
+  .cv-document th:first-child, .cv-document td:first-child { width: 30%; }
+}
+@media print {
+  .cv-document { max-width: none; color: #111; font-size: 10pt; line-height: 1.55; }
+  .cv-document .cv-navigation { display: none; }
+  .cv-document h2 { font-size: 16pt; margin-top: 20pt; break-after: avoid; }
+  .cv-document h3 { font-size: 12pt; margin-top: 14pt; break-after: avoid; }
+  .cv-document p, .cv-document li { orphans: 3; widows: 3; }
+  .cv-document table { font-size: 9pt; }
+  .cv-document a { color: #111; text-decoration: underline; }
+  .cv-document blockquote { color: #333; border-color: #aaa; background: transparent; }
+}
