@@ -1,5 +1,5 @@
 .brand-origin { position: relative; color: inherit; text-align: left; letter-spacing: 0; }
-.brand-origin .origin-name { display: block; font: 26px/1.4 Georgia, serif; }
+.brand-origin .origin-name { display: block; width: max-content; font: 400 clamp(50px,5vw,76px)/1.15 'Moyuan Allura',cursive; letter-spacing: 0; }
 .brand-origin p { text-indent: 0; font: 14px/1.9 Georgia, 'SimSun', serif; margin: 14px 0; }
 .origin-word { position: relative; display: flex; align-items: center; gap: 9px; font: 12px/1.6 Georgia, 'SimSun', serif; }
 .origin-trigger { background: none; color: inherit; border: 0; border-bottom: 1px dotted currentColor; border-radius: 0; font: 27px/1.5 Georgia, 'SimSun', serif; padding: 0 3px; cursor: pointer; }
@@ -16,4 +16,4 @@ html:not([data-ui-lang='en']) #article-container .home-hero .hero-intro > [data-
 html[data-ui-lang='en'] #article-container .home-hero .hero-intro > [data-language='zh'] { display: none; }
 #article-container .home-shell .home-hero .hero-description br { display: block; }
 @media(max-width:1100px) { .home-hero .brand-origin { position: relative; right: auto; bottom: auto; align-self: flex-end; margin-top: 44px; width: 260px; } }
-@media(max-width:700px) { .home-hero .brand-origin { width: 240px; } .brand-origin .origin-name { font-size: 22px; } }
+@media(max-width:700px) { .home-hero .brand-origin { width: 240px; } .brand-origin .origin-name { font-size: 46px; } }
