@@ -6,6 +6,14 @@ const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const q=s=>intro.querySelector(s),portal=q('#my-project-window'),labels=[...intro.querySelectorAll('.my-node-labels button')];
 let progress=0,language=window.MoyuanI18n?.language==='en'?'en':'zh';
 const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
+function prose(el,value){
+  if(!el||el.dataset.prose===value)return;
+  el.dataset.prose=value;
+  el.replaceChildren(...value.split('\n').map(line=>{
+    const span=document.createElement('span');span.className='my-prose-line';
+    span.textContent=line;return span;
+  }));
+}
 const urls=JSON.parse(portal.dataset.projects);
 function read(){
   progress=reduced?1:clamp((scrollY-intro.offsetTop)/Math.max(1,intro.offsetHeight-innerHeight));
@@ -15,7 +23,8 @@ function read(){
   updateBuild(intro,progress,language);
   // The old evidence panel is superseded only in Intro 03–05.
   updateEvidence(intro,-1,language);
-  ['#my-kicker','#my-title','#my-copy'].forEach((s,j)=>text(q(s),c.stages[chapter][j]));
+  text(q('#my-kicker'),c.stages[chapter][0]);
+  prose(q('#my-title'),c.stages[chapter][1]);prose(q('#my-copy'),c.stages[chapter][2]);
   text(q('.my-brand-caption'),c.brand);text(q('#my-skip'),c.skip);text(q('#my-replay'),c.replay);text(q('.my-scroll'),progress>.96?'':c.scroll+' ↓');
   text(q('#my-language'),language==='zh'?'EN':'中文');q('#my-language').setAttribute('aria-label',language==='zh'?'Switch to English':'切换为中文');
   ['#my-enter','#my-stars','#my-build'].forEach((s,j)=>text(q(s),c.paths[j]));text(q('#my-terminal'),c.terminal);

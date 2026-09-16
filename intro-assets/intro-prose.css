@@ -1,4 +1,8 @@
 /* Preserve authored pauses in both languages, independently of scene geometry. */
+#intro .my-prose-line { display: block; text-align: left; text-indent: 0; }
+#intro #my-title > .my-prose-line { display: block; white-space: normal; }
+#intro .my-caption p { text-align: left; text-indent: 0; color: #45483f; }
+#intro .my-caption p::before { opacity: .65; }
 #intro .my-caption h1,
 #intro .my-build-world .my-build-heading h2 {
   white-space: pre-line;

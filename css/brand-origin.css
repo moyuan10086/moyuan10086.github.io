@@ -1,0 +1,19 @@
+.brand-origin { position: relative; color: inherit; text-align: left; letter-spacing: 0; }
+.brand-origin .origin-name { display: block; font: 26px/1.4 Georgia, serif; }
+.brand-origin p { text-indent: 0; font: 14px/1.9 Georgia, 'SimSun', serif; margin: 14px 0; }
+.origin-word { position: relative; display: flex; align-items: center; gap: 9px; font: 12px/1.6 Georgia, 'SimSun', serif; }
+.origin-trigger { background: none; color: inherit; border: 0; border-bottom: 1px dotted currentColor; border-radius: 0; font: 27px/1.5 Georgia, 'SimSun', serif; padding: 0 3px; cursor: pointer; }
+.origin-trigger:focus-visible { outline: 1px solid currentColor; outline-offset: 5px; }
+.brand-origin .origin-quote { position: absolute; left: 0; bottom: calc(100% + 10px); margin: 0; padding: 16px 20px; width: 190px; background: #f8f9f5; color: #353b34; border: 1px solid #b6baa9; border-radius: 3px; box-shadow: 0 5px 18px #00000010; font: 16px/1.9 Georgia, 'SimSun', serif; text-align: left; text-indent: 0; visibility: hidden; opacity: 0; pointer-events: none; z-index: 30; transition: opacity .15s; }
+.brand-origin.is-open .origin-quote { visibility: visible; opacity: 1; }
+@media (hover: hover) { .origin-word:has(.origin-trigger:hover) .origin-quote { visibility: visible; opacity: 1; } }
+.brand-origin .origin-about { display: inline-block; margin-top: 16px; font: 11px/1.8 Georgia, 'SimSun', serif; color: inherit; text-decoration: none; }
+.home-hero .brand-origin { position: absolute; right: 6%; bottom: 90px; z-index: 3; width: 260px; padding: 0; color: #fff; text-shadow: 0 1px 6px #1118; }
+.home-hero .brand-origin .origin-quote { text-shadow: none; }
+.home-hero.star-interacting .brand-origin { visibility: hidden; }
+#article-container .home-hero .hero-intro > span { display: inline; }
+html:not([data-ui-lang='en']) #article-container .home-hero .hero-intro > [data-language='en'],
+html[data-ui-lang='en'] #article-container .home-hero .hero-intro > [data-language='zh'] { display: none; }
+#article-container .home-shell .home-hero .hero-description br { display: block; }
+@media(max-width:1100px) { .home-hero .brand-origin { position: relative; right: auto; bottom: auto; align-self: flex-end; margin-top: 44px; width: 260px; } }
+@media(max-width:700px) { .home-hero .brand-origin { width: 240px; } .brand-origin .origin-name { font-size: 22px; } }

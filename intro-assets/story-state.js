@@ -54,21 +54,22 @@ copy.zh.stages=[
   ['10 / 墨鵷','记录世界\n也构建一点世界','墨是表达\n鵷是方向']
 ];
 copy.en.stages=[
-  ['00 / WATER','Choose with care\nGrow toward distant skies','A drop of ink meets water\nRipples carry it farther'],
-  ['01 / CURIOSITY','A spark of curiosity','Some answers begin\nwith a closer look at the world'],
-  ['02 / EXPLORE','Following the traces','A feather points the way\nThe wind leads us deeper'],
-  ['03 / STRUCTURE','Within complexity\nA glimpse of structure','What seems like disorder\nstill has threads to follow'],
-  ['04 / SKILLS','Beyond collecting skills','The more we learn\nthe more we choose what to grow'],
-  ['05 / EVIDENCE','Not every signal\ndeserves our trust','Keep the evidence\nThen make the call'],
-  ['06 / BOUNDARY','Boundaries\nrevealed by judgment','Acknowledge uncertainty\nto see where the limits lie'],
-  ['07 / BUILD','Many tools\nOne direction','Tools will change\nSystems must work in practice'],
-  ['08 / QUESTION','One image\nReal or generated','From a single judgment\na system takes shape'],
-  ['09 / WORK','From an idea\nto something real','Put methods into practice\nLet the work prove useful'],
-  ['10 / MOYUAN','Record the world\nBuild a little of it','Ink is expression\nFlight is direction']
+  ['00 / WATER','Choose where to belong\nGrow toward wider skies','A drop of ink meets water\nRipples carry it on'],
+  ['01 / CURIOSITY','It begins with curiosity','Some answers only appear\nwhen you move closer'],
+  ['02 / EXPLORE','Follow the traces','A feather marks the way\nThe wind pulls us deeper'],
+  ['03 / STRUCTURE','Find structure\nin complexity','What looks like noise\nmay still have a pattern'],
+  ['04 / SKILLS',"Skills aren't collectibles",'The more you learn\nthe more carefully you choose what to grow'],
+  ['05 / EVIDENCE','Not every signal\ndeserves your trust','Keep the evidence\nthen make the call'],
+  ['06 / BOUNDARY','Boundaries take shape\nthrough judgment','Leave room for uncertainty\nbefore drawing the line'],
+  ['07 / BUILD','Many tools\none direction','Tools come and go\nsystems have to work'],
+  ['08 / QUESTION','One image\nreal or fabricated','A single question\ngrowing into a system'],
+  ['09 / WORK','Ideas\nmade real','Put the method to work\nlet reality test the result'],
+  ['10 / MOYUAN','Observe the world\nleave something built behind','Ink leaves the trace\nDirection carries it onward']
 ];
 copy.zh.projects=[['01 / 原文 · 证据 · 评审','PeerAssist','判断，需要回到原文。','PDF 范围阅读、引用核查与人工确认，让评审意见可以追溯。',['PDF 原文','论点','证据','评审']],['02 / 模型 · 系统 · 算力','Unlimited-OCR','让模型，落到真实算力之上。','面向昇腾 NPU 的 OCR 模型适配与评测，连接模型能力与国产算力。',['模型','CUDA','torch_npu','昇腾']],['03 / 内容 · 证据 · 审计','AIGC 内容安全','不只给出判断，也说明为什么。','汇集视觉、文字与溯源证据，区分内容风险与生成来源，留下可复核的审计报告。',['内容','视觉证据','文字证据','审计']]];
 copy.en.projects=[['01 / SOURCE · EVIDENCE · REVIEW','PeerAssist','Judgment returns to the source.','PDF range reading, citation checks and human confirmation make a review traceable.',['PDF','Claim','Evidence','Review']],['02 / MODEL · SYSTEM · COMPUTE','Unlimited-OCR','Bring models to real hardware.','OCR model adaptation and evaluation on Ascend NPU, connecting model capability with infrastructure.',['Model','CUDA','torch_npu','Ascend']],['03 / CONTENT · EVIDENCE · AUDIT','AIGC Safety','Not only a verdict. A reason.','Bring visual, textual and provenance evidence together. Separate content risk from origin, and keep a reviewable audit trail.',['Content','Visual evidence','Text evidence','Audit']]];
 copy.zh.paths=['记录','探索','构建'];copy.en.paths=['RECORD','EXPLORE','BUILD'];
+copy.zh.brand='墨鵷 · 个人空间';copy.en.brand='PERSONAL SPACE';
 copy.zh.signal=['上下文','推理','智能体','工具','模型'];copy.en.signal=['CONTEXT','INFERENCE','AGENT','TOOL','MODEL'];
 copy.zh.evidence=['原文','日志','图像','模型输出','工具调用'];copy.en.evidence=['SOURCE','LOG','IMAGE','MODEL OUTPUT','TOOL CALL'];
 export const topology=[{role:'model',p:[.48,.3,-.15],r:.10},{role:'evidence',p:[.18,.03,.05],r:.032},{role:'risk',p:[.85,.02,-.14],r:.036},{role:'tool',p:[.35,.49,-.45],r:.018},{role:'agent',p:[.94,.39,-.65],r:.022},{role:'data',p:[.06,.38,-.8],r:.013},{role:'archive',p:[.62,-.13,-.75],r:.015}];
