@@ -13,7 +13,7 @@
     const subtitle = root.querySelector('.hero-subtitle');
     let typingTimer;
     if (subtitle && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const phrases = [subtitle.dataset.text, '网络安全 · 密码学 · CTF · AI', '记录 · 探索 · 成长'];
+      const phrases = [subtitle.dataset.text, '网络安全 · 密码学 · CTF · AI', '记录 · 探索 · 构建'];
       let phrase = 0, count = phrases[0].length, deleting = true;
       const type = () => {
         if (signal.aborted) return;

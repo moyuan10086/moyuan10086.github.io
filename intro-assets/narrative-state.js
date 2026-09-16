@@ -6,8 +6,8 @@ export function treeGrowth(growth) {
   return {trunk:smooth(0,.44,growth),branches,labels:branches.map(value=>smooth(.94,1,value)),finish:smooth(.86,1,growth)};
 }
 export const narrativeCopy = {
-  zh: { skills: ['前端', '后端', 'AI', '系统', '基础设施', '部署'], outcomes: ['通过', '待复核', '阻回'], note: '不是每一根树枝，都要握在手里。', phases: ['纤维', '解体', '聚类', '结构'] },
-  en: { skills: ['Web', 'Backend', 'AI', 'Systems', 'Infra', 'Deploy'], outcomes: ['Pass', 'Review', 'Return'], note: 'Not every branch needs to be held.', phases: ['Fiber', 'Dissolve', 'Cluster', 'Structure'] }
+  zh: { skills: ['前端', '后端', 'AI', '系统', '基础设施', '部署'], outcomes: ['通过', '待复核', '阻回'], note: '不是每一根树枝\n都要握在手里', phases: ['纤维', '解体', '聚类', '结构'] },
+  en: { skills: ['Web', 'Backend', 'AI', 'Systems', 'Infra', 'Deploy'], outcomes: ['Pass', 'Review', 'Return'], note: 'Not every branch\nneeds to be held', phases: ['Fiber', 'Dissolve', 'Cluster', 'Structure'] }
 };
 export function narrativeState(p) {
   const structure = clamp((p - .37) / .12), tree = clamp((p - .49) / .08), gate = clamp((p - .57) / .08);

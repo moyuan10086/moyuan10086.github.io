@@ -1,0 +1,87 @@
+/* Preserve authored pauses in both languages, independently of scene geometry. */
+#intro .my-caption h1,
+#intro .my-build-world .my-build-heading h2 {
+  white-space: pre-line;
+  text-wrap: initial;
+  letter-spacing: 0;
+  font-size: 60px;
+  line-height: 1.34;
+  margin: 18px 0 0;
+}
+#intro .my-caption p,
+#intro .my-build-world .my-build-heading p {
+  white-space: pre-line;
+  text-wrap: initial;
+  letter-spacing: 0;
+  font: 18px/1.95 Georgia, 'Songti SC', 'SimSun', serif;
+  padding: 0;
+  margin: 20px 0 0;
+}
+#intro .my-caption { grid-template-columns: minmax(0, 1fr) 280px; }
+#intro[data-language='en'] .my-caption h1,
+#intro[data-language='en'] .my-build-world .my-build-heading h2 { font-size: 48px; }
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption h1 { font-size: 54px; line-height: 1.34; }
+#intro:is([data-stage='3'],[data-stage='4'],[data-stage='5'])[data-language='en'] .my-caption h1 { font-size: 44px; }
+#intro[data-stage='7'] .my-caption h1 { font-size: 44px; line-height: 1.35; }
+#intro[data-stage='7'][data-language='en'] .my-caption h1 { font-size: 38px; }
+#intro[data-stage='7'] .my-caption p { font-size: 15px; margin-top: 14px; }
+#intro .my-tree-note,
+#intro .my-ridge-note,
+#intro .my-final-note { letter-spacing: 0; }
+#intro .my-tree-note { white-space: pre-line; }
+
+/* The chapter remains outside the project card, with room for both to breathe. */
+#intro[data-chapter='9'] .my-caption {
+  left: 5%; right: 70%; bottom: 22%; display: block;
+}
+#intro[data-chapter='9'] .my-caption h1 { font-size: 42px; }
+#intro[data-chapter='9'][data-language='en'] .my-caption h1 { font-size: 34px; }
+#intro[data-chapter='9'] .my-caption p { font-size: 16px; }
+#intro[data-chapter='9'] .my-window { left: 65%; width: 60%; max-width: 60%; }
+
+@media (max-width: 1100px) and (min-width: 701px) {
+  #intro .my-caption h1,
+  #intro .my-build-world .my-build-heading h2 { font-size: 44px; }
+  #intro[data-language='en'] .my-caption h1,
+  #intro[data-language='en'] .my-build-world .my-build-heading h2 { font-size: 36px; }
+  #intro[data-chapter='9'] .my-window { padding: 24px; gap: 12px 20px; }
+  #intro[data-chapter='9'] .my-window > strong { font-size: 28px; }
+  #intro[data-chapter='9'] .my-window .my-project-thesis { font-size: 20px; }
+}
+@media (max-width: 700px) {
+  #intro .my-caption { display: block; }
+  #intro .my-caption h1,
+  #intro[data-language='en'] .my-caption h1,
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption h1,
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5'])[data-language='en'] .my-caption h1,
+  #intro .my-build-world .my-build-heading h2,
+  #intro[data-language='en'] .my-build-world .my-build-heading h2 {
+    font-size: 32px; line-height: 1.38; margin-top: 12px;
+  }
+  #intro .my-caption p,
+  #intro .my-build-world .my-build-heading p { font-size: 14px; line-height: 1.9; margin-top: 16px; }
+  #intro[data-stage='7'] .my-caption { bottom: 13%; }
+  #intro[data-stage='7'] .my-caption h1,
+  #intro[data-stage='7'][data-language='en'] .my-caption h1 { font-size: 26px; line-height: 1.35; }
+  #intro[data-stage='7'] .my-caption p { font-size: 12px; margin-top: 10px; }
+  #intro[data-chapter='9'] .my-caption { left: 22px; right: 22px; top: 12%; bottom: auto; }
+  #intro[data-chapter='9'] .my-caption h1,
+  #intro[data-chapter='9'][data-language='en'] .my-caption h1 { font-size: 25px; }
+  #intro[data-chapter='9'] .my-caption p { font-size: 13px; margin-top: 10px; }
+  #intro[data-chapter='9'] .my-window { left: 50%; top: 65%; width: calc(100% - 44px); max-width: none; height: 45svh; max-height: 45svh; padding: 18px; }
+  #intro[data-chapter='9'] .my-window > strong { font-size: 25px; }
+  #intro[data-chapter='9'] .my-project-visual { min-height: 95px; }
+}
+@media (max-height: 650px) and (min-width: 701px) {
+  #intro .my-caption h1,
+  #intro[data-language='en'] .my-caption h1,
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5']) .my-caption h1,
+  #intro:is([data-stage='3'],[data-stage='4'],[data-stage='5'])[data-language='en'] .my-caption h1,
+  #intro .my-build-world .my-build-heading h2,
+  #intro[data-language='en'] .my-build-world .my-build-heading h2 { font-size: 32px; }
+  #intro .my-caption p,
+  #intro .my-build-world .my-build-heading p { font-size: 14px; line-height: 1.7; margin-top: 10px; }
+  #intro[data-stage='7'] .my-caption { bottom: 8%; }
+  #intro[data-stage='7'] .my-caption h1,
+  #intro[data-stage='7'][data-language='en'] .my-caption h1 { font-size: 28px; }
+}

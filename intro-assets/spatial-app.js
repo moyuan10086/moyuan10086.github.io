@@ -1,4 +1,4 @@
-import {ease,pulse,clamp,copy,stageAt,worldProgress,projectAt} from './story-state.js';
+import {ease,pulse,clamp,copy,stageAt,proseChapterAt,worldProgress,projectAt} from './story-state.js';
 import {updateBuild} from './build-motion.js';
 import {updateEvidence} from './evidence-motion.js';
 const intro=document.querySelector('#intro'),host=document.querySelector('#scene');
@@ -9,16 +9,13 @@ const text=(el,value)=>{if(el&&el.textContent!==value)el.textContent=value;};
 const urls=JSON.parse(portal.dataset.projects);
 function read(){
   progress=reduced?1:clamp((scrollY-intro.offsetTop)/Math.max(1,intro.offsetHeight-innerHeight));
-  const c=copy[language],stage=stageAt(progress),p=projectAt(progress),project=c.projects[p];
+  const c=copy[language],stage=stageAt(progress),chapter=proseChapterAt(progress),p=projectAt(progress),project=c.projects[p];
+  intro.dataset.chapter=String(chapter);
   intro.dataset.language=language;intro.dataset.stage=String(stage);intro.dataset.progress=progress.toFixed(4);
   updateBuild(intro,progress,language);
   // The old evidence panel is superseded only in Intro 03–05.
   updateEvidence(intro,-1,language);
-  ['#my-kicker','#my-title','#my-copy'].forEach((s,j)=>text(q(s),c.stages[stage][j]));
-  if(stage===7&&language==='zh'&&!q('#my-title').firstElementChild){
-    const parts=c.stages[stage][1].split('，');
-    q('#my-title').replaceChildren(...parts.map((part,i)=>{const span=document.createElement('span');span.textContent=part+(i<parts.length-1?'，':'');return span;}));
-  }
+  ['#my-kicker','#my-title','#my-copy'].forEach((s,j)=>text(q(s),c.stages[chapter][j]));
   text(q('.my-brand-caption'),c.brand);text(q('#my-skip'),c.skip);text(q('#my-replay'),c.replay);text(q('.my-scroll'),progress>.96?'':c.scroll+' ↓');
   text(q('#my-language'),language==='zh'?'EN':'中文');q('#my-language').setAttribute('aria-label',language==='zh'?'Switch to English':'切换为中文');
   ['#my-enter','#my-stars','#my-build'].forEach((s,j)=>text(q(s),c.paths[j]));text(q('#my-terminal'),c.terminal);
@@ -37,8 +34,10 @@ function read(){
   labels.forEach((el,j)=>{const words=stage===4?c.evidence:stage===5?c.security:c.signal;const current=stage===5?j===2: j===Math.min(4,Math.floor(clamp((progress-(stage===4?.49:.37))/(stage===4?.08:.12))*5));
     const visible=labelOn&&current;el.hidden=!visible;el.tabIndex=visible?0:-1;el.style.pointerEvents=visible?'auto':'none';text(el.querySelector('span'),words[j]||'');text(el.querySelector('small'),stage===5?(language==='zh'?'依据可复核':'A reviewable source'):'');});
   q('#my-risk').hidden=true;
-  // Keep the title absent until the last project has left the stage.
-  q('.my-caption').style.opacity=String(1-pulse(.65,.675,.921,.94,progress));
+  // Build scenes own their headings; the work chapter has a separate text column.
+  const captionOpacity=chapter===9?ease(.84,.85,progress):1-pulse(.65,.675,.921,.94,progress);
+  q('.my-caption').style.opacity=String(captionOpacity);
+  q('.my-caption').setAttribute('aria-hidden',String(captionOpacity<.1));
   const closing=reduced?1:ease(.93,.963,progress);q('.my-exits').style.opacity=String(closing);q('.my-exits').style.pointerEvents=closing>.7?'auto':'none';
   q('.my-exits').setAttribute('aria-hidden',String(closing<.7));q('.my-exits').querySelectorAll('a').forEach(el=>el.tabIndex=closing>.7?0:-1);
   q('.my-finale').style.opacity=String(reduced?.75:ease(.935,.97,progress)*.78);
@@ -47,7 +46,7 @@ function read(){
   q('.my-final-clouds').style.opacity=String(ease(.91,.97,progress));
   q('.my-final-note').style.opacity=String(ease(.94,.975,progress));
   q('.my-final-note').setAttribute('aria-hidden',String(progress<.95));
-  text(q('.my-final-note'),language==='zh'?'从墨出发，\n向更远处。':'FROM INK,\nTOWARD\nFARTHER SKIES.');
+  text(q('.my-final-note'),language==='zh'?'从墨出发\n向更远处':'FROM INK\nTOWARD\nFARTHER SKIES');
   text(q('.my-final-name b'),language==='zh'?'墨鵷':'MOYUAN');
   text(q('.my-final-name span'),language==='zh'?'MOYUAN':'');
   q('.my-stage').style.clipPath='none';

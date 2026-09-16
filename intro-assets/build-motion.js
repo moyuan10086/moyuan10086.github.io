@@ -1,3 +1,4 @@
+import {copy} from './story-state.js';
 const clamp = value => Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
 const smooth = value => { const n = clamp(value); return n * n * (3 - 2 * n); };
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -53,6 +54,10 @@ export function updateBuild(root, progress, language = 'zh') {
   const english = language === 'en';
   if (nodes.language !== language) {
     nodes.bilingual.forEach(element => setText(element, english ? element.dataset.ben : element.dataset.bzh));
+    nodes.layers.forEach((layer, index) => {
+      const words=copy[language].stages[index===2?8:7];
+      layer.querySelectorAll('.my-build-heading > small,.my-build-heading > h2,.my-build-heading > p').forEach((element, i)=>setText(element,words[i]));
+    });
     nodes.images.forEach(element => element.alt = english ? element.dataset.altEn : element.dataset.altZh);
     nodes.marks.forEach(element => element.setAttribute('aria-label', element.dataset.labelName + ': ' + element.querySelector('.my-build-tooltip').textContent));
     nodes.language = language;

@@ -14,6 +14,9 @@ export function buildChapterAt(t){
   return 3+projectAt(t);
 }
 export function stageAt(t) { let i=0; while(i<beats.length-1 && t>=beats[i+1])i++; return i; }
+// Copy can turn a page within an animation without changing its scene timing.
+const proseBeats = [0,.13,.23,.37,.49,.57,.61,.65,.78,.84,.91];
+export function proseChapterAt(t) { let i=0; while(i<proseBeats.length-1 && t>=proseBeats[i+1])i++; return i; }
 export function cameraAt(t, aspect=1.778) {
   const fit=Math.max(1,1.25/aspect), close=pulse(.23,.29,.32,.40,t), feather=pulse(.41,.47,.50,.55,t);
   const travel=pulse(.59,.70,.78,.88,t);
@@ -37,8 +40,32 @@ export const copy = {
   },
 };
 // Brand narrative and project copy share one language boundary.
-copy.zh.stages=[['00 / 水境','择善而栖，向远而生。','从水与墨之间，进入云与风之间。'],['01 / 好奇','始于好奇。','世界先于答案存在。'],['02 / 探索','循迹而行。','沿着世界留下的痕迹，走向更远处。'],['03 / 结构','在复杂中寻找结构。','结构并不总在表面。'],['04 / 技能','技能不是收藏。','学得越多，越要知道什么值得生长。'],['05 / 边界','边界，在判断中显现。','留下证据，再作判断。'],['06 / 构建','想法，成为作品。','让想法，发生。'],['07 / 墨鵷','记录世界，也构建一点世界。','墨，是表达。鵷，是方向。']];
-copy.en.stages=[['00 / WATER','Choose with care. Grow toward distant skies.','From water and ink, into cloud and wind.'],['01 / CURIOSITY','It begins with curiosity.','The world exists before the answers.'],['02 / EXPLORE','Follow the traces.','The world leaves traces. We follow them farther.'],['03 / STRUCTURE','Find structure in complexity.','Structure is not always on the surface.'],['04 / SKILLS','Skills are not a collection.','The more you learn, the more you must choose what to grow.'],['05 / BOUNDARY','Boundaries emerge through judgment.','Keep the evidence. Then make the call.'],['06 / BUILD','Ideas become things.','Make an idea real.'],['07 / MOYUAN','Record the world. Build a little of it.','Ink is expression. Flight is direction.']];
+copy.zh.stages=[
+  ['00 / 水境','择善而栖\n向远而生','一滴墨落进水里\n涟漪替它去往远处'],
+  ['01 / 好奇','始于好奇','有些答案\n要先靠近世界'],
+  ['02 / 探索','循迹而行','一片羽毛留下方向\n风把路带向更深处'],
+  ['03 / 结构','在复杂中\n看见结构','看似无序\n也有脉络可循'],
+  ['04 / 技能','技能不是收藏','学得越多\n越要知道什么值得生长'],
+  ['05 / 证据','不是所有信号\n都值得相信','留下证据\n再作判断'],
+  ['06 / 边界','边界\n在判断中显现','承认不确定\n才能看见边界'],
+  ['07 / 构建','工具很多\n方向只有一个','工具会更替\n系统要真正落地'],
+  ['08 / 问题','一张图\n是真是假','从一次判断\n长成一套系统'],
+  ['09 / 作品','想法\n成为作品','把方法交给现实\n让结果经得起使用'],
+  ['10 / 墨鵷','记录世界\n也构建一点世界','墨是表达\n鵷是方向']
+];
+copy.en.stages=[
+  ['00 / WATER','Choose with care\nGrow toward distant skies','A drop of ink meets water\nRipples carry it farther'],
+  ['01 / CURIOSITY','A spark of curiosity','Some answers begin\nwith a closer look at the world'],
+  ['02 / EXPLORE','Following the traces','A feather points the way\nThe wind leads us deeper'],
+  ['03 / STRUCTURE','Within complexity\nA glimpse of structure','What seems like disorder\nstill has threads to follow'],
+  ['04 / SKILLS','Beyond collecting skills','The more we learn\nthe more we choose what to grow'],
+  ['05 / EVIDENCE','Not every signal\ndeserves our trust','Keep the evidence\nThen make the call'],
+  ['06 / BOUNDARY','Boundaries\nrevealed by judgment','Acknowledge uncertainty\nto see where the limits lie'],
+  ['07 / BUILD','Many tools\nOne direction','Tools will change\nSystems must work in practice'],
+  ['08 / QUESTION','One image\nReal or generated','From a single judgment\na system takes shape'],
+  ['09 / WORK','From an idea\nto something real','Put methods into practice\nLet the work prove useful'],
+  ['10 / MOYUAN','Record the world\nBuild a little of it','Ink is expression\nFlight is direction']
+];
 copy.zh.projects=[['01 / 原文 · 证据 · 评审','PeerAssist','判断，需要回到原文。','PDF 范围阅读、引用核查与人工确认，让评审意见可以追溯。',['PDF 原文','论点','证据','评审']],['02 / 模型 · 系统 · 算力','Unlimited-OCR','让模型，落到真实算力之上。','面向昇腾 NPU 的 OCR 模型适配与评测，连接模型能力与国产算力。',['模型','CUDA','torch_npu','昇腾']],['03 / 内容 · 证据 · 审计','AIGC 内容安全','不只给出判断，也说明为什么。','汇集视觉、文字与溯源证据，区分内容风险与生成来源，留下可复核的审计报告。',['内容','视觉证据','文字证据','审计']]];
 copy.en.projects=[['01 / SOURCE · EVIDENCE · REVIEW','PeerAssist','Judgment returns to the source.','PDF range reading, citation checks and human confirmation make a review traceable.',['PDF','Claim','Evidence','Review']],['02 / MODEL · SYSTEM · COMPUTE','Unlimited-OCR','Bring models to real hardware.','OCR model adaptation and evaluation on Ascend NPU, connecting model capability with infrastructure.',['Model','CUDA','torch_npu','Ascend']],['03 / CONTENT · EVIDENCE · AUDIT','AIGC Safety','Not only a verdict. A reason.','Bring visual, textual and provenance evidence together. Separate content risk from origin, and keep a reviewable audit trail.',['Content','Visual evidence','Text evidence','Audit']]];
 copy.zh.paths=['记录','探索','构建'];copy.en.paths=['RECORD','EXPLORE','BUILD'];
