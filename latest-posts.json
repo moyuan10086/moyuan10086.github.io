@@ -1,10 +1,58 @@
 {
   "stats": {
-    "posts": 53,
-    "tags": 215,
-    "categories": 22
+    "posts": 59,
+    "tags": 233,
+    "categories": 23
   },
   "posts": [
+    {
+      "title": "真正的动物翻译器，可能会诞生在具身智能之后",
+      "path": "/2026/09/17/embodied-06-animal-translator/",
+      "date": "2026-09-17",
+      "cover": "/images/ai-series/covers/embodied/06-cover.png",
+      "category": "具身智能系列",
+      "description": "语言是身体的投影，没有相同身体就没有相同语言。过去的动物翻译器全是玩具，当具身智能学会了动物的物理世界模型，跨物种沟通才真正迎来曙光。人的形状，机器的世界。"
+    },
+    {
+      "title": "一只宠物项圈，会不会成为具身智能时代的数据入口？",
+      "path": "/2026/09/17/embodied-05-pet-collar-data/",
+      "date": "2026-09-17",
+      "cover": "/images/ai-series/covers/embodied/05-cover.png",
+      "category": "具身智能系列",
+      "description": "千万只活蹦乱跳的猫狗每天都在完成极其复杂的四足越野和重力平衡。一只智能项圈记录的物理动力学加速度，或许是具身时代最便宜、最高频的分布式现实数据源。"
+    },
+    {
+      "title": "世界模型，为什么一定要是人类眼中的世界？",
+      "path": "/2026/09/17/embodied-04-non-human-world-models/",
+      "date": "2026-09-17",
+      "cover": "/images/ai-series/covers/embodied/04-cover.png",
+      "category": "具身智能系列",
+      "description": "人类的眼睛从来不是世界的客观全貌。超声波、红外、触觉与电磁感应，生物界早就证明每个物种都活在自己的环境界（Umwelt）里。机器的世界模型，不必向人类认知屈服。"
+    },
+    {
+      "title": "数据很多，不等于数据能用——谁来给物理世界“炼油”？",
+      "path": "/2026/09/17/embodied-03-physical-refining/",
+      "date": "2026-09-17",
+      "cover": "/images/ai-series/covers/embodied/03-cover.png",
+      "category": "具身智能系列",
+      "description": "人类上传互联网的内容早就被大脑完成了第一次清洗，而物理世界的原始传感器数据，更像未脱硫的重质原油。未来的具身独角兽，很可能诞生在物理数据炼油厂。"
+    },
+    {
+      "title": "现实世界已经被拍了几十年，为什么机器人还是缺数据？",
+      "path": "/2026/09/17/embodied-02-why-lack-data/",
+      "date": "2026-09-17",
+      "cover": "/images/ai-series/covers/embodied/02-cover.png",
+      "category": "具身智能系列",
+      "description": "世界不缺画面，但人拍的视频只记录了人类筛选后的高光片段。监控很无聊，却记录了世界保持连续的物理常识。机器人缺的不是眼睛，而是具身化的物理交互。"
+    },
+    {
+      "title": "下一代 AI 的互联网，可能不是互联网",
+      "path": "/2026/09/17/embodied-01-physical-common-crawl/",
+      "date": "2026-09-17",
+      "cover": "/images/ai-series/covers/embodied/01-cover.png",
+      "category": "具身智能系列",
+      "description": "物理世界没有 Ctrl+C。大模型吃掉的是人类几十年的文字互联网，而具身智能真正要寻找的，是让现实世界自己开始留下数据的机制。"
+    },
     {
       "title": "社会为什么总在劝你合群？因为“我们”是最便宜的组织方式",
       "path": "/2026/09/02/14-social-order/",
@@ -52,54 +100,6 @@
       "cover": "/images/ai-series/covers/09-future-work-cover.png",
       "category": "AI时代技术人成长系列",
       "description": "工作不只是生产工具，也是收入入口、社会身份和参与关系。"
-    },
-    {
-      "title": "比赛拿了一等奖，然后呢？",
-      "path": "/2026/08/27/08-competition-after-award/",
-      "date": "2026-08-27",
-      "cover": "/images/ai-series/covers/08-competition-after-award-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "比赛当然有价值，但它最大的价值可能从来不是证明项目已经成功，而是让学生低成本体验一次真实世界的复杂性。"
-    },
-    {
-      "title": "拿了国赛三等奖之后，我才想明白一个更扎心的问题",
-      "path": "/2026/08/26/07-undergrad-to-competition/",
-      "date": "2026-08-26",
-      "cover": "/images/ai-series/covers/07-undergrad-to-competition-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "我原以为项目的问题是做得太散，后来才发现，真正出错的是曾经把算法增量当成判断问题价值的尺子。"
-    },
-    {
-      "title": "为什么你的项目，放到哪儿都差点意思？",
-      "path": "/2026/08/25/06-project-evaluation/",
-      "date": "2026-08-25",
-      "cover": "/images/ai-series/covers/06-project-evaluation-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "同一个项目进入论文、比赛和开源社区，为什么会面对三套不同的评价标准？"
-    },
-    {
-      "title": "收藏了两百门课，全栈到底要学多少东西才算够？",
-      "path": "/2026/08/24/05-fullstack/",
-      "date": "2026-08-24",
-      "cover": "/images/ai-series/covers/05-fullstack-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "从前端、后端到AI、服务器与NPU：为什么工具越来越强，开发者反而越来越难停下来？"
-    },
-    {
-      "title": "如果你的大学不提供 Token，应该立即退学",
-      "path": "/2026/08/23/04-token-and-university/",
-      "date": "2026-08-23",
-      "cover": "/images/ai-series/covers/04-token-and-university-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "AI 时代，大学第一次失去了对知识和答案的垄断。真正值钱的不再是能被秒级生成的解题动作，而是提问、品味、判断力以及属于你自己的有限 Learning Tokens。"
-    },
-    {
-      "title": "为什么学计算机的人天天翻博客，学数学的人却还在啃教材？",
-      "path": "/2026/08/22/03-social-knowledge/",
-      "date": "2026-08-22",
-      "cover": "/images/ai-series/covers/03-social-knowledge-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "教材、论文、博客、培训班、大学课程和大模型为什么各有市场？答案藏在知识的更新速度、验证方式、认知规律与学习制度里。"
     }
   ]
 }

@@ -1,0 +1,455 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>世界模型，为什么一定要是人类眼中的世界？ | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="人类的眼睛从来不是世界的客观全貌。超声波、红外、触觉与电磁感应，生物界早就证明每个物种都活在自己的环境界（Umwelt）里。机器的世界模型，不必向人类认知屈服。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="世界模型，为什么一定要是人类眼中的世界？">
+<meta property="og:url" content="https://moyuan10086.github.io/2026/09/17/embodied-04-non-human-world-models/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="人类的眼睛从来不是世界的客观全貌。超声波、红外、触觉与电磁感应，生物界早就证明每个物种都活在自己的环境界（Umwelt）里。机器的世界模型，不必向人类认知屈服。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/ai-series/covers/embodied/04-cover.png">
+<meta property="article:published_time" content="2026-09-17T07:30:00.000Z">
+<meta property="article:modified_time" content="2026-09-17T11:15:00.000Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="世界模型">
+<meta property="article:tag" content="环境界">
+<meta property="article:tag" content="动物感官">
+<meta property="article:tag" content="认知哲学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/ai-series/covers/embodied/04-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "世界模型，为什么一定要是人类眼中的世界？",
+  "url": "https://moyuan10086.github.io/2026/09/17/embodied-04-non-human-world-models/",
+  "image": "https://moyuan10086.github.io/images/ai-series/covers/embodied/04-cover.png",
+  "datePublished": "2026-09-17T07:30:00.000Z",
+  "dateModified": "2026-09-17T11:15:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2026/09/17/embodied-04-non-human-world-models/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '世界模型，为什么一定要是人类眼中的世界？',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script defer src="/js/portfolio-language-bridge.js?v=2"></script><link rel="stylesheet" href="/css/ui-language.css?v=20260913"><script defer src="/js/post-titles-en.js?v=20260913"></script><script defer src="/js/ui-language.js?v=20260916-navigation"></script><link rel="stylesheet" href="/css/brand-origin.css?v=20260916-popover"><script defer src="/js/brand-origin.js?v=20260916-popover"></script><link rel="stylesheet" href="/css/mini-music.css?v=20260913-ui2"><script defer src="/js/music-source.js?v=20260914-direct2"></script><script defer src="/js/mini-music.js?v=20260914-direct2"></script><link rel="stylesheet" href="/css/custom.css?v=20260907-toc-anchor-fix"><link rel="stylesheet" href="/css/site-ui.css?v=20260912"><link rel="stylesheet" href="/css/home.css?v=20260912"><link rel="stylesheet" href="/css/home-fullscreen.css?v=20260912-2"><link rel="stylesheet" href="/css/music-page.css?v=20260914-lyrics"><link rel="stylesheet" href="/css/games-page.css?v=20260912"><script defer src="/js/home.js?v=20260916-prose"></script><link rel="stylesheet" href="/css/interactive-lab.css?v=20260914-kali-mobile-v2"><link rel="stylesheet" href="/css/kali-desktop.css?v=20260914-kali-mobile-v2"><script defer src="/js/security-shell.js?v=20260914-kali-mobile-v2"></script><script defer src="/js/kali-desktop.js?v=20260914-kali-mobile-v2"></script><script defer src="/js/interactive-lab.js?v=20260914-kali-mobile-v2"></script><link rel="stylesheet" href="/css/home-ink.css?v=20260914-1"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">233</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/home/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-feather-alt"></i><span> 序章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><span class="site-page group"><span> 图库</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 精选画廊</span></a></li><li><a class="site-page child" href="/gallery/#random-anime"><i class="fa-fw fas fa-dice"></i><span> 随机次元</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/portfolio/"><i class="fa-fw fas fa-cube"></i><span> 3D 作品集</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/ai-series/covers/embodied/04-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">世界模型，为什么一定要是人类眼中的世界？</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/home/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-feather-alt"></i><span> 序章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><span class="site-page group"><span> 图库</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 精选画廊</span></a></li><li><a class="site-page child" href="/gallery/#random-anime"><i class="fa-fw fas fa-dice"></i><span> 随机次元</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/portfolio/"><i class="fa-fw fas fa-cube"></i><span> 3D 作品集</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">世界模型，为什么一定要是人类眼中的世界？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-17T07:30:00.000Z" title="发表于 2026-09-17 15:30:00">2026-09-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-17T11:15:00.000Z" title="更新于 2026-09-17 19:15:00">2026-09-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%B3%BB%E5%88%97/">具身智能系列</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p><strong>下一代 AI 的互联网，可能不在互联网里</strong><br>具身智能系列 · 第 04 篇</p>
+</blockquote>
+<p>今天谈 World Model，我们有一个非常自然的习惯。</p>
+<p>输入摄像头，输入视频，让模型学习物体、空间和运动，然后我们说：模型正在理解世界。</p>
+<p>这句话自然得几乎不会有人怀疑。</p>
+<p>可如果稍微停一下，会发现里面藏着一个很奇怪的问题：</p>
+<p><strong>为什么摄像头看到的东西，就等于世界？</strong></p>
+<p>摄像头首先看到的只是可见光，而且还只是经过镜头、曝光、分辨率、帧率和视角裁剪以后的一小部分可见光。我们之所以很少觉得这里有什么问题，只是因为人本来就是一种高度依赖视觉的动物。</p>
+<p>于是人类看见的世界，不知不觉被我们当成了：</p>
+<p>世界本身。</p>
+<h2 id="一、语言可以天然以人为中心，世界不行"><a href="#一、语言可以天然以人为中心，世界不行" class="headerlink" title="一、语言可以天然以人为中心，世界不行"></a>一、语言可以天然以人为中心，世界不行</h2><p>这是 Language Model 和 World Model 一个非常重要的区别。</p>
+<p>大语言模型学习的是人类语言。中文是人说的，英语是人说的，论文、代码、小说和论坛也都是人留下来的。</p>
+<p>所以 LLM 以人为中心，没有任何问题。</p>
+<p>它本来就在学习：</p>
+<p><strong>人类怎样描述世界。</strong></p>
+<p>可物理世界不是人造出来的。</p>
+<p>重力在人出现以前就在。</p>
+<p>红外辐射不会因为人的眼睛看不见，就失去存在资格。</p>
+<p>磁场不会因为我们走在街上感觉不到，就变成一种次要现实。</p>
+<p>空气中的化学信息，也不会因为人类鼻子远不如狗灵敏，就不属于世界。</p>
+<p>所以：</p>
+<blockquote>
+<p><strong>语言天然属于人类，世界却不属于人类。</strong></p>
+</blockquote>
+<p>如果所谓 World Model 最终只是越来越精确地复制人类视觉所能获得的现实，那它当然很有价值，只是更准确的名字也许应该叫：</p>
+<p>Human-Visual World Model。</p>
+<h2 id="二、没有视觉，不等于没有世界"><a href="#二、没有视觉，不等于没有世界" class="headerlink" title="二、没有视觉，不等于没有世界"></a>二、没有视觉，不等于没有世界</h2><p>动物早就给了我们非常直观的证据。</p>
+<p>一些长期生活在洞穴中的鱼类视觉高度退化，却依然能够导航、觅食和避障，因为它们会依赖水流、压力、化学和触觉等其他信号。</p>
+<p>对人来说，一块石头首先意味着形状、颜色、纹理和轮廓；对一条高度依赖水流感知的鱼来说，同一块石头可能首先意味着：</p>
+<p>附近的水流发生了这种变化。</p>
+<p>石头没有变。</p>
+<p>变的是读取石头的身体。</p>
+<p>弱电鱼更有意思。它们会主动产生微弱电场，再感知周围物体如何扰动这个电场。</p>
+<p>人进入房间，会说：</p>
+<p>“我看见了房间。”</p>
+<p>弱电鱼的经验却更接近：</p>
+<p><strong>我感受到自己产生的场，被周围世界怎样扭曲。</strong></p>
+<p>它不需要先生成一张 RGB 图，也依然可以知道前面有东西。</p>
+<p>这时候再回头看今天所谓的 World Model，问题就变得很有意思：</p>
+<p>我们究竟是在训练机器理解世界，</p>
+<p>还是在训练机器拥有一双越来越像人的眼睛？</p>
+<h2 id="三、世界模型可能不是世界的副本，而是身体对现实的压缩"><a href="#三、世界模型可能不是世界的副本，而是身体对现实的压缩" class="headerlink" title="三、世界模型可能不是世界的副本，而是身体对现实的压缩"></a>三、世界模型可能不是世界的副本，而是身体对现实的压缩</h2><p>我们很容易想象，大脑或者模型内部有一个缩小版的现实世界，物体、位置和状态都被忠实地复制进去。</p>
+<p>可一个生物根本没有必要恢复宇宙里的全部变量。</p>
+<p>它真正需要知道的是：</p>
+<p>什么信息和自己的行动有关。</p>
+<p>这也是为什么“椅子”这个看似非常客观的概念，仔细看其实已经偷偷放进了人的身体。</p>
+<p>为什么这堆木头叫椅子？</p>
+<p>因为人可以坐。</p>
+<p>对于猫，同样的东西还可以跳上去、躲到下面、磨爪，或者作为跳向柜子的中间平台；对于一个很小的昆虫，完整的“椅子”甚至可能根本不是一个有意义的整体，它面对的是若干表面、边缘和可攀爬路线；对于一台轮式机器人，它首先可能只是一个障碍物和绕行边界。</p>
+<p>于是我们以为自己在描述一个客观世界，仔细一看：</p>
+<p><strong>里面到处藏着人的身体。</strong></p>
+<p>所以 World Model 也许从来都不是关于“世界是什么”，而是关于：</p>
+<blockquote>
+<p><strong>对于这副身体，世界意味着什么。</strong></p>
+</blockquote>
+<h2 id="四、那为什么机器人还要做人形？"><a href="#四、那为什么机器人还要做人形？" class="headerlink" title="四、那为什么机器人还要做人形？"></a>四、那为什么机器人还要做人形？</h2><p>因为这是另一个完全不同的问题。</p>
+<p>人形机器人之所以有意义，并不是因为人的身体是宇宙里最完美的机械结构，而是因为我们过去几千年已经围绕人的身体建成了一整套文明。</p>
+<p>门把手有人的高度。</p>
+<p>楼梯按照人的腿设计。</p>
+<p>剪刀、螺丝刀、电钻、方向盘和键盘都默认使用者拥有人的手。</p>
+<p>厨房、仓库、办公桌和工厂工位同样如此。</p>
+<p>如果未来机器人想直接进入现有家庭、办公室和工厂，做人形有一个极其现实的优势：</p>
+<p><strong>不需要把整个人类文明重新装修一遍。</strong></p>
+<p>所以人形，本质上更像一种 Physical API。</p>
+<p>它是为了兼容人类世界现有的工具接口。</p>
+<h2 id="五、人的形状，是接口，不是认知边界"><a href="#五、人的形状，是接口，不是认知边界" class="headerlink" title="五、人的形状，是接口，不是认知边界"></a>五、人的形状，是接口，不是认知边界</h2><p>这件事特别重要。</p>
+<p>机器人拥有人的手，是因为要拿人的工具；拥有两条腿，是因为楼梯和建筑按照人的身体设计；身高接近人，也是因为桌面、门和货架都有人的尺度。</p>
+<p>可从这里完全推不出：</p>
+<p>机器人应该只有人的感官。</p>
+<p>更推不出：</p>
+<p>它应该像人一样理解世界。</p>
+<p>我甚至觉得未来最合理的人形机器人恰恰应该是：</p>
+<p><strong>人的形状，非人的感知。</strong></p>
+<p>它的身体和人类文明兼容，内部世界却完全不必受人的生理结构限制。</p>
+<h2 id="六、真正的-Super-Man，不是力气比人大一点"><a href="#六、真正的-Super-Man，不是力气比人大一点" class="headerlink" title="六、真正的 Super Man，不是力气比人大一点"></a>六、真正的 Super Man，不是力气比人大一点</h2><p>想象一台人形机器人。</p>
+<p>它和人差不多高，有两只手，可以打开我们的门，使用我们的电钻，坐进我们的车辆，拿起我们已经存在的工具。</p>
+<p>但它同时拥有 RGB、红外、深度、毫米波雷达、超声、触觉、力觉、气体传感、温度和振动，甚至以后还有今天人类尚未发明的新型传感器。</p>
+<p>这才是真正有意思的“super man”。</p>
+<p>不是一个铁做的人。</p>
+<p>而是：</p>
+<blockquote>
+<p><strong>它拥有人类的工具接口，却不必只有人类的感官带宽。</strong></p>
+</blockquote>
+<p>人的手让它进入人类社会。</p>
+<p>非人的感知让它超出人的世界。</p>
+<p>一句话：</p>
+<blockquote>
+<p><strong>人形是为了兼容人类文明，不是为了把机器锁在人类感官里。</strong></p>
+</blockquote>
+<h2 id="七、机器甚至可能拥有我们无法直觉理解的世界"><a href="#七、机器甚至可能拥有我们无法直觉理解的世界" class="headerlink" title="七、机器甚至可能拥有我们无法直觉理解的世界"></a>七、机器甚至可能拥有我们无法直觉理解的世界</h2><p>未来机器人长期运行以后，完全可能形成一些人类没有自然语言名字的内部概念。</p>
+<p>例如它同时融合地面纹理、湿度、材料温度、脚底振动和负载状态，最终形成一种非常稳定的“危险地面状态”。</p>
+<p>人类要解释这个状态，也许得写一整段文字。</p>
+<p>机器内部根本不需要。</p>
+<p>一个 latent 就够了。</p>
+<p>我们不会要求弱电鱼先把自己的电感知翻译成 JPEG，才承认它理解了环境。那为什么要求机器内部的现实，必须先翻译成人类可以直觉理解的东西，才有资格叫 World Model？</p>
+<p>未来真正强大的机器人，可能既会说中文，也会理解“杯子”和“椅子”，因为它需要和我们沟通；同时，它内部又拥有大量我们完全没有对应感官的状态。</p>
+<p>人类语言可以是 UI。</p>
+<p>人的形状也可以是 UI。</p>
+<p>真正的机器内部，并不需要像人。</p>
+<h2 id="八、动物真正给机器的启示，是别把人类感官当成世界的-API"><a href="#八、动物真正给机器的启示，是别把人类感官当成世界的-API" class="headerlink" title="八、动物真正给机器的启示，是别把人类感官当成世界的 API"></a>八、动物真正给机器的启示，是别把人类感官当成世界的 API</h2><p>从这个角度看，动物真正有价值的地方也发生了变化。</p>
+<p>问题不再只是：</p>
+<p>动物数据能不能帮助机器人训练？</p>
+<p>更大的问题是：</p>
+<p>为什么不同物种生活在同一个物理世界里，却可以依靠完全不同的感知方式完成复杂行为？</p>
+<p>狗依赖气味。</p>
+<p>蝙蝠利用回声。</p>
+<p>弱电鱼利用电场。</p>
+<p>不同动物对热、紫外和磁场的感知也与人不同。</p>
+<p>机器当然不需要复制这些动物的器官。飞机也没有羽毛。</p>
+<p>真正值得复制的是：</p>
+<p>能力背后的信息结构。</p>
+<p>于是动物甚至可以成为一种 Sensor Discovery System。几十亿年的进化，已经替我们跑过很多“这个世界到底还有什么值得测量”的实验。</p>
+<p>我们未必要抄自然的答案。</p>
+<p>但至少可以看看它选了哪些题。</p>
+<h2 id="九、真正通用的机器人，可能长得像人，却绝不是另一个人"><a href="#九、真正通用的机器人，可能长得像人，却绝不是另一个人" class="headerlink" title="九、真正通用的机器人，可能长得像人，却绝不是另一个人"></a>九、真正通用的机器人，可能长得像人，却绝不是另一个人</h2><p>这也是人形机器人最容易被误解的地方。</p>
+<p>它长成人形，并不是为了复制人。</p>
+<p>人形只是兼容层。</p>
+<p>它让机器人能够继承人类几千年积累下来的工具世界，而不是要求机器拥有一个缩小版的人类心智。</p>
+<p>真正有意思的未来也许恰恰相反：</p>
+<blockquote>
+<p><strong>机器可以使用人的世界，却不必被人的世界限制。</strong></p>
+</blockquote>
+<p>人的形状让它继承我们的文明。</p>
+<p>机器自己的感官，让它看到那些我们从来没有能力看到的东西。</p>
+<p>所以我们过去总问：</p>
+<p>机器什么时候能像人一样理解世界？</p>
+<p>也许问题本身就问错了。</p>
+<p>真正通用的具身智能，不应该拥有一个缩小版的人类世界，而应该形成一个真正属于自己的现实。</p>
+<p>大语言模型学习的是：</p>
+<p><strong>人类怎样描述世界。</strong></p>
+<p>具身智能真正要学习的是：</p>
+<p><strong>世界怎样作用于一个身体。</strong></p>
+<p>语言天然属于人类。</p>
+<p>世界从来没有属于人类。</p>
+<hr style="border: none; border-top: 1px solid #e5e7eb; margin: 2.8em 0 1.6em 0;" />
+
+<p style="font-size: 14.5px; color: #374151; line-height: 1.8; margin-bottom: 8px;">
+  <strong>思考与探讨</strong><br />
+  如果未来的机器人看到的世界全是一串串高维电磁波与触觉力场，我们人类真的有必要强迫它渲染成人类看得懂的彩色 RGB 画面吗？欢迎在评论区分享你的观点。
+</p>
+
+<p style="font-size: 13px; color: #9ca3af; line-height: 1.8; margin: 0 0 2em 0;">
+  本文收录于《具身智能：物理世界的下一代互联网》系列专栏（第 4 篇 / 共 6 篇）。
+</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2026/09/17/embodied-04-non-human-world-models/">https://moyuan10086.github.io/2026/09/17/embodied-04-non-human-world-models/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B/">世界模型</a><a class="post-meta__tags" href="/tags/%E7%8E%AF%E5%A2%83%E7%95%8C/">环境界</a><a class="post-meta__tags" href="/tags/%E5%8A%A8%E7%89%A9%E6%84%9F%E5%AE%98/">动物感官</a><a class="post-meta__tags" href="/tags/%E8%AE%A4%E7%9F%A5%E5%93%B2%E5%AD%A6/">认知哲学</a></div><div class="post-share"><div class="social-share" data-image="/images/ai-series/covers/embodied/04-cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/09/17/embodied-05-pet-collar-data/" title="一只宠物项圈，会不会成为具身智能时代的数据入口？"><img class="cover" src="/images/ai-series/covers/embodied/05-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">一只宠物项圈，会不会成为具身智能时代的数据入口？</div></div><div class="info-2"><div class="info-item-1"> 下一代 AI 的互联网，可能不在互联网里具身智能系列 · 第 05 篇  如果你告诉一个普通宠物主人： “请每天给这个设备充电，因为我们想建立 Animal Foundation Model。” 大概没人理你。 但如果你告诉他，这个设备可以帮助防走失、记录活动、发现健康异常，甚至越来越懂他家这只具体的狗，事情就完全不一样。 这个区别看起来很普通，其实正是互联网时代大规模数据最重要的秘密之一：  真正廉价的数据，往往不是因为有人想生产数据才出现，而是因为有人本来就在做另一件有价值的事情。  一、好的数据入口，首先不能只是“数据入口”Google 搜索首先解决的是搜索问题。 智能手表首先解决时间、运动和健康问题。 汽车首先解决出行问题。 数据是在产品真正被使用以后自然留下来的。 宠物设备如果真有机会形成大规模长期数据，也必须遵循同一条规律。 用户首先购买的是防走失、健康和行为理解，而不是“给未来机器人贡献训练数据”。 所以宠物项圈真正有意思的地方，不是项圈本身多先进，而是： 一个有独立消费价值的设备，能不能让过去很难大规模得到的长期具身数据自然积累起来。 二、真正有价值的 AI，也...</div></div></div></a><a class="pagination-related" href="/2026/09/17/embodied-03-physical-refining/" title="数据很多，不等于数据能用——谁来给物理世界“炼油”？"><img class="cover" src="/images/ai-series/covers/embodied/03-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">数据很多，不等于数据能用——谁来给物理世界“炼油”？</div></div><div class="info-2"><div class="info-item-1"> 下一代 AI 的互联网，可能不在互联网里具身智能系列 · 第 03 篇  互联网早期有一种很朴素的想象：网页既然已经在那里，搜索应该不是太难。 后来才发现，网页越多，问题反而越复杂。真正值钱的并不是“世界上有很多网页”，而是谁能把它们抓下来、去重、索引、排序、过滤垃圾，再在用户真正需要的时候，从几十亿个页面里找到最有价值的十个。 物理世界的数据可能正走到类似的阶段。 摄像头很多，视频很多，机器人日志越来越多，汽车也每天产生巨量传感器记录。可这些东西躺在硬盘里，并不会自动变成 Intelligence。 从现实发生，到模型真正学会，中间还缺一条完整的工业链。 我越来越愿意把它叫作： Physical Data Refinery——现实世界的数据炼油厂。 一、一万小时录像，首先不是一万小时知识假设一个摄像头对着仓库拍一天，绝大多数时间可能什么值得注意的事情都没有发生。墙没有动，货架没有动，箱子也没有动。 真正有信息量的可能只有几十个瞬间：有人移动托盘，推车和人互相避让，一个箱子掉下来，有人第一次抓取失败以后重新调整，一条通道突然被堵住。 所以真正的数据加工，第一步甚至不是标注，而是...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/09/17/embodied-06-animal-translator/" title="真正的动物翻译器，可能会诞生在具身智能之后"><img class="cover" src="/images/ai-series/covers/embodied/06-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-17</div><div class="info-item-2">真正的动物翻译器，可能会诞生在具身智能之后</div></div><div class="info-2"><div class="info-item-1"> 下一代 AI 的互联网，可能不在互联网里具身智能系列 · 第 06 篇（终章）  人类一直很想知道动物在说什么。 动画片给过我们一个很舒服的答案：猫和狗其实也会说完整的话，只不过人听见的都是“喵”和“汪”。于是所谓动物翻译器，似乎只缺一本隐藏的词典，这一声代表饿，另一声代表害怕，再一声代表：“你昨天为什么这么晚回来？” 这个想象很浪漫，也非常人类。 因为我们自己高度依赖语言，于是很容易认为，复杂智能背后大概都应该藏着一套类似语言的东西。 可真正的 Animal Translator，也许根本不是翻译一句话。 一、一只美国猫和一只中国猫，并不会先学外语一只纽约长大的猫碰见一只上海长大的猫，不会先遇到英语和汉语之间那种障碍。 猫会读姿态、尾巴、耳朵、距离、声音和气味。一只猫弓背、炸毛、哈气，另一只并不需要字幕。 所以动物当然有大量物种层面的交流信号。 但“能够通信”不等于“拥有和人类一样的开放语言”。 TCP 也能通信。 只是不会写诗。 动物的大量交流可能更多是在表达接近、回避、警戒、亲近、威胁、身份和协调。这些已经足够复杂，只是不一定能整齐地切成一句句中文。 二、真正的动物翻译器...</div></div></div></a><a class="pagination-related" href="/2026/09/17/embodied-01-physical-common-crawl/" title="下一代 AI 的互联网，可能不是互联网"><img class="cover" src="/images/ai-series/covers/embodied/01-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-17</div><div class="info-item-2">下一代 AI 的互联网，可能不是互联网</div></div><div class="info-2"><div class="info-item-1"> 下一代 AI 的互联网，可能不在互联网里——从现实数据、世界模型，到动物与机器自己的世界  大语言模型有一个很容易被低估的幸运：它出生的时候，人类已经替它积累了几十年的训练数据。 当然，没有人真的在替 GPT 工作。程序员写代码，是为了做软件；网友在论坛里提问，是因为真的遇到了问题；研究人员写论文，是为了研究和发表；一个人在博客里写下自己的生活，也只是因为他当时想写。几十年里，人类因为完全不同的目的，把文字、代码、知识和争论一点点留在互联网上，直到大模型出现以后，我们才突然给这些彼此无关的东西起了一个共同的名字：预训练语料。 这件事其实比 Transformer 本身更值得琢磨。 假如把互联网从历史上删掉，再给 OpenAI、Google、Anthropic 同样的算法和 GPU，让这些公司重新雇人写出 Wikipedia、GitHub、Stack Overflow、新闻、小说和几十年的论坛讨论，大模型大概不会像今天这样迅速出现。总不能靠几家公司，把人类过去几十年在互联网上留下来的东西重新生产一遍。 具身智能今天面对的，可能正是一个类似的问题。 如果未来的通用机器人真的也需要某...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">programming or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">233</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%AF%AD%E8%A8%80%E5%8F%AF%E4%BB%A5%E5%A4%A9%E7%84%B6%E4%BB%A5%E4%BA%BA%E4%B8%BA%E4%B8%AD%E5%BF%83%EF%BC%8C%E4%B8%96%E7%95%8C%E4%B8%8D%E8%A1%8C"><span class="toc-text">一、语言可以天然以人为中心，世界不行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B2%A1%E6%9C%89%E8%A7%86%E8%A7%89%EF%BC%8C%E4%B8%8D%E7%AD%89%E4%BA%8E%E6%B2%A1%E6%9C%89%E4%B8%96%E7%95%8C"><span class="toc-text">二、没有视觉，不等于没有世界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%83%BD%E4%B8%8D%E6%98%AF%E4%B8%96%E7%95%8C%E7%9A%84%E5%89%AF%E6%9C%AC%EF%BC%8C%E8%80%8C%E6%98%AF%E8%BA%AB%E4%BD%93%E5%AF%B9%E7%8E%B0%E5%AE%9E%E7%9A%84%E5%8E%8B%E7%BC%A9"><span class="toc-text">三、世界模型可能不是世界的副本，而是身体对现实的压缩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%82%A3%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BF%98%E8%A6%81%E5%81%9A%E4%BA%BA%E5%BD%A2%EF%BC%9F"><span class="toc-text">四、那为什么机器人还要做人形？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BA%BA%E7%9A%84%E5%BD%A2%E7%8A%B6%EF%BC%8C%E6%98%AF%E6%8E%A5%E5%8F%A3%EF%BC%8C%E4%B8%8D%E6%98%AF%E8%AE%A4%E7%9F%A5%E8%BE%B9%E7%95%8C"><span class="toc-text">五、人的形状，是接口，不是认知边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%9C%9F%E6%AD%A3%E7%9A%84-Super-Man%EF%BC%8C%E4%B8%8D%E6%98%AF%E5%8A%9B%E6%B0%94%E6%AF%94%E4%BA%BA%E5%A4%A7%E4%B8%80%E7%82%B9"><span class="toc-text">六、真正的 Super Man，不是力气比人大一点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%9C%BA%E5%99%A8%E7%94%9A%E8%87%B3%E5%8F%AF%E8%83%BD%E6%8B%A5%E6%9C%89%E6%88%91%E4%BB%AC%E6%97%A0%E6%B3%95%E7%9B%B4%E8%A7%89%E7%90%86%E8%A7%A3%E7%9A%84%E4%B8%96%E7%95%8C"><span class="toc-text">七、机器甚至可能拥有我们无法直觉理解的世界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%8A%A8%E7%89%A9%E7%9C%9F%E6%AD%A3%E7%BB%99%E6%9C%BA%E5%99%A8%E7%9A%84%E5%90%AF%E7%A4%BA%EF%BC%8C%E6%98%AF%E5%88%AB%E6%8A%8A%E4%BA%BA%E7%B1%BB%E6%84%9F%E5%AE%98%E5%BD%93%E6%88%90%E4%B8%96%E7%95%8C%E7%9A%84-API"><span class="toc-text">八、动物真正给机器的启示，是别把人类感官当成世界的 API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E7%9C%9F%E6%AD%A3%E9%80%9A%E7%94%A8%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8C%E5%8F%AF%E8%83%BD%E9%95%BF%E5%BE%97%E5%83%8F%E4%BA%BA%EF%BC%8C%E5%8D%B4%E7%BB%9D%E4%B8%8D%E6%98%AF%E5%8F%A6%E4%B8%80%E4%B8%AA%E4%BA%BA"><span class="toc-text">九、真正通用的机器人，可能长得像人，却绝不是另一个人</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/17/embodied-06-animal-translator/" title="真正的动物翻译器，可能会诞生在具身智能之后"><img src="/images/ai-series/covers/embodied/06-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="真正的动物翻译器，可能会诞生在具身智能之后"/></a><div class="content"><a class="title" href="/2026/09/17/embodied-06-animal-translator/" title="真正的动物翻译器，可能会诞生在具身智能之后">真正的动物翻译器，可能会诞生在具身智能之后</a><time datetime="2026-09-17T10:30:00.000Z" title="发表于 2026-09-17 18:30:00">2026-09-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/17/embodied-05-pet-collar-data/" title="一只宠物项圈，会不会成为具身智能时代的数据入口？"><img src="/images/ai-series/covers/embodied/05-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一只宠物项圈，会不会成为具身智能时代的数据入口？"/></a><div class="content"><a class="title" href="/2026/09/17/embodied-05-pet-collar-data/" title="一只宠物项圈，会不会成为具身智能时代的数据入口？">一只宠物项圈，会不会成为具身智能时代的数据入口？</a><time datetime="2026-09-17T09:00:00.000Z" title="发表于 2026-09-17 17:00:00">2026-09-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/17/embodied-04-non-human-world-models/" title="世界模型，为什么一定要是人类眼中的世界？"><img src="/images/ai-series/covers/embodied/04-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="世界模型，为什么一定要是人类眼中的世界？"/></a><div class="content"><a class="title" href="/2026/09/17/embodied-04-non-human-world-models/" title="世界模型，为什么一定要是人类眼中的世界？">世界模型，为什么一定要是人类眼中的世界？</a><time datetime="2026-09-17T07:30:00.000Z" title="发表于 2026-09-17 15:30:00">2026-09-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/17/embodied-03-physical-refining/" title="数据很多，不等于数据能用——谁来给物理世界“炼油”？"><img src="/images/ai-series/covers/embodied/03-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据很多，不等于数据能用——谁来给物理世界“炼油”？"/></a><div class="content"><a class="title" href="/2026/09/17/embodied-03-physical-refining/" title="数据很多，不等于数据能用——谁来给物理世界“炼油”？">数据很多，不等于数据能用——谁来给物理世界“炼油”？</a><time datetime="2026-09-17T06:00:00.000Z" title="发表于 2026-09-17 14:00:00">2026-09-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/17/embodied-02-why-lack-data/" title="现实世界已经被拍了几十年，为什么机器人还是缺数据？"><img src="/images/ai-series/covers/embodied/02-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="现实世界已经被拍了几十年，为什么机器人还是缺数据？"/></a><div class="content"><a class="title" href="/2026/09/17/embodied-02-why-lack-data/" title="现实世界已经被拍了几十年，为什么机器人还是缺数据？">现实世界已经被拍了几十年，为什么机器人还是缺数据？</a><time datetime="2026-09-17T03:30:00.000Z" title="发表于 2026-09-17 11:30:00">2026-09-17</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/"]):not([href="/index.html"]):not([href="/home/"]):not([href="/home/index.html"]):not([href="/music/"]):not([href="/music/*"]):not([href="/games/"]):not([href="/games/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
