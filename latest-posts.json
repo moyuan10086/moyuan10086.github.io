@@ -1,10 +1,42 @@
 {
   "stats": {
-    "posts": 59,
-    "tags": 233,
+    "posts": 63,
+    "tags": 251,
     "categories": 23
   },
   "posts": [
+    {
+      "title": "为什么“背字典学写作文”早成了笑话，背单词却成了英语第一神教？",
+      "path": "/2026/09/25/18-vocabulary-and-illusion/",
+      "date": "2026-09-25",
+      "cover": "/images/ai-series/covers/18-vocabulary-and-illusion-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从“背新华字典的神童”到考研词汇打卡群，剖析背单词如何从一种词汇补充手段，异化成一套工业化的勤奋安慰剂。"
+    },
+    {
+      "title": "为什么你秒懂 LoRA，却背不出它的中文全称？",
+      "path": "/2026/09/25/17-terms-and-concepts/",
+      "date": "2026-09-25",
+      "cover": "/images/ai-series/covers/17-terms-and-concepts-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "真正熟练掌握知识的人，脑子里建立的是“符号到概念”的直接映射。把“理解机制”降格为“背诵翻译”，往往是教育和面试中最容易出现的认知倒退。"
+    },
+    {
+      "title": "导师总让你先看五十篇论文，可为什么很多 Idea 根本不在论文里？",
+      "path": "/2026/09/25/16-paper-and-idea/",
+      "date": "2026-09-25",
+      "cover": "/images/ai-series/covers/16-paper-and-idea-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "在大模型与系统安全这样变化极快的领域，新想法往往先出现在代码和社区，最后才进入论文与综述。重新理解公众号、GitHub 与论文在科研中的分工。"
+    },
+    {
+      "title": "先挂个 arXiv 占坑，到底占住了什么？",
+      "path": "/2026/09/25/15-arxiv-research-asset/",
+      "date": "2026-09-25",
+      "cover": "/images/ai-series/covers/15-arxiv-research-asset-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "不要把 arXiv 当垃圾桶，也不要把它当终点线。真正值得公开的，是一份达到可复核底线、带时间戳、能够持续演进的研究记录。"
+    },
     {
       "title": "真正的动物翻译器，可能会诞生在具身智能之后",
       "path": "/2026/09/17/embodied-06-animal-translator/",
@@ -68,38 +100,6 @@
       "cover": "/images/ai-series/covers/13-science-cover.png",
       "category": "AI时代技术人成长系列",
       "description": "所有从有限证据走向未知世界的方法，都必须付出某种结构性假设作为代价；真正成熟的知识体系，不是假装这些假设不存在，而是把它们暴露出来，并继续允许现实对它们说“不”。"
-    },
-    {
-      "title": "网上那么多“上岸经验”，到底有多少是在事后编故事？",
-      "path": "/2026/08/31/12-success/",
-      "date": "2026-08-31",
-      "cover": "/images/ai-series/covers/12-success-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "从叙事谬误、幸存者偏差，到条件概率、极大似然估计、公开经验、信号发送和随机性：别把别人的一条时间线，当成自己的人生说明书。"
-    },
-    {
-      "title": "依赖定价机制：全球化越深，为什么世界反而开始造“第二套系统”？",
-      "path": "/2026/08/30/11-system-redundancy/",
-      "date": "2026-08-30",
-      "cover": "/images/ai-series/covers/11-system-redundancy-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "为什么效率至上的世界宁可付出巨大冗余也要建备用系统？从生态位分流、保险费资产化到双向按钮，拆解全球技术供应链底层的依赖定价权。"
-    },
-    {
-      "title": "网红赚得比工程师多，真的是社会分配出了 Bug？",
-      "path": "/2026/08/29/10-market-value/",
-      "date": "2026-08-29",
-      "cover": "/images/ai-series/covers/10-market-value-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "从主播、工程师、演唱会、版权和平台，到韦东奕、张雪峰、Apple、OpenAI、Masimo 与 AI：为什么头部收入可以如此极端，规模收益最终归谁，今天的钱如何变成明天的胜率，以及当规则本身也会被赢家利用时，我们还能靠什么纠错。"
-    },
-    {
-      "title": "如果机器已经能把活干了，人为什么还得每天上班？",
-      "path": "/2026/08/28/09-future-work/",
-      "date": "2026-08-28",
-      "cover": "/images/ai-series/covers/09-future-work-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "工作不只是生产工具，也是收入入口、社会身份和参与关系。"
     }
   ]
 }
