@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>当代码越来越便宜，为什么架构反而越来越贵？ | Moyuan's website</title><meta name="author" content="moyuan"><meta name="copyright" content="moyuan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F4F8FF"><meta name="description" content="从“AI 写出的泔水代码也许只是人类看不懂”这个争论出发，重新拆解代码可读性、模块边界、高内聚低耦合和硬件约束：AI 可以让实现变得廉价，却无法让耦合、验证成本和物理世界一起消失。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当代码越来越便宜，为什么架构反而越来越贵？">
+<meta property="og:url" content="https://moyuan10086.github.io/2026/10/01/21-ancient-coding-and-understanding-debt/index.html">
+<meta property="og:site_name" content="Moyuan&#39;s website">
+<meta property="og:description" content="从“AI 写出的泔水代码也许只是人类看不懂”这个争论出发，重新拆解代码可读性、模块边界、高内聚低耦合和硬件约束：AI 可以让实现变得廉价，却无法让耦合、验证成本和物理世界一起消失。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://moyuan10086.github.io/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png">
+<meta property="article:published_time" content="2026-10-01T08:20:11.000Z">
+<meta property="article:modified_time" content="2026-10-01T08:20:11.000Z">
+<meta property="article:author" content="moyuan">
+<meta property="article:tag" content="软件架构">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="模块化">
+<meta property="article:tag" content="耦合">
+<meta property="article:tag" content="软件工程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://moyuan10086.github.io/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "当代码越来越便宜，为什么架构反而越来越贵？",
+  "url": "https://moyuan10086.github.io/2026/10/01/21-ancient-coding-and-understanding-debt/",
+  "image": "https://moyuan10086.github.io/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png",
+  "datePublished": "2026-10-01T08:20:11.000Z",
+  "dateModified": "2026-10-01T08:20:11.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "moyuan",
+      "url": "https://moyuan10086.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://raw.githubusercontent.com/moyuan10086/photo/main/20220523004342199.png"><link rel="canonical" href="https://moyuan10086.github.io/2026/10/01/21-ancient-coding-and-understanding-debt/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#101527')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F4F8FF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '当代码越来越便宜，为什么架构反而越来越贵？',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><script defer src="/js/portfolio-language-bridge.js?v=2"></script><link rel="stylesheet" href="/css/ui-language.css?v=20260913"><script defer src="/js/post-titles-en.js?v=20260913"></script><script defer src="/js/ui-language.js?v=20261001-project-status"></script><link rel="stylesheet" href="/css/brand-origin.css?v=20260916-popover"><script defer src="/js/brand-origin.js?v=20260916-popover"></script><link rel="stylesheet" href="/css/mini-music.css?v=20260913-ui2"><script defer src="/js/music-source.js?v=20260914-direct2"></script><script defer src="/js/mini-music.js?v=20260914-direct2"></script><link rel="stylesheet" href="/css/custom.css?v=20260907-toc-anchor-fix"><link rel="stylesheet" href="/css/site-ui.css?v=20260912"><link rel="stylesheet" href="/css/home.css?v=20260912"><link rel="stylesheet" href="/css/home-fullscreen.css?v=20260912-2"><link rel="stylesheet" href="/css/music-page.css?v=20260914-lyrics"><link rel="stylesheet" href="/css/games-page.css?v=20260912"><script defer src="/js/home.js?v=20260916-prose"></script><link rel="stylesheet" href="/css/interactive-lab.css?v=20260914-kali-mobile-v2"><link rel="stylesheet" href="/css/kali-desktop.css?v=20260914-kali-mobile-v2"><script defer src="/js/security-shell.js?v=20260914-kali-mobile-v2"></script><script defer src="/js/kali-desktop.js?v=20260914-kali-mobile-v2"></script><script defer src="/js/interactive-lab.js?v=20260914-kali-mobile-v2"></script><link rel="stylesheet" href="/css/home-ink.css?v=20260914-1"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">67</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">270</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/home/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-feather-alt"></i><span> 序章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><span class="site-page group"><span> 图库</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 精选画廊</span></a></li><li><a class="site-page child" href="/gallery/#random-anime"><i class="fa-fw fas fa-dice"></i><span> 随机次元</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/portfolio/"><i class="fa-fw fas fa-cube"></i><span> 3D 作品集</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Moyuan's website</span></a><a class="nav-page-title" href="/"><span class="site-name">当代码越来越便宜，为什么架构反而越来越贵？</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/home/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-feather-alt"></i><span> 序章</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-th"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/posts/"><i class="fa-fw fas fa-list"></i><span> 文章</span></a></div><div class="menus_item"><span class="site-page group"><span> 图库</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 精选画廊</span></a></li><li><a class="site-page child" href="/gallery/#random-anime"><i class="fa-fw fas fa-dice"></i><span> 随机次元</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/games/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/portfolio/"><i class="fa-fw fas fa-cube"></i><span> 3D 作品集</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">当代码越来越便宜，为什么架构反而越来越贵？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-01T08:20:11.000Z" title="发表于 2026-10-01 16:20:11">2026-10-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-01T08:20:11.000Z" title="更新于 2026-10-01 16:20:11">2026-10-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI%E6%97%B6%E4%BB%A3%E6%8A%80%E6%9C%AF%E4%BA%BA%E6%88%90%E9%95%BF%E7%B3%BB%E5%88%97/">AI时代技术人成长系列</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>这两年，每当有老程序员对着屏幕抱怨 AI 写出来的代码越来越像一锅让人犯高血压的泔水时，酒桌上总有人喜欢搬出当年围棋界的 AlphaGo 来堵他的嘴。</p>
+<p>这套辩词听上去还真挺能唬人。当年 AlphaGo 走出那手石破天惊的“第 37 手”时，全世界的人类九段国手第一眼看过去也全都皱起眉头，怀疑机器是不是出了故障，因为那一步棋在传统棋理里实在太难看了；可等几十手棋走完回过头再复盘，人们才羞愧地发现，根本不是机器不会下棋，而是人类自己算不出五十步以后的变化。</p>
+<p>于是，一模一样的故事被顺理成章地搬到了今天的软件工程里。你让一个编程智能体去改个芝麻大的小功能，它倒好，凭空给你新建两个辅助函数，外面套上三层包装器，把仓库里原本就写好的现成逻辑原封不动地重新实现一遍，最后在对话框里一本正经地向你邀功：“任务已成功完成。”人类工程师看完气得想砸键盘，可旁边的拥趸马上就会反问一句：你怎么知道这是烂代码？有没有可能，只是你脑容量太小、看不懂机器的高维智慧？</p>
+<p>顺着这个逻辑往下推，场面就更让人心安理得了：过去我们之所以在“古法编程”时代死抠代码美学，甚至觉得程序员骨子里是个讲究起承转合的文科生，无非是因为代码写出来还得交给下一个人类程序员去维护。可如果未来压根就不需要人类去维护代码呢？想象一下，第一个智能体负责写初版实现，第二个智能体负责做代码审查，第三个智能体负责跑自动化测试，第四个智能体二十四小时盯着线上异常自动打补丁，人类只需要坐在躺椅上用自然语言提需求和验收结果。到了那一天，源代码会不会就像当年编译器成熟之后的汇编语言一样，彻底退居成机器与机器之间交流的中间层？既然一个大模型一口气就能吞下几百万行代码，它凭什么还要迁就人类那点可怜的工作记忆？</p>
+<p>这套说辞之所以极具迷惑性，是因为它巧妙地把两件完全不是一码事的东西，偷梁换柱地塞进了“代码质量”这同一个篮子里：一件叫“代码读起来像不像优美的散文”，另一件叫“系统内部到底有没有严密的结构”。</p>
+<p>当 AI 开始动摇前者的时候，无数人顺手把后者也当成过时的垃圾一起扔进了火堆。所以今天真正值得我们拿手术刀剖开的，根本不是 AI 以后还要不要遵守人类的缩进与命名审美，而是一个关乎所有技术系统生死的底层问题：当代码本身的生产成本被压缩到接近于零的时候，软件工程里真正昂贵的东西，到底还剩下什么？</p>
+<p>答案恰恰和流行直觉完全相反：代码越便宜，架构反而越贵。</p>
+<h2 id="一、散文审美与物理边界：为什么“好不好读”和“会不会炸”从来不是一回事？"><a href="#一、散文审美与物理边界：为什么“好不好读”和“会不会炸”从来不是一回事？" class="headerlink" title="一、散文审美与物理边界：为什么“好不好读”和“会不会炸”从来不是一回事？"></a>一、散文审美与物理边界：为什么“好不好读”和“会不会炸”从来不是一回事？</h2><p>在过去几十年的程序员圈子里，一直流传着一句被奉为圭臬的格言：“代码首先是写给人看的，只是顺便让机器执行。”</p>
+<p>这句话在手工编程的年代当然是金科玉律。因为底层的芯片根本就没有审美细胞，处理器绝对不会因为你把变量名清清楚楚地写成“用户账户余额”而不是冷冰冰的一个字母加数字，就感动得额外多送你百分之五的主频；也不会因为你把一个两千行的大函数拆成了二十个精巧的小函数，就在执行机器指令时跑得更欢快一点。只要最后编译出来的二进制指令流一模一样，硅片既不知道什么叫优雅，也不知道什么叫屎山。真正会被屎山折磨得欲仙欲死的，从头到尾只有人类自己。</p>
+<p>而人类为什么如此迷恋代码的“优雅”？说穿了半点浪漫色彩都没有，纯粹是因为人脑这台生物计算机实在太不擅长对付复杂系统了。</p>
+<p>一个普通程序员的脑袋，同时追踪三五个变量的状态变化还算勉强够用；可一旦代码里再多出几个全局变量、几层异步回调和几条暗藏的依赖关系，人很快就会在编辑器里顺着调用链疯狂跳转，跳着跳着连自己最开始为什么要打开这个文件都忘得一干二净。过去软件工程里讲究的清晰命名、短小函数与文件分层，很大程度上确实是为了迁就人类这种生物学上的先天缺陷——因为脑子装不下整座大厦，我们只好把系统耐心地切成一个个巴掌大的小盒子：函数是一个小盒子，类是一个小盒子，模块还是一个小盒子。这样一来，一个人不需要同时看懂整个世界，只要看懂手头这一个小盒子就能安心干活。</p>
+<p>所以，如果未来真的由一个能同时追踪几百万行代码、几千条调用路径的机器来接管日常维护，那么过去那套纯粹为了照顾人类眼球的编码习惯，确实大概率会退居二线。一个函数到底是写五十行还是五百行，可能没那么要紧了；变量名起得像不像散文，可能也没人关心了；甚至某些专门为了方便人类阅读跳转而垫进去的中间抽象层，在机器眼里反而成了多余的累赘。承认“代码不必再写得像散文”并没有什么可怕的，因为软件工程从来就不是宗教，维护的主体变了，书写的文风自然也会跟着变。</p>
+<p>可致命的荒唐，就发生在许多人从这里往前多迈出的那半步上：既然可读性只是为了照顾人脑，那么模块化是不是也只是为了照顾人脑？既然大模型不怕长函数，那“高内聚、低耦合”这套古法架构原则，是不是也可以当成上古遗迹一起送进博物馆了？</p>
+<p>这就是整场争论里最隐蔽、也最危险的逻辑偷换。因为“让代码容易被眼睛读懂”，和“让局部的变化不要像瘟疫一样到处传染”，从根子上就不是同一类问题——前者针对的是屏幕前的阅读者，而后者针对的是冷酷的现实世界。</p>
+<h2 id="二、爆炸半径：高内聚低耦合不是文科修辞，而是摩天大楼里的“消防分区”"><a href="#二、爆炸半径：高内聚低耦合不是文科修辞，而是摩天大楼里的“消防分区”" class="headerlink" title="二、爆炸半径：高内聚低耦合不是文科修辞，而是摩天大楼里的“消防分区”"></a>二、爆炸半径：高内聚低耦合不是文科修辞，而是摩天大楼里的“消防分区”</h2><p>为了看清这两者的区别，不妨在脑子里对比两套功能完全相同的系统。</p>
+<p>第一套系统的边界切得像刀刻一样清楚：支付归支付，库存归库存，用户归用户，每个模块只通过严格定义的公开接口跟外界打交道，内部状态绝不随便外泄，别的模块也绝不偷偷伸手进来乱改。而第二套系统则活得自由奔放得多：为了省下几分钟的开发时间，甲模块直接伸手去读乙模块肚子里的内部变量；乙模块的正常运转又暗中依赖丙模块留下的某个副作用；丙模块在更新完数据库之后顺手触发了丁模块；而丁模块为了修补一个罕见的特殊情况，转过头来又悄悄篡改了甲模块的状态。</p>
+<p>如果你只问一个问题：“在今天下午三点整，这两套系统能不能正确跑通业务？”答案大概率是都能，甚至第二套系统在早期开发起来还要快得多——不用费劲设计接口，不用做抽象隔离，哪里缺什么数据直接伸手去掏就行。这也是为什么许多架构烂到根子里的系统，在刚上线的头两个月里不仅不显山不露水，反而显得开发效率奇高。</p>
+<p>可真实软件工程真正要命的考题，从来就不是“今天下午能不能跑”，而是明天怎么办。</p>
+<p>明天下午产品经理跑过来说支付计费规则要改，后天安全团队要求收紧权限颗粒度，下个月运维团队要把底层数据库迁移走，再过两个月公司业务调整，要把其中一个模块独立拆分出去。一到这个时候，两套系统之间的生死温差就会瞬间爆发出来：在第一套系统里改支付，所有的动静都被死死关在支付模块自己的院子里；而在第二套系统里改一行支付逻辑，就像在城中村底下盲目剪断了一根埋在地里的电线，你根本不知道隔着三条街之外哪几栋楼的灯会跟着一起熄灭。</p>
+<p>这才是耦合真正让人倾家荡产的地方：耦合的本质根本不是“人类读起来费劲”，而是“变化会顺着依赖到处传染”。</p>
+<p>一旦把问题拆解到这一层，你就会发现“AI 能不能一口气读完整个代码仓库”根本就没有解决核心矛盾。哪怕一个模型真的拥有无限长的上下文窗口，能把几千万行代码同时塞进脑子里，它也改变不了一个客观的数学事实：只要修改甲模块有可能会波及乙、丙、丁、戊四个模块，那么无论动手改代码的是人是鬼，你每次动一下甲，就必须把乙、丙、丁、戊全部重新测试、重新验证、重新证明一遍。这时候卡住脖子的早就不是阅读能力了，而是呈指数级膨胀的验证范围。正如全球知名软件咨询机构 Thoughtworks 的跟踪研究以及 2026 年关于代码健康度（CodeHealth）的实证研究所揭示的那样，那些人类工程师看着犯恶心的泥球代码，编程智能体改起来同样高频翻车——因为当一个改动顺着十几条隐藏依赖四处乱窜时，机器同样算不清所有的连锁反应。</p>
+<p>这就好比摩天大楼里的消防分区。建筑师为什么要在楼道里每隔几十米装一道沉重的防火门？为什么要把厨房、配电房和电梯井严格隔开？绝不是因为防火门长得多么符合黄金分割美学，也不是因为建筑师有什么强迫症，而是为了死死锁住一个极其冷酷的物理指标：当一间房间半夜失火之后，这场灾难最多能蔓延多远。如果一楼的一间小厨房炒菜起火，最后逼得整栋六十层大厦的几千号人全部逃下楼，那这栋楼的建筑设计就是彻头彻尾的灾难。</p>
+<p>软件架构也是完完全全一样的道理。把“高内聚、低耦合”翻译成最朴素的大白话，高内聚就是“让同一件事情在系统里尽量只有一个家”，别把同一个计费逻辑拆散了藏在十五个角落里；低耦合就是“当一个地方半夜失火的时候，尽量只关起门来救这一间房，别把整栋楼的人全都叫醒”。这跟代码是不是写给人看的，没有半毛钱关系；哪怕未来人类再也不看一行源代码，只要系统还需要随着现实世界的变化而修改，这道防火墙就永远不能撤。</p>
+<h2 id="三、违建狂飙：AI-最大的危险不是写得丑，而是把错误结构“工业化”"><a href="#三、违建狂飙：AI-最大的危险不是写得丑，而是把错误结构“工业化”" class="headerlink" title="三、违建狂飙：AI 最大的危险不是写得丑，而是把错误结构“工业化”"></a>三、违建狂飙：AI 最大的危险不是写得丑，而是把错误结构“工业化”</h2><p>不仅不能撤，一旦把 AI 的生产速度算进来，这道架构防火墙反而比人类手写代码的时代还要性命攸关一百倍。</p>
+<p>原因很简单：在古法编程的慢时代，一个平庸的程序员就算再热衷于制造技术债，他一天能造出来的孽也是极其有限的。因为人肉敲键盘要时间，翻文档要时间，等编译要时间，跑测试还要时间，他就算从早到晚火力全开，一天撑死也就往仓库里塞进几百行烂代码。所以过去的软件团队里其实藏着一道天然的物理减速带——人类制造垃圾的速度，通常还没有快到让代码审查者完全来不及踩刹车的地步。</p>
+<p>而 AI 的出现，瞬间把这道天然的减速带撞得粉碎。</p>
+<p>今天一个编程智能体一晚上就能不眠不休地改掉几十上百个文件；再往后走，一个总控任务可以同时拉起十几个子智能体并发施工——一个改接口，一个改数据库表，一个补测试，一个做重构。从生产效率上看这当然是神迹，但在硬币的背面，它意味着人类工程史上第一次出现了这样一种恐怖的景象：结构性错误第一次拥有了现代工业级的产能。</p>
+<p>以前在手工铁匠铺里打铁，模具尺寸偏了一毫米，学徒忙活半天顶多报废一只铁杯子；现在换成了全自动高速冲压流水线，一分钟就能冲出一千只杯子——如果顶层的模具是对的，你收获的是现代工业的暴利；可如果模具本身偏了一毫米，你在一夜之间收获的就是堆成山的工业级废品。</p>
+<p>看看今天许多盲目迷信“全权交给 AI、人类一行不看”的项目是怎么在几个月内烂穿地心的，就明白这种工业化违建有多可怕了。</p>
+<p>大模型在骨子里是一种极度擅长“局部讨好”、却极度缺乏“全局洁癖”的生物。当测试报错时，它最顺手的动作是加一个条件分支；当两个接口对不上时，它最喜欢在中间包一层转换适配；当原来的老函数牵一发而动全身不好硬改时，它干脆在旁边另起炉灶新写一个差不多的函数；当某条调用路径偶尔超时失败时，它立刻套上一层兜底回退。你把智能体的每一次代码提交单独拎出来看，局部逻辑全都合理得不得了，甚至聪明得让人拍案叫绝；可等三个月之后你退后十步再看整座代码库，就会倒吸一口凉气——这里叠了三层包装器，那里多了五个辅助函数，旧逻辑不敢删，新逻辑又摞在上面，两个原本老死不相往来的模块为了贪图一时方便偷偷开了一扇后门，而昨天刚打上去的临时补丁，今天又被十几个新功能当成基础设施依赖上了。</p>
+<p>整座代码仓库，就这样以百倍速长成了一栋疯狂向外加盖的城中村违建：嫌厨房太小，就往窗户外头悬空焊一块铁皮；嫌阳台漏水，就在头顶再罩一层塑料棚；嫌下楼绕远，干脆从三楼窗户直接往巷子里搭一架铁梯。每一次局部施工都在完美解决眼前的报错，最后整栋楼却变成了一座谁也不敢再动一颗螺丝的危房。</p>
+<p>这就把 AI 时代的软件工程，从过去“如何优雅地写出一段漂亮代码”的文科课题，重新逼回到了一个最原始、最冷酷的理科问题上：复杂性到底应该被关在哪个笼子里？</p>
+<p>在人手写代码的年代，因为施工慢，很多模块边界靠老程序员的自觉和口头约定还能勉强维持；可当施工队变成了一群不知疲倦的智能体时，边界就再也不能指望“大家心里有数”了，它必须变得像钢铁一样硬。哪些模块之间绝对禁止反向引用？哪张核心数据表归哪个服务独占？单次代码提交最多允许跨越几道边界？哪些底层数据结构绝对不准智能体自动修改？哪些破坏架构约束的调用必须在静态分析阶段就直接报错拦截？</p>
+<p>这些规矩在过去听起来像繁琐的团队管理规范，可在未来，它们就是保障城市不瘫痪的硬性交通法。你绝不会允许一套自动驾驶系统在经过十字路口时临场发挥：“虽然眼前是红灯，但我综合权衡了一下上下文，觉得现在一脚油门闯过去问题应该不大。”真正可靠的工程系统，一定会把某些生死边界直接钉死。未来的软件工程同样会走向这个方向——模块内部的实现可以越来越自由、越来越机器化，就像每家住户在自己客厅里怎么摆沙发，市政府根本懒得管；但模块之间的公共接口与依赖边界却必须越来越像铁面无私的法律条文，因为拆掉承重墙不是审美问题，而是整栋楼陪葬的问题。</p>
+<p>所以，那些鼓吹“AI 会让架构变得不再重要”的人，把因果关系彻底搞反了：人手写代码的时代，烂架构还能靠开发速度慢一点点修补；机器狂飙写代码的时代，一条错误的边界一旦被放行，智能体就会在一夜之间顺着这个错误地基给你盖起二十层违建大楼。AI 从来不会替你自动纠正一个错误的架构方向，它只是替你把油门踩到底——方向对了，生产力惊人；方向错了，撞墙的速度也快十倍。</p>
+<h2 id="四、硅片铁墙：为什么一碰到硬件，所有“能跑就行”的侥幸都会当场现原形？"><a href="#四、硅片铁墙：为什么一碰到硬件，所有“能跑就行”的侥幸都会当场现原形？" class="headerlink" title="四、硅片铁墙：为什么一碰到硬件，所有“能跑就行”的侥幸都会当场现原形？"></a>四、硅片铁墙：为什么一碰到硬件，所有“能跑就行”的侥幸都会当场现原形？</h2><p>为什么在纯软件圈子里，总有人对“架构边界”和“工程结构”抱有侥幸心理？因为现代软件世界有一个极其容易惯坏人的温室效应：绝大多数糟糕结构的代价，都不会在当天下午立刻找上门来。</p>
+<p>模块之间多绕了五层调用？服务器CPU还扛得住；内存多浪费了几个G？去云平台上再升一档配置就行；接口设计得拧巴？外面再包一层适配器糊弄过去。之所以能这么干，是因为现代应用软件底下垫着太多层厚实无比的缓冲海绵——编译器、操作系统、虚拟内存、超标量处理器、分布式数据库、网络协议栈和弹性云计算。这七八层前人造好的基础设施叠在一起，给应用层开发者创造了一种极其奢侈的幻觉：很多工程错误是可以先欠着的，是可以分期付款的。</p>
+<p>可只要你顺着技术栈往下走一层，撤掉软件的温室海绵，去碰一碰真实的芯片与硬件底层，物理世界的脸色就会瞬间变得无比难看。</p>
+<p>就在不久前，一位平时只熟悉纯软件栈的系统方向研究生，就结结实实地撞上了这堵铁墙。他手头的项目原本是在 QEMU 纯软件模拟器上做架构修改，在软件层折腾自然如鱼得水——想多记个状态就随手加个变量，想让两个模块通气就多传个指针参数，反正逻辑跑通就万事大吉。可后来发现软件模拟器的性能数据失真太严重，项目必须下沉到真实的 FPGA 硬件上，去改造乱序执行处理器核 BOOM。这位同学不懂硬件，于是直接让编程大模型把原来在软件模拟器上写好的那套机制，生拉硬拽地“压”进了硬件描述代码里。AI 倒也听话，真把代码给他拼出来了；可当组里那位真正懂硬件、曾经在“一生一芯”项目里从零搓过处理器的师弟拿过代码扫了一眼，整张脸当场就皱成了一团，毫不客气地吐槽：“这设计真的丑死我了，这个接口放在这里根本不自然！”</p>
+<p>为什么在软件层“能跑就行”的方案，一进硬件内行眼里就成了“丑死人”的灾难？因为在硬件里，没有任何一样东西是免费的。</p>
+<p>在软件代码里，多保存一个状态不过是多声明一个变量；到了硬件芯片里，多保存一个状态意味着实打实的物理寄存器。在软件里跨模块多传一个参数，不过是一次轻飘飘的函数调用；落到超标量处理器的硅片内部，那就是一条真金白银的数据通路——它要穿过多少级组合逻辑与多路选择器？扇出有多大？会不会强行跨越流水线级？会不会把关键路径拉长？芯片面积和功耗要涨多少？最要命的是，时钟频率还能不能收敛？</p>
+<p>哪怕拿最基础的数字电路来看，这种物理约束也是铁面无私的。我们在高级脚本语言里验证一个四位密码，只需要轻飘飘地写一句“如果输入等于某个值就放行”；可到了没有现成“等于号”的数字电路板上，每一个比特都必须送进逻辑门里逐位比对、再汇总输出，如果涉及按键先后顺序，还得老老实实摆上触发器、寄存器和有限状态机。每一级逻辑门都有真实的物理传播延迟，每一根连线都占据真实的硅片面积，每一个时钟周期都只有固定的长度。如果电信号比时钟沿晚到了 200 皮秒，它就是晚到了 200 皮秒——你绝对没法写一篇文采斐然的架构说明去跟芯片答辩：“虽然这里在物理上没有满足时序收敛要求，但从整体设计理念上看还是相当优雅合理的。”</p>
+<p>硅片从来不参加答辩，硅片只会当场死机。</p>
+<p>这就是硬件底层最残酷、却也最清醒的地方：它把所有工程结构背后的隐性成本，当场标上了明码实价。多拉一根线，当场付钱；多绕一级逻辑，当场付钱；模块摆错了位置、数据流走得拧巴，统统当场付钱。所以那些真正趟过底层泥潭的优秀工程师，身上往往会养成一种外行看不太懂的“直觉审美”——他扫一眼你的架构图就能皱着眉头说“这里不自然”。外行以为这是老工匠的艺术洁癖，其实这根本不是什么阳春白雪的美学，而是一个人在被物理世界的真实成本毒打过成百上千次之后，在肌肉里长出来的条件反射。他觉得一个设计“丑”，不是因为线条不好看，而是因为他一眼就看见了这笔烂账最后会在哪个环节连本带利地爆炸。</p>
+<p>软件世界虽然没有 200 皮秒的时钟沿当场收账，但这笔账从来就没有消失过，它只是被推迟到了半年后的第一次需求大改版、或者三年后凌晨三点的生产环境雪崩里。硬件世界是当场现结，软件世界是高利贷分期付款，仅此而已。</p>
+<p>所以，硬件给所有软件工程师最深刻的一课，并不是逼着每个人都去手写硬件描述语言，而是让我们看清一个真相：工程世界里绝大多数流传下来的“漂亮结构”，从来都不是因为长得漂亮才被保留下来的，而是因为那些臃肿、耦合、拧巴的昂贵方案，全都在残酷的演化中被淘汰掉了。如果你把软件架构浅薄地理解成“写给人看的散文美学”，那既然 AI 不在乎美，似乎当然可以把它扔掉；可一旦你明白架构真正对抗的是变化传染、验证成本与物理代价，你就会清醒地意识到，哪怕大模型的阅读能力再强一万倍，也休想让这些客观规律凭空消失。</p>
+<h2 id="五、施工队与规划局：当“写代码”和“做架构”彻底分家，什么能力最值钱？"><a href="#五、施工队与规划局：当“写代码”和“做架构”彻底分家，什么能力最值钱？" class="headerlink" title="五、施工队与规划局：当“写代码”和“做架构”彻底分家，什么能力最值钱？"></a>五、施工队与规划局：当“写代码”和“做架构”彻底分家，什么能力最值钱？</h2><p>想通了物理世界与复杂性的硬约束，我们反而能看清一个正在到来的、极其有意思的新时代。</p>
+<p>在过去几十年里，我们总是习惯把“写代码”和“做软件工程”混为一谈。因为在手工作坊时代，设计系统架构的人往往也得自己挽起袖子敲代码，划分模块边界的人也得自己去写里面的具体函数，久而久之，程序员的职业价值就被死死绑在了“手写源代码”这件事情上。</p>
+<p>而今天，AI 正在用一把锋利的手术刀，把“写实现”和“做架构”彻底剥离开来。</p>
+<p>一方面，具体功能实现的生产成本正在自由落体式地暴跌：写一段增删改查的数据库操作，便宜；画一个前端交互页面，便宜；写一层接口格式转换，便宜；甚至把几万行旧语法做一次批量重构，也变得越来越便宜。可另一方面，那些真正决定系统死活的结构性问题，却半毛钱都没有便宜——“这段新逻辑到底应该塞进哪个模块里？”“这个核心状态到底应该由谁独占？”“今天为了省事加的这个接口，半年后会不会把两个原本独立的业务系统死死绑在同一条船上？”“这次改动的爆炸半径，到底应该用什么契约锁在多大的院子里？”</p>
+<p>于是，未来软件工程里最稀缺的竞争力，就会发生一次彻底的乾坤大挪移：从过去比拼“谁能更快地把代码写出来（怎么做）”，全面转向“谁能更准地决定代码应该长在哪里、绝对不该长在哪里（什么东西和什么东西待在一起，什么东西绝对不准互相打听）”。</p>
+<p>这两件事表面上看着都在跟代码打交道，内里却完全是两门手艺。而且一个非常反直觉的规律是：前面那件“写代码”的事变得越廉价，后面那件“定边界”的事反而会变得越昂贵。</p>
+<p>道理就在于人性的弱点——当制造一件东西极其费劲的时候，人天然会保持克制；可当制造一件东西几乎不要钱的时候，人就会瞬间失去节制。在古法编程的时代，手写两千行代码需要苦熬整整三天，所以在动手之前你自然会反复盘算：“这个功能真的非加不可吗？能不能复用现有的模块？”可到了今天，智能体十分钟就能给你吐出两千行代码，“先加上再说、先包一层再说”就变成了一种让人无法抗拒的诱惑。</p>
+<p>偏偏软件系统最怕的，就是“先加上再说”。一座大型系统的坍塌，很少是因为某一天突然遭遇了一场惊天动地的大爆炸，它往往是在无数次“局部看着都挺合理”的妥协里，一寸一寸腐烂掉的：今天为了赶进度加一个临时字段，明天为了兼容旧版本套一层临时分支，后天为了绕过权限检查开一个临时接口，大后天面对报错说一句“先别重构了，外面包一层兜底吧”。每一次动手都有充分的理由，每一回测试都能顺利变绿，直到半年后某一天，所有人突然发现整座系统已经变成了一颗没人敢碰的定时炸弹。</p>
+<p>所以，当生成代码变得像拧开水龙头一样便宜之后，未来最高级的工程纪律，恰恰不再是“怎么把更多代码写得更快”，而是“怎么冷酷地阻止那些根本不该存在的代码被轻易写出来”，甚至是谁有底气在周一下午果断删掉智能体周末刚生成的三千行冗余代码。</p>
+<p>这也会彻底重塑未来 AI 编程工具的形态。今天市面上还在拿“谁家的智能体一口气能改更多文件、一次能吐出多少万行代码”当卖点；可再往后走，真正成熟的企业级 AI 工程系统，最核心的本事反而一定是学会铁面无私地说“不”——这个改动试图跨越模块红线，打回；这个功能仓库里已经有现成实现，严禁重复造轮子；这个依赖方向违背了顶层架构契约，直接熔断；这张核心数据表绝不允许当前智能体直接触碰；这个任务必须先拆清楚接口定义，才准许动工写实现；这个补丁虽然让眼前的测试变绿了，但它暗中扩大了模块间的耦合度，拒收。</p>
+<p>到了那一天我们就会发现，真正强大的 AI 软件工程体系，绝不是雇了一百个二十四小时狂敲键盘、顺从听话的程序员，而是同时养了一支“飞快盖房的超级施工队”和一个“手持红线图纸的城市规划局”：施工队负责以百倍速砌砖盖楼，而规划局负责站在十字路口冷冷地盯着它，告诉它哪块地绝对不准动土。</p>
+<h2 id="六、时间与黑板：代码可以贬值，但复杂性与责任永远不会"><a href="#六、时间与黑板：代码可以贬值，但复杂性与责任永远不会" class="headerlink" title="六、时间与黑板：代码可以贬值，但复杂性与责任永远不会"></a>六、时间与黑板：代码可以贬值，但复杂性与责任永远不会</h2><p>沿着这条线一路拆到底，文章开头那个关于“程序员究竟是文科生还是理科生、AI 时代还要不要架构”的争论，答案就已经彻底水落石出了。</p>
+<p>未来的源代码，确实完全有可能不再像人类散文那样讲究词藻与排比了。随着日常读写代码的苦力活越来越多地交接给机器，过去那些纯粹为了照顾人脑阅读体验而总结出来的表面规矩——比如变量名起得像不像英文诗、一个函数硬性规定不准超过四十行、为了方便人类在编辑器里跳转而人为拆出的语法糖——完全可以随着时代的翻篇而淡出历史舞台。技术本来就不该为了守旧而守旧。</p>
+<p>但如果有人试图从“代码不再需要像散文”，一路滑坡推导出“高内聚低耦合过时了、软件架构要消失了、人类工程师不需要再理解底层结构了”，那他很快就会在现实世界的铁墙上撞得头破血流。恰恰相反，AI 的到来，是在人类软件史上第一次逼着我们把混在一起的泥沙淘洗干净，真正看清楚：软件工程里到底哪些东西只是为了迁就人类的眼睛，而哪些东西是在用命对抗客观世界的复杂性本身。</p>
+<p>把代码排版整洁、命名优雅，那是为了照顾人类的眼睛；但切分模块边界、死守高内聚低耦合、严控变化的爆炸半径，那是在对抗系统的熵增定律。这也是为什么拿 AlphaGo 下围棋来给“泔水代码”和“违建架构”洗地，从根子上就是一个荒谬的类比：围棋盘是一个只有 361 个交叉点、规则绝对封闭的有限游戏，一局棋下赢了领奖金、下输了把棋子往盒子里一推就能重新开局，没有任何一盘棋需要在三年后的凌晨三点被拉起来紧急抢修，也没有任何一颗棋子需要为生产环境的资金蒸发签字坐牢。</p>
+<p>可真实的工程系统不是下棋，软件最大的敌人从来就不是“今天下午三点这一版能不能跑通”，而是漫长的时间，以及时间尽头那个必须站出来签字背锅的活人。</p>
+<p>一套系统今天写完，明天业务就要改，明年架构还要扩，五年之后还得有人在上面继续添砖加瓦；到了课堂答辩、技术评审或者线上雪崩抢修的现场，关掉大模型的聊天框，最终还得有一个真正理解了系统来龙去脉的人类站在黑板前，搞清楚哪面墙能砸、哪根线不能剪。架构存在的终极意义，从来不是为了让今天的程序员看着赏心悦目，而是为了防止明天的一次常规改动，把过去三年里写下的所有代码一起拖下水陪葬。</p>
+<p>当手写一段新代码需要三天的时候，人的懒惰本身还能替系统挡掉不少胡来的冲动；可当生成一段新代码只需要三分钟的时候，唯一还能阻止整个数字世界在狂飙中迅速腐烂成城中村违建的，就只剩下工程师脑子里那把清醒的标尺，以及系统里那道不可逾越的架构边界。</p>
+<p>未来我们也许真的会走进这样一个奇特的时代：一座庞大系统里跑着几千万行由机器生成的底层代码，绝大部分人类工程师一辈子都不会去逐行通读它们，里面许多局部的写法在老派文人眼里或许丑得不堪入目。但这全都没有关系——只要复杂性依然被死死关在正确的笼子里，只要支付模块依然只管支付、库存模块依然只管库存，只要每一个盒子都清清楚楚地知道自己的职责边界与物理代价，那盒子里面的代码长成机器喜欢的任何形状都无伤大雅。</p>
+<p>反过来，如果把那道名为“架构”的防火墙撤掉，那么智能体写代码的速度越快，就只是在以越快的速度，为我们掘出一个谁也不敢再碰一下的数字坟场。</p>
+<p>毕竟，AI 可以接管代码的书写，却永远没法替人类取消物理世界与复杂性法则。它确实能让砌砖盖楼变得像呼吸一样便宜；但正因如此，大楼里的承重墙与防火墙，反而比以往任何时代都更加昂贵。</p>
+<hr>
+<p>资料参考：Thoughtworks、Martin Fowler 及相关软件工程与体系结构研究</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io">moyuan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://moyuan10086.github.io/2026/10/01/21-ancient-coding-and-understanding-debt/">https://moyuan10086.github.io/2026/10/01/21-ancient-coding-and-understanding-debt/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://moyuan10086.github.io" target="_blank">Moyuan's website</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/">软件架构</a><a class="post-meta__tags" href="/tags/AI%E7%BC%96%E7%A8%8B/">AI编程</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/">模块化</a><a class="post-meta__tags" href="/tags/%E8%80%A6%E5%90%88/">耦合</a><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></div><div class="post-share"><div class="social-share" data-image="/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/10/01/22-culture-and-standard-answer/" title="为什么我们总爱把文化做成一道有标准答案的题？"><img class="cover" src="/images/ai-series/covers/22-culture-and-standard-answer-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">为什么我们总爱把文化做成一道有标准答案的题？</div></div><div class="info-2"><div class="info-item-1">如果你平时刷短视频，大概率在信息流里撞见过那种街头突击采访。 商场门口，收音麦克风冷不丁戳到鼻尖前，镜头后面是一双期待“穿帮”的眼睛：“请问，‘飞流直下三千尺’，下一句是什么？”被拦住的年轻人愣了三秒，瞳孔微缩，大脑在早八的咖啡因与昨夜的疲惫间当场宕机。镜头切走，评论区立刻万头攒动、摇头叹气：“九年义务教育算是喂了狗”、“国学式微，真是一代不如一代”；可若是他顺口接出了“疑是银河落九天”，弹幕里又瞬间涌出千百条“腹有诗书气自华”。 三秒钟，立地成佛，或者当场问斩。一个活生生的人有没有文化，被折叠成了一张两块钱的即开型刮刮乐。 我总疑心这种场面带着点荒诞。倒不是李白的诗不该背，也不是历史年份、古训通假皆可抛；真正叫人玩味的，是那股迫不及待的“判卷瘾”：最好世界只有一个答案，最好三秒之内胜负立判，最好连蹲在马桶上刷手机的闲人，也能顺手拿起一支红笔。 汪洋浩瀚的文化，到头来被榨干成了一句逼仄的口令：“下一句是什么？” 一、浅水区的判卷权：为什么街头文化永远停在中小学？只要耐着性子多看几十条这类街头文化大考，就会发现街头考官的题库水位，向来恒定得有些滑稽。 翻来覆去考的，永远是小学的李杜...</div></div></div></a><a class="pagination-related" href="/2026/10/01/20-industrial-software-and-bottom-layer/" title="我们真的在领跑 AI 吗？我们的“母机”在哪里？"><img class="cover" src="/images/ai-series/covers/20-industrial-software-and-bottom-layer-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">我们真的在领跑 AI 吗？我们的“母机”在哪里？</div></div><div class="info-2"><div class="info-item-1">这几年科技圈里流行着一种特别省脑子的说法：大模型时代已经打成了中美两强决赛，至于欧洲和日本，差不多已经买好站票退居观众席了。 这种感觉当然不是凭空捏造出来的。你把今天全球最有声量的大模型名单在桌子上摊开，大洋彼岸有 OpenAI、Google、Anthropic 和 Meta，我们这边有 DeepSeek、千问和豆包，而偌大一个欧洲，真正还能挤进全球通用大模型牌桌中央被人念叨的名字，翻来覆去好像只剩下一个 Mistral。于是，整张 AI 时代的全球权力地图，很快就被简化成了一幅特别适合在短视频里三秒钟讲完的漫画：美国在左，中国在右，欧洲只配起草监管法案，日本埋头拧机器人螺丝，其余国家负责在场边鼓掌。 这张地图最大的好处是让人看着痛快，最大的毛病也是痛快得过了头。 假如生成式 AI 到头来只是一场火力更猛的移动互联网平台战争，那比拼模型跑分、算力卡数、日活用户量和开发者生态，确实就已经足够定下输赢了。谁家的聊天机器人更机灵，谁占住了更多人的手机屏幕入口，谁手里攥着更大的云和更多的应用开发者，谁自然就是当之无愧的霸主。可只要我们还承认嘴里天天挂着的那句“AI 是下一次工业革命”不是...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/newnewlogo.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">moyuan</div><div class="author-info-description">programming or coffee</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">67</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">270</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">23</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/moyuan10086"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/moyuan10086" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2572045628@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%95%A3%E6%96%87%E5%AE%A1%E7%BE%8E%E4%B8%8E%E7%89%A9%E7%90%86%E8%BE%B9%E7%95%8C%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E2%80%9C%E5%A5%BD%E4%B8%8D%E5%A5%BD%E8%AF%BB%E2%80%9D%E5%92%8C%E2%80%9C%E4%BC%9A%E4%B8%8D%E4%BC%9A%E7%82%B8%E2%80%9D%E4%BB%8E%E6%9D%A5%E4%B8%8D%E6%98%AF%E4%B8%80%E5%9B%9E%E4%BA%8B%EF%BC%9F"><span class="toc-text">一、散文审美与物理边界：为什么“好不好读”和“会不会炸”从来不是一回事？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%88%86%E7%82%B8%E5%8D%8A%E5%BE%84%EF%BC%9A%E9%AB%98%E5%86%85%E8%81%9A%E4%BD%8E%E8%80%A6%E5%90%88%E4%B8%8D%E6%98%AF%E6%96%87%E7%A7%91%E4%BF%AE%E8%BE%9E%EF%BC%8C%E8%80%8C%E6%98%AF%E6%91%A9%E5%A4%A9%E5%A4%A7%E6%A5%BC%E9%87%8C%E7%9A%84%E2%80%9C%E6%B6%88%E9%98%B2%E5%88%86%E5%8C%BA%E2%80%9D"><span class="toc-text">二、爆炸半径：高内聚低耦合不是文科修辞，而是摩天大楼里的“消防分区”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%BF%9D%E5%BB%BA%E7%8B%82%E9%A3%99%EF%BC%9AAI-%E6%9C%80%E5%A4%A7%E7%9A%84%E5%8D%B1%E9%99%A9%E4%B8%8D%E6%98%AF%E5%86%99%E5%BE%97%E4%B8%91%EF%BC%8C%E8%80%8C%E6%98%AF%E6%8A%8A%E9%94%99%E8%AF%AF%E7%BB%93%E6%9E%84%E2%80%9C%E5%B7%A5%E4%B8%9A%E5%8C%96%E2%80%9D"><span class="toc-text">三、违建狂飙：AI 最大的危险不是写得丑，而是把错误结构“工业化”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%A1%85%E7%89%87%E9%93%81%E5%A2%99%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E7%A2%B0%E5%88%B0%E7%A1%AC%E4%BB%B6%EF%BC%8C%E6%89%80%E6%9C%89%E2%80%9C%E8%83%BD%E8%B7%91%E5%B0%B1%E8%A1%8C%E2%80%9D%E7%9A%84%E4%BE%A5%E5%B9%B8%E9%83%BD%E4%BC%9A%E5%BD%93%E5%9C%BA%E7%8E%B0%E5%8E%9F%E5%BD%A2%EF%BC%9F"><span class="toc-text">四、硅片铁墙：为什么一碰到硬件，所有“能跑就行”的侥幸都会当场现原形？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%96%BD%E5%B7%A5%E9%98%9F%E4%B8%8E%E8%A7%84%E5%88%92%E5%B1%80%EF%BC%9A%E5%BD%93%E2%80%9C%E5%86%99%E4%BB%A3%E7%A0%81%E2%80%9D%E5%92%8C%E2%80%9C%E5%81%9A%E6%9E%B6%E6%9E%84%E2%80%9D%E5%BD%BB%E5%BA%95%E5%88%86%E5%AE%B6%EF%BC%8C%E4%BB%80%E4%B9%88%E8%83%BD%E5%8A%9B%E6%9C%80%E5%80%BC%E9%92%B1%EF%BC%9F"><span class="toc-text">五、施工队与规划局：当“写代码”和“做架构”彻底分家，什么能力最值钱？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%97%B6%E9%97%B4%E4%B8%8E%E9%BB%91%E6%9D%BF%EF%BC%9A%E4%BB%A3%E7%A0%81%E5%8F%AF%E4%BB%A5%E8%B4%AC%E5%80%BC%EF%BC%8C%E4%BD%86%E5%A4%8D%E6%9D%82%E6%80%A7%E4%B8%8E%E8%B4%A3%E4%BB%BB%E6%B0%B8%E8%BF%9C%E4%B8%8D%E4%BC%9A"><span class="toc-text">六、时间与黑板：代码可以贬值，但复杂性与责任永远不会</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/10/01/22-culture-and-standard-answer/" title="为什么我们总爱把文化做成一道有标准答案的题？"><img src="/images/ai-series/covers/22-culture-and-standard-answer-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为什么我们总爱把文化做成一道有标准答案的题？"/></a><div class="content"><a class="title" href="/2026/10/01/22-culture-and-standard-answer/" title="为什么我们总爱把文化做成一道有标准答案的题？">为什么我们总爱把文化做成一道有标准答案的题？</a><time datetime="2026-10-01T08:20:12.000Z" title="发表于 2026-10-01 16:20:12">2026-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/01/21-ancient-coding-and-understanding-debt/" title="当代码越来越便宜，为什么架构反而越来越贵？"><img src="/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="当代码越来越便宜，为什么架构反而越来越贵？"/></a><div class="content"><a class="title" href="/2026/10/01/21-ancient-coding-and-understanding-debt/" title="当代码越来越便宜，为什么架构反而越来越贵？">当代码越来越便宜，为什么架构反而越来越贵？</a><time datetime="2026-10-01T08:20:11.000Z" title="发表于 2026-10-01 16:20:11">2026-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/01/20-industrial-software-and-bottom-layer/" title="我们真的在领跑 AI 吗？我们的“母机”在哪里？"><img src="/images/ai-series/covers/20-industrial-software-and-bottom-layer-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我们真的在领跑 AI 吗？我们的“母机”在哪里？"/></a><div class="content"><a class="title" href="/2026/10/01/20-industrial-software-and-bottom-layer/" title="我们真的在领跑 AI 吗？我们的“母机”在哪里？">我们真的在领跑 AI 吗？我们的“母机”在哪里？</a><time datetime="2026-10-01T08:20:10.000Z" title="发表于 2026-10-01 16:20:10">2026-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/10/01/19-fixed-salary-and-weekend/" title="同样月入一万五，为什么敢休周末的人才是中产？"><img src="/images/ai-series/covers/19-fixed-salary-and-weekend-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="同样月入一万五，为什么敢休周末的人才是中产？"/></a><div class="content"><a class="title" href="/2026/10/01/19-fixed-salary-and-weekend/" title="同样月入一万五，为什么敢休周末的人才是中产？">同样月入一万五，为什么敢休周末的人才是中产？</a><time datetime="2026-10-01T08:20:09.000Z" title="发表于 2026-10-01 16:20:09">2026-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/25/18-vocabulary-and-illusion/" title="为什么“背字典学写作文”早成了笑话，背单词却成了英语第一神教？"><img src="/images/ai-series/covers/18-vocabulary-and-illusion-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为什么“背字典学写作文”早成了笑话，背单词却成了英语第一神教？"/></a><div class="content"><a class="title" href="/2026/09/25/18-vocabulary-and-illusion/" title="为什么“背字典学写作文”早成了笑话，背单词却成了英语第一神教？">为什么“背字典学写作文”早成了笑话，背单词却成了英语第一神教？</a><time datetime="2026-09-25T07:30:00.000Z" title="发表于 2026-09-25 15:30:00">2026-09-25</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By moyuan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 6.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/"]):not([href="/index.html"]):not([href="/home/"]):not([href="/home/index.html"]):not([href="/music/"]):not([href="/music/*"]):not([href="/games/"]):not([href="/games/*"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

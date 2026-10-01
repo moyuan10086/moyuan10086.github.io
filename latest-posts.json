@@ -1,10 +1,42 @@
 {
   "stats": {
-    "posts": 63,
-    "tags": 251,
+    "posts": 67,
+    "tags": 270,
     "categories": 23
   },
   "posts": [
+    {
+      "title": "为什么我们总爱把文化做成一道有标准答案的题？",
+      "path": "/2026/10/01/22-culture-and-standard-answer/",
+      "date": "2026-10-01",
+      "cover": "/images/ai-series/covers/22-culture-and-standard-answer-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "拆解街头文化测试背后的浅水区判卷权、铜门牌幻觉与八岁说明书执念：当记忆不再是用来考人的口令，而是漫长一生里提前寄来的信，文化才终于认出了你。"
+    },
+    {
+      "title": "当代码越来越便宜，为什么架构反而越来越贵？",
+      "path": "/2026/10/01/21-ancient-coding-and-understanding-debt/",
+      "date": "2026-10-01",
+      "cover": "/images/ai-series/covers/21-ancient-coding-and-understanding-debt-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从“AI 写出的泔水代码也许只是人类看不懂”这个争论出发，重新拆解代码可读性、模块边界、高内聚低耦合和硬件约束：AI 可以让实现变得廉价，却无法让耦合、验证成本和物理世界一起消失。"
+    },
+    {
+      "title": "我们真的在领跑 AI 吗？我们的“母机”在哪里？",
+      "path": "/2026/10/01/20-industrial-software-and-bottom-layer/",
+      "date": "2026-10-01",
+      "cover": "/images/ai-series/covers/20-industrial-software-and-bottom-layer-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "从医院铅门后的核磁共振仪、Adobe 与 EDA 的“乙方错觉”，到 Blender Agent、Generative Design、World Model、GNoME、自驱实验室和 AI EDA：真正值得争夺的，也许不是国产版的上一代工业软件，而是谁先定义下一代工业母机。"
+    },
+    {
+      "title": "同样月入一万五，为什么敢休周末的人才是中产？",
+      "path": "/2026/10/01/19-fixed-salary-and-weekend/",
+      "date": "2026-10-01",
+      "cover": "/images/ai-series/covers/19-fixed-salary-and-weekend-cover.png",
+      "category": "AI时代技术人成长系列",
+      "description": "两个“月入一万五”、大厂“60万总包”与家庭时间错配：能不能在不损失收入时暂停劳动，才是隐蔽的阶层分水岭。"
+    },
     {
       "title": "为什么“背字典学写作文”早成了笑话，背单词却成了英语第一神教？",
       "path": "/2026/09/25/18-vocabulary-and-illusion/",
@@ -68,38 +100,6 @@
       "cover": "/images/ai-series/covers/embodied/03-cover.png",
       "category": "具身智能系列",
       "description": "人类上传互联网的内容早就被大脑完成了第一次清洗，而物理世界的原始传感器数据，更像未脱硫的重质原油。未来的具身独角兽，很可能诞生在物理数据炼油厂。"
-    },
-    {
-      "title": "现实世界已经被拍了几十年，为什么机器人还是缺数据？",
-      "path": "/2026/09/17/embodied-02-why-lack-data/",
-      "date": "2026-09-17",
-      "cover": "/images/ai-series/covers/embodied/02-cover.png",
-      "category": "具身智能系列",
-      "description": "世界不缺画面，但人拍的视频只记录了人类筛选后的高光片段。监控很无聊，却记录了世界保持连续的物理常识。机器人缺的不是眼睛，而是具身化的物理交互。"
-    },
-    {
-      "title": "下一代 AI 的互联网，可能不是互联网",
-      "path": "/2026/09/17/embodied-01-physical-common-crawl/",
-      "date": "2026-09-17",
-      "cover": "/images/ai-series/covers/embodied/01-cover.png",
-      "category": "具身智能系列",
-      "description": "物理世界没有 Ctrl+C。大模型吃掉的是人类几十年的文字互联网，而具身智能真正要寻找的，是让现实世界自己开始留下数据的机制。"
-    },
-    {
-      "title": "社会为什么总在劝你合群？因为“我们”是最便宜的组织方式",
-      "path": "/2026/09/02/14-social-order/",
-      "date": "2026-09-02",
-      "cover": "/images/ai-series/covers/14-social-order-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "从班级荣誉、校友网络、饭圈到推荐算法，我们为什么如此依赖“我们”？"
-    },
-    {
-      "title": "什么都能解释的理论，跟“啥都能圆”的算命有啥区别？",
-      "path": "/2026/09/01/13-science/",
-      "date": "2026-09-01",
-      "cover": "/images/ai-series/covers/13-science-cover.png",
-      "category": "AI时代技术人成长系列",
-      "description": "所有从有限证据走向未知世界的方法，都必须付出某种结构性假设作为代价；真正成熟的知识体系，不是假装这些假设不存在，而是把它们暴露出来，并继续允许现实对它们说“不”。"
     }
   ]
 }
