@@ -513,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!($article && (isToc || isAnchor))) return
 
     let $tocLink, $cardToc, autoScrollToc, $tocPercentage, isExpand
+    let isClickScrolling = false
 
     if (isToc) {
       const $cardTocLayout = document.getElementById('card-toc')
@@ -522,7 +523,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isExpand = $cardToc.classList.contains('is-expand')
 
       // toc元素點擊
-      let isClickScrolling = false
       let clickScrollTimer = null
 
       const tocItemClickFn = e => {

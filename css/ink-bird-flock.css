@@ -1,0 +1,19 @@
+/* Ink birds sit over blank paper; the renderer masks text, media and controls. */
+#ink-bird-flock {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  background: transparent;
+  contain: strict;
+}
+#ink-bird-flock[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  #ink-bird-flock { display: none; }
+}
+@media print {
+  #ink-bird-flock { display: none; }
+}
