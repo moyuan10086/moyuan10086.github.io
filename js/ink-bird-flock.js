@@ -104,7 +104,7 @@ function draw(){
     }
     if(clearance<.02)continue;
     const windEmphasis=clamp(b.airPower||0,0,.85),foreground=smooth((150-b.z)/125);
-    const alpha=clamp(mix(b.alpha*(.48+p.near*.5)*mix(1,1.2,b.morph||0)+foreground*.12,.78,windEmphasis),.12,.8)*clearance;
+    const alpha=clamp(mix(b.alpha*(.4+p.near*.4)*mix(1,1.15,b.morph||0)+foreground*.08,.6,windEmphasis),.1,.65)*clearance;
     const s=clamp(b.size*(W<820?1.04:1.22)*Math.pow(p.scale/FOCUS_SCALE,.95)*(1+foreground*.25),.85,3.8);
     // A paper plane banks as one rigid folded sheet; no fluttering wings.
     const bankWidth=1-Math.abs(b.bank)*.55,c=Math.cos(b.angle),sn=Math.sin(b.angle);
@@ -112,12 +112,12 @@ function draw(){
     const tip=point(2.5,0),upper=point(-1.7,-1.45),fold=point(-.75,0),lower=point(-1.7,1.45);
     const depth=clamp(b.z/600,0,1);
     ctx.globalAlpha=alpha;
-    ctx.strokeStyle=dark?'rgb(248,180,207)':'rgb('+Math.round(mix(204,225,depth))+','+Math.round(mix(108,160,depth))+','+Math.round(mix(148,186,depth))+')';
-    ctx.fillStyle=dark?'rgb(110,65,89)':'rgb(255,238,245)';
+    ctx.strokeStyle=dark?'rgb(255,204,224)':'rgb('+Math.round(mix(230,242,depth))+','+Math.round(mix(173,199,depth))+','+Math.round(mix(200,217,depth))+')';
+    ctx.fillStyle=dark?'rgb(130,87,107)':'rgb(255,246,250)';
     ctx.lineWidth=.6+p.near*.2+foreground*.08;
     ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...upper);ctx.lineTo(...fold);ctx.lineTo(...lower);ctx.closePath();ctx.fill();ctx.stroke();
     // A slightly darker lower face makes the fold readable even at small sizes.
-    ctx.globalAlpha=alpha*.48;ctx.fillStyle=dark?'rgb(214,128,166)':'rgb(241,185,208)';
+    ctx.globalAlpha=alpha*.4;ctx.fillStyle=dark?'rgb(236,177,202)':'rgb(249,215,231)';
     ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...fold);ctx.lineTo(...lower);ctx.closePath();ctx.fill();
     ctx.globalAlpha=alpha*.85;ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...fold);ctx.stroke();
   }
