@@ -11,6 +11,8 @@ const canvas = document.createElement('canvas');
 canvas.id = 'ink-bird-flock'; canvas.setAttribute('aria-hidden', 'true');
 canvas.setAttribute('role', 'presentation'); document.body.appendChild(canvas);
 const ctx = canvas.getContext('2d'); if (!ctx) { canvas.remove(); return; }
+const perfEnabled=location.hostname==='127.0.0.1'&&location.search?.includes('ambientPerf');
+const perf={frames:0,cpu:0,max:0,gaps:0,layout:0,layoutCalls:0,draw:0};
 const status = {textContent: ''};
 let active = false, dark = document.documentElement.dataset.theme === 'dark';
 const sceneLabel = {textContent: ''};
@@ -21,13 +23,29 @@ const reduced=false,TAU=Math.PI*2;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t,smooth=v=>{v=clamp(v,0,1);return v*v*(3-2*v);};
 let count=innerWidth<600?500:innerWidth<1000?900:1400,speed=6,W=0,H=0,dpr=1,birds=[],route=[],routeLength=1,baseLength=1,sceneAmount=0,nextAuto=3,nextWander=5,scenicY=0,scenicHeight=80,clock=0,last=0,raf=0,hidden=document.hidden,protectedRects=[],fullyCovered=false,articleBounds,formation=null,nextMotif=0,lastTrigger=-20,scrollMark=0,scrollTimer,resizeTimer;
 const INTERACTION_RADIUS=150,NOISE=.65;
+const MASK_CELL=64,FIXED_STEP=1/30;
+let maskGrid=new Map(),layoutScroll=scrollY,accumulator=0,renderBlend=1,scrollActiveUntil=0,scrollingFrame=false;
+function indexMasks(){
+  maskGrid=new Map();
+  for(const r of protectedRects){
+    const x0=Math.max(0,Math.floor((r.left-20)/MASK_CELL)),x1=Math.min(Math.floor(W/MASK_CELL),Math.floor((r.right+20)/MASK_CELL));
+    const y0=Math.max(0,Math.floor((r.top-20)/MASK_CELL)),y1=Math.min(Math.floor(H/MASK_CELL),Math.floor((r.bottom+20)/MASK_CELL));
+    for(let x=x0;x<=x1;x++)for(let y=y0;y<=y1;y++){const key=x+','+y;let bucket=maskGrid.get(key);if(!bucket)maskGrid.set(key,bucket=[]);bucket.push(r);}
+  }
+}
+function syncScroll(){
+  const delta=scrollY-layoutScroll;if(!delta)return;
+  layoutScroll=scrollY;for(const r of protectedRects)if(!r.fixed){r.top-=delta;r.bottom-=delta;}
+  fullyCovered=protectedRects.some(r=>r.left<=0&&r.right>=W&&r.top<=0&&r.bottom>=H);
+  indexMasks();garden?.scrollBy(delta);
+}
 const PERSPECTIVE=550,FOCUS_SCALE=PERSPECTIVE/(PERSPECTIVE+350);
 let scrollParallax=0,lastScroll=scrollY;
 const mouse={x:-1000,y:-1000,active:false,weight:0};
 const wind={samples:[],pulses:[],energy:0,lastTime:0,vx:0,vy:0,lastSample:0};
 const garden=window.MoyuanSakuraGarden?new window.MoyuanSakuraGarden({curve,onReady:()=>refresh()}):null;
 function flockAnchor(){if(!formation)return {x:W*.5,y:H*.5};if(formation.sakura&&garden?.scene){const s=garden.scene;return {x:s.x+s.width*.5,y:s.y+s.height*.5};}if([2,4,5,6].includes(formation.kind))return {x:W*.5,y:scenicY};return {x:formation.side==='left'?articleBounds.left*.49:articleBounds.right+(W-articleBounds.right)*.51,y:H*.48};}
-function project(b){const scale=PERSPECTIVE/(PERSPECTIVE+b.z),near=clamp(1-b.z/650,0,1),mx=mouse.active?clamp((mouse.x-W*.5)/(W*.5),-1,1)*mouse.weight:0,my=mouse.active?clamp((mouse.y-H*.5)/(H*.5),-1,1)*mouse.weight:0,fx=b.focusX??W*.5,fy=b.focusY??H*.5,wx=W*.5+(fx-W*.5)/FOCUS_SCALE,wy=H*.5+(fy-H*.5)/FOCUS_SCALE;return {x:fx+(b.x-wx)*scale+mx*near*2.5,y:fy+(b.y-wy)*scale+my*near*1.6+scrollParallax*near,scale,near};}
+function project(b,interpolate=false){const z=interpolate?mix(b.prevZ??b.z,b.z,renderBlend):b.z,x=interpolate?mix(b.prevX??b.x,b.x,renderBlend):b.x,y=interpolate?mix(b.prevY??b.y,b.y,renderBlend):b.y;const scale=PERSPECTIVE/(PERSPECTIVE+z),near=clamp(1-z/650,0,1),mx=mouse.active?clamp((mouse.x-W*.5)/(W*.5),-1,1)*mouse.weight:0,my=mouse.active?clamp((mouse.y-H*.5)/(H*.5),-1,1)*mouse.weight:0,fx=b.focusX??W*.5,fy=b.focusY??H*.5,wx=W*.5+(fx-W*.5)/FOCUS_SCALE,wy=H*.5+(fy-H*.5)/FOCUS_SCALE;return {x:fx+(x-wx)*scale+mx*near*2.5,y:fy+(y-wy)*scale+my*near*1.6+scrollParallax*near,scale,near};}
 function airAt(b){const p=project(b);let fx=0,fy=0,total=0,depth=0;for(const node of wind.samples){const age=clock-node.born;if(age<0||age>2.5)continue;const dx=p.x-node.x,dy=p.y-node.y,along=dx*node.dx+dy*node.dy,across=-dx*node.dy+dy*node.dx,influence=Math.exp(-((along/115)**2+(across/65)**2))*Math.exp(-age/1.05)*smooth(1-age/2.5)*node.power;if(influence<.002)continue;const side=Math.tanh(across/22+b.band*.5),spread=side*65;fx+=(node.dx*80-node.dy*spread-node.curl*dy*.25)*influence;fy+=(node.dy*80+node.dx*spread+node.curl*dx*.25)*influence;depth+=Math.sin(b.seed)*28*influence;total+=influence;}
 let power=1-Math.exp(-total);if(total){fx=fx/total*power;fy=fy/total*power;depth=depth/total*power;}for(const pulse of wind.pulses){const age=clock-pulse.born,dx=p.x-pulse.x,dy=p.y-pulse.y,d=Math.hypot(dx,dy);if(age<0||age>3.2||d<1||d>110)continue;const strength=smooth(1-d/110)*Math.exp(-age/.85)*smooth(1-age/3.2);fx+=dx/d*135*strength;fy+=dy/d*135*strength;depth+=Math.sin(b.seed)*32*strength;power=Math.max(power,strength);}
 if(formation?.sakura&&b.shapeId===formation.id&&garden?.scene){const breeze=garden.curl(p.x,p.y,clock);fx+=breeze.x*1.4;fy+=breeze.y*1.4;}
@@ -37,13 +55,15 @@ const naturalOrder=[5,6,0,7,8,9],poeticOrder=[1,2,3,4];let autoRound=0;
 
 function curve(points,t){const n=points.length,f=((t%1+1)%1)*n,i=Math.floor(f),u=f-i,p0=points[(i-1+n)%n],p1=points[i],p2=points[(i+1)%n],p3=points[(i+2)%n];const axis=k=>.5*((2*p1[k])+(-p0[k]+p2[k])*u+(2*p0[k]-5*p1[k]+4*p2[k]-p3[k])*u*u+(-p0[k]+3*p1[k]-3*p2[k]+p3[k])*u*u*u);return {x:axis('x'),y:axis('y')};}
 function spaces(){
+  const perfStart=perfEnabled?performance.now():0;
   const content=document.querySelector('#post #article-container, .about-page, .home-shell, #article-container, #content-inner');
   const r=content?content.getBoundingClientRect():{left:W*.18,right:W*.82};
   articleBounds={left:clamp(r.left,24,W*.45),right:clamp(r.right,W*.55,W-24)};
   const selector='#page-header,#nav,#sidebar,#aside-content,#rightside,#footer,.home-hero-fullscreen,.hero-art,#mini-music,dialog,[role="dialog"],h1,h2,h3,h4,p,li,dt,dd,summary,blockquote,pre,table,img,video,iframe,button,input,select,textarea,.post-meta,.chapter,.eyebrow,.pagination,.gallery-item';
   protectedRects=[...document.querySelectorAll(selector)].filter(el=>{
     const style=getComputedStyle(el);return style.display!=='none'&&style.visibility!=='hidden'&&el.getClientRects().length;
-  }).map(el=>{const r=el.getBoundingClientRect();return {left:r.left-10,right:r.right+10,top:r.top-10,bottom:r.bottom+10,soft:el.matches('h1,h2,h3,h4,p,li,dt,dd,summary,blockquote,pre,table,.post-meta,.chapter,.eyebrow')};}).filter(r=>r.bottom>0&&r.top<H&&r.right>0&&r.left<W);
+  }).map(el=>{const r=el.getBoundingClientRect();return {left:r.left-10,right:r.right+10,top:r.top-10,bottom:r.bottom+10,fixed:!!el.closest('#nav,#rightside,#mini-music,dialog,[role="dialog"]'),soft:el.matches('h1,h2,h3,h4,p,li,dt,dd,summary,blockquote,pre,table,.post-meta,.chapter,.eyebrow')};}).filter(r=>r.right>0&&r.left<W);
+  layoutScroll=scrollY;indexMasks();
   fullyCovered=protectedRects.some(r=>r.left<=0&&r.right>=W&&r.top<=0&&r.bottom>=H);
   const occupied=protectedRects.filter(r=>r.left<W*.7&&r.right>W*.3).sort((a,b)=>a.top-b.top);
   let previous=80,best=0;scenicY=H*.23;scenicHeight=85;
@@ -57,6 +77,7 @@ function spaces(){
   // The free route stays connected around the reading column; no isolated zones.
   const points=[{x:left,y:H*.16},{x:left*.8,y:H*.46},{x:left*1.1,y:H*.8},{x:W*.24,y:H+55},{x:W*.5,y:H+55},{x:W*.76,y:H+55},{x:right,y:H*.8},{x:right+12,y:H*.46},{x:right-12,y:H*.16},{x:W*.76,y:-65},{x:W*.24,y:-65}];
   const base=sampleRoute(points);route=base.points;baseLength=routeLength=base.length;
+  if(perfEnabled){perf.layout+=performance.now()-perfStart;perf.layoutCalls++;}
 }
 function sampleRoute(points){const samples=Array.from({length:661},(_,i)=>curve(points,i/660)),distances=[0];let length=0;for(let i=1;i<samples.length;i++){length+=Math.hypot(samples[i].x-samples[i-1].x,samples[i].y-samples[i-1].y);distances.push(length);}let j=1;return {length,points:Array.from({length:641},(_,i)=>{const d=i/640*length;while(j<distances.length-1&&distances[j]<d)j++;const f=(d-distances[j-1])/(distances[j]-distances[j-1]||1);return {x:mix(samples[j-1].x,samples[j].x,f),y:mix(samples[j-1].y,samples[j].y,f)};})};}
 function along(u){const f=((u%1+1)%1)*640,i=Math.floor(f),t=f-i,a=route[i],b=route[i+1],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;return {x:mix(a.x,b.x,t),y:mix(a.y,b.y,t),nx:-dy/d,ny:dx/d};}
@@ -84,7 +105,13 @@ const ranked=birds.map(b=>{let distance=Infinity,phase=0;for(let i=0;i<contour.l
 for(let i=0;i<12&&ranked.length>30;i++){const j=Math.floor(Math.random()*(ranked.length-2)),start=clock+9+Math.random()*16,duration=4+Math.random()*3,phase=Math.random()*TAU;ranked[j].b.social={start,duration,phase,side:1};ranked[j+1].b.social={start,duration,phase,side:-1};}
 nextMotif=(nextMotif+1)%names.length;lastTrigger=clock;nextAuto=clock+44;scrollMark=scrollY;markMotif(formation.kind);sceneLabel.textContent=names[formation.kind]+' · 聚拢';status.textContent='鸟群逐渐汇成'+names[formation.kind]+'，停留约半分钟后再迁徙。';if(reduced){sceneAmount=1;for(const b of birds){const p=flowPoint(b,b.u,1);b.x=p.x;b.y=p.y;}draw();}}
 function resize(){W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);spaces();for(const b of birds){const p=flowPoint(b,b.u,0);b.x=p.x;b.y=p.y;}draw();}
-function step(dt){clock+=dt;const amount=sceneAmount=envelope();if(!formation&&clock>=nextAuto){nextMotif=autoRound%7===6?poeticOrder[Math.floor(autoRound/7)%poeticOrder.length]:naturalOrder[(autoRound-Math.floor(autoRound/7))%naturalOrder.length];autoRound++;trigger(true);}if(formation){const age=clock-formation.start,label=names[formation.kind]+' · '+(age<3?'聚拢':age<3+formation.hold?'停留':'舒展'),node=sceneLabel;if(node.textContent!==label)node.textContent=label;}routeLength=baseLength/FOCUS_SCALE;const cell=INTERACTION_RADIUS,grid=new Map();wind.energy*=Math.exp(-dt*3);mouse.weight+=(wind.energy-mouse.weight)*(1-Math.exp(-dt*5));wind.samples=wind.samples.filter(n=>clock-n.born<2.5);wind.pulses=wind.pulses.filter(n=>clock-n.born<3.2);scrollParallax*=Math.exp(-dt*2.5);garden?.update(dt,clock,wind,mouse);
+function step(dt){
+if(scrollingFrame){
+  clock+=dt;garden?.update(dt,clock,wind,mouse);wind.energy*=Math.exp(-dt*3);
+  for(const b of birds){const advance=dt*b.speed*60;b.u+=advance/routeLength;if(formation&&b.shapeId===formation.id)b.shapeU+=advance/(b.shapeLength||formation.length);b.x+=b.vx*dt;b.y+=b.vy*dt;}
+  return;
+}
+clock+=dt;const amount=sceneAmount=envelope();if(!formation&&clock>=nextAuto){nextMotif=autoRound%7===6?poeticOrder[Math.floor(autoRound/7)%poeticOrder.length]:naturalOrder[(autoRound-Math.floor(autoRound/7))%naturalOrder.length];autoRound++;trigger(true);}if(formation){const age=clock-formation.start,label=names[formation.kind]+' · '+(age<3?'聚拢':age<3+formation.hold?'停留':'舒展'),node=sceneLabel;if(node.textContent!==label)node.textContent=label;}routeLength=baseLength/FOCUS_SCALE;const cell=INTERACTION_RADIUS,grid=new Map();wind.energy*=Math.exp(-dt*3);mouse.weight+=(wind.energy-mouse.weight)*(1-Math.exp(-dt*5));wind.samples=wind.samples.filter(n=>clock-n.born<2.5);wind.pulses=wind.pulses.filter(n=>clock-n.born<3.2);scrollParallax*=Math.exp(-dt*2.5);garden?.update(dt,clock,wind,mouse);
 if(clock>=nextWander){const candidates=birds.filter(b=>{const p=project(b);return b.isOutlier&&!b.wander&&p.y>H*.18&&p.y<H*.8&&(p.x<articleBounds.left-30||p.x>articleBounds.right+30);}),number=Math.min(14,candidates.length,Math.max(0,36-birds.filter(b=>b.wander).length));for(let i=0;i<number;i++){const j=Math.floor(Math.random()*candidates.length),b=candidates.splice(j,1)[0];b.wander={start:clock,duration:7+Math.random()*3,burst:Math.random()<.08};}nextWander=clock+6;}
 for(const b of birds){const key=Math.floor(b.x/cell)+','+Math.floor(b.y/cell);if(!grid.has(key))grid.set(key,[]);grid.get(key).push(b);}
 for(const b of birds){const selected=formation&&b.shapeId===formation.id,morph=selected?amount:0,natural=selected&&naturalOrder.includes(formation.kind),air=airAt(b),age=formation?clock-formation.start:0,resting=selected&&age>6&&age<3+formation.hold,restAmount=resting?smooth((age-6)/4):0,social=b.social&&clock>b.social.start&&clock<b.social.start+b.social.duration;b.morph=morph;b.airPower=(b.airPower||0)+(air.power-(b.airPower||0))*(1-Math.exp(-dt*3));const current=Math.sin(b.u*TAU*2+clock*.3+b.seed*.15)*.28,peripheral=Math.abs(b.band)*.22-.12,freeSpeed=clamp(b.baseSpeed+(speed-6)*.5+current+peripheral,3,8),restSpeed=natural?(b.role==='tail'?2.5:3.1+b.seed/TAU*.9):(b.index%8===0?.55:1.1+b.seed/TAU*.65),shapeSpeed=mix(3.6+(b.seed/TAU)*1.8,restSpeed,restAmount);let desired=mix(freeSpeed,social?3.2:shapeSpeed,morph)+air.boost;
@@ -98,17 +125,19 @@ const disturbance=Math.sin(clock*.55+b.seed)*NOISE*(b.isOutlier?.04:.012),target
 for(const b of birds){b.vx=b.nvx;b.vy=b.nvy;b.angle=b.nextAngle;b.x+=b.vx*dt;b.y+=b.vy*dt;b.phase+=dt*(4+b.size)*(b.speed/6);}
 }
 function draw(){
+  const perfStart=perfEnabled?performance.now():0;
   ctx.clearRect(0,0,W,H);ctx.lineCap='round';ctx.lineJoin='round';
   garden?.drawBackground(ctx,clock,dark);
   const ordered=birds.slice().sort((a,b)=>b.z-a.z||a.index-b.index);
   for(const b of ordered){
-    const p=project(b);
+    const p=project(b,true);
     if(p.x<-24||p.x>W+24||p.y<-24||p.y>H+24)continue;
     let clearance=1;
-    for(const r of protectedRects){
+    for(const r of maskGrid.get(Math.floor(p.x/MASK_CELL)+','+Math.floor(p.y/MASK_CELL))||[]){
       const dx=Math.max(r.left-p.x,0,p.x-r.right),dy=Math.max(r.top-p.y,0,p.y-r.bottom);
       // Leave enough clearance for the wider folded-paper silhouette.
       clearance=Math.min(clearance,smooth(Math.hypot(dx,dy)/20));
+      if(clearance<.02)break;
     }
     if(clearance<.02)continue;
     const windEmphasis=clamp(b.airPower||0,0,.85),foreground=smooth((150-b.z)/125);
@@ -131,8 +160,27 @@ function draw(){
   }
   ctx.globalAlpha=1;
   garden?.drawPetals(ctx,clock,dark);
+  if(perfEnabled){perf.draw+=performance.now()-perfStart;if(perf.frames%60===0)canvas.dataset.drawMs=(perf.draw/Math.max(1,perf.frames)).toFixed(2);}
 }
-function frame(now){if(hidden||!active)return;if(fullyCovered){last=now;ctx.clearRect(0,0,W,H);raf=requestAnimationFrame(frame);return;}const raw=last?Math.max(0,(now-last)/1000):1/60,elapsed=Math.min(raw,2);last=now;if(!reduced){const steps=Math.min(12,Math.max(1,Math.ceil(elapsed/.04)));for(let i=0;i<steps;i++)step(elapsed/steps);clock+=Math.max(0,raw-elapsed);}draw();canvas.dataset.count=String(count);setState();if(!reduced)raf=requestAnimationFrame(frame);}
+function frame(now){
+  if(hidden||!active)return;
+  syncScroll();
+  if(fullyCovered){last=now;ctx.clearRect(0,0,W,H);raf=requestAnimationFrame(frame);return;}
+  const perfStart=perfEnabled?performance.now():0;
+  const raw=last?Math.max(0,(now-last)/1000):1/60;last=now;
+  scrollingFrame=now<scrollActiveUntil;
+  clock+=Math.max(0,raw-.05);
+  // Simulate at 30 Hz, interpolate at display refresh rate. Never accumulate catch-up work.
+  accumulator=Math.min(accumulator+Math.min(raw,.05),FIXED_STEP*2);
+  if(accumulator>=FIXED_STEP){
+    for(const b of birds){b.prevX=b.x;b.prevY=b.y;b.prevZ=b.z;}
+    step(FIXED_STEP);accumulator=Math.min(accumulator-FIXED_STEP,FIXED_STEP);
+  }
+  renderBlend=clamp(accumulator/FIXED_STEP,0,1);
+  draw();canvas.dataset.count=String(count);setState();
+  if(perfEnabled){const cost=performance.now()-perfStart;perf.frames++;perf.cpu+=cost;perf.max=Math.max(perf.max,cost);if(raw>.05)perf.gaps++;if(perf.frames%60===0)canvas.dataset.perf=JSON.stringify({frames:perf.frames,avgMs:+(perf.cpu/perf.frames).toFixed(2),maxMs:+perf.max.toFixed(2),longGaps:perf.gaps,layoutMs:+(perf.layout/Math.max(1,perf.layoutCalls)).toFixed(2)});}
+  raf=requestAnimationFrame(frame);
+}
 function trackPointer(e){if(!active)return;const now=performance.now()/1000,previousX=mouse.x,previousY=mouse.y,dt=now-wind.lastTime;mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=e.pointerType!=='touch';if(mouse.active&&dt>0&&dt<.25&&previousX>-900){const dx=mouse.x-previousX,dy=mouse.y-previousY,d=Math.hypot(dx,dy),velocity=Math.min(2200,d/Math.max(.012,dt));if(d>.4){const ux=dx/d,uy=dy/d,oldSpeed=Math.hypot(wind.vx,wind.vy),curl=oldSpeed>10?clamp((wind.vx*uy-wind.vy*ux)/oldSpeed*3,-1,1):0,acceleration=Math.abs(velocity-oldSpeed)/Math.max(.012,dt),power=clamp(velocity/1200+acceleration/24000,.03,1);wind.energy=Math.max(wind.energy,power);wind.vx=mix(wind.vx,ux*velocity,.35);wind.vy=mix(wind.vy,uy*velocity,.35);if(now-wind.lastSample>.04){wind.samples.push({x:mouse.x,y:mouse.y,dx:ux,dy:uy,power,curl,born:clock});if(wind.samples.length>28)wind.samples.shift();wind.lastSample=now;}}}else{wind.vx=wind.vy=0;}wind.lastTime=now;}
 
 function pause(){active=false;cancelAnimationFrame(raf);raf=0;last=0;clearTimeout(scrollTimer);clearTimeout(resizeTimer);}
@@ -142,7 +190,7 @@ function refresh(){
   if(disabled()){delete document.body.dataset.ambientFlock;canvas.hidden=true;ctx.clearRect(0,0,W,H);return;}
   document.body.dataset.ambientFlock='true';
   canvas.hidden=false;count=innerWidth<600?500:innerWidth<1000?900:1400;
-  formation=null;sceneAmount=0;clock=0;nextAuto=3;autoRound=0;wind.samples=[];wind.pulses=[];wind.energy=0;
+  formation=null;sceneAmount=0;clock=0;accumulator=0;renderBlend=1;nextAuto=3;autoRound=0;wind.samples=[];wind.pulses=[];wind.energy=0;
   resize();create();active=true;hidden=document.hidden;if(!hidden)raf=requestAnimationFrame(frame);
 }
 document.addEventListener('pointermove',trackPointer,{passive:true});
@@ -156,7 +204,8 @@ document.addEventListener('pointerleave',()=>mouse.active=false);
 document.addEventListener('click',e=>{if(e.target.closest('[data-spiral-toggle]'))refresh();});
 addEventListener('scroll',()=>{
   if(!active)return;scrollParallax=clamp(scrollParallax+(scrollY-lastScroll)*.012,-4,4);lastScroll=scrollY;
-  clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{spaces();trigger();},80);
+  scrollActiveUntil=performance.now()+160;
+  clearTimeout(scrollTimer);scrollTimer=setTimeout(spaces,80);
 },{passive:true});
 addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(refresh,150);});
 document.addEventListener('visibilitychange',()=>{hidden=document.hidden;cancelAnimationFrame(raf);raf=0;last=0;if(active&&!hidden)raf=requestAnimationFrame(frame);});

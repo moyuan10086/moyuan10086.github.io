@@ -26,6 +26,11 @@
       if(this.scene&&this.composition[this.scene.branchIndex])Object.assign(this.scene,this.composition[this.scene.branchIndex]);
     }
     visibleBranches(){return this.composition.filter(s=>s.y+s.height>70&&s.y<this.H-35);}
+    scrollBy(delta){
+      for(const s of this.composition)s.y-=delta;
+      if(this.scene)this.scene.y-=delta;
+      if(Number.isFinite(this.layerTop))this.layerTop-=delta;
+    }
     point(x,y,s){
       const dx=((s.side==='left'?1-x:x)-.5)*s.width,dy=(y-.5)*s.height;
       const c=Math.cos(s.rotation||0),sn=Math.sin(s.rotation||0);
@@ -109,21 +114,24 @@
     drawBackground(ctx,clock,dark){
       if(!this.composition.length||!this.ready)return;
       if(this.dirty){
-        const layer=this.layer,c=this.layerCtx;layer.width=this.W;layer.height=this.H;
-        c.clearRect(0,0,this.W,this.H);
-        for(const s of this.visibleBranches()){
-          c.save();c.translate(s.x+s.width*.5,s.y+s.height*.5);c.rotate(s.rotation);c.globalAlpha=s.alpha;
+        const layer=this.layer,c=this.layerCtx;
+        this.layerTop=Math.floor(Math.min(...this.composition.map(s=>s.y))-40);
+        const bottom=Math.max(...this.composition.map(s=>s.y+s.height))+40;
+        layer.width=this.W;layer.height=Math.ceil(bottom-this.layerTop);
+        c.clearRect(0,0,layer.width,layer.height);
+        for(const s of this.composition){
+          c.save();c.translate(s.x+s.width*.5,s.y+s.height*.5-this.layerTop);c.rotate(s.rotation);c.globalAlpha=s.alpha;
           if(s.side==='left')c.scale(-1,1);c.drawImage(this.image,-s.width*.5,-s.height*.5,s.width,s.height);c.restore();
         }
         // Transparent image and protected text are composited once after layout changes.
         for(const r of this.rects){
           if(r.soft){c.save();c.globalCompositeOperation='destination-out';c.globalAlpha=.7;
-            c.fillRect(r.left-8,r.top-8,r.right-r.left+16,r.bottom-r.top+16);c.restore();}
-          else c.clearRect(r.left-8,r.top-8,r.right-r.left+16,r.bottom-r.top+16);
+            c.fillRect(r.left-8,r.top-8-this.layerTop,r.right-r.left+16,r.bottom-r.top+16);c.restore();}
+          else c.clearRect(r.left-8,r.top-8-this.layerTop,r.right-r.left+16,r.bottom-r.top+16);
         }
         this.dirty=false;
       }
-      ctx.globalAlpha=dark?.75:1;ctx.drawImage(this.layer,0,0);ctx.globalAlpha=1;
+      ctx.globalAlpha=dark?.75:1;ctx.drawImage(this.layer,0,this.layerTop);ctx.globalAlpha=1;
     }
     drawPetals(ctx,clock,dark){
       const ordered=this.petals.slice().sort((a,b)=>a.depth-b.depth);
