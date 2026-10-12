@@ -1,6 +1,6 @@
 (() => {
 'use strict';
-// Decorative ink flock, adapted from the reviewed standalone preview.
+// Decorative paper-plane flock, adapted from the reviewed flock motion.
 // Keep the controller outside the PJAX container and reuse it after navigation.
 if (window.__moyuanInkBirds) { window.__moyuanInkBirds.refresh(); return; }
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -90,9 +90,39 @@ neighbors:for(let ix=-1;ix<=1;ix++)for(let iy=-1;iy<=1;iy++){const bucket=grid.g
 const disturbance=Math.sin(clock*.55+b.seed)*NOISE*(b.isOutlier?.04:.012),target=Math.atan2(steerY,steerX)+disturbance;let delta=target-b.angle;while(delta>Math.PI)delta-=TAU;while(delta<-Math.PI)delta+=TAU;const turnLimit=mix(3,natural?1.8:3,morph),turn=clamp(delta*(1-Math.exp(-dt*4)),-dt*turnLimit,dt*turnLimit);b.nextAngle=b.angle+turn;b.bank+=(clamp(turn/(dt||1)*.13,-.38,.38)-b.bank)*(1-Math.exp(-dt*2.5));const depthWave=Math.sin(b.u*TAU*1.2+clock*.12+b.seed*.2)*24,shapeDepth=b.baseZ+Math.sin((b.shapeU||b.u)*TAU+clock*.07)*65+b.band*30;b.targetZ=clamp(mix(b.baseZ+depthWave,shapeDepth,morph)-b.bank*22+air.depth,25,600);b.z+=(b.targetZ-b.z)*(1-Math.exp(-dt*.65));b.nvx=Math.cos(b.nextAngle)*travel;b.nvy=Math.sin(b.nextAngle)*travel;}
 for(const b of birds){b.vx=b.nvx;b.vy=b.nvy;b.angle=b.nextAngle;b.x+=b.vx*dt;b.y+=b.vy*dt;b.phase+=dt*(4+b.size)*(b.speed/6);}
 }
-function draw(){ctx.clearRect(0,0,W,H);ctx.lineCap='round';ctx.lineJoin='round';const ordered=birds.slice().sort((a,b)=>b.z-a.z||a.index-b.index);
-for(const b of ordered){const p=project(b);if(p.x<-18||p.x>W+18||p.y<-18||p.y>H+18)continue;let clearance=1;for(const r of protectedRects){const dx=Math.max(r.left-p.x,0,p.x-r.right),dy=Math.max(r.top-p.y,0,p.y-r.bottom);clearance=Math.min(clearance,smooth(Math.hypot(dx,dy)/12));}if(clearance<.02)continue;const ink=clamp(b.airPower||0,0,.85),emphasis=mix(1,1.4,b.morph||0),foreground=smooth((150-b.z)/125),alpha=clamp(mix(b.alpha*(.34+p.near*.55)*emphasis+foreground*.2,.87,ink),.08,.9)*clearance,s=b.size*(W<820?.85:1)*Math.pow(p.scale/FOCUS_SCALE,1.3)*(1+foreground*.85),wing=1.7+(reduced?.2:Math.sin(b.phase))*.5,c=Math.cos(b.angle),sn=Math.sin(b.angle),body=s*(1-Math.abs(b.bank)*.18),px=(a,z)=>p.x+a*c-z*sn,py=(a,z)=>p.y+a*sn+z*c;
-ctx.globalAlpha=alpha;const shade=Math.round(mix(18,135,clamp(b.z/600,0,1))*(1-ink*.55));const color=dark?255-shade:shade;ctx.strokeStyle=ctx.fillStyle='rgb('+color+','+color+','+color+')';ctx.lineWidth=.45+p.near*.32+foreground*.16;ctx.beginPath();ctx.moveTo(px(-body*.7,-s*wing*(1+b.bank*.5)),py(-body*.7,-s*wing*(1+b.bank*.5)));ctx.quadraticCurveTo(px(body*.05,-s*.55),py(body*.05,-s*.55),px(body*.9,0),py(body*.9,0));ctx.quadraticCurveTo(px(body*.05,s*.55),py(body*.05,s*.55),px(-body*.7,s*wing*(1-b.bank*.5)),py(-body*.7,s*wing*(1-b.bank*.5)));ctx.stroke();ctx.beginPath();ctx.moveTo(px(body*1.15,0),py(body*1.15,0));ctx.lineTo(px(-body*.65,-s*.24),py(-body*.65,-s*.24));ctx.lineTo(px(-body*1.1,0),py(-body*1.1,0));ctx.lineTo(px(-body*.65,s*.24),py(-body*.65,s*.24));ctx.closePath();ctx.fill();}ctx.globalAlpha=1;}
+function draw(){
+  ctx.clearRect(0,0,W,H);ctx.lineCap='round';ctx.lineJoin='round';
+  const ordered=birds.slice().sort((a,b)=>b.z-a.z||a.index-b.index);
+  for(const b of ordered){
+    const p=project(b);
+    if(p.x<-24||p.x>W+24||p.y<-24||p.y>H+24)continue;
+    let clearance=1;
+    for(const r of protectedRects){
+      const dx=Math.max(r.left-p.x,0,p.x-r.right),dy=Math.max(r.top-p.y,0,p.y-r.bottom);
+      // Leave enough clearance for the wider folded-paper silhouette.
+      clearance=Math.min(clearance,smooth(Math.hypot(dx,dy)/20));
+    }
+    if(clearance<.02)continue;
+    const windEmphasis=clamp(b.airPower||0,0,.85),foreground=smooth((150-b.z)/125);
+    const alpha=clamp(mix(b.alpha*(.48+p.near*.5)*mix(1,1.2,b.morph||0)+foreground*.12,.78,windEmphasis),.12,.8)*clearance;
+    const s=clamp(b.size*(W<820?1.04:1.22)*Math.pow(p.scale/FOCUS_SCALE,.95)*(1+foreground*.25),.85,3.8);
+    // A paper plane banks as one rigid folded sheet; no fluttering wings.
+    const bankWidth=1-Math.abs(b.bank)*.55,c=Math.cos(b.angle),sn=Math.sin(b.angle);
+    const point=(x,y)=>[p.x+x*s*c-y*s*bankWidth*sn,p.y+x*s*sn+y*s*bankWidth*c];
+    const tip=point(2.5,0),upper=point(-1.7,-1.45),fold=point(-.75,0),lower=point(-1.7,1.45);
+    const depth=clamp(b.z/600,0,1);
+    ctx.globalAlpha=alpha;
+    ctx.strokeStyle=dark?'rgb(248,180,207)':'rgb('+Math.round(mix(204,225,depth))+','+Math.round(mix(108,160,depth))+','+Math.round(mix(148,186,depth))+')';
+    ctx.fillStyle=dark?'rgb(110,65,89)':'rgb(255,238,245)';
+    ctx.lineWidth=.6+p.near*.2+foreground*.08;
+    ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...upper);ctx.lineTo(...fold);ctx.lineTo(...lower);ctx.closePath();ctx.fill();ctx.stroke();
+    // A slightly darker lower face makes the fold readable even at small sizes.
+    ctx.globalAlpha=alpha*.48;ctx.fillStyle=dark?'rgb(214,128,166)':'rgb(241,185,208)';
+    ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...fold);ctx.lineTo(...lower);ctx.closePath();ctx.fill();
+    ctx.globalAlpha=alpha*.85;ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...fold);ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+}
 function frame(now){if(hidden||!active)return;if(fullyCovered){last=now;ctx.clearRect(0,0,W,H);raf=requestAnimationFrame(frame);return;}const raw=last?Math.max(0,(now-last)/1000):1/60,elapsed=Math.min(raw,2);last=now;if(!reduced){const steps=Math.min(12,Math.max(1,Math.ceil(elapsed/.04)));for(let i=0;i<steps;i++)step(elapsed/steps);clock+=Math.max(0,raw-elapsed);}draw();canvas.dataset.count=String(count);setState();if(!reduced)raf=requestAnimationFrame(frame);}
 function trackPointer(e){if(!active)return;const now=performance.now()/1000,previousX=mouse.x,previousY=mouse.y,dt=now-wind.lastTime;mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=e.pointerType!=='touch';if(mouse.active&&dt>0&&dt<.25&&previousX>-900){const dx=mouse.x-previousX,dy=mouse.y-previousY,d=Math.hypot(dx,dy),velocity=Math.min(2200,d/Math.max(.012,dt));if(d>.4){const ux=dx/d,uy=dy/d,oldSpeed=Math.hypot(wind.vx,wind.vy),curl=oldSpeed>10?clamp((wind.vx*uy-wind.vy*ux)/oldSpeed*3,-1,1):0,acceleration=Math.abs(velocity-oldSpeed)/Math.max(.012,dt),power=clamp(velocity/1200+acceleration/24000,.03,1);wind.energy=Math.max(wind.energy,power);wind.vx=mix(wind.vx,ux*velocity,.35);wind.vy=mix(wind.vy,uy*velocity,.35);if(now-wind.lastSample>.04){wind.samples.push({x:mouse.x,y:mouse.y,dx:ux,dy:uy,power,curl,born:clock});if(wind.samples.length>28)wind.samples.shift();wind.lastSample=now;}}}else{wind.vx=wind.vy=0;}wind.lastTime=now;}
 
