@@ -11,9 +11,26 @@
   contain: strict;
 }
 #ink-bird-flock[hidden] { display: none; }
+/* Content stays above the ambient scene. Home artwork remains its own layer. */
+body[data-ambient-flock="true"] #content-inner { position: relative; z-index: 3; }
+body[data-ambient-flock="true"] .home-shell { background: transparent; }
+html[data-theme="light"] body[data-ambient-flock="true"] #content-inner > :is(#post,#page,#archive,#category,#tag):not(:has(.home-shell,.about-page)),
+html[data-theme="light"] body[data-ambient-flock="true"] #aside-content .card-widget,
+html[data-theme="light"] body[data-ambient-flock="true"] #recent-posts > .recent-post-item,
+html[data-theme="light"] body[data-ambient-flock="true"] #article-container .about-page .about-portrait {
+  background: rgba(255,255,255,.9);
+  backdrop-filter: blur(7px);
+}
+html[data-theme="dark"] body[data-ambient-flock="true"] #content-inner > :is(#post,#page,#archive,#category,#tag):not(:has(.home-shell,.about-page)),
+html[data-theme="dark"] body[data-ambient-flock="true"] #aside-content .card-widget,
+html[data-theme="dark"] body[data-ambient-flock="true"] #recent-posts > .recent-post-item {
+  background: rgba(24,27,34,.94);
+  backdrop-filter: blur(7px);
+}
 @media (prefers-reduced-motion: reduce) {
   #ink-bird-flock { display: none; }
 }
 @media print {
   #ink-bird-flock { display: none; }
+  body[data-ambient-flock="true"] #content-inner { z-index: auto; }
 }
