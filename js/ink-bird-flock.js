@@ -16,15 +16,16 @@ const perf={frames:0,cpu:0,max:0,gaps:0,layout:0,layoutCalls:0,draw:0};
 const status = {textContent: ''};
 let active = false, dark = document.documentElement.dataset.theme === 'dark';
 const sceneLabel = {textContent: ''};
-const setState = () => { canvas.dataset.scene = formation?.sakura ? '樱花停靠' : formation ? names[formation.kind] : '自由迁徙'; canvas.dataset.sakura= garden?.scene?'bloom':garden?.petals.length?'falling':'idle'; };
+const setState = () => { canvas.dataset.scene = formation ? names[formation.kind] : '自由迁徙'; };
 function disabled() { return !eligible() || motion.matches || !!document.querySelector('[data-spiral-toggle][aria-pressed="true"]'); }
 
 const reduced=false,TAU=Math.PI*2;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t,smooth=v=>{v=clamp(v,0,1);return v*v*(3-2*v);};
-let count=innerWidth<600?500:innerWidth<1000?900:1400,speed=6,W=0,H=0,dpr=1,birds=[],route=[],routeLength=1,baseLength=1,sceneAmount=0,nextAuto=3,nextWander=5,scenicY=0,scenicHeight=80,clock=0,last=0,raf=0,hidden=document.hidden,protectedRects=[],fullyCovered=false,articleBounds,formation=null,nextMotif=0,lastTrigger=-20,scrollMark=0,scrollTimer,resizeTimer;
+const flockCount=()=>innerWidth<600?240:innerWidth<1000?500:800;
+let count=flockCount(),speed=6,W=0,H=0,dpr=1,birds=[],route=[],routeLength=1,baseLength=1,sceneAmount=0,nextAuto=3,nextWander=5,scenicY=0,scenicHeight=80,clock=0,last=0,raf=0,hidden=document.hidden,protectedRects=[],fullyCovered=false,articleBounds,formation=null,nextMotif=0,lastTrigger=-20,scrollMark=0,scrollTimer,resizeTimer;
 const INTERACTION_RADIUS=150,NOISE=.65;
 const MASK_CELL=64,FIXED_STEP=1/30;
-let maskGrid=new Map(),layoutScroll=scrollY,accumulator=0,renderBlend=1,scrollActiveUntil=0,scrollingFrame=false;
+let maskGrid=new Map(),layoutScroll=scrollY,accumulator=0,renderBlend=1,scrollActiveUntil=0,scrollingFrame=false,lastRender=0;
 function indexMasks(){
   maskGrid=new Map();
   for(const r of protectedRects){
@@ -37,18 +38,18 @@ function syncScroll(){
   const delta=scrollY-layoutScroll;if(!delta)return;
   layoutScroll=scrollY;for(const r of protectedRects)if(!r.fixed){r.top-=delta;r.bottom-=delta;}
   fullyCovered=protectedRects.some(r=>r.left<=0&&r.right>=W&&r.top<=0&&r.bottom>=H);
-  indexMasks();garden?.scrollBy(delta);
+  indexMasks();
 }
 const PERSPECTIVE=550,FOCUS_SCALE=PERSPECTIVE/(PERSPECTIVE+350);
 let scrollParallax=0,lastScroll=scrollY;
 const mouse={x:-1000,y:-1000,active:false,weight:0};
 const wind={samples:[],pulses:[],energy:0,lastTime:0,vx:0,vy:0,lastSample:0};
-const garden=window.MoyuanSakuraGarden?new window.MoyuanSakuraGarden({curve,onReady:()=>refresh()}):null;
-function flockAnchor(){if(!formation)return {x:W*.5,y:H*.5};if(formation.sakura&&garden?.scene){const s=garden.scene;return {x:s.x+s.width*.5,y:s.y+s.height*.5};}if([2,4,5,6].includes(formation.kind))return {x:W*.5,y:scenicY};return {x:formation.side==='left'?articleBounds.left*.49:articleBounds.right+(W-articleBounds.right)*.51,y:H*.48};}
+
+function flockAnchor(){if(!formation)return {x:W*.5,y:H*.5};if([2,4,5,6].includes(formation.kind))return {x:W*.5,y:scenicY};return {x:formation.side==='left'?articleBounds.left*.49:articleBounds.right+(W-articleBounds.right)*.51,y:H*.48};}
 function project(b,interpolate=false){const z=interpolate?mix(b.prevZ??b.z,b.z,renderBlend):b.z,x=interpolate?mix(b.prevX??b.x,b.x,renderBlend):b.x,y=interpolate?mix(b.prevY??b.y,b.y,renderBlend):b.y;const scale=PERSPECTIVE/(PERSPECTIVE+z),near=clamp(1-z/650,0,1),mx=mouse.active?clamp((mouse.x-W*.5)/(W*.5),-1,1)*mouse.weight:0,my=mouse.active?clamp((mouse.y-H*.5)/(H*.5),-1,1)*mouse.weight:0,fx=b.focusX??W*.5,fy=b.focusY??H*.5,wx=W*.5+(fx-W*.5)/FOCUS_SCALE,wy=H*.5+(fy-H*.5)/FOCUS_SCALE;return {x:fx+(x-wx)*scale+mx*near*2.5,y:fy+(y-wy)*scale+my*near*1.6+scrollParallax*near,scale,near};}
 function airAt(b){const p=project(b);let fx=0,fy=0,total=0,depth=0;for(const node of wind.samples){const age=clock-node.born;if(age<0||age>2.5)continue;const dx=p.x-node.x,dy=p.y-node.y,along=dx*node.dx+dy*node.dy,across=-dx*node.dy+dy*node.dx,influence=Math.exp(-((along/115)**2+(across/65)**2))*Math.exp(-age/1.05)*smooth(1-age/2.5)*node.power;if(influence<.002)continue;const side=Math.tanh(across/22+b.band*.5),spread=side*65;fx+=(node.dx*80-node.dy*spread-node.curl*dy*.25)*influence;fy+=(node.dy*80+node.dx*spread+node.curl*dx*.25)*influence;depth+=Math.sin(b.seed)*28*influence;total+=influence;}
 let power=1-Math.exp(-total);if(total){fx=fx/total*power;fy=fy/total*power;depth=depth/total*power;}for(const pulse of wind.pulses){const age=clock-pulse.born,dx=p.x-pulse.x,dy=p.y-pulse.y,d=Math.hypot(dx,dy);if(age<0||age>3.2||d<1||d>110)continue;const strength=smooth(1-d/110)*Math.exp(-age/.85)*smooth(1-age/3.2);fx+=dx/d*135*strength;fy+=dy/d*135*strength;depth+=Math.sin(b.seed)*32*strength;power=Math.max(power,strength);}
-if(formation?.sakura&&b.shapeId===formation.id&&garden?.scene){const breeze=garden.curl(p.x,p.y,clock);fx+=breeze.x*1.4;fy+=breeze.y*1.4;}
+
 const sensitivity=(b.isOutlier?1.3:1)*(.65+p.near*.35),length=Math.hypot(fx,fy),limit=145;if(length>limit){fx*=limit/length;fy*=limit/length;}return {x:fx*sensitivity,y:fy*sensitivity,power,depth:depth*sensitivity,boost:power*(b.isOutlier?.95:.55)};}
 const names=['卷曲','月牙','山峦','羽毛','书法弧线','云团','长带','折返','空洞','分合'];
 const naturalOrder=[5,6,0,7,8,9],poeticOrder=[1,2,3,4];let autoRound=0;
@@ -69,19 +70,16 @@ function spaces(){
   let previous=80,best=0;scenicY=H*.23;scenicHeight=85;
   for(const r of occupied){const top=clamp(r.top,0,H-60),gap=top-previous;if(gap>best&&gap>55){best=gap;scenicY=(previous+top)/2;scenicHeight=Math.min(gap,170);}previous=Math.max(previous,r.bottom);}
   if(H-60-previous>best&&H-60-previous>55){scenicY=(previous+H-60)/2;scenicHeight=Math.min(H-60-previous,170);}
-  const visibleAnchor=selector=>[...document.querySelectorAll(selector)].find(el=>el.getBoundingClientRect().width>0);
-  const pictureAnchor=visibleAnchor('#selected-writing,#name-zh,#name-en')||visibleAnchor('#post #article-container,#article-container');
-  const pictureRect=pictureAnchor?pictureAnchor.getBoundingClientRect():{top:100,height:450};
-  garden?.setSpaces(W,H,articleBounds,protectedRects,{},pictureRect);
   const left=Math.max(16,articleBounds.left*.46),right=articleBounds.right+(W-articleBounds.right)*.54;
   // The free route stays connected around the reading column; no isolated zones.
   const points=[{x:left,y:H*.16},{x:left*.8,y:H*.46},{x:left*1.1,y:H*.8},{x:W*.24,y:H+55},{x:W*.5,y:H+55},{x:W*.76,y:H+55},{x:right,y:H*.8},{x:right+12,y:H*.46},{x:right-12,y:H*.16},{x:W*.76,y:-65},{x:W*.24,y:-65}];
   const base=sampleRoute(points);route=base.points;baseLength=routeLength=base.length;
   if(perfEnabled){perf.layout+=performance.now()-perfStart;perf.layoutCalls++;}
+  wake();
 }
 function sampleRoute(points){const samples=Array.from({length:661},(_,i)=>curve(points,i/660)),distances=[0];let length=0;for(let i=1;i<samples.length;i++){length+=Math.hypot(samples[i].x-samples[i-1].x,samples[i].y-samples[i-1].y);distances.push(length);}let j=1;return {length,points:Array.from({length:641},(_,i)=>{const d=i/640*length;while(j<distances.length-1&&distances[j]<d)j++;const f=(d-distances[j-1])/(distances[j]-distances[j-1]||1);return {x:mix(samples[j-1].x,samples[j].x,f),y:mix(samples[j-1].y,samples[j].y,f)};})};}
 function along(u){const f=((u%1+1)%1)*640,i=Math.floor(f),t=f-i,a=route[i],b=route[i+1],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;return {x:mix(a.x,b.x,t),y:mix(a.y,b.y,t),nx:-dy/d,ny:dx/d};}
-function shapePoint(b,u){if(formation.sakura&&garden?.scene){const p=garden.orbit(u,b.band||0,b.index||0);return {x:W*.5+(p.x-W*.5)/FOCUS_SCALE,y:H*.5+(p.y-H*.5)/FOCUS_SCALE};}const phase=((u%1+1)%1),q=(1-Math.cos(phase*TAU))*.5,rightSide=formation.side!=='left',cx=rightSide?articleBounds.right+(W-articleBounds.right)*.51:articleBounds.left*.49,cy=H*.48,kind=formation.kind,natural=[0,5,7,8,9].includes(kind),rx=Math.min(natural?118:65,(rightSide?W-articleBounds.right:articleBounds.left)*(natural?.4:.33)),ry=Math.min(natural?220:132,H*(natural?.29:.17));let x,y;
+function shapePoint(b,u){const phase=((u%1+1)%1),q=(1-Math.cos(phase*TAU))*.5,rightSide=formation.side!=='left',cx=rightSide?articleBounds.right+(W-articleBounds.right)*.51:articleBounds.left*.49,cy=H*.48,kind=formation.kind,natural=[0,5,7,8,9].includes(kind),rx=Math.min(natural?118:65,(rightSide?W-articleBounds.right:articleBounds.left)*(natural?.4:.33)),ry=Math.min(natural?220:132,H*(natural?.29:.17));let x,y;
 if(kind===0){const r=.64+.2*Math.sin(phase*TAU*2)+b.band*.27,a=phase*TAU;x=cx+Math.cos(a)*rx*r;y=cy+Math.sin(a)*ry*r;}
 else if(kind===1){const a=Math.PI*.32+q*Math.PI*1.36,thickness=Math.sin(q*Math.PI)**.8*(b.band*19+Math.sin(phase*TAU)*10);x=cx+Math.cos(a)*(rx+thickness);y=cy+Math.sin(a)*(ry+thickness*.9);}
 else if(kind===3){const stem=b.index%9===0,t=(Math.floor(b.index/2)%24)/23,side=b.index%2?1:-1,width=Math.sin(t*Math.PI)**.72*rx*.86,spineX=cx+(t-.5)*rx*.7,spineY=cy+(t-.5)*ry*2;if(stem){x=cx+(q-.5)*rx*.7+Math.sin(phase*TAU)*2;y=cy+(q-.5)*ry*2;}else{x=spineX+side*width*q;y=spineY-width*q*.58+Math.sin(phase*TAU)*2+b.band;}}
@@ -100,23 +98,25 @@ function flowPoint(b,u,amount,phaseDelta=0){const a=along(u),side=Math.min(artic
 if(b.wander){const age=(clock-b.wander.start)/b.wander.duration;if(age>=1)b.wander=null;else{const e=Math.sin(clamp(age,0,1)*Math.PI)**2,drift=Math.min(65,Math.max(20,side*.34))*e,phase=b.seed+age*TAU*1.4;x+=a.nx*drift+Math.sin(phase)*drift*.35;y+=a.ny*drift+Math.cos(phase)*drift*.45;}}
 const free={x:W*.5+(x-W*.5)/FOCUS_SCALE,y:H*.5+(y-H*.5)/FOCUS_SCALE};if(formation&&b.shapeId===formation.id){const shape=shapePoint(b,b.shapeU+phaseDelta);if(b.social&&clock>b.social.start&&clock<b.social.start+b.social.duration){const t=(clock-b.social.start)/b.social.duration,e=Math.sin(t*Math.PI)**2,a=t*TAU+b.social.phase;shape.x+=Math.cos(a)*18*e*b.social.side;shape.y+=Math.sin(a)*13*e*b.social.side;}return {x:mix(free.x,shape.x,amount),y:mix(free.y,shape.y,amount)};}return free;}
 function create(){birds=Array.from({length:count},(_,index)=>{const q=Math.random(),u=q+.075*Math.sin(q*TAU)+.18,profile=Math.random(),role=profile<.12?'tail':profile<.24?'front':'body',baseSpeed=role==='tail'?3+Math.random():role==='front'?6.5+Math.random()*1.5:4.5+Math.random()*2,isOutlier=Math.random()<.045,depthClass=Math.random(),baseZ=depthClass<.75?280+Math.random()*220:depthClass<.95?130+Math.random()*150:35+Math.random()*95;const b={index,u,role,baseSpeed,speed:baseSpeed,targetSpeed:baseSpeed,baseZ,z:baseZ,targetZ:baseZ,bank:0,isOutlier,seed:Math.random()*TAU,band:isOutlier?(Math.random()<.5?-1:1)*(.65+Math.random()*.35):Math.random()<.38?Math.random()*2-1:(Math.random()+Math.random()-1)*1.05,x:0,y:0,vx:0,vy:0,size:1+Math.random()*.5,phase:Math.random()*TAU,angle:0,alpha:.25+Math.random()*.4};const p=flowPoint(b,u,sceneAmount),a=along(u);b.x=p.x;b.y=p.y;b.angle=Math.atan2(-a.nx,a.ny);b.vx=Math.cos(b.angle)*b.speed*60;b.vy=Math.sin(b.angle)*b.speed*60;return b;});}
-function trigger(force=false,review=false){if(!force&&(reduced||formation||clock-lastTrigger<11||Math.abs(scrollY-scrollMark)<270))return;formation={id:clock+Math.random()*.001,kind:nextMotif,side:nextMotif%2?'left':'right',start:clock,hold:30,length:1};formation.sakura=!!(garden&&!garden.scene&&garden.start(clock,formation.side));const contour=Array.from({length:129},(_,i)=>shapePoint({band:0,index:formation.kind===3?i:1},i/128));for(let i=1;i<contour.length;i++)formation.length+=Math.hypot(contour[i].x-contour[i-1].x,contour[i].y-contour[i-1].y);if(formation.kind===3)formation.length=360/FOCUS_SCALE;
-const ranked=birds.map(b=>{let distance=Infinity,phase=0;for(let i=0;i<contour.length;i+=4){const d=(contour[i].x-b.x)**2+(contour[i].y-b.y)**2;if(d<distance){distance=d;phase=i/128;}}return {b,phase,distance:distance+(b.isOutlier?8000:0)};}).sort((a,b)=>a.distance-b.distance).slice(0,Math.round(count*(formation.sakura?.24:.65))).sort((a,b)=>a.phase-b.phase);ranked.forEach(({b},i)=>{b.shapeId=formation.id;b.shapeU=i/ranked.length;b.shapeReleased=false;b.trackError=0;b.social=null;let length=0,previous=shapePoint(b,0);for(let j=1;j<=48;j++){const p=shapePoint(b,j/48);length+=Math.hypot(p.x-previous.x,p.y-previous.y);previous=p;}b.shapeLength=Math.max(35,length);});
+function trigger(force=false,review=false){if(!force&&(reduced||formation||clock-lastTrigger<11||Math.abs(scrollY-scrollMark)<270))return;formation={id:clock+Math.random()*.001,kind:nextMotif,side:nextMotif%2?'left':'right',start:clock,hold:30,length:1};const contour=Array.from({length:129},(_,i)=>shapePoint({band:0,index:formation.kind===3?i:1},i/128));for(let i=1;i<contour.length;i++)formation.length+=Math.hypot(contour[i].x-contour[i-1].x,contour[i].y-contour[i-1].y);if(formation.kind===3)formation.length=360/FOCUS_SCALE;
+const ranked=birds.map(b=>{let distance=Infinity,phase=0;for(let i=0;i<contour.length;i+=4){const d=(contour[i].x-b.x)**2+(contour[i].y-b.y)**2;if(d<distance){distance=d;phase=i/128;}}return {b,phase,distance:distance+(b.isOutlier?8000:0)};}).sort((a,b)=>a.distance-b.distance).slice(0,Math.round(count*.65)).sort((a,b)=>a.phase-b.phase);
+// Neighbouring lanes share an arc-length estimate instead of resampling per bird.
+const laneLengths=new Map();ranked.forEach(({b},i)=>{b.shapeId=formation.id;b.shapeU=i/ranked.length;b.shapeReleased=false;b.trackError=0;b.social=null;const key=formation.kind===3?b.index%48:Math.round(b.band*6);if(!laneLengths.has(key)){let length=0,previous=shapePoint(b,0);for(let j=1;j<=48;j++){const p=shapePoint(b,j/48);length+=Math.hypot(p.x-previous.x,p.y-previous.y);previous=p;}laneLengths.set(key,Math.max(35,length));}b.shapeLength=laneLengths.get(key);});
 for(let i=0;i<12&&ranked.length>30;i++){const j=Math.floor(Math.random()*(ranked.length-2)),start=clock+9+Math.random()*16,duration=4+Math.random()*3,phase=Math.random()*TAU;ranked[j].b.social={start,duration,phase,side:1};ranked[j+1].b.social={start,duration,phase,side:-1};}
 nextMotif=(nextMotif+1)%names.length;lastTrigger=clock;nextAuto=clock+44;scrollMark=scrollY;markMotif(formation.kind);sceneLabel.textContent=names[formation.kind]+' · 聚拢';status.textContent='鸟群逐渐汇成'+names[formation.kind]+'，停留约半分钟后再迁徙。';if(reduced){sceneAmount=1;for(const b of birds){const p=flowPoint(b,b.u,1);b.x=p.x;b.y=p.y;}draw();}}
-function resize(){W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);spaces();for(const b of birds){const p=flowPoint(b,b.u,0);b.x=p.x;b.y=p.y;}draw();}
+function resize(){W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,1.25);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);spaces();for(const b of birds){const p=flowPoint(b,b.u,0);b.x=p.x;b.y=p.y;}draw();}
 function step(dt){
 if(scrollingFrame){
-  clock+=dt;garden?.update(dt,clock,wind,mouse);wind.energy*=Math.exp(-dt*3);
+  clock+=dt;wind.energy*=Math.exp(-dt*3);
   for(const b of birds){const advance=dt*b.speed*60;b.u+=advance/routeLength;if(formation&&b.shapeId===formation.id)b.shapeU+=advance/(b.shapeLength||formation.length);b.x+=b.vx*dt;b.y+=b.vy*dt;}
   return;
 }
-clock+=dt;const amount=sceneAmount=envelope();if(!formation&&clock>=nextAuto){nextMotif=autoRound%7===6?poeticOrder[Math.floor(autoRound/7)%poeticOrder.length]:naturalOrder[(autoRound-Math.floor(autoRound/7))%naturalOrder.length];autoRound++;trigger(true);}if(formation){const age=clock-formation.start,label=names[formation.kind]+' · '+(age<3?'聚拢':age<3+formation.hold?'停留':'舒展'),node=sceneLabel;if(node.textContent!==label)node.textContent=label;}routeLength=baseLength/FOCUS_SCALE;const cell=INTERACTION_RADIUS,grid=new Map();wind.energy*=Math.exp(-dt*3);mouse.weight+=(wind.energy-mouse.weight)*(1-Math.exp(-dt*5));wind.samples=wind.samples.filter(n=>clock-n.born<2.5);wind.pulses=wind.pulses.filter(n=>clock-n.born<3.2);scrollParallax*=Math.exp(-dt*2.5);garden?.update(dt,clock,wind,mouse);
+clock+=dt;const amount=sceneAmount=envelope();if(!formation&&clock>=nextAuto){nextMotif=autoRound%7===6?poeticOrder[Math.floor(autoRound/7)%poeticOrder.length]:naturalOrder[(autoRound-Math.floor(autoRound/7))%naturalOrder.length];autoRound++;trigger(true);}if(formation){const age=clock-formation.start,label=names[formation.kind]+' · '+(age<3?'聚拢':age<3+formation.hold?'停留':'舒展'),node=sceneLabel;if(node.textContent!==label)node.textContent=label;}routeLength=baseLength/FOCUS_SCALE;const cell=INTERACTION_RADIUS,grid=new Map();wind.energy*=Math.exp(-dt*3);mouse.weight+=(wind.energy-mouse.weight)*(1-Math.exp(-dt*5));wind.samples=wind.samples.filter(n=>clock-n.born<2.5);wind.pulses=wind.pulses.filter(n=>clock-n.born<3.2);scrollParallax*=Math.exp(-dt*2.5);
 if(clock>=nextWander){const candidates=birds.filter(b=>{const p=project(b);return b.isOutlier&&!b.wander&&p.y>H*.18&&p.y<H*.8&&(p.x<articleBounds.left-30||p.x>articleBounds.right+30);}),number=Math.min(14,candidates.length,Math.max(0,36-birds.filter(b=>b.wander).length));for(let i=0;i<number;i++){const j=Math.floor(Math.random()*candidates.length),b=candidates.splice(j,1)[0];b.wander={start:clock,duration:7+Math.random()*3,burst:Math.random()<.08};}nextWander=clock+6;}
 for(const b of birds){const key=Math.floor(b.x/cell)+','+Math.floor(b.y/cell);if(!grid.has(key))grid.set(key,[]);grid.get(key).push(b);}
 for(const b of birds){const selected=formation&&b.shapeId===formation.id,morph=selected?amount:0,natural=selected&&naturalOrder.includes(formation.kind),air=airAt(b),age=formation?clock-formation.start:0,resting=selected&&age>6&&age<3+formation.hold,restAmount=resting?smooth((age-6)/4):0,social=b.social&&clock>b.social.start&&clock<b.social.start+b.social.duration;b.morph=morph;b.airPower=(b.airPower||0)+(air.power-(b.airPower||0))*(1-Math.exp(-dt*3));const current=Math.sin(b.u*TAU*2+clock*.3+b.seed*.15)*.28,peripheral=Math.abs(b.band)*.22-.12,freeSpeed=clamp(b.baseSpeed+(speed-6)*.5+current+peripheral,3,8),restSpeed=natural?(b.role==='tail'?2.5:3.1+b.seed/TAU*.9):(b.index%8===0?.55:1.1+b.seed/TAU*.65),shapeSpeed=mix(3.6+(b.seed/TAU)*1.8,restSpeed,restAmount);let desired=mix(freeSpeed,social?3.2:shapeSpeed,morph)+air.boost;
 const anchor=flockAnchor(),focusSmoothing=1-Math.exp(-dt*2);b.focusX=(b.focusX??W*.5)+(mix(W*.5,anchor.x,morph)-(b.focusX??W*.5))*focusSmoothing;b.focusY=(b.focusY??H*.5)+(mix(H*.5,anchor.y,morph)-(b.focusY??H*.5))*focusSmoothing;
-if(selected&&formation.sakura)desired=mix(desired,1.5+b.seed/TAU*.9,restAmount);
+
 if(selected&&clock-formation.start>3+formation.hold){if(!b.shapeReleased){b.u=nearestFreePhase(b);b.shapeReleased=true;}if(b.role==='front'||b.isOutlier)desired=mix(desired,6.5+b.seed/TAU*1.5,1-morph);}
 if(b.wander){const age=clock-b.wander.start;if(b.wander.burst&&age>1&&age<1.9)desired=8.5;else desired+=Math.sin(age*.8)*.45;}
 b.targetSpeed=clamp(desired,resting?.5:3,b.wander?.burst?9:8);b.speed+=(b.targetSpeed-b.speed)*(1-Math.exp(-dt*1.7));const advance=b.speed*60/routeLength,catchUp=clamp(1-(b.trackError||0)/130,.2,1);b.u+=dt*advance*catchUp;if(selected)b.shapeU+=dt*b.speed*60/(b.shapeLength||formation.length)*catchUp;const p=flowPoint(b,b.u,morph),p2=flowPoint(b,b.u+.0005,morph,.0005),dxFlow=p2.x-p.x,dyFlow=p2.y-p.y,length=Math.hypot(dxFlow,dyFlow)||1,travel=b.speed*60,targetStrength=(2.1+morph*9.9)*(1-air.power*.35);b.trackError=Math.hypot(p.x-b.x,p.y-b.y);let steerX=dxFlow/length*travel+(p.x-b.x)*targetStrength+air.x,steerY=dyFlow/length*travel+(p.y-b.y)*targetStrength+air.y,vx=0,vy=0,cx=0,cy=0,sx=0,sy=0,n=0,seen=0;const gx=Math.floor(b.x/cell),gy=Math.floor(b.y/cell);
@@ -127,7 +127,7 @@ for(const b of birds){b.vx=b.nvx;b.vy=b.nvy;b.angle=b.nextAngle;b.x+=b.vx*dt;b.y
 function draw(){
   const perfStart=perfEnabled?performance.now():0;
   ctx.clearRect(0,0,W,H);ctx.lineCap='round';ctx.lineJoin='round';
-  garden?.drawBackground(ctx,clock,dark);
+
   const ordered=birds.slice().sort((a,b)=>b.z-a.z||a.index-b.index);
   for(const b of ordered){
     const p=project(b,true);
@@ -141,7 +141,9 @@ function draw(){
     }
     if(clearance<.02)continue;
     const windEmphasis=clamp(b.airPower||0,0,.85),foreground=smooth((150-b.z)/125);
-    const alpha=clamp(mix(b.alpha*(.4+p.near*.4)*mix(1,1.15,b.morph||0)+foreground*.08,.6,windEmphasis),.1,.65)*clearance;
+    // Light paper needs a readable rose contour; keep the geometric text mask.
+    const visibility=dark?1:1.1;
+    const alpha=clamp(mix(b.alpha*(.4+p.near*.4)*mix(1,1.15,b.morph||0)+foreground*.08,.6,windEmphasis)*visibility,.12,.65)*clearance;
     const s=clamp(b.size*(W<820?1.04:1.22)*Math.pow(p.scale/FOCUS_SCALE,.95)*(1+foreground*.25),.85,3.8);
     // A paper plane banks as one rigid folded sheet; no fluttering wings.
     const bankWidth=1-Math.abs(b.bank)*.55,c=Math.cos(b.angle),sn=Math.sin(b.angle);
@@ -149,9 +151,9 @@ function draw(){
     const tip=point(2.5,0),upper=point(-1.7,-1.45),fold=point(-.75,0),lower=point(-1.7,1.45);
     const depth=clamp(b.z/600,0,1);
     ctx.globalAlpha=alpha;
-    ctx.strokeStyle=dark?'rgb(255,204,224)':'rgb('+Math.round(mix(230,242,depth))+','+Math.round(mix(173,199,depth))+','+Math.round(mix(200,217,depth))+')';
+    ctx.strokeStyle=dark?'rgb(255,204,224)':'rgb('+Math.round(mix(216,231,depth))+','+Math.round(mix(158,184,depth))+','+Math.round(mix(185,206,depth))+')';
     ctx.fillStyle=dark?'rgb(130,87,107)':'rgb(255,246,250)';
-    ctx.lineWidth=.6+p.near*.2+foreground*.08;
+    ctx.lineWidth=.7+p.near*.2+foreground*.08;
     ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...upper);ctx.lineTo(...fold);ctx.lineTo(...lower);ctx.closePath();ctx.fill();ctx.stroke();
     // A slightly darker lower face makes the fold readable even at small sizes.
     ctx.globalAlpha=alpha*.4;ctx.fillStyle=dark?'rgb(236,177,202)':'rgb(249,215,231)';
@@ -159,18 +161,22 @@ function draw(){
     ctx.globalAlpha=alpha*.85;ctx.beginPath();ctx.moveTo(...tip);ctx.lineTo(...fold);ctx.stroke();
   }
   ctx.globalAlpha=1;
-  garden?.drawPetals(ctx,clock,dark);
+
   if(perfEnabled){perf.draw+=performance.now()-perfStart;if(perf.frames%60===0)canvas.dataset.drawMs=(perf.draw/Math.max(1,perf.frames)).toFixed(2);}
 }
 function frame(now){
+  raf=0;
   if(hidden||!active)return;
   syncScroll();
-  if(fullyCovered){last=now;ctx.clearRect(0,0,W,H);raf=requestAnimationFrame(frame);return;}
+  // Covered scenes consume no idle animation frames; scrolling wakes them.
+  if(fullyCovered){last=0;ctx.clearRect(0,0,W,H);return;}
+  if(lastRender&&now-lastRender<1000/30-1){raf=requestAnimationFrame(frame);return;}
+  lastRender=now;
   const perfStart=perfEnabled?performance.now():0;
-  const raw=last?Math.max(0,(now-last)/1000):1/60;last=now;
+  const raw=last?Math.max(0,(now-last)/1000):FIXED_STEP;last=now;
   scrollingFrame=now<scrollActiveUntil;
   clock+=Math.max(0,raw-.05);
-  // Simulate at 30 Hz, interpolate at display refresh rate. Never accumulate catch-up work.
+  // Cap ambient drawing at 30 Hz; preserve time and avoid catch-up bursts.
   accumulator=Math.min(accumulator+Math.min(raw,.05),FIXED_STEP*2);
   if(accumulator>=FIXED_STEP){
     for(const b of birds){b.prevX=b.x;b.prevY=b.y;b.prevZ=b.z;}
@@ -183,15 +189,16 @@ function frame(now){
 }
 function trackPointer(e){if(!active)return;const now=performance.now()/1000,previousX=mouse.x,previousY=mouse.y,dt=now-wind.lastTime;mouse.x=e.clientX;mouse.y=e.clientY;mouse.active=e.pointerType!=='touch';if(mouse.active&&dt>0&&dt<.25&&previousX>-900){const dx=mouse.x-previousX,dy=mouse.y-previousY,d=Math.hypot(dx,dy),velocity=Math.min(2200,d/Math.max(.012,dt));if(d>.4){const ux=dx/d,uy=dy/d,oldSpeed=Math.hypot(wind.vx,wind.vy),curl=oldSpeed>10?clamp((wind.vx*uy-wind.vy*ux)/oldSpeed*3,-1,1):0,acceleration=Math.abs(velocity-oldSpeed)/Math.max(.012,dt),power=clamp(velocity/1200+acceleration/24000,.03,1);wind.energy=Math.max(wind.energy,power);wind.vx=mix(wind.vx,ux*velocity,.35);wind.vy=mix(wind.vy,uy*velocity,.35);if(now-wind.lastSample>.04){wind.samples.push({x:mouse.x,y:mouse.y,dx:ux,dy:uy,power,curl,born:clock});if(wind.samples.length>28)wind.samples.shift();wind.lastSample=now;}}}else{wind.vx=wind.vy=0;}wind.lastTime=now;}
 
-function pause(){active=false;cancelAnimationFrame(raf);raf=0;last=0;clearTimeout(scrollTimer);clearTimeout(resizeTimer);}
+function wake(){if(active&&!hidden&&!fullyCovered&&!raf){if(!birds.length)create();last=0;lastRender=0;raf=requestAnimationFrame(frame);}}
+function pause(){active=false;cancelAnimationFrame(raf);raf=0;last=0;lastRender=0;clearTimeout(scrollTimer);clearTimeout(resizeTimer);}
 function refresh(){
   pause();dark=document.documentElement.dataset.theme==='dark';
-  garden?.reset();
+
   if(disabled()){delete document.body.dataset.ambientFlock;canvas.hidden=true;ctx.clearRect(0,0,W,H);return;}
   document.body.dataset.ambientFlock='true';
-  canvas.hidden=false;count=innerWidth<600?500:innerWidth<1000?900:1400;
+  canvas.hidden=false;count=flockCount();
   formation=null;sceneAmount=0;clock=0;accumulator=0;renderBlend=1;nextAuto=3;autoRound=0;wind.samples=[];wind.pulses=[];wind.energy=0;
-  resize();create();active=true;hidden=document.hidden;if(!hidden)raf=requestAnimationFrame(frame);
+  birds=[];resize();active=true;hidden=document.hidden;wake();
 }
 document.addEventListener('pointermove',trackPointer,{passive:true});
 document.addEventListener('pointerdown',e=>{
@@ -204,11 +211,12 @@ document.addEventListener('pointerleave',()=>mouse.active=false);
 document.addEventListener('click',e=>{if(e.target.closest('[data-spiral-toggle]'))refresh();});
 addEventListener('scroll',()=>{
   if(!active)return;scrollParallax=clamp(scrollParallax+(scrollY-lastScroll)*.012,-4,4);lastScroll=scrollY;
+  syncScroll();wake();
   scrollActiveUntil=performance.now()+160;
   clearTimeout(scrollTimer);scrollTimer=setTimeout(spaces,80);
 },{passive:true});
 addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(refresh,150);});
-document.addEventListener('visibilitychange',()=>{hidden=document.hidden;cancelAnimationFrame(raf);raf=0;last=0;if(active&&!hidden)raf=requestAnimationFrame(frame);});
+document.addEventListener('visibilitychange',()=>{hidden=document.hidden;cancelAnimationFrame(raf);raf=0;last=0;wake();});
 document.addEventListener('pjax:send',pause);
 document.addEventListener('pjax:complete',refresh);
 addEventListener('pageshow',refresh);

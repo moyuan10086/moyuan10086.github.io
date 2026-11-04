@@ -1,0 +1,103 @@
+/* Self-hosted subsets: brush gyosho + occasional grass script. */
+@font-face {
+  font-family: 'Moyuan Marginal Gyosho';
+  src: url('/fonts/luoshen/gyosho.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Moyuan Marginal Cursive';
+  src: url('/fonts/luoshen/cursive.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+#luoshen-texture {
+  position: fixed;
+  inset: 82px 0 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  contain: strict;
+  color: #958977;
+  mask-image: linear-gradient(transparent, #000 5%, #000 92%, transparent);
+}
+#luoshen-texture[hidden] { display: none; }
+.luoshen-field {
+  position: absolute;
+  inset-block: 0;
+  overflow: hidden;
+  /* Preserve ink at the edge; dissolve only as it approaches the reading area. */
+  mask-image: linear-gradient(to right, #000 0%, #000 28%, #000c 58%, transparent 100%);
+}
+.luoshen-field--left { left: 0; }
+.luoshen-field--right {
+  right: 0;
+  mask-image: linear-gradient(to left, #000 0%, #000 28%, #000c 58%, transparent 100%);
+}
+.luoshen-column {
+  position: absolute;
+  left: var(--x);
+  top: var(--top);
+  width: 1.5em;
+  font-family: 'Moyuan Marginal Gyosho', 'KaiTi', 'STKaiti', 'Kaiti SC', 'FangSong', serif;
+  font-size: var(--size);
+  font-weight: 400;
+  line-height: 1;
+  opacity: var(--ink);
+  /* Local perspective keeps neighbouring lanes from converging into a dark knot. */
+  transform-origin: 50% 45vh;
+  transform: perspective(700px) translate3d(0, 0, var(--z)) rotateY(var(--yaw)) rotateZ(calc(var(--tilt) * .14));
+}
+.luoshen-column--cursive {
+  font-family: 'Moyuan Marginal Cursive', 'Moyuan Marginal Gyosho', 'KaiTi', 'STKaiti', serif;
+}
+.luoshen-column[hidden] { display: none; }
+.luoshen-scroll {
+  display: flex;
+  flex-direction: column;
+  animation: luoshen-fall var(--duration) linear var(--delay) infinite;
+}
+.luoshen-run {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 130vh;
+  padding-bottom: 64px;
+  box-sizing: border-box;
+}
+.luoshen-fragment {
+  display: block;
+  flex: 0 0 auto;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  white-space: nowrap;
+  font-size: calc(var(--size) * var(--scale));
+  letter-spacing: var(--tracking);
+  margin-top: var(--gap);
+  opacity: var(--trace);
+  transform: translateX(var(--offset)) rotate(var(--lean));
+  /* Static local ink variation: only the 28 whole-column tracks animate. */
+}
+.luoshen-fragment--outline {
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .45px currentColor;
+}
+.luoshen-fragment--champagne { color: #b1a18a; }
+html[data-theme='dark'] #luoshen-texture { color: #b5ab9b; opacity: .85; }
+html[data-theme='dark'] .luoshen-fragment--champagne { color: #bdb09a; }
+#luoshen-texture.is-paused * { animation-play-state: paused; }
+@keyframes luoshen-fall {
+  from { transform: translate3d(0, -50%, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@media (max-width: 1000px) {
+  #luoshen-texture { opacity: .9; }
+}
+@media (max-width: 760px), (prefers-reduced-motion: reduce), print {
+  #luoshen-texture { display: none; }
+  .luoshen-column, .luoshen-scroll, .luoshen-fragment { animation: none; }
+}

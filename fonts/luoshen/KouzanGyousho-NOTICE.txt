@@ -1,0 +1,6 @@
+Kouzan Gyousho brush calligraphy by Aoyagi Kouzan. Distributed by Musashi System.
+Official source and terms: https://opentype.jp/kouzangyousho.htm
+The official page permits free and commercial use without restrictions.
+Original terms: 無料でご利用できます。商用利用可能で制限はありません。
+ロゴ等へも自由にご利用いただけます。雑誌・書籍への掲載・CD収録も自由です。
+This site ships a renamed WOFF2 subset, not the original full font.
