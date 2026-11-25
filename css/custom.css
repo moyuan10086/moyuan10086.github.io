@@ -430,3 +430,39 @@ html {
 #article-container h6 {
   scroll-margin-top: 32vh;
 }
+
+/* Article reading progress bar (matches Intro ink-gold accent) */
+#reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: rgba(57, 56, 51, 0.08);
+}
+
+#reading-progress-bar.is-visible {
+  opacity: 1;
+}
+
+#reading-progress-bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #446f9e, #a38a60);
+  will-change: transform;
+}
+
+[data-theme='dark'] #reading-progress-bar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] #reading-progress-bar i {
+  background: linear-gradient(90deg, #8bb3e6, #d4b47c);
+}

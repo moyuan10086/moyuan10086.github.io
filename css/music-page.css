@@ -96,3 +96,223 @@ html[data-theme='dark'] body:has(.music-shell) .music-player { background:rgba(2
 @media(max-width:767px) {
   body:has(.music-shell) .playlist-items button:has(.badge-local) .track-name::before { content:'本地 · '; color:var(--site-blue); font-size:10px; }
 }
+
+/* Music UI polish: unified luminous glassmorphism, vinyl depth, progress & playlist micro-interactions */
+body:has(.music-shell) .music-hero-copy {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 18px;
+  box-shadow: 0 12px 34px rgba(18, 32, 56, 0.08);
+  padding: 20px 28px;
+}
+
+body:has(.music-shell) #article-container .music-hero h1 {
+  color: #1c283d;
+  text-shadow: none;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+body:has(.music-shell) .music-hero-copy strong {
+  color: #4a72a8;
+  text-shadow: none;
+  font-weight: 600;
+}
+
+body:has(.music-shell) .music-hero-ribbon {
+  color: #55657d;
+  text-shadow: none;
+  font-size: 13.5px;
+  font-weight: 400;
+}
+
+html[data-theme='dark'] body:has(.music-shell) .music-hero-copy {
+  background: rgba(20, 29, 45, 0.82);
+  border-color: rgba(180, 204, 240, 0.18);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme='dark'] body:has(.music-shell) #article-container .music-hero h1 {
+  color: #f0f4fb;
+}
+
+html[data-theme='dark'] body:has(.music-shell) .music-hero-copy strong {
+  color: #8cb3e8;
+}
+
+html[data-theme='dark'] body:has(.music-shell) .music-hero-ribbon {
+  color: #a6b4cb;
+}
+
+body:has(.music-shell) .music-player {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 22px 60px rgba(18, 32, 56, 0.14);
+}
+
+body:has(.music-shell) .disc {
+  border: 6px solid rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 0 0 1px rgba(69, 102, 146, 0.16),
+    0 18px 40px rgba(18, 32, 56, 0.24);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+body:has(.music-shell) .disc.is-playing {
+  box-shadow:
+    0 0 0 6px rgba(88, 123, 173, 0.14),
+    0 20px 48px rgba(45, 76, 122, 0.32);
+}
+
+body:has(.music-shell) .disc-button {
+  background: rgba(20, 36, 60, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 18px rgba(12, 24, 43, 0.28);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+body:has(.music-shell) .disc-button:hover {
+  transform: scale(1.08);
+  background: rgba(52, 85, 126, 0.92);
+}
+
+body:has(.music-shell) .lyric-line {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(88, 123, 173, 0.09), rgba(88, 123, 173, 0.03));
+  border-left: 3px solid rgba(88, 123, 173, 0.52);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+body:has(.music-shell) .track-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  background: rgba(88, 123, 173, 0.09);
+  color: #5b6d85;
+  text-align: center;
+}
+
+html[data-theme='dark'] body:has(.music-shell) .track-badge {
+  background: rgba(140, 179, 232, 0.12);
+  color: #a9bbd4;
+}
+
+body:has(.music-shell) .progress::before,
+body:has(.music-shell) .progress-loaded,
+body:has(.music-shell) .progress-played {
+  height: 4px;
+  top: 8px;
+  transition: height 0.15s ease, top 0.15s ease;
+}
+
+body:has(.music-shell) .progress:hover::before,
+body:has(.music-shell) .progress:hover .progress-loaded,
+body:has(.music-shell) .progress:hover .progress-played {
+  height: 6px;
+  top: 7px;
+}
+
+body:has(.music-shell) .progress-thumb {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+body:has(.music-shell) .progress:hover .progress-thumb {
+  transform: translateX(-50%) scale(1.22);
+  box-shadow: 0 0 0 4px rgba(88, 123, 173, 0.18);
+}
+
+body:has(.music-shell) .control-btn {
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+body:has(.music-shell) .control-btn:active {
+  transform: scale(0.93);
+}
+
+body:has(.music-shell) .control-btn.primary {
+  background: linear-gradient(135deg, #4f74a8, #385a88);
+  box-shadow: 0 8px 20px rgba(56, 90, 136, 0.32);
+}
+
+body:has(.music-shell) .control-btn.primary:hover {
+  background: linear-gradient(135deg, #5a82ba, #3f6599);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(56, 90, 136, 0.4);
+}
+
+body:has(.music-shell) .playlist-search-input {
+  border-radius: 999px;
+  padding: 9px 16px;
+  background: rgba(244, 247, 252, 0.85);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+body:has(.music-shell) .playlist-search-input:focus {
+  outline: none;
+  border-color: var(--site-blue);
+  background: var(--site-paper);
+  box-shadow: 0 0 0 3px rgba(88, 123, 173, 0.16);
+}
+
+body:has(.music-shell) .playlist-items button {
+  border-radius: 10px;
+  margin-bottom: 2px;
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+
+body:has(.music-shell) .playlist-items button:hover {
+  background: rgba(88, 123, 173, 0.08);
+}
+
+body:has(.music-shell) .playlist-items button.is-active {
+  background: linear-gradient(90deg, rgba(88, 123, 173, 0.15), rgba(88, 123, 173, 0.04));
+  box-shadow: inset 3px 0 0 var(--site-blue);
+}
+
+html[data-theme='dark'] body:has(.music-shell) .music-player {
+  background: rgba(20, 29, 45, 0.88);
+  border-color: rgba(180, 204, 240, 0.18);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.42);
+}
+
+html[data-theme='dark'] body:has(.music-shell) .lyric-line {
+  background: rgba(140, 179, 232, 0.1);
+  border-left-color: rgba(140, 179, 232, 0.55);
+}
+
+html[data-theme='dark'] body:has(.music-shell) .playlist-search-input {
+  background: rgba(15, 22, 34, 0.72);
+  border-color: rgba(180, 204, 240, 0.2);
+}
+
+html[data-theme='dark'] body:has(.music-shell) .playlist-items button:hover {
+  background: rgba(140, 179, 232, 0.1);
+}
+
+html[data-theme='dark'] body:has(.music-shell) .playlist-items button.is-active {
+  background: linear-gradient(90deg, rgba(140, 179, 232, 0.18), rgba(140, 179, 232, 0.05));
+}
+
+body:has(.music-shell) .music-shell {
+  padding-top: calc(var(--site-nav-height, 60px) + 24px);
+}
+
+body:has(.music-shell) .music-hero {
+  min-height: auto;
+  padding: 0 0 24px;
+  margin-bottom: 0;
+}

@@ -96,7 +96,7 @@ export function createWater(renderer,scene,camera,compact){
       gl_FragColor=vec4(color,1.-smoothstep(.24,.31,uProgress));
     }`});
   const water=new THREE.Mesh(quadGeo,displayMat);water.frustumCulled=false;water.renderOrder=-100;scene.add(water);
-  const waterCamera=new THREE.PerspectiveCamera(43,1,.001,30),matrix=new THREE.Matrix4();
+  const waterCamera=new THREE.PerspectiveCamera(43,1,.001,30),matrix=new THREE.Matrix4(),lookTarget=new THREE.Vector3();
   const curve=new THREE.SplineCurve(dropProfile.map(p=>new THREE.Vector2(...p)));
   const dropGeo=new THREE.LatheGeometry(curve.getPoints(64).map(p=>new THREE.Vector2(Math.max(0,p.x),p.y)),64);
   const dropMat=new THREE.ShaderMaterial({transparent:true,depthTest:false,depthWrite:false,uniforms:{uVP:{value:matrix},uEye:{value:new THREE.Vector3()},uAlpha:{value:1}},vertexShader:`uniform mat4 uVP;varying vec3 vNormal,vWorld;void main(){vec4 world=modelMatrix*vec4(position,1.);vWorld=world.xyz;vNormal=mat3(modelMatrix)*normal;gl_Position=uVP*world;}`,fragmentShader:`uniform vec3 uEye;uniform float uAlpha;varying vec3 vNormal,vWorld;void main(){vec3 n=normalize(vNormal),eye=normalize(uEye-vWorld);float rim=pow(1.-max(0.,dot(n,eye)),2.5);float light=max(0.,dot(n,normalize(vec3(-.6,1.,1.))));vec3 color=vec3(.055,.058,.053)+vec3(.12,.13,.12)*pow(light,3.)+vec3(.48,.43,.31)*rim*.48;gl_FragColor=vec4(color,uAlpha);}`});
@@ -107,7 +107,7 @@ export function createWater(renderer,scene,camera,compact){
     if(t<.32){uniforms.uPrevious.value=read.texture;uniforms.uPointer.value.copy(pointer);uniforms.uVelocity.value.copy(velocity);uniforms.uInject.value=inject;uniforms.uDt.value=dt;uniforms.uTime.value=time;uniforms.uReset.value=reset?1:0;uniforms.uDrop.value=impact?1:0;uniforms.uAspect.value=aspect;
       camera.layers.set(1);renderer.setRenderTarget(write);renderer.render(scene,camera);renderer.setRenderTarget(null);camera.layers.set(0);[read,write]=[write,read];reset=false;}
     const path=waterCameraAt(t);u.uNearDetail.value=waterDetailAt(path.distance);u.uOrigin.value.fromArray(path.origin);u.uForward.value.fromArray(path.forward);
-    waterCamera.aspect=aspect;waterCamera.position.copy(u.uOrigin.value);waterCamera.lookAt(u.uOrigin.value.clone().add(u.uForward.value));waterCamera.updateProjectionMatrix();
+    waterCamera.aspect=aspect;waterCamera.position.copy(u.uOrigin.value);lookTarget.copy(u.uOrigin.value).add(u.uForward.value);waterCamera.lookAt(lookTarget);waterCamera.updateProjectionMatrix();
     const center=Math.min(1,path.dive/.35),centerEase=center*center*(3-2*center);
     waterCamera.projectionMatrix.elements[9]=.348*(1-centerEase);
     waterCamera.updateMatrixWorld();matrix.multiplyMatrices(waterCamera.projectionMatrix,waterCamera.matrixWorldInverse);dropMat.uniforms.uEye.value.copy(waterCamera.position);

@@ -54,7 +54,8 @@ export function mountNarrative(root, getProgress, getLanguage) {
     const width = w < 701 ? w * 1.08 : w;
     const height = width * 9 / 16;
     rect = { x: (w - width) / 2, y: w < 701 ? h * .19 : Math.max(0, (h - height) * .18), w: width, h: height };
-    for (const c of [sceneCanvas, maskCanvas]) { c.width = 1600; c.height = 900; }
+    sceneCanvas.width = 1600; sceneCanvas.height = 900;
+    maskCanvas.width = 800; maskCanvas.height = 450;
     previous = '';
   }
   const point = a => [rect.x + rect.w * a[0], rect.y + rect.h * a[1]];
@@ -87,13 +88,15 @@ export function mountNarrative(root, getProgress, getLanguage) {
     }
     scene.globalCompositeOperation = 'source-over'; scene.globalAlpha = 1; scene.clearRect(0,0,1600,900);
     scene.drawImage(img,0,0,1600,900);
+    mask.setTransform(.5,0,0,.5,0,0);
     mask.globalCompositeOperation = 'source-over'; mask.clearRect(0,0,1600,900); mask.fillStyle = '#fff'; mask.globalAlpha = 1;
     paintMask(mask);
     // Fade page edges and the empty title zone into the actual warm paper.
     mask.globalCompositeOperation = 'destination-in';
     const edge = mask.createLinearGradient(0,0,0,900); edge.addColorStop(0,'transparent');edge.addColorStop(.1,'white');edge.addColorStop(.65,'white');edge.addColorStop(.9,'transparent');
     mask.fillStyle=edge;mask.fillRect(0,0,1600,900);
-    scene.globalCompositeOperation = 'destination-in';scene.filter='blur(22px)';scene.drawImage(maskCanvas,0,0);scene.filter='none';
+    mask.setTransform(1,0,0,1,0,0);
+    scene.globalCompositeOperation = 'destination-in';scene.filter='blur(11px)';scene.drawImage(maskCanvas,0,0,1600,900);scene.filter='none';
     if(index===0){
       // A pocket of clear paper protects the existing brand/navigation.
       scene.globalCompositeOperation='destination-out';

@@ -10,7 +10,7 @@ export async function mount(host,getProgress){
   const renderer=new THREE.WebGLRenderer({alpha:true,antialias:!compact});
   renderer.setPixelRatio(Math.min(devicePixelRatio,compact?1.25:1.6));
   renderer.setClearColor(0xf4f3ef,1);host.append(renderer.domElement);
-  const pointer=new THREE.Vector2(.5,.5),previous=pointer.clone(),velocity=new THREE.Vector2(),aim=new THREE.Vector2();
+  const pointer=new THREE.Vector2(.5,.5),previous=pointer.clone(),velocity=new THREE.Vector2(),aim=new THREE.Vector2(),aimTarget=new THREE.Vector2();
   let pointerAt=-100,firstPointer=true,disposed=false,raf,lastTime=performance.now(),time=0;
   const stage=host.closest('.my-stage'),resources=[];
   const water=createWater(renderer,scene,camera,compact);
@@ -27,7 +27,9 @@ export async function mount(host,getProgress){
   renderer.debug.onShaderError=(gl,program,vs,fs)=>{host.dataset.shaderError='true';console.error(gl.getShaderInfoLog(vs),gl.getShaderInfoLog(fs));};
   function render(now){if(disposed)return;raf=requestAnimationFrame(render);const dt=Math.min(.033,Math.max(.001,(now-lastTime)/1000));lastTime=now;if(document.hidden||host.getBoundingClientRect().bottom<0||host.getBoundingClientRect().top>innerHeight)return;
     time+=dt;const t=getProgress(),c=cameraAt(t,camera.aspect);velocity.copy(pointer).sub(previous).clampScalar(-.08,.08);previous.copy(pointer);
-    const recent=now-pointerAt<100;aim.lerp(firstPointer?new THREE.Vector2():pointer.clone().subScalar(.5),1-Math.exp(-dt*5));
+    const recent=now-pointerAt<100;
+    if(firstPointer)aimTarget.set(0,0);else aimTarget.copy(pointer).subScalar(.5);
+    aim.lerp(aimTarget,1-Math.exp(-dt*5));
     camera.position.set(c.x+aim.x*.075,c.y+aim.y*.045,c.z);camera.lookAt(c.x*.48,c.y*.5,c.targetZ);
     water.update(dt,time,t,pointer,velocity,recent?1:0,camera.aspect);drawWorld(t,time,aim);inkProcess.update(t,time);renderer.render(scene,camera);
     host.dataset.progress=t.toFixed(4);host.dataset.cameraZ=camera.position.z.toFixed(3);host.dataset.rendered='true';
@@ -45,9 +47,9 @@ export async function mount(host,getProgress){
   try{
     const getJSON=async url=>{const r=await fetch(url);if(!r.ok)throw Error(url);return r.json();};
     const [data,logo]=await Promise.all([getJSON('/intro-assets/evolution-samples.json'),getJSON('/intro-assets/brand-logo-samples.json')]);
-    const loader=new THREE.TextureLoader(),textures=await Promise.all([0,1,2].map(i=>loader.loadAsync('/intro-assets/evolution-'+i+'.webp')));
+    const loader=new THREE.TextureLoader();
     const [birdTexture,featherTexture]=await Promise.all([loader.loadAsync('/images/home-ink-phoenix.png'),loader.loadAsync('/intro-assets/feather-isolated-v2.png')]);
-    resources.push(...textures,birdTexture,featherTexture);textures[0]=birdTexture;
+    resources.push(birdTexture,featherTexture);const textures=[birdTexture];
     [birdTexture,featherTexture].forEach(texture=>{texture.minFilter=THREE.LinearMipmapLinearFilter;texture.magFilter=THREE.LinearFilter;texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());});
     if(disposed){textures.forEach(t=>t.dispose());return;}
     let state=127;const rand=()=>{state=(state*1664525+1013904223)>>>0;return state/4294967296;};
@@ -64,8 +66,9 @@ export async function mount(host,getProgress){
     }
     const threeDots=new Float32Array(count*3);for(let j=0;j<count;j++)threeDots.set([(j%3-1)*.18+(rand()-.5)*.018,(rand()-.5)*.018,0],j*3);
     const arrays=[cloud,cloud,bird,bird,disperse,stream,network,security,security,threeDots,mark,mark];
+    const attrs=arrays.map(arr=>new THREE.BufferAttribute(arr,3));
     const stops=[0,.22,.32,.41,.51,.60,.70,.78,.86,.89,.94,1];
-    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(cloud,3));geo.setAttribute('aTarget',new THREE.BufferAttribute(cloud,3));geo.setAttribute('aSeed',new THREE.BufferAttribute(seed,1));
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',attrs[0]);geo.setAttribute('aTarget',attrs[0]);geo.setAttribute('aSeed',new THREE.BufferAttribute(seed,1));
     const uniforms={uMix:{value:0},uOpacity:{value:0},uDpr:{value:renderer.getPixelRatio()}};
     const mat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,uniforms,vertexShader:`attribute vec3 aTarget;attribute float aSeed;uniform float uMix,uDpr;varying float vSeed,vDepth;void main(){vec3 p=mix(position,aTarget,uMix);p.z+=sin(uMix*3.14159)*sin(aSeed*83.)*.16;vec4 mv=modelViewMatrix*vec4(p,1.);vDepth=-mv.z;gl_Position=projectionMatrix*mv;gl_PointSize=clamp((1.+pow(aSeed,8.)*3.)*uDpr/max(.24,-mv.z),1.,20.);vSeed=aSeed;}`,
       fragmentShader:`uniform float uOpacity;varying float vSeed,vDepth;void main(){float r=length(gl_PointCoord-.5);if(r>.5)discard;float fog=1.-smoothstep(1.2,4.,vDepth);vec3 color=mix(vec3(.067),vec3(.62,.46,.25),step(.982,vSeed));float alpha=(1.-smoothstep(.10,.5,r))*(.25+.72*fog)*uOpacity;gl_FragColor=vec4(color,alpha);}`});
@@ -104,22 +107,23 @@ export async function mount(host,getProgress){
     const positions=nodes.map(n=>n.clone()),projected=new THREE.Vector3();let oldSegment=-1;
     const fragments=Array.from({length:5},(_,j)=>{const g=new THREE.PlaneGeometry(.22,.29),u={opacity:{value:0},gold:{value:j===2?1:0}};const m=new THREE.ShaderMaterial({uniforms:u,transparent:true,depthWrite:false,vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`varying vec2 vUv;uniform float opacity,gold;void main(){float rows=step(.72,fract(vUv.y*12.))*step(.12,vUv.x)*step(vUv.x,.87);float edge=1.-smoothstep(0.,.04,min(min(vUv.x,1.-vUv.x),min(vUv.y,1.-vUv.y)));vec3 ink=mix(vec3(.37),vec3(.57,.46,.29),gold);gl_FragColor=vec4(mix(vec3(.94,.936,.92),ink,max(rows*.5,edge*.35)),opacity);}`});const mesh=new THREE.Mesh(g,m);mesh.position.set(.06+j*.20,.15+Math.sin(j*2)*.12,-.2-j*.08);mesh.rotation.y=-.25+j*.12;scene.add(mesh);resources.push(g,m);return {mesh,u};});
     const labelEls=[...document.querySelectorAll('.my-node-labels button')];
+    stones.forEach(mesh=>{mesh.visible=false;});
+    curves.forEach(({mesh})=>{mesh.visible=false;});
+    tracer.visible=false;
+    boundary.visible=false;
+    fragments.forEach(({mesh})=>{mesh.visible=false;});
     drawWorld=(t,elapsed,mouse)=>{
       let i=0;while(i<stops.length-2&&t>stops[i+1])i++;const m=ease(stops[i],stops[i+1],t);
-      if(i!==oldSegment){geo.setAttribute('position',new THREE.BufferAttribute(arrays[i],3));geo.setAttribute('aTarget',new THREE.BufferAttribute(arrays[i+1],3));oldSegment=i;}
-      uniforms.uMix.value=m;uniforms.uOpacity.value=ease(.13,.26,t)*(1-ease(.95,.985,t))*(1-.94*pulse(.62,.70,.87,.90,t));
-      art.forEach(({mesh,u})=>{const end=ease(.935,.975,t);u.uOpacity.value=pulse(.26,.31,.415,.48,t)*.94+end*.78;mesh.position.set(end*(compact?.34:.57),end*(compact?.19:.015),0);mesh.scale.setScalar(1-end*.43);mesh.rotation.y=Math.sin(t*18)*.025*(1-end);});
-      feathers.forEach(({mesh,u},j)=>{const f=clamp((t-.25-j*.022)/.28);mesh.position.set(-.48+f*.78+(j-1)*.30,.2-Math.sin(f*Math.PI)*.18+j*.07,Math.min(camera.position.z-.65,-.5+f*.55-j*.25));mesh.rotation.set(f*.3,j*.15,f*1.1-.8);mesh.scale.setScalar(j===0?1.25:.7);u.uOpacity.value=pulse(.29+j*.02,.36+j*.02,.49+j*.014,.55+j*.014,t)*.9;});
-      cloudMat.uniforms.uOpacity.value=pulse(.10,.21,.29,.38,t)*.65+pulse(.46,.52,.76,.81,t)*.12;cloudMat.uniforms.uTime.value=elapsed;
-      clouds.forEach((mesh,j)=>{mesh.position.z=-1.5+j*.35+ease(.12,.32,t)*.8;mesh.position.x=Math.sin(j*3)*1.1+mouse.x*(j+1)*.015;});
-      const graph=0,securityMix=ease(.70,.78,t),focus=ease(.79,.82,t);
-      positions.forEach((p,j)=>{p.copy(nodes[j]).lerp(secure[j],securityMix);if(compact)p.x-=.38;
-        const mesh=stones[j];mesh.position.copy(p);mesh.scale.setScalar(topology[j].r*(j===1?1+focus*3:1));mesh.rotation.set(.12*j,.3+j*.7,.13*j);mesh.material.opacity=graph*(j>3?.38:1);mesh.visible=graph>.001;});
-      curves.forEach(({a,b,strength,mesh,curve})=>{curve.v0.copy(positions[a]);curve.v2.copy(positions[b]);curve.v1.copy(positions[a]).lerp(positions[b],.5).add(new THREE.Vector3(0,.09,.07));const attr=mesh.geometry.attributes.position;for(let k=0;k<49;k++){const p=curve.getPoint(k/48);attr.setXYZ(k,p.x,p.y,p.z);}attr.needsUpdate=true;mesh.material.opacity=graph*strength;mesh.visible=graph>.001;});
-      tracer.visible=false;const path=clamp((t-.74)/.06)*2,chosen=curves[Math.min(1,Math.floor(path))];tracer.position.copy(chosen.curve.getPoint(path>=2?1:path%1));pulseMat.opacity=graph;
-      boundary.position.x=compact?-.38:0;boundaryMat.opacity=0;
-      fragments.forEach(({mesh,u})=>{u.opacity.value=0;mesh.visible=false;});
-      labelEls.forEach((el,j)=>{const v=t<.70?new THREE.Vector3((j-1.5)*.24,.21,-.3):positions[[0,3,1,2,4][j]];projected.copy(v).project(camera);const x=clamp((projected.x+1)/2)*host.clientWidth,y=clamp((1-projected.y)/2)*host.clientHeight;el.style.left=Math.max(90,Math.min(host.clientWidth-90,x))+'px';el.style.top=Math.max(140,Math.min(host.clientHeight*.52,y+40))+'px';});
+      if(i!==oldSegment){geo.setAttribute('position',attrs[i]);geo.setAttribute('aTarget',attrs[i+1]);oldSegment=i;}
+      uniforms.uMix.value=m;
+      const pointOpacity=ease(.13,.26,t)*(1-ease(.95,.985,t))*(1-.94*pulse(.62,.70,.87,.90,t));
+      uniforms.uOpacity.value=pointOpacity;points.visible=pointOpacity>.002;
+      art.forEach(({mesh,u})=>{const end=ease(.935,.975,t),op=pulse(.26,.31,.415,.48,t)*.94+end*.78;u.uOpacity.value=op;mesh.visible=op>.002;if(!mesh.visible)return;mesh.position.set(end*(compact?.34:.57),end*(compact?.19:.015),0);mesh.scale.setScalar(1-end*.43);mesh.rotation.y=Math.sin(t*18)*.025*(1-end);});
+      feathers.forEach(({mesh,u},j)=>{const op=pulse(.29+j*.02,.36+j*.02,.49+j*.014,.55+j*.014,t)*.9;u.uOpacity.value=op;mesh.visible=op>.002;if(!mesh.visible)return;const f=clamp((t-.25-j*.022)/.28);mesh.position.set(-.48+f*.78+(j-1)*.30,.2-Math.sin(f*Math.PI)*.18+j*.07,Math.min(camera.position.z-.65,-.5+f*.55-j*.25));mesh.rotation.set(f*.3,j*.15,f*1.1-.8);mesh.scale.setScalar(j===0?1.25:.7);});
+      const cloudOp=pulse(.10,.21,.29,.38,t)*.65+pulse(.46,.52,.76,.81,t)*.12;
+      cloudMat.uniforms.uOpacity.value=cloudOp;cloudMat.uniforms.uTime.value=elapsed;
+      const cloudsVisible=cloudOp>.002;
+      clouds.forEach((mesh,j)=>{mesh.visible=cloudsVisible;if(!cloudsVisible)return;mesh.position.z=-1.5+j*.35+ease(.12,.32,t)*.8;mesh.position.x=Math.sin(j*3)*1.1+mouse.x*(j+1)*.015;});
       host.dataset.particles=String(count);host.dataset.nodes=String(t>.49&&t<.73?10:0);host.dataset.edges=String(t>.49&&t<.73?13:0);host.dataset.segment=String(i);host.dataset.depthRange='-1.8..1.2';
     };
     return {renderer,scene,dispose};

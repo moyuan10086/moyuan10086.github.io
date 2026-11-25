@@ -59,10 +59,33 @@ function read(){
   text(q('.my-final-name b'),language==='zh'?'墨鵷':'MOYUAN');
   text(q('.my-final-name span'),language==='zh'?'MOYUAN':'');
   q('.my-stage').style.clipPath='none';
+  const progressBar=q('#my-progress-bar');if(progressBar)progressBar.style.transform='scaleX('+progress.toFixed(4)+')';
+  const chapterNav=q('.my-chapter-nav');
+  if(chapterNav){
+    const dots=[...chapterNav.querySelectorAll('button')];
+    let activeIdx=0;
+    dots.forEach((btn,idx)=>{if(progress>=Number(btn.dataset.target)-.03)activeIdx=idx;});
+    dots.forEach((btn,idx)=>{
+      const label=btn.dataset[language]||btn.dataset.zh||'';
+      const span=btn.querySelector('span');if(span&&span.textContent!==label)span.textContent=label;
+      if(btn.getAttribute('aria-label')!==label)btn.setAttribute('aria-label',label);
+      btn.classList.toggle('is-active',idx===activeIdx);
+      btn.setAttribute('aria-current',idx===activeIdx?'step':'false');
+    });
+  }
   host.dataset.worldProgress=w.toFixed(4);
   window.dispatchEvent(new Event('moyuan:intro-progress'));
 }
 q('#my-replay').addEventListener('click',()=>{scrollTo({top:0,behavior:reduced?'instant':'smooth'});window.dispatchEvent(new Event('moyuan:replay'));});
+const chapterNavEl=q('.my-chapter-nav');
+if(chapterNavEl){
+  chapterNavEl.addEventListener('click',e=>{
+    const btn=e.target.closest('button[data-target]');if(!btn)return;
+    const target=clamp(Number(btn.dataset.target)||0);
+    const top=intro.offsetTop+Math.max(0,intro.offsetHeight-innerHeight)*target;
+    scrollTo({top,behavior:reduced?'instant':'smooth'});
+  });
+}
 q('#my-language').addEventListener('click',()=>{language=language==='zh'?'en':'zh';window.MoyuanI18n?.setLanguage(language);read();});
 window.addEventListener('moyuan:language',e=>{language=e.detail==='en'?'en':'zh';read();});
 let scrollFrame=0;

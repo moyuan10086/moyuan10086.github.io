@@ -20,9 +20,9 @@ body:has(.home-hero-fullscreen) #nav { background:color-mix(in srgb,var(--site-p
   .home-hero-fullscreen .hero-description br { display:none; }
   #article-container .home-shell .home-hero-fullscreen .hero-fields { margin-top:20px; color:#f0f4fc; font-size:14px; min-height:26px; }
   .home-hero-fullscreen .hero-actions { justify-content:center; gap:16px; margin-top:34px; }
-  #article-container .home-shell .home-hero-fullscreen .text-link { color:#fff; border:1px solid #ffffff7a; border-radius:30px; padding:10px 22px; font-size:14px; background:#ffffff10; text-shadow:none; }
+  #article-container .home-shell .home-hero-fullscreen .text-link { color:#fff; border:1px solid #ffffff7a; border-radius:30px; padding:10px 22px; font-size:14px; background:#ffffff10; text-shadow:none; transition:background .22s ease,color .22s ease,transform .22s ease,box-shadow .22s ease; }
   #article-container .home-shell .home-hero-fullscreen .text-link:first-child { color:#243550; background:#fff; border-color:#fff; }
-  #article-container .home-shell .home-hero-fullscreen .text-link:hover { background:#eaf1fc; color:#243550; }
+  #article-container .home-shell .home-hero-fullscreen .text-link:hover { background:#eaf1fc; color:#243550; transform:translateY(-2px); box-shadow:0 8px 20px rgba(9,18,34,.22); }
   .home-hero-fullscreen .hero-footnote { position:absolute; left:clamp(24px,5vw,80px); right:clamp(24px,5vw,80px); bottom:20px; border:0; color:#eff3fa; padding:12px 0; text-shadow:0 1px 8px #15203555; }
   #article-container .home-shell .hero-signature { position:absolute; right:clamp(28px,6vw,92px); bottom:104px; display:flex; flex-direction:column; align-items:center; color:#fff; text-decoration:none; transform:rotate(-6deg); text-shadow:0 2px 12px #13233b50; }
   .signature-script { font-family:'Moyuan Allura',cursive; font-size:clamp(50px,5vw,76px); font-weight:400; font-style:normal; line-height:1.15; letter-spacing:0; }

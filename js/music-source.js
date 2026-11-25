@@ -35,14 +35,15 @@
   const params=new URLSearchParams({msg:titleStem(track.name)+' '+String(track.artist||'').replace(/[、&/]/g,' ')});
   async function json(url){return requestJson(url,request,options.signal);}
   const found=await json(endpoint+'?'+params);
-  const {index,candidate}=selectCandidate(track,found.data);
+  const list=Array.isArray(found.data)?found.data:found.data?.items;
+  const {index,candidate}=selectCandidate(track,list);
   matchedTracks.set(key,candidate);
   params.set('n',String(index+1));params.set('br','1');
-  const answer=await json(endpoint+'?'+params),resolved=answer.data;
+  const answer=await json(endpoint+'?'+params),rawResolved=answer.data?.items??answer.data,resolved=Array.isArray(rawResolved)?rawResolved[0]:rawResolved;
   if(!resolved||resolved.rid!==candidate.rid||!matches(track,resolved))throw Error('云端返回的曲目身份发生变化，已停止播放');
   if(typeof resolved.url!=='string'||!/^https?:\/\//.test(resolved.url))throw Error('云端未返回可播放音频');
   const url=new URL(resolved.url);if(url.protocol==='http:')url.protocol='https:';
-  const result={url:url.href,provider:'kw',providerKey:'oiapi',source:'kw',matchedId:resolved.rid,originalSource:track.source,label:'酷我音乐'};
+  const result={url:url.href,provider:'kw',providerKey:'oiapi',source:'kw',matchedId:resolved.rid,originalSource:track.source,label:'在线播放'};
   cache.set(key,{result,expires:Date.now()+5*60*1000});return result;
  }
  function probeUrl(url,track,signal){
@@ -69,9 +70,9 @@
   finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);}
  }
  function haitang(source,id){
-  const endpoints={kw:'https://musicapi.haitangw.net/music/kw.php',kg:'https://music.haitangw.cc/kgqq/kg.php',mg:'https://music.haitangw.cc/musicapi/mg.php'};
+  const endpoints={kw:'https://musicapi.haitangw.net/music/kw.php',wy:'https://musicapi.haitangw.net/music/wy.php',kg:'https://music.haitangw.cc/kgqq/kg.php',mg:'https://music.haitangw.cc/musicapi/mg.php'};
   if(!id||!endpoints[source])throw Error('该备用音源不支持此曲目');
-  return {url:endpoints[source]+'?'+new URLSearchParams({type:'mp3',id,level:'standard'}),provider:'haitang',providerKey:'haitang:'+source+':'+id,source,matchedId:source==='kw'?'MUSIC_'+id:id,label:'海棠音乐'};
+  return {url:endpoints[source]+'?'+new URLSearchParams({type:'mp3',id,level:'standard'}),provider:'haitang',providerKey:'haitang:'+source+':'+id,source,matchedId:source==='kw'?'MUSIC_'+id:id,label:'在线播放'};
  }
  function directCandidates(track,options){
   const candidates=[],seen=new Set();
@@ -80,15 +81,19 @@
    if(!/^[a-z0-9]+$/i.test(id))return;
    const key=(source==='wy'?'netease:':'haitang:')+source+':'+id;
    if(seen.has(key))return;seen.add(key);
-   if(source==='wy')candidates.push({key,run:async()=>{
-    const answer=await requestJson('https://oiapi.net/api/Music_163?'+new URLSearchParams({id}),options.fetch||globalThis.fetch,options.signal);
-    const item=Array.isArray(answer.data)?answer.data[0]:answer.data;
-    if(answer.code!==0||String(item?.id)!==id||typeof item.url!=='string')throw Error('音源曲目身份不匹配');
-    const url=new URL(item.url);if(!/^https?:$/.test(url.protocol))throw Error('无效音频链接');
-    if(url.protocol==='http:')url.protocol='https:';
-    return {url:url.href,provider:'netease',providerKey:key,source:'wy',matchedId:id,label:'网易音乐'};
-   }});
-   else if(['kg','kw','mg'].includes(source))candidates.push({key,run:()=>haitang(source,id)});
+   if(source==='wy'){
+    candidates.push({key,run:async()=>{
+     const answer=await requestJson('https://oiapi.net/api/Music_163?'+new URLSearchParams({id}),options.fetch||globalThis.fetch,options.signal);
+     const rawItem=answer.data?.items??answer.data;
+     const item=Array.isArray(rawItem)?rawItem[0]:rawItem;
+     if(answer.code!==0||String(item?.id)!==id||typeof item.url!=='string')throw Error('音源曲目身份不匹配');
+     const url=new URL(item.url);if(!/^https?:$/.test(url.protocol))throw Error('无效音频链接');
+     if(url.protocol==='http:')url.protocol='https:';
+     return {url:url.href,provider:'netease',providerKey:key,source:'wy',matchedId:id,label:'在线播放'};
+    }});
+    const hKey='haitang:wy:'+id;
+    if(!seen.has(hKey)){seen.add(hKey);candidates.push({key:hKey,run:()=>haitang('wy',id)});}
+   }else if(['kg','kw','mg'].includes(source))candidates.push({key,run:()=>haitang(source,id)});
   }
   add(track.source,track.meta||{});
   // All mappings remain provisional until actual decoded audio duration passes.
