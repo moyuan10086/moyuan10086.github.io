@@ -536,6 +536,10 @@
 
         if (res.clear) {
           logs.replaceChildren();
+        } else if (res.showHistory) {
+          const out = document.createElement('pre');
+          out.textContent = this.history.map((h, i) => `  ${String(i + 1).padStart(3, ' ')}  ${h}`).join('\n');
+          logs.appendChild(out);
         } else if (res.html) {
           const out = document.createElement('div');
           out.className = 'term-rich-output';
@@ -657,12 +661,18 @@
           e.preventDefault();
           const v = input.value.trim();
           const suggestions = [
-            'help', 'neofetch', 'fastfetch', 'msfconsole', 'msf', 'banner', 'search',
+            'help', 'neofetch', 'fastfetch', 'tree', 'grep flag', 'msfconsole', 'msf', 'banner', 'search',
             'su', 'su root', 'sudo -i', 'nmap', 'nmap moyuan.site', 'cmatrix', 'whoami',
             'pwd', 'ls', 'ls -la', 'cat flag', 'cat about.txt', 'cat projects.txt',
-            'tools', 'blog', 'posts', 'projects', 'theme cyan', 'theme green', 'theme amber',
+            'base64 -e ', 'base64 -d ', 'hex -e ', 'hex -d ', 'rot13 ', 'jwt', 'history',
+            'calc ', 'math ', 'calc modpow(2, 100, 1000000007)', 'calc factor(2026)',
+            'mat det [[1,2],[3,4]]', 'mat inv [[4,7],[2,6]]', 'mat mul [[1,2],[3,4]] [[5,6],[7,8]]',
+            'rsa', 'elgamal', 'shamir', 'shamir 42 3 5 257',
+            'js ', 'node ', 'py ', 'python ', 'py [x**2 for x in range(1, 8)]',
+            'tools', 'open score', 'open hello', 'open music', 'open portfolio', 'open games', 'open cv',
+            'blog', 'posts', 'projects', 'theme cyan', 'theme green', 'theme amber',
             'theme purple', 'fx on', 'fx off', 'sound on', 'sound off', 'ai deepseek',
-            'ai claude', 'reboot', 'clear', 'exit'
+            'ai claude', 'ai gemini', 'reboot', 'clear', 'exit'
           ];
           const match = suggestions.find(s => s.startsWith(v));
           if (match) input.value = match;
@@ -719,16 +729,18 @@
       const inputCipher = document.getElementById('arsenal-cipher-input');
       const outputCipher = document.getElementById('arsenal-cipher-output');
 
-      const doEncode = (type) => {
+      const doEncode = async (type) => {
         const val = inputCipher?.value || '';
         this.audio.click();
         try {
           if (type === 'b64-enc') outputCipher.value = btoa(unescape(encodeURIComponent(val)));
           else if (type === 'b64-dec') outputCipher.value = decodeURIComponent(escape(atob(val)));
           else if (type === 'hex-enc') {
-            outputCipher.value = Array.from(val).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join(' ');
+            const bytes = new TextEncoder().encode(val);
+            outputCipher.value = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join(' ');
           } else if (type === 'hex-dec') {
-            outputCipher.value = val.split(/\s+/).map(h => String.fromCharCode(parseInt(h, 16))).join('');
+            const hexes = val.replace(/^0x/i, '').replace(/\s+/g, '').match(/.{1,2}/g) || [];
+            outputCipher.value = new TextDecoder().decode(new Uint8Array(hexes.map(h => parseInt(h, 16))));
           } else if (type === 'url-enc') outputCipher.value = encodeURIComponent(val);
           else if (type === 'url-dec') outputCipher.value = decodeURIComponent(val);
           else if (type === 'rot13') {
@@ -736,11 +748,32 @@
               const base = c <= 'Z' ? 65 : 97;
               return String.fromCharCode(base + (c.charCodeAt(0) - base + 13) % 26);
             });
+          } else if (type === 'sha256') {
+            if (!window.crypto?.subtle) throw new Error('需要 HTTPS / localhost 环境支持 Web Crypto');
+            const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+            outputCipher.value = Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+          } else if (type === 'jwt-dec') {
+            const parts = val.trim().split('.');
+            if (parts.length < 2) throw new Error('请输入有效的 JWT (header.payload.sig)');
+            const dec = p => JSON.stringify(JSON.parse(decodeURIComponent(escape(atob(p.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(p.length / 4) * 4, '='))))), null, 2);
+            outputCipher.value = `[HEADER]\n${dec(parts[0])}\n\n[PAYLOAD]\n${dec(parts[1])}`;
           }
         } catch (err) {
           outputCipher.value = `[错误] 编码处理失败: ${err.message}`;
         }
       };
+
+      const copyBtn = document.getElementById('arsenal-copy-btn');
+      if (copyBtn && outputCipher) {
+        copyBtn.addEventListener('click', () => {
+          if (!outputCipher.value) return;
+          navigator.clipboard?.writeText(outputCipher.value).then(() => {
+            const old = copyBtn.textContent;
+            copyBtn.textContent = '已复制 ✓';
+            setTimeout(() => { copyBtn.textContent = old; }, 1400);
+          }).catch(() => {});
+        });
+      }
 
       this.modal.querySelectorAll('[data-cipher]').forEach(btn => {
         btn.addEventListener('click', () => doEncode(btn.dataset.cipher));

@@ -76,3 +76,12 @@ body:has(.home-shell) .home-hero.star-interacting .hero-footnote { z-index:3; po
 @media(max-width:767px) { #article-container .home-shell .vendor-marquee .ai-vendors { gap:32px; padding-right:32px; } #article-container .home-shell .vendor-marquee .ai-vendors a { font-size:14px; } }
 @media(prefers-reduced-motion:reduce) { #article-container .home-shell .vendor-marquee .ai-vendors { animation:none; } .home-shell [data-vendor-clone] { display:none!important; } .home-shell .vendor-marquee { overflow-x:auto; mask-image:none; } }
 @media(prefers-reduced-motion:reduce) { .home-shell .ai-marquee .ai-character-grid { animation:none; } .home-shell [data-ai-clone] { display:none; } }
+
+/* Upgraded AI Companions full-body / Q-version switch & collectible card styling */
+.home-shell .ai-heading-right { display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:flex-end; }
+.home-shell .ai-mode-switch { display:inline-flex; padding:3px; border-radius:999px; border:1px solid var(--site-line); background:var(--site-paper); gap:2px; }
+.home-shell .ai-mode-btn { border:0; background:transparent; color:var(--site-muted); font-size:12px; padding:6px 14px; border-radius:999px; cursor:pointer; transition:background .18s ease, color .18s ease; }
+.home-shell .ai-mode-btn.is-active { background:var(--site-blue); color:#fff; font-weight:500; }
+#article-container .home-shell .ai-portrait { width:180px; height:256px; object-fit:cover; object-position:center top; border-radius:12px; background:var(--site-paper); box-shadow:0 8px 22px rgba(24, 34, 54, 0.08); transition:transform .25s ease, box-shadow .25s ease; }
+#article-container .home-shell .ai-portrait.is-chibi { object-fit:contain; object-position:center; padding:8px; }
+.home-shell .ai-character:hover .ai-portrait { transform:translateY(-4px); box-shadow:0 14px 28px rgba(24, 34, 54, 0.14); }

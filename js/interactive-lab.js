@@ -64,6 +64,25 @@
       if (desc) desc.textContent = button.querySelector('strong').textContent + ' · ' + button.dataset.description;
     }));
 
+    // Full-body / Chibi / Meme portrait style toggle
+    document.querySelectorAll('.ai-mode-btn').forEach(btn => on(btn, 'click', () => {
+      const mode = btn.dataset.aiMode || 'full';
+      document.querySelectorAll('.ai-mode-btn').forEach(other => {
+        const active = other === btn;
+        other.classList.toggle('is-active', active);
+        other.setAttribute('aria-pressed', String(active));
+      });
+      document.querySelectorAll('.ai-character .ai-portrait').forEach(img => {
+        const nextSrc = mode === 'chibi'
+          ? (img.dataset.chibi || img.dataset.full)
+          : mode === 'meme'
+            ? (img.dataset.meme || img.dataset.chibi || img.dataset.full)
+            : img.dataset.full;
+        if (nextSrc && img.getAttribute('src') !== nextSrc) img.setAttribute('src', nextSrc);
+        img.classList.toggle('is-chibi', mode !== 'full');
+      });
+    }));
+
     let stars = null;
     let idle = null;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
