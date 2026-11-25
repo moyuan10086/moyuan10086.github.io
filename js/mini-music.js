@@ -18,7 +18,8 @@
   q('.mm-status').after(localButton,localInput);
   localButton.onclick=()=>localInput.click();
   localInput.onchange=async()=>{const selected=current,file=localInput.files[0];if(!file||!selected)return;try{await window.MoyuanMusicSource.bindLocalFile(selected,file);if(current===selected)await choose(selected.id);}catch(e){status(e.message);}finally{localInput.value='';}};
-  q('img').src='/images/newnewlogo.png';q('img').onerror=()=>{q('img').onerror=null;q('img').src='/images/newnewlogo.png';};
+  const defaultCover='/images/music-default-cover.svg';
+  q('img').referrerPolicy='no-referrer';q('img').src=defaultCover;q('img').onerror=()=>{q('img').onerror=null;q('img').src=defaultCover;};
   const save=(playing=!audio.paused)=>{if(current&&!loading&&!leaving&&audio.readyState>0)try{sessionStorage.setItem(key,JSON.stringify({id:current.id,uid:current.uid,time:audio.currentTime||0,playing,volume:audio.volume}));}catch{}};
   const clock=t=>{t=Number.isFinite(t)?t:0;return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');};
   const setUI=()=>{q('.mm-play').textContent=audio.paused?'▶':'Ⅱ';q('.mm-play').setAttribute('aria-label',audio.paused?'播放':'暂停');box.classList.toggle('is-playing',!audio.paused);};
@@ -45,7 +46,8 @@
       current=requested||tracks.find(t=>t.source!=='local')||tracks[0];
       localButton.hidden=current.source!=='local';
       q('.mm-title').textContent=current.name;q('.mm-artist').textContent=current.artist;renderList();
-      q('img').src=(current.cover||'/images/newnewlogo.png').replace(/^http:/,'https:');
+      q('img').onerror=()=>{q('img').onerror=null;q('img').src=defaultCover;};
+      q('img').src=current.cover?current.cover.replace(/^http:/,'https:'):defaultCover;
       status(current.source==='local'?'正在读取本机音频…':'正在解析云端音源…');
       request=new AbortController();const active=request;const timer=setTimeout(()=>active.abort(),45000);
       let resolved;try{resolved=await window.MoyuanMusicSource.resolve(current,{signal:active.signal,excludeProviders:Array.from(failedProviders),preferProvider:retry?activeProvider:null});}finally{clearTimeout(timer);}
