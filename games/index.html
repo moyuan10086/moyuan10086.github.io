@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://moyuan10086.github.io/images/newnewlogo.png">
 <meta property="article:published_time" content="2026-05-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-25T10:17:01.595Z">
+<meta property="article:modified_time" content="2026-11-25T10:23:24.053Z">
 <meta property="article:author" content="moyuan">
 <meta property="article:tag" content="墨鵷">
 <meta property="article:tag" content="MOYUAN">
@@ -605,7 +605,7 @@
     pacman: '/games/pacman/',
     tank: '/games/tank-battle/',
     blockcut: '/games/block-cut/',
-    eyesight: '/games/best-eyesight/'
+    eyesight: '/games/best-eyesight/?v=20261125-fs2'
   };
   var iframeIdMap = {
     carrot: 'carrot-live-iframe',
@@ -1074,10 +1074,13 @@
   document.addEventListener('fullscreenchange', scaleAquaIframe);
   document.addEventListener('webkitfullscreenchange', scaleAquaIframe);
   document.addEventListener('fullscreenchange', function() {
-    var nodieIframe = document.getElementById('nodie-live-iframe');
-    if (nodieIframe && nodieIframe.contentWindow) {
-      nodieIframe.contentWindow.postMessage({ type: 'fullscreen', value: !!document.fullscreenElement }, '*');
-    }
+    var isFs = !!document.fullscreenElement;
+    ['nodie-live-iframe', 'eyesight-live-iframe'].forEach(function(id) {
+      var frame = document.getElementById(id);
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: 'fullscreen', value: isFs }, '*');
+      }
+    });
   });
 
   cubeSpeedButtons.forEach(function (btn) {
