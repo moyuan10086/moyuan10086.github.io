@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://moyuan10086.github.io/games/index.html</loc>
+    
+    <lastmod>2026-11-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://moyuan10086.github.io/games/best-eyesight/index.html</loc>
+    
+    <lastmod>2026-11-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://moyuan10086.github.io/music/index.html</loc>
     
     <lastmod>2026-11-25</lastmod>
@@ -21,15 +39,6 @@
   
   <url>
     <loc>https://moyuan10086.github.io/score/index.html</loc>
-    
-    <lastmod>2026-11-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://moyuan10086.github.io/games/index.html</loc>
     
     <lastmod>2026-11-25</lastmod>
     
@@ -761,15 +770,6 @@
     <loc>https://moyuan10086.github.io/games/no-one-die/index.html</loc>
     
     <lastmod>2026-05-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://moyuan10086.github.io/games/best-eyesight/index.html</loc>
-    
-    <lastmod>2026-05-18</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

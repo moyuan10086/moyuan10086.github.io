@@ -27,9 +27,14 @@
 	}
 </script>
 </head>
-<style>html,body{overflow:hidden;margin:0;padding:0;width:100%;height:100%;background:#2d2d3f}</style>
+<style>
+html,body{overflow:hidden;margin:0;padding:0;width:100%;height:100%;background:#222222}
+body{display:flex;align-items:center;justify-content:center}
+.main{position:relative;flex:0 0 auto;width:320px;height:480px;margin:0;background:#222222;transform-origin:center center;will-change:transform}
+#frame{position:relative;width:320px;height:480px;margin:0;padding:0;border-top:solid 1px #222222}
+</style>
 <body class="os-windows osv-6_1 osmv-6" onorientationchange="orentationChanged()" style="overflow:hidden">
-<DIV class="main">
+<DIV class="main" id="game-stage">
   <div id="frame">
     <div id="logo" style="display: none; opacity: 0;"></div>
     <div id="playButton" style="display: none; opacity: 1;"></div>
@@ -51,7 +56,23 @@
     <div id="msg" style="position:relative;display: block; opacity: 1;bottom:50px;"></div>
   </div>
   <div style="display:none">星益博客：blog.96xy.cn</div>
-  <script type="text/javascript" src="9.js"></script> 
+  <script type="text/javascript" src="9.js"></script>
 </DIV>
+<script>
+(function(){
+  var stage = document.getElementById('game-stage');
+  function fitStage() {
+    if (!stage) return;
+    var vw = window.innerWidth || document.documentElement.clientWidth || 320;
+    var vh = window.innerHeight || document.documentElement.clientHeight || 480;
+    var scale = Math.min(vw / 320, vh / 480);
+    if (!Number.isFinite(scale) || scale <= 0) scale = 1;
+    stage.style.transform = 'scale(' + scale.toFixed(4) + ')';
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+  window.addEventListener('orientationchange', fitStage);
+})();
+</script>
 </body>
 </html>
