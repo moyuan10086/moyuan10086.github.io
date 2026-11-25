@@ -2,6 +2,7 @@
  'use strict';
  const cache=new Map(),resolvedCache=new Map(),localFiles=new Map(),matchedTracks=new Map();
  const endpoint='https://oiapi.net/api/Kuwo';
+ const gdEndpoint='https://music-api.gdstudio.xyz/api.php';
  const identity=t=>t.uid||[t.source,t.meta?.hash||t.meta?.songId||'',t.name,t.artist,t.interval].join('|');
  const normalize=s=>String(s||'').normalize('NFKC').toLowerCase().replace(/[\s·]/g,'');
  const versionTag=/live|dj|remix|mix|ver\b|cover|slowed|sped|speed|acoustic|instrumental|explicit|clean|edit|remaster|demo|karaoke|\d(?:\.\d+)?x|版|合唱|伴奏|片段|翻唱|改编|纯音乐|纯享|变调|变速|降调|升调/i;
@@ -40,7 +41,7 @@
   matchedTracks.set(key,candidate);
   params.set('n',String(index+1));params.set('br','1');
   const answer=await json(endpoint+'?'+params),rawResolved=answer.data?.items??answer.data,resolved=Array.isArray(rawResolved)?rawResolved[0]:rawResolved;
-  if(!resolved||resolved.rid!==candidate.rid||!matches(track,resolved))throw Error('云端返回的曲目身份发生变化，已停止播放');
+  if(!resolved||resolved.rid!==candidate.rid||!matches(track,resolved)){const e=Error('云端返回的曲目身份发生变化，已停止播放');e.identityChanged=true;throw e;}
   if(typeof resolved.url!=='string'||!/^https?:\/\//.test(resolved.url))throw Error('云端未返回可播放音频');
   const url=new URL(resolved.url);if(url.protocol==='http:')url.protocol='https:';
   const result={url:url.href,provider:'kw',providerKey:'oiapi',source:'kw',matchedId:resolved.rid,originalSource:track.source,label:'在线播放'};
@@ -74,6 +75,56 @@
   if(!id||!endpoints[source])throw Error('该备用音源不支持此曲目');
   return {url:endpoints[source]+'?'+new URLSearchParams({type:'mp3',id,level:'standard'}),provider:'haitang',providerKey:'haitang:'+source+':'+id,source,matchedId:source==='kw'?'MUSIC_'+id:id,label:'在线播放'};
  }
+ async function fetchGdStudioUrl(gdSource,id,options){
+  const request=options.fetch||globalThis.fetch;
+  for(const br of ['320','128']){
+   const params=new URLSearchParams({types:'url',source:gdSource,id:String(id),br});
+   const answer=await requestJson(gdEndpoint+'?'+params,request,options.signal);
+   if(typeof answer?.url==='string'&&/^https?:\/\//.test(answer.url)){
+    const url=new URL(answer.url);if(url.protocol==='http:')url.protocol='https:';
+    return url.href;
+   }
+  }
+  throw Error('云端未返回可播放音频');
+ }
+ function overlapRatio(a,b){
+  if(!a||!b)return 0;
+  const setA=new Set(a),setB=new Set(b);let hit=0;
+  for(const ch of setA)if(setB.has(ch))hit++;
+  return hit/Math.max(setA.size,setB.size,1);
+ }
+ function gdCandidateScore(track,item){
+  const tName=normalize(titleStem(track.name)),cName=normalize(titleStem(item.name));
+  const tArtist=normalize(track.artist),cArtist=normalize(Array.isArray(item.artist)?item.artist.join(' '):item.artist);
+  let score=overlapRatio(tName,cName)*4+overlapRatio(tArtist,cArtist)*2;
+  if(tName&&cName&&(tName===cName||cName.includes(tName)||tName.includes(cName)))score+=3;
+  const wantVersion=versionTag.test(track.name),hasVersion=versionTag.test(item.name||'');
+  if(wantVersion===hasVersion)score+=2;else score-=2;
+  return score;
+ }
+ async function resolveGdStudioSearch(track,gdSource,options,probe){
+  const request=options.fetch||globalThis.fetch;
+  const cleanArtist=String(track.artist||'').replace(/[、,&/]+/g,' ').trim();
+  const query=(titleStem(track.name)+' '+cleanArtist).trim();
+  const params=new URLSearchParams({types:'search',source:gdSource,name:query,count:'5'});
+  const list=await requestJson(gdEndpoint+'?'+params,request,options.signal);
+  if(!Array.isArray(list)||!list.length)throw Error('云端搜索未返回曲目列表');
+  const ranked=[...list].sort((a,b)=>gdCandidateScore(track,b)-gdCandidateScore(track,a)).slice(0,2);
+  let lastError;
+  for(const item of ranked){
+   const urlId=String(item.url_id||item.id||'');
+   if(!urlId)continue;
+   try{
+    const url=await fetchGdStudioUrl(gdSource,urlId,options);
+    const checked=await probe(url,track,options.signal);
+    return {url,provider:'gdstudio',providerKey:'gdstudio:'+gdSource+':'+urlId,source:gdSource==='netease'?'wy':'tx',matchedId:urlId,originalSource:track.source,label:'在线播放',duration:checked?.duration,probed:true};
+   }catch(error){
+    if(error.rateLimited||error.name==='AbortError'||options.signal?.aborted)throw error;
+    lastError=error;
+   }
+  }
+  throw lastError||Error('没有找到可播放的云端版本');
+ }
  function directCandidates(track,options){
   const candidates=[],seen=new Set();
   function add(source,meta){
@@ -91,6 +142,8 @@
      if(url.protocol==='http:')url.protocol='https:';
      return {url:url.href,provider:'netease',providerKey:key,source:'wy',matchedId:id,label:'在线播放'};
     }});
+    const gdKey='gdstudio:wy:'+id;
+    if(!seen.has(gdKey)){seen.add(gdKey);candidates.push({key:gdKey,run:async()=>({url:await fetchGdStudioUrl('netease',id,options),provider:'gdstudio',providerKey:gdKey,source:'wy',matchedId:id,label:'在线播放'})});}
     const hKey='haitang:wy:'+id;
     if(!seen.has(hKey)){seen.add(hKey);candidates.push({key:hKey,run:()=>haitang('wy',id)});}
    }else if(['kg','kw','mg'].includes(source))candidates.push({key,run:()=>haitang(source,id)});
@@ -121,6 +174,8 @@
   queue.push({key:'oiapi',run:()=>resolveCloud(track,options)});
   queue.push({key:'matched-haitang',run:()=>{const m=matchedTracks.get(key);return m?haitang('kw',String(m.rid).replace(/^MUSIC_/,'')):null;}});
   if(track.file)queue.push({key:'site',run:()=>({url:assetUrl(track.file),provider:'local',providerKey:'site',source:track.source,label:'本站备份'})});
+  queue.push({key:'gdstudio:joox',run:()=>resolveGdStudioSearch(track,'joox',options,probe)});
+  queue.push({key:'gdstudio:netease',run:()=>resolveGdStudioSearch(track,'netease',options,probe)});
   if(options.preferProvider)queue.sort((a,b)=>Number(b.key===options.preferProvider)-Number(a.key===options.preferProvider));
   const attempted=new Set();
   for(const candidate of queue){
@@ -129,11 +184,12 @@
     const result=await candidate.run();
     if(!result||excludedKey(result.providerKey)||attempted.has(result.providerKey))continue;
     attempted.add(result.providerKey);
-    const checked=await probe(result.url,track,options.signal);
+    const checked=result.probed?{duration:result.duration}:await probe(result.url,track,options.signal);
     const output={...result,duration:checked?.duration};
+    delete output.probed;
     resolvedCache.set(key,{result:output,expires:Date.now()+60000});return output;
    }catch(error){
-    if(error.rateLimited||error.name==='AbortError'||options.signal?.aborted)throw error;
+    if(error.rateLimited||error.identityChanged||error.name==='AbortError'||options.signal?.aborted)throw error;
     if(candidate.cached)attempted.delete(candidate.key);
     lastError=error;cache.delete(key);resolvedCache.delete(key);
    }
