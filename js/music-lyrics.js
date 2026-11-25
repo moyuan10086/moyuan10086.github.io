@@ -33,23 +33,68 @@
   return new TextDecoder().decode(data);
  }
  function createLoader({fetch:request=globalThis.fetch,onChange=()=>{}}={}){
+  const workerEndpoint='https://moyuan-lx-proxy.moyuan10086.workers.dev';
+  const gdEndpoint='https://music-api.gdstudio.xyz/api.php';
   let revision=0,controller;
   function cancel(){revision++;controller?.abort();}
   async function load(track,resolved){
    cancel();const current=revision;controller=new AbortController();const active=controller;onChange([]);
-   const timer=setTimeout(()=>active.abort(),10000);
+   const timer=setTimeout(()=>active.abort(),12000);
    async function localLyric(){const response=await request(track.lrc,{signal:active.signal});if(!response.ok)throw Error('Lyrics unavailable');return response.text();}
+   async function workerLyric(source,id){
+    const qs=new URLSearchParams({source:source||'',id:id||'',name:track?.name||'',artist:track?.artist||''});
+    const response=await request(workerEndpoint+'/lyric?'+qs,{signal:active.signal});
+    if(!response.ok)throw Error('Worker lyric unavailable');
+    const data=await response.json();
+    if(!data?.ok||!data.lrc)throw Error('Empty worker lyric');
+    return data.tlyric?data.lrc+'\n'+data.tlyric:data.lrc;
+   }
+   async function gdLyric(gdSource,id){
+    if(!gdSource||!id)throw Error('Missing GD lyric id');
+    const qs=new URLSearchParams({types:'lyric',source:gdSource,id:String(id)});
+    const response=await request(gdEndpoint+'?'+qs,{signal:active.signal});
+    if(!response.ok)throw Error('GD lyric unavailable');
+    const data=await response.json();
+    const lrc=String(data?.lyric||'').trim(),tlyric=String(data?.tlyric||'').trim();
+    if(!lrc)throw Error('Empty GD lyric');
+    return tlyric?lrc+'\n'+tlyric:lrc;
+   }
    try{
     let text;
-    if(resolved?.source==='kw'||resolved?.provider==='kw'){
+    const isKw=resolved?.source==='kw'||resolved?.provider==='kw';
+    if(resolved?.provider==='local'){
+     if(!track.lrc)throw Error('No matching lyrics');
+     text=await localLyric();
+    }else if(isKw){
      const id=String(resolved.matchedId||'').replace(/^MUSIC_/,'');if(!/^\d+$/.test(id))throw Error('Missing lyric identity');
      try{
       const response=await request('https://mlyric.kuwo.cn/mobi.s?'+new URLSearchParams({f:'web',type:'lyric',lrcx:'1',rid:id,encode:'utf8'}),{signal:active.signal});
       if(!response.ok)throw Error('Lyrics unavailable');text=await decodeKuwo(await response.arrayBuffer());
-     }catch(error){if(active.signal.aborted||!track.lrc||track.lyricIdentity!==track.uid)throw error;text=await localLyric();}
+     }catch(error){
+      if(active.signal.aborted)throw error;
+      try{text=await workerLyric('kw',id);}
+      catch{
+       if(active.signal.aborted||!track.lrc||track.lyricIdentity!==track.uid)throw error;
+       text=await localLyric();
+      }
+     }
     }else{
-     if(!track.lrc)throw Error('No matching lyrics');
-     text=await localLyric();
+     const hasBoundLocal=Boolean(track?.lrc&&(!track.lyricIdentity||track.lyricIdentity===track.uid));
+     if(hasBoundLocal){
+      try{text=await localLyric();}catch{}
+     }
+     if(!text&&resolved){
+      const lSrc=resolved.lyricSource||(resolved.source==='wy'?'netease':resolved.source==='tx'?'joox':'');
+      const lId=String(resolved.lyricId||resolved.matchedId||'');
+      try{text=await workerLyric(lSrc,lId);}catch{}
+      if(!text&&!active.signal.aborted&&(lSrc==='netease'||lSrc==='joox')&&lId){
+       try{text=await gdLyric(lSrc,lId);}catch{}
+      }
+     }
+     if(!text){
+      if(!track?.lrc)throw Error('No matching lyrics');
+      text=await localLyric();
+     }
     }
     const cues=parse(text);if(current===revision)onChange(cues);return current===revision?cues:[];
    }catch{if(current===revision)onChange([]);return [];}

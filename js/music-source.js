@@ -118,7 +118,7 @@
    try{
     const url=await fetchGdStudioUrl(gdSource,urlId,options);
     const checked=await probe(url,track,options.signal);
-    return {url,provider:'gdstudio',providerKey:'gdstudio:'+gdSource+':'+urlId,source:gdSource==='netease'?'wy':'tx',matchedId:urlId,originalSource:track.source,label:'在线播放',duration:checked?.duration,probed:true};
+    return {url,provider:'gdstudio',providerKey:'gdstudio:'+gdSource+':'+urlId,source:gdSource==='netease'?'wy':'tx',matchedId:urlId,lyricSource:gdSource,lyricId:String(item.lyric_id||urlId),originalSource:track.source,label:'在线播放',duration:checked?.duration,probed:true};
    }catch(error){
     if(error.rateLimited||error.name==='AbortError'||options.signal?.aborted)throw error;
     lastError=error;
@@ -133,7 +133,7 @@
   const answer=await requestJson(workerEndpoint+'/resolve?'+params,request,options.signal);
   if(!answer?.ok||typeof answer.url!=='string'||!/^https?:\/\//.test(answer.url))throw Error('云端代理未返回可播放音频');
   const url=new URL(answer.url);if(url.protocol==='http:')url.protocol='https:';
-  return {url:url.href,provider:'worker',providerKey:'worker:'+(answer.provider||'proxy')+':'+(answer.matchedId||id||identity(track)),source:answer.source||track.source,matchedId:answer.matchedId||id,originalSource:track.source,label:'在线播放'};
+  return {url:url.href,provider:'worker',providerKey:'worker:'+(answer.provider||'proxy')+':'+(answer.matchedId||id||identity(track)),source:answer.source||track.source,matchedId:answer.matchedId||id,lyricSource:answer.lyricSource||answer.source||track.source,lyricId:answer.lyricId||answer.matchedId||id,originalSource:track.source,label:'在线播放'};
  }
  function directCandidates(track,options){
   const candidates=[],seen=new Set();
@@ -153,7 +153,7 @@
      return {url:url.href,provider:'netease',providerKey:key,source:'wy',matchedId:id,label:'在线播放'};
     }});
     const gdKey='gdstudio:wy:'+id;
-    if(!seen.has(gdKey)){seen.add(gdKey);candidates.push({key:gdKey,run:async()=>({url:await fetchGdStudioUrl('netease',id,options),provider:'gdstudio',providerKey:gdKey,source:'wy',matchedId:id,label:'在线播放'})});}
+    if(!seen.has(gdKey)){seen.add(gdKey);candidates.push({key:gdKey,run:async()=>({url:await fetchGdStudioUrl('netease',id,options),provider:'gdstudio',providerKey:gdKey,source:'wy',matchedId:id,lyricSource:'netease',lyricId:id,label:'在线播放'})});}
     const hKey='haitang:wy:'+id;
     if(!seen.has(hKey)){seen.add(hKey);candidates.push({key:hKey,run:()=>haitang('wy',id)});}
    }else if(['kg','kw','mg'].includes(source))candidates.push({key,run:()=>haitang(source,id)});
