@@ -3,6 +3,7 @@
  const cache=new Map(),resolvedCache=new Map(),localFiles=new Map(),matchedTracks=new Map();
  const endpoint='https://oiapi.net/api/Kuwo';
  const gdEndpoint='https://music-api.gdstudio.xyz/api.php';
+ const workerEndpoint='https://moyuan-lx-proxy.moyuan10086.workers.dev';
  const identity=t=>t.uid||[t.source,t.meta?.hash||t.meta?.songId||'',t.name,t.artist,t.interval].join('|');
  const normalize=s=>String(s||'').normalize('NFKC').toLowerCase().replace(/[\s·]/g,'');
  const versionTag=/live|dj|remix|mix|ver\b|cover|slowed|sped|speed|acoustic|instrumental|explicit|clean|edit|remaster|demo|karaoke|\d(?:\.\d+)?x|版|合唱|伴奏|片段|翻唱|改编|纯音乐|纯享|变调|变速|降调|升调/i;
@@ -125,6 +126,15 @@
   }
   throw lastError||Error('没有找到可播放的云端版本');
  }
+ async function resolveWorkerProxy(track,options){
+  const request=options.fetch||globalThis.fetch;
+  const id=String(track.source==='kg'?track.meta?.hash||'':track.meta?.songId||'').replace(/^MUSIC_/,'');
+  const params=new URLSearchParams({source:track.source||'',id,name:track.name||'',artist:track.artist||'',interval:String(track.interval||'')});
+  const answer=await requestJson(workerEndpoint+'/resolve?'+params,request,options.signal);
+  if(!answer?.ok||typeof answer.url!=='string'||!/^https?:\/\//.test(answer.url))throw Error('云端代理未返回可播放音频');
+  const url=new URL(answer.url);if(url.protocol==='http:')url.protocol='https:';
+  return {url:url.href,provider:'worker',providerKey:'worker:'+(answer.provider||'proxy')+':'+(answer.matchedId||id||identity(track)),source:answer.source||track.source,matchedId:answer.matchedId||id,originalSource:track.source,label:'在线播放'};
+ }
  function directCandidates(track,options){
   const candidates=[],seen=new Set();
   function add(source,meta){
@@ -174,6 +184,7 @@
   queue.push({key:'oiapi',run:()=>resolveCloud(track,options)});
   queue.push({key:'matched-haitang',run:()=>{const m=matchedTracks.get(key);return m?haitang('kw',String(m.rid).replace(/^MUSIC_/,'')):null;}});
   if(track.file)queue.push({key:'site',run:()=>({url:assetUrl(track.file),provider:'local',providerKey:'site',source:track.source,label:'本站备份'})});
+  queue.push({key:'worker',run:()=>resolveWorkerProxy(track,options)});
   queue.push({key:'gdstudio:joox',run:()=>resolveGdStudioSearch(track,'joox',options,probe)});
   queue.push({key:'gdstudio:netease',run:()=>resolveGdStudioSearch(track,'netease',options,probe)});
   if(options.preferProvider)queue.sort((a,b)=>Number(b.key===options.preferProvider)-Number(a.key===options.preferProvider));
