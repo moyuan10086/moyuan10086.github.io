@@ -129,7 +129,8 @@
  async function resolveWorkerProxy(track,options){
   const request=options.fetch||globalThis.fetch;
   const id=String(track.source==='kg'?track.meta?.hash||'':track.meta?.songId||'').replace(/^MUSIC_/,'');
-  const params=new URLSearchParams({source:track.source||'',id,name:track.name||'',artist:track.artist||'',interval:String(track.interval||'')});
+  const songmid=String(track.meta?.songId||track.meta?.songmid||'').replace(/^MUSIC_/,'');
+  const params=new URLSearchParams({source:track.source||'',id,songmid,name:track.name||'',artist:track.artist||'',interval:String(track.interval||'')});
   const answer=await requestJson(workerEndpoint+'/resolve?'+params,request,options.signal);
   if(!answer?.ok||typeof answer.url!=='string'||!/^https?:\/\//.test(answer.url))throw Error('云端代理未返回可播放音频');
   const url=new URL(answer.url);if(url.protocol==='http:')url.protocol='https:';

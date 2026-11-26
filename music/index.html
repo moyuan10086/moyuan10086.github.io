@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://moyuan10086.github.io/images/newnewlogo.png">
 <meta property="article:published_time" content="2026-05-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-25T09:55:57.684Z">
+<meta property="article:modified_time" content="2026-11-26T12:30:26.387Z">
 <meta property="article:author" content="moyuan">
 <meta property="article:tag" content="墨鵷">
 <meta property="article:tag" content="MOYUAN">
@@ -566,15 +566,40 @@
   }
 
   renderPlaylist();
-  var resumeMusic = null;
-  try { resumeMusic = JSON.parse(sessionStorage.getItem('moyuan-music-state-v3') || 'null'); } catch (_) {}
-  if (resumeMusic && Number.isInteger(resumeMusic.id) && musicTracks[resumeMusic.id]) {
+  var musicStateKey = 'moyuan-music-state-v3';
+  var musicTabId = 'full_' + Math.random().toString(36).slice(2, 10);
+  function readMusicState() {
+    var raw = null;
+    try { raw = localStorage.getItem(musicStateKey); } catch (_) {}
+    if (!raw) try { raw = sessionStorage.getItem(musicStateKey); } catch (_) {}
+    try { return raw ? JSON.parse(raw) : null; } catch (_) { return null; }
+  }
+  function saveMusicState(playingOverride) {
+    if (window.__musicPageLeaving || !musicTracks[index]) return;
+    var payload = JSON.stringify({
+      id: index,
+      uid: musicTracks[index].uid,
+      time: audio.readyState > 0 ? (audio.currentTime || 0) : 0,
+      playing: typeof playingOverride === 'boolean' ? playingOverride : !audio.paused,
+      volume: audio.volume,
+      updatedAt: Date.now(),
+      tabId: musicTabId
+    });
+    try { localStorage.setItem(musicStateKey, payload); } catch (_) {}
+    try { sessionStorage.setItem(musicStateKey, payload); } catch (_) {}
+  }
+  var resumeMusic = readMusicState();
+  var resumeIndex = -1;
+  if (resumeMusic) {
+    if (resumeMusic.uid) resumeIndex = musicTracks.findIndex(function (t) { return t.uid === resumeMusic.uid; });
+    if (resumeIndex < 0 && Number.isInteger(resumeMusic.id) && musicTracks[resumeMusic.id]) resumeIndex = resumeMusic.id;
+  }
+  if (resumeMusic && resumeIndex >= 0) {
     audio.volume = Math.max(0, Math.min(1, Number(resumeMusic.volume ?? 0.45)));
     audio.addEventListener('loadedmetadata', function restorePosition() {
       if (Number.isFinite(audio.duration)) audio.currentTime = Math.min(Number(resumeMusic.time) || 0, audio.duration);
     }, { once: true });
-    var resumeIndex=resumeMusic.uid?musicTracks.findIndex(function(t){return t.uid===resumeMusic.uid;}):resumeMusic.id;
-    loadTrack(resumeIndex>=0?resumeIndex:0, !!resumeMusic.playing);
+    loadTrack(resumeIndex, !!resumeMusic.playing);
   } else {
     loadTrack(0, false);
   }
@@ -681,14 +706,26 @@
       audio.currentTime = Math.max(0,Math.min(audio.duration,audio.currentTime + (event.key === 'ArrowRight' ? 5 : -5)));
     }
   });
+  var lastMusicSave = 0;
+  audio.addEventListener('play', function () { saveMusicState(true); });
+  audio.addEventListener('pause', function () { saveMusicState(false); });
+  audio.addEventListener('seeked', function () { saveMusicState(); });
+  audio.addEventListener('volumechange', function () { saveMusicState(); });
   audio.addEventListener('timeupdate', function () {
     progress.setAttribute('aria-valuenow', String(Math.round((audio.currentTime / audio.duration || 0) * 100)));
+    if (Date.now() - lastMusicSave > 2000) { lastMusicSave = Date.now(); saveMusicState(); }
   });
+  window.addEventListener('storage', function (event) {
+    if (event.key !== musicStateKey || !event.newValue) return;
+    var next = null;
+    try { next = JSON.parse(event.newValue); } catch (_) { return; }
+    if (!next || next.tabId === musicTabId) return;
+    if (next.playing && !audio.paused) audio.pause();
+  });
+  document.addEventListener('pjax:send', function () { saveMusicState(!audio.paused); });
   window.addEventListener('pagehide', function () {
+    saveMusicState(!audio.paused);
     window.__musicPageLeaving = true;
-    if (audio.readyState > 0) {
-      try { sessionStorage.setItem('moyuan-music-state-v3', JSON.stringify({id:index,uid:musicTracks[index].uid,time:audio.currentTime,playing:!audio.paused,volume:audio.volume})); } catch (_) {}
-    }
     if (resolveController) resolveController.abort();
     pendingAutoplay = false; audio.pause(); handleSeekCancel();
     lyricLoader.cancel();
